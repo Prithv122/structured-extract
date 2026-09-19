@@ -1,26 +1,3 @@
-The [`COPY` statement]({% link docs/current/sql/statements/copy.md %}#copy-to) can be used to load data from a CSV file into a table. This statement has the same syntax as the one used in PostgreSQL. To load the data using the `COPY` statement, we must first create a table with the correct schema (which matches the order of the columns in the CSV file and uses types that fit the values in the CSV file). `COPY` detects the CSV's configuration options automatically.
+The **Secrets manager** provides a unified user interface for secrets across all backends that use them. Secrets can be scoped, so different storage prefixes can have different secrets, allowing for example to join data across organizations in a single query. Secrets can also be persisted, so that they do not need to be specified every time DuckDB is launched.
 
-```sql
-CREATE TABLE ontime (
-    flightdate DATE,
-    uniquecarrier VARCHAR,
-    origincityname VARCHAR,
-    destcityname VARCHAR
-);
-COPY ontime FROM 'flights.csv';
-SELECT * FROM ontime;
-```
-
-| flightdate | uniquecarrier | origincityname |  destcityname   |
-|------------|---------------|----------------|-----------------|
-| 1988-01-01 | AA            | New York, NY   | Los Angeles, CA |
-| 1988-01-02 | AA            | New York, NY   | Los Angeles, CA |
-| 1988-01-03 | AA            | New York, NY   | Los Angeles, CA |
-
-If we want to manually specify the CSV format, we can do so using the configuration options of `COPY`.
-
-```sql
-CREATE TABLE ontime (flightdate DATE, uniquecarrier VARCHAR, origincityname VARCHAR, destcityname VARCHAR);
-COPY ontime FROM 'flights.csv' (DELIMITER '|', HEADER);
-SELECT * FROM ontime;
-```
+> Warning Persistent secrets are stored in unencrypted binary format on the disk.

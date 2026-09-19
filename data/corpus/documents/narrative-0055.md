@@ -1,11 +1,4 @@
-You might be piping data through `jq` or downloading a JSON file from somewhere. You can also tell DuckDB to read data from another process by changing the filename to `/dev/stdin`.
+Azure uses the Azure SDK which sets its own user agents. For identity and storage calls you may see respectively strings like these:
 
-Let's combine this with a quick `curl` from GitHub to see what a certain user has been up to lately.
-
-```batch
-curl -sL "https://api.github.com/users/dacort/events?per_page=100" \
-     | duckdb -s "COPY (SELECT type, count(*) AS event_count FROM read_json('/dev/stdin') GROUP BY 1 ORDER BY 2 DESC LIMIT 10) TO '/dev/stdout' WITH (FORMAT csv, HEADER)" \
-     | uplot bar -d, -H -t "GitHub Events for @dacort"
-```
-
-![github-events](/images/guides/youplot/github-events.png)
+- via Azure Identity: `azsdk-cpp-identity/1.11.0 (Darwin 25.2.0 arm64 Darwin Kernel Version 25.2.0: Tue Nov 18 21:07:05 PST 2025; root:xnu-12377.61.12~1/RELEASE_ARM64_T6020 Cpp/201402)`
+- via Azure Blob/ADLSv2: `azsdk-cpp-storage-blobs/12.15.0 (Darwin 25.2.0 arm64 Darwin Kernel Version 25.2.0: Tue Nov 18 21:07:05 PST 2025; root:xnu-12377.61.12~1/RELEASE_ARM64_T6020 Cpp/201402)`

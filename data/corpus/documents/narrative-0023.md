@@ -1,10 +1,20 @@
-```php
-<?php
+Alternatively, you can connect to the ODBC driver using [`SQLDriverConnect`](https://learn.microsoft.com/en-us/sql/odbc/reference/syntax/sqldriverconnect-function?view=sql-server-ver16).
+`SQLDriverConnect` accepts a connection string in which you can configure the database using any of the available [DuckDB configuration options]({% link docs/current/configuration/overview.md %}).
 
-$db = new PDO('duckdb::memory:'); // open in-memory database
+```cpp
+SQLHANDLE env;
+SQLHANDLE dbc;
 
-$db = new PDO('duckdb:/tmp/test.db'); // open database file from disk
+SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &env);
 
-// open database file as read-only
-$db = new PDO('duckdb:/tmp/test.db', null, null, [PDO::DUCKDB_ATTR_CONFIG => ['access_mode' => 'read_only']]);
+SQLSetEnvAttr(env, SQL_ATTR_ODBC_VERSION, (void*)SQL_OV_ODBC3, 0);
+
+SQLAllocHandle(SQL_HANDLE_DBC, env, &dbc);
+
+SQLCHAR str[1024];
+SQLSMALLINT strl;
+std::string dsn = "DSN=DuckDB;access_mode=READ_ONLY"
+SQLDriverConnect(dbc, nullptr, (SQLCHAR*)dsn.c_str(), SQL_NTS, str, sizeof(str), &strl, SQL_DRIVER_COMPLETE)
+
+std::cout << "Connected!" << std::endl;
 ```

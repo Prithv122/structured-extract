@@ -1,10 +1,4 @@
-The data generator function `dsdgen` has the following parameters:
+Managed PostgreSQL databases running on RDS/Aurora services allow to use [IAM authentication](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html).
+In that case the authentication token is generated using AWS SDK and must be refreshed every 15 minutes.
 
-| Name        | Type      | Description                        |
-| ----------- | --------- | ---------------------------------- |
-| `catalog`   | `VARCHAR` | Target catalog                     |
-| `keys`      | `BOOLEAN` | Generate primary and foreign keys  |
-| `overwrite` | `BOOLEAN` | (Not used)                         |
-| `schema`    | `VARCHAR` | Target schema                      |
-| `sf`        | `DOUBLE`  | Scale factor                       |
-| `suffix`    | `VARCHAR` | Append the `suffix` to table names |
+The `postgres` extension supports IAM authentication, when the password is not specified in the secret, but instead one of the configured AWS Credential Providers is used to generate the password, that is refreshed by the `postgres` extension automatically.

@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `password`                                    | The password to use. Ignored for legacy compatibility.                                                                                                                                                        | `VARCHAR`   |                                                     |
+| `Calendar`                                    | The current calendar                                                                                                                                                                                          | `VARCHAR`   | System (locale) calendar                            |

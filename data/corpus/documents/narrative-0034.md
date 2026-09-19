@@ -1,29 +1,8 @@
-Converting a TIMESTAMP_TZ value to a string depends on a timezone offset.
-By default, this is set to the offset for the local timezone when the Node
-process is started.
+You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:
 
-To change it, set the `timezoneOffsetInMinutes`
-property of `DuckDBTimestampTZValue`:
-
-```ts
-DuckDBTimestampTZValue.timezoneOffsetInMinutes = -8 * 60;
-const pst = DuckDBTimestampTZValue.Epoch.toString();
-// 1969-12-31 16:00:00-08
-
-DuckDBTimestampTZValue.timezoneOffsetInMinutes = +1 * 60;
-const cet = DuckDBTimestampTZValue.Epoch.toString();
-// 1970-01-01 01:00:00+01
+```sql
+SET memory_limit = '2GB';
 ```
 
-Note that the timezone offset used for this string
-conversion is distinct from the `TimeZone` setting of DuckDB.
-
-The following sets this offset to match the `TimeZone` setting of DuckDB:
-
-```ts
-const reader = await connection.runAndReadAll(
-  `select (timezone(current_timestamp) / 60)::int`
-);
-DuckDBTimestampTZValue.timezoneOffsetInMinutes =
-  reader.getColumns()[0][0];
-```
+Note that this limit is only applied to the memory DuckDB uses and it does not affect the memory use of other R libraries.
+Therefore, the total memory used by the R process may be higher than the configured `memory_limit`.

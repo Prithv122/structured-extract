@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `autoload_known_extensions`                   | Whether known extensions are allowed to be automatically loaded when a query depends on them                                                                                                                  | `BOOLEAN`   | `true`                                              |
+| `explain_output`                              | Output of EXPLAIN statements (`ALL`, `OPTIMIZED_ONLY`, `PHYSICAL_ONLY`)                                                                                                                                       | `VARCHAR`   | `PHYSICAL_ONLY`                                     |

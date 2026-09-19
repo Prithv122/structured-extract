@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `extension_directory`                         | Set the directory to store extensions in                                                                                                                                                                      | `VARCHAR`   |                                                     |
+| `file_search_path`                            | A comma separated list of directories to search for input files                                                                                                                                               | `VARCHAR`   |                                                     |

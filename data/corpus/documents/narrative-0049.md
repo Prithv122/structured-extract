@@ -1,19 +1,20 @@
-Temporary tables are session scoped, meaning that only the specific connection that created them can access them and once the connection to DuckDB is closed they will be automatically dropped (similar to PostgreSQL, for example).
+To set DuckDB options when the database instance starts, build a `Config` and open the connection with `Connection::open_with_flags()` (or `Connection::open_in_memory_with_flags()`). `Config` uses a builder style: each method consumes the config and returns it, and each returns a `Result` because DuckDB validates the option:
 
-They can be created using the `CREATE TEMP TABLE` or the `CREATE TEMPORARY TABLE` statement (see diagram below) and are part of the `temp.main` schema. While discouraged, their names can overlap with the names of the regular database tables. In these cases, temporary tables take priority in name resolution and full qualification is required to refer to a regular table e.g., `memory.main.t1`.
+```rust
+use duckdb::{Config, Connection, Result};
 
-Temporary tables reside in memory rather than on disk even when connecting to a persistent DuckDB, but if the `temp_directory` [configuration]({% link docs/current/configuration/overview.md %}) is set, data will be spilled to disk if memory becomes constrained.
-
-Create a temporary table from a CSV file (automatically detecting column names and types):
-
-```sql
-CREATE TEMP TABLE t1 AS
-    SELECT *
-    FROM read_csv('path/file.csv');
+let config = Config::default()
+    .max_memory("4GB")?
+    .threads(4)?;
+let conn = Connection::open_with_flags("my_database.duckdb", config)?;
 ```
 
-Allow temporary tables to off-load excess memory to disk:
+`Config` exposes typed methods for the most common options, including `access_mode()`, `max_memory()`, `threads()`, `default_order()`, `default_null_order()`, `enable_external_access()`, `enable_object_cache()`, `custom_user_agent()`, and `allow_unsigned_extensions()`. Any other DuckDB setting can be supplied by name with `with()`:
 
-```sql
-SET temp_directory = '/path/to/directory/';
+```rust
+let config = Config::default()
+    .with("temp_directory", "/path/to/temp/dir/")?
+    .with("preserve_insertion_order", "false")?;
 ```
+
+The full list of settings is on the [Configuration page]({% link docs/current/configuration/overview.md %}). Many of them can also be changed after connecting with a [`SET` statement]({% link docs/current/sql/statements/set.md %}) or the equivalent [`PRAGMA`]({% link docs/current/configuration/pragmas.md %}).

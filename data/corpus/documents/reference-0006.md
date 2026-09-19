@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `ordered_aggregate_threshold`                 | The number of rows to accumulate before sorting, used for tuning                                                                                                                                              | `UBIGINT`   | `262144`                                            |
+| `allowed_directories`                         | List of directories/prefixes that are ALWAYS allowed to be queried - even when enable_external_access is false                                                                                                | `VARCHAR[]` | `[]`                                                |

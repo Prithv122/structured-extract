@@ -1,13 +1,21 @@
-DuckDB is able to find and query any dataframe stored as a variable in the Jupyter notebook.
-
-```python
-input_df = pd.DataFrame.from_dict({"i": [1, 2, 3],
-                                   "j": ["one", "two", "three"]})
-```
-
-The dataframe being queried can be specified just like any other table in the `FROM` clause.
+The underlying HTTP transport can be logged separately:
 
 ```sql
-%sql output_df << SELECT sum(i) AS total_i FROM input_df;
+CALL enable_logging('HTTP');
+FROM quack_query('quack:localhost', 'SELECT 1');
+SELECT request.type, request.url, response.status
+FROM duckdb_logs_parsed('HTTP');
 ```
-> Warning When using the SQLAlchemy connection, make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.
+
+<div class="monospace_table"></div>
+
+<!-- markdownlint-disable MD034 -->
+
+| type | url                         | status |
+| ---- | --------------------------- | ------ |
+| POST | http://localhost:9494/quack | OK_200 |
+| POST | http://localhost:9494/quack | OK_200 |
+
+<!-- markdownlint-enable MD034 -->
+
+Requests are `POST`s to a `/quack` endpoint.

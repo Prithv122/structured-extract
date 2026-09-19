@@ -1,25 +1,26 @@
-Tables can be partitioned with the `PARTITIONED BY` clause using the [Iceberg partition transforms](https://iceberg.apache.org/spec/#partition-transforms):
-
-| Transform | Description |
-| --- | --- |
-| `⟨column⟩`{:.language-sql .highlight} | Identity – partition by the column value directly. |
-| `year(⟨column⟩)`{:.language-sql .highlight}, `month(⟨column⟩)`{:.language-sql .highlight}, `day(⟨column⟩)`{:.language-sql .highlight}, `hour(⟨column⟩)`{:.language-sql .highlight} | Partition by a date/timestamp component. |
-| `bucket(⟨n⟩, ⟨column⟩)`{:.language-sql .highlight} | Hash the column into `n` buckets. |
-| `truncate(⟨n⟩, ⟨column⟩)`{:.language-sql .highlight} | Truncate the column value to width `n`. |
+To use the `httpfs` extension with a custom certificate file, set the following [configuration options]({% link docs/current/configuration/pragmas.md %}) prior to loading the extension:
 
 ```sql
-CREATE TABLE my_catalog.sales.events (
-    id INTEGER,
-    event_name VARCHAR,
-    event_time TIMESTAMP
-)
-PARTITIONED BY (day(event_time), bucket(16, id));
+LOAD httpfs;
+SET ca_cert_file = '⟨certificate_file⟩';
+SET enable_server_cert_verification = true;
 ```
 
-The partition spec can be changed on an existing table with `ALTER TABLE ... SET PARTITIONED BY`:
+If you would like to disable SSL verification for all HTTP requests using an HTTP secret you can do so with the following statement:
 
 ```sql
-ALTER TABLE my_catalog.sales.events SET PARTITIONED BY (month(event_time));
+CREATE SECRET disable_ssl (
+    TYPE HTTP, 
+    VERIFY_SSL 0
+);
 ```
 
-> The `write.target-file-size-bytes` and `write.parquet.row-group-size-bytes` table properties are not honored for partitioned tables and raise an error. Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.
+To enable it again for one specific endpoint, you can take advantage of the scope parameter:
+
+```sql
+CREATE SECRET enable_ssl_for_your_website (
+    TYPE HTTP, 
+    SCOPE 'https://⟨your-website.com⟩', 
+    VERIFY_SSL 1
+); 
+```

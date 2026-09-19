@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `enable_external_file_cache`                  | Allow the database to cache external files (e.g., Parquet) in memory.                                                                                                                                         | `BOOLEAN`   | `true`                                              |
+| `geometry_minimum_shredding_size`             | Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup                                                                                    | `BIGINT`    | `30000`                                             |

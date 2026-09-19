@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `s3_kms_key_id`                               | S3 KMS Key ID                                                                                                                                                                                                 | `VARCHAR`   | NULL                                                |
+| `ordered_aggregate_threshold`                 | The number of rows to accumulate before sorting, used for tuning                                                                                                                                              | `UBIGINT`   | `262144`                                            |

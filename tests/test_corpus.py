@@ -156,3 +156,47 @@ def test_build_documents_ids_and_hashes():
     assert [d.doc_id for d in docs] == ["narrative-0001", "narrative-0002"]
     assert docs[0].sha256 == corpus.sha256_of(picked[0].text)
     assert docs[0].n_chars == len(picked[0].text)
+
+
+# --------------------------------------------------------------- generated HTML
+
+
+SPHINX_DUMP = """
+<div class="documentwrapper">
+<dl class="py class">
+<dt class="sig sig-object py" id="duckdb.BinaryValue">
+<span class="pre">class</span><span class="pre">duckdb.</span><span class="pre">BinaryValue</span>
+</dt>
+<dd><p>Bases: <code>Value</code>. Sets <code>memory_limit</code>.</p></dd>
+</dl>
+</div>
+"""
+
+PROSE_WITH_INLINE_HTML = """
+## Memory Limit
+
+Set `memory_limit` to cap DuckDB's memory use. See
+<a href="#config">the configuration page</a> for the full list, and note that
+<code>max_memory</code> is an alias for it.
+"""
+
+
+def test_generated_html_and_prose_are_orders_of_magnitude_apart():
+    """The threshold is a separator, not a tuned parameter.
+
+    Every page under ``clients/c/`` and ``clients/python/reference/`` in the
+    pinned checkout scores 10-24 block tags per 1000 chars; every genuine prose
+    page scores <= 1.6. Prose that uses inline ``<a>``/``<code>`` must stay well
+    under the line, which is why those tags are not in the pattern.
+    """
+    assert corpus.html_density(SPHINX_DUMP) > corpus.MAX_HTML_DENSITY
+    assert corpus.html_density(PROSE_WITH_INLINE_HTML) < corpus.MAX_HTML_DENSITY
+    assert corpus.html_density("") == 0.0
+
+
+def test_iter_pages_skips_generated_api_dumps(tmp_path):
+    (tmp_path / "clients" / "c").mkdir(parents=True)
+    (tmp_path / "guide.md").write_text(PROSE_WITH_INLINE_HTML, encoding="utf-8")
+    (tmp_path / "clients" / "c" / "api.md").write_text(SPHINX_DUMP, encoding="utf-8")
+
+    assert [rel for rel, _ in corpus.iter_pages(tmp_path)] == ["guide.md"]

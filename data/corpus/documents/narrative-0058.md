@@ -1,5 +1,7 @@
-> Installation To use the DuckDB Rust client, visit the [Rust installation page]({% link install/index.html %}?environment=rust).
->
-> The latest stable version of the DuckDB Rust client is {% if site.current_duckdb_rust_version != "" %}{{ site.current_duckdb_rust_version }}{% else %}{{ site.lts_duckdb_rust_version }}{% endif %}.
+Conceptually, a `STRUCT` column contains an ordered list of columns called “entries”. The entries are referenced by name using strings. This document refers to those entry names as keys. Each row in the `STRUCT` column must have the same keys. The names of the struct entries are part of the *schema*. Each row in a `STRUCT` column must have the same layout. The names of the struct entries are case-insensitive.
 
-The DuckDB Rust client, [`duckdb-rs`](https://github.com/duckdb/duckdb-rs), is an ergonomic wrapper over the [DuckDB C API](https://github.com/duckdb/duckdb/blob/main/src/include/duckdb.h) that exposes an interface modeled on [rusqlite](https://github.com/rusqlite/rusqlite). It supports type-safe queries, bulk loading with the Appender, [Apache Arrow](https://arrow.apache.org/) interchange, user-defined functions, and building DuckDB extensions in Rust. This page focuses on installation. The other pages in this section cover connecting and each feature in detail.
+`STRUCT`s are typically used to nest multiple columns into a single column, and the nested column can be of any type, including other `STRUCT`s and `LIST`s.
+
+`STRUCT`s are similar to PostgreSQL's `ROW` type. The key difference is that DuckDB `STRUCT`s require the same keys in each row of a `STRUCT` column. This allows DuckDB to provide significantly improved performance by fully utilizing its vectorized execution engine, and also enforces type consistency for improved correctness. DuckDB includes a `row` function as a special way to produce a `STRUCT`, but does not have a `ROW` data type. See an example below and the [`STRUCT` functions documentation]({% link docs/current/sql/functions/struct.md %}) for details.
+
+See the [data types overview]({% link docs/current/sql/data_types/overview.md %}) for a comparison between nested data types.

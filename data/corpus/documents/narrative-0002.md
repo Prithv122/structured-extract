@@ -1,8 +1,3 @@
-You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:
+DuckDB-Wasm fetches each extension over the network when it is loaded. If you serve extensions from a [custom repository]({% link docs/current/clients/wasm/deploying_duckdb_wasm.md %}#duckdb-extensions) with `SET custom_extension_repository = '⟨https://some.url.com⟩'`, the `GET` requests for the extension files must be [CORS enabled](https://www.w3.org/wiki/CORS_Enabled) for the browser to allow the connection, exactly as for remote data files above.
 
-```sql
-SET memory_limit = '2GB';
-```
-
-Note that this limit is only applied to the memory DuckDB uses and it does not affect the memory use of other R libraries.
-Therefore, the total memory used by the R process may be higher than the configured `memory_limit`.
+Extensions remain signed regardless of where they are served, so copying an extension to a different location keeps its signature valid.

@@ -1,14 +1,6 @@
-Some additional configuration options exist for the S3 upload, though the default values should suffice for most use cases.
+By default, a long-running query re-reads an object at whatever version is current at read time, which can change if the object is overwritten. Set `s3_version_id_pinning` (`BOOLEAN`, default `false`) to pin reads to the object version captured on the first `HEAD` request, so a query sees a consistent version even if the object is overwritten mid-query. This requires the HTTP metadata cache:
 
-Additionally, most of the configuration options can be set via environment variables:
-
-| DuckDB setting         | Environment variable       | Note                                     |
-|:-----------------------|:---------------------------|:-----------------------------------------|
-| `s3_region`            | `AWS_REGION`               | Takes priority over `AWS_DEFAULT_REGION` |
-| `s3_region`            | `AWS_DEFAULT_REGION`       |                                          |
-| `s3_access_key_id`     | `AWS_ACCESS_KEY_ID`        |                                          |
-| `s3_secret_access_key` | `AWS_SECRET_ACCESS_KEY`    |                                          |
-| `s3_session_token`     | `AWS_SESSION_TOKEN`        |                                          |
-| `s3_endpoint`          | `DUCKDB_S3_ENDPOINT`       |                                          |
-| `s3_use_ssl`           | `DUCKDB_S3_USE_SSL`        |                                          |
-| `s3_requester_pays`    | `DUCKDB_S3_REQUESTER_PAYS` |                                          |
+```sql
+SET enable_http_metadata_cache = true;
+SET s3_version_id_pinning = true;
+```

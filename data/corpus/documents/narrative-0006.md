@@ -1,6 +1,7 @@
-By default, each Quack client request opens a fresh connection to the server — a new TCP and, with SSL, a costly TLS handshake. Connection caching reuses connections across requests, reducing per-query latency on repeated requests:
+> Warning This feature is experimental.
 
-{:.codebox-client}
+By default, `VACUUM` skips tables that have ART indexes. The `vacuum_rebuild_indexes` setting enables vacuum to compact row groups on tables with indexes by rebuilding the indexes afterward. The setting specifies a row count threshold: tables exceeding the threshold are skipped. Set to `0` to disable (the default).
+
 ```sql
-SET httpfs_connection_caching = true;
+SET vacuum_rebuild_indexes = 1000000;
 ```

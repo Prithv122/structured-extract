@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `force_download_threshold`                    | Forces upfront download of files smaller than the given size in bytes                                                                                                                                         | `UBIGINT`   | `0`                                                 |
+| `unsafe_disable_etag_checks`                  | Disable checks on ETag consistency                                                                                                                                                                            | `BOOLEAN`   | `false`                                             |

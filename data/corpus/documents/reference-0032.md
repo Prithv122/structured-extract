@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `merge_join_threshold`                        | The maximum number of rows on either table to choose a merge join                                                                                                                                             | `UBIGINT`   | `1000`                                              |
+| `allow_extensions_metadata_mismatch`          | Allow to load extensions with not compatible metadata                                                                                                                                                         | `BOOLEAN`   | `false`                                             |

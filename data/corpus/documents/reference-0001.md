@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `lambda_syntax`                               | Configures the use of the deprecated single arrow operator (->) for lambda functions.                                                                                                                         | `VARCHAR`   | `DEFAULT`                                           |
+| `default_order`                               | The order type used when none is specified (`ASC` or `DESC`)                                                                                                                                                  | `VARCHAR`   | `ASCENDING`                                         |

@@ -61,6 +61,18 @@ EXTENSION_DIRS = ("core_extensions", "extensions")
 #: purpose; see the module docstring.
 DISTRACTOR_NAMES = frozenset({"schema", "user", "username", "password", "threads", "secret"})
 
+#: Block-level HTML tags. Prose pages use inline `<code>`/`<a>` occasionally;
+#: the Sphinx- and Doxygen-generated API pages are built out of these.
+BLOCK_HTML = re.compile(r"<(?:div|dl|dt|dd|span|table|tr|td)[ >/]")
+
+#: Block-HTML tags per 1000 characters above which a page is a generated API
+#: dump rather than documentation prose. The two families do not overlap: every
+#: page under ``clients/c/`` and ``clients/python/reference/`` scores 10-24,
+#: every genuine prose page in the 434-page checkout scores <= 1.6. Any
+#: threshold in 2..10 selects exactly the same pages, so this is a separator,
+#: not a tuned parameter.
+MAX_HTML_DENSITY = 5.0
+
 STRATA = ("narrative", "extension", "reference")
 
 
@@ -238,13 +250,31 @@ def find_mentions(text: str, names: set[str], aliases: dict[str, str]) -> list[M
     ]
 
 
+def html_density(text: str) -> float:
+    """Block-level HTML tags per 1000 characters."""
+    return len(BLOCK_HTML.findall(text)) / max(len(text), 1) * 1000
+
+
 def iter_pages(docs_root: Path) -> list[tuple[str, str]]:
-    """Return ``(relative_posix_path, text)`` for every markdown page, sorted."""
+    """Return ``(relative_posix_path, text)`` for every *prose* markdown page, sorted.
+
+    Generated API-reference pages are skipped. ``clients/python/reference/index.md``
+    is 589 kB of Sphinx HTML with no markdown heading anywhere in it, so the
+    splitter emitted the entire file as a single 589 kB "section" -- 83% of the
+    corpus by volume in one document, ~147 k tokens, past the context window of
+    most candidate arms and more expensive than the other 119 documents combined.
+    ``clients/c/api.md`` is the same thing at 441 kB and would have been drawn by
+    some other seed. Neither is prose, which is what this benchmark claims to
+    extract from, so they are excluded at the page level rather than capped.
+    """
     base = docs_root
-    return [
-        (p.relative_to(base).as_posix(), p.read_text(encoding="utf-8", errors="replace"))
-        for p in sorted(base.rglob("*.md"))
-    ]
+    out = []
+    for p in sorted(base.rglob("*.md")):
+        text = p.read_text(encoding="utf-8", errors="replace")
+        if html_density(text) > MAX_HTML_DENSITY:
+            continue
+        out.append((p.relative_to(base).as_posix(), text))
+    return out
 
 
 def doc_id_for(stratum: str, index: int) -> str:

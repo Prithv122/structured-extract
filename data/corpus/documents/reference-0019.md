@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `logging_storage`                             | Set the logging storage (memory/stdout/file/<custom>)                                                                                                                                                         | `VARCHAR`   | `shell_log_storage`                                 |
+| `immediate_transaction_mode`                  | Whether transactions should be started lazily when needed, or immediately when BEGIN TRANSACTION is called                                                                                                    | `BOOLEAN`   | `false`                                             |

@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `disabled_log_types`                          | Sets the list of disabled loggers                                                                                                                                                                             | `VARCHAR`   |                                                     |
+| `extension_directory`                         | Set the directory to store extensions in                                                                                                                                                                      | `VARCHAR`   |                                                     |

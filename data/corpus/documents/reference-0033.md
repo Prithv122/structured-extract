@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `enable_macro_dependencies`                   | Enable created MACROs to create dependencies on the referenced objects (such as tables)                                                                                                                       | `BOOLEAN`   | `false`                                             |
+| `s3_version_id_pinning`                       | Pin S3 reads to a specific object version for consistency                                                                                                                                                     | `BOOLEAN`   | `false`                                             |

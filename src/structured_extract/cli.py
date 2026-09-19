@@ -52,6 +52,15 @@ DEFAULT_SEED = 20260919
 #: prose for "did the model read it?" to mean anything.
 MIN_SECTION_CHARS = 120
 
+#: Sections longer than this are generated list dumps, not prose a reader
+#: consumes: the time-zone reference list (46 kB), the encodings table (26 kB),
+#: the spatial function index (17 kB). Section length is median 255 chars,
+#: p95 1.5 kB, p99 3.8 kB, so this cap keeps better than 99% of real sections
+#: while bounding the per-document cost and staying inside the context window
+#: of every arm -- including the 16 k one. The ``reference`` stratum is exempt
+#: because its documents are single table rows by construction.
+MAX_SECTION_CHARS = 8000
+
 
 def _load_oracle_names() -> tuple[set[str], dict[str, str]]:
     rows = jsonl.read_list(paths.SETTINGS_JSONL)
@@ -237,7 +246,7 @@ def cmd_corpus_build(args: argparse.Namespace) -> int:
     eligible = 0
     for section in sections:
         if section.stratum != "reference":
-            if section.n_chars < MIN_SECTION_CHARS:
+            if not MIN_SECTION_CHARS <= section.n_chars <= MAX_SECTION_CHARS:
                 continue
             mentions = corpus_mod.find_mentions(section.text, names, aliases)
             if not mentions:

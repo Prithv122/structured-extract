@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `allocator_flush_threshold`                   | Peak allocation threshold at which to flush the allocator after completing a task.                                                                                                                            | `VARCHAR`   | `128.0 MiB`                                         |
+| `write_buffer_row_group_count`                | The amount of row groups to buffer in bulk ingestion prior to flushing them together. Reducing this setting can reduce memory consumption.                                                                    | `UBIGINT`   | `5`                                                 |

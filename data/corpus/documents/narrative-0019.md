@@ -1,6 +1,3 @@
-DuckDB offers several advanced SQL features and syntactic sugar to make SQL queries more concise. We refer to these colloquially as “friendly SQL”.
+As with regular DuckDB, if you use `SET custom_extension_repository = 'https://some.url.com'`, subsequent loads will be attempted at `https://some.url.com/duckdb-wasm/$duckdb_version_hash/$duckdb_platform/$name.duckdb_extension.wasm`.
 
-> Several of these features were first introduced by DuckDB, while some are inspired by other systems.
-> Many of the features originally introduced by DuckDB (e.g., [`GROUP BY ALL`]({% link docs/current/sql/query_syntax/groupby.md %}#group-by-all)) have been since adapted by other systems.
-
-> Tip We have a [Friendly SQL 2026 Calendar](https://blobs.duckdb.org/merch/duckdb-friendly-sql-calendar-2026.pdf) with a short explanation, an example, and an abstract illustration for 12 friendly SQL features.
+Note that `GET` requests for the extensions must be [CORS enabled](https://www.w3.org/wiki/CORS_Enabled) for a browser to allow the connection; see [Troubleshoot]({% link docs/current/clients/wasm/troubleshoot.md %}#extension-fails-to-load-from-a-custom-repository) if a load fails.

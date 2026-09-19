@@ -1,19 +1,13 @@
-> Warning Only load unsigned extensions from sources you trust.
-> Avoid loading unsigned extensions over HTTP.
-> Consult the [Securing DuckDB page]({% link docs/current/operations_manual/securing_duckdb/securing_extensions.md %}) for guidelines on how to set up DuckDB in a secure manner.
-
-If you wish to load your own extensions or extensions from third-parties you will need to enable the `allow_unsigned_extensions` flag.
-To load unsigned extensions using the [CLI client]({% link docs/current/clients/cli/overview.md %}), pass the `-unsigned` flag to it on startup:
-
-```batch
-duckdb -unsigned
-```
-
-Now any extension can be loaded, signed or not:
+To avoid having to continuously fetch schema data from PostgreSQL, DuckDB keeps schema information – such as the names of tables, their columns, etc. – cached. If changes are made to the schema through a different connection to the PostgreSQL instance, such as new columns being added to a table, the cached schema information might be outdated. In this case, the function `pg_clear_cache` can be executed to clear the internal caches.
 
 ```sql
-LOAD './some/local/ext.duckdb_extension';
+CALL pg_clear_cache();
 ```
 
-For client APIs, the `allow_unsigned_extensions` database configuration options needs to be set, see the respective [Client API docs]({% link docs/current/clients/overview.md %}).
-For example, for the Python client, see the [Loading and Installing Extensions section in the Python API documentation]({% link docs/current/clients/python/overview.md %}#loading-and-installing-extensions).
+In version 1.5.5 a support for automatic detection of schema changes was added using a "staleness query"
+(contributed by Brandon Freeman in [duckdb/duckdb-postgres#514](https://github.com/duckdb/duckdb-postgres/pull/514)):
+
+ - when `pg_staleness_query_enabled` option (`BOOLEAN`, default: `FALSE`) is enabled, on every catalog access a query is run that
+   checks Postgres' `pg_class.xmin` column value in every table and reloads the cache automatically, if a change is detected
+
+ - for Postgres-wire-compatible databases a custom "staleness query" can be set using `pg_staleness_query` option.

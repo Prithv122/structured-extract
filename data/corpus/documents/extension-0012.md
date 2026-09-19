@@ -1,6 +1,1 @@
-By default, a long-running query re-reads an object at whatever version is current at read time, which can change if the object is overwritten. Set `s3_version_id_pinning` (`BOOLEAN`, default `false`) to pin reads to the object version captured on the first `HEAD` request, so a query sees a consistent version even if the object is overwritten mid-query. This requires the HTTP metadata cache:
-
-```sql
-SET enable_http_metadata_cache = true;
-SET s3_version_id_pinning = true;
-```
+Like DuckDB's built in ART-index, all the associated buffers containing the R-tree will be lazily loaded from disk (when running DuckDB in disk-backed mode), but they are currently never unloaded unless the index is dropped. This means that if you end up scanning the entire index, the entire index will be loaded into memory and stay there for the duration of the database connection. However, all memory used by the R-tree index (even during bulk-loading) is tracked by DuckDB, and will count towards the memory limit set by the `memory_limit` configuration parameter.

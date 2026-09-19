@@ -1,7 +1,5 @@
-By default, jemalloc's [background threads](https://jemalloc.net/jemalloc.3.html#background_thread) are disabled. To enable them, use the following configuration option:
-
-```sql
-SET allocator_background_threads = true;
-```
-
-Background threads asynchronously purge outstanding allocations so that this doesn't have to be done synchronously by the foreground threads. This improves allocation performance, and should be noticeable in allocation-heavy workloads, especially on many-core CPUs.
+| Setting                          | Type      | Default | Description                                                                                      |
+| -------------------------------- | --------- | ------- | ------------------------------------------------------------------------------------------------ |
+| `unsafe_enable_version_guessing` | `BOOLEAN` | `false` | Allows the extension to guess the latest metadata version when no version or hint file is given. |
+| `iceberg_default_format_version` | `INTEGER` | `2` | Sets the default format_version to use when creating a new table. |
+| `iceberg_unsafe_skip_puffin_verification` | `BOOLEAN` | `false` | When reading V3 Deletion Vectors, skip the Puffin file verification (for compatibility with files written by older versions). |

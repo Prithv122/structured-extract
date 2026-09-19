@@ -1,23 +1,27 @@
-The catalog search path can be adjusted by setting the `search_path` configuration option, which uses a comma-separated list of values that will be on the search path. The following example demonstrates searching in two databases:
+The `AT TIME ZONE` syntax is syntactic sugar for the (two argument) `timezone` function listed above:
 
 ```sql
-ATTACH ':memory:' AS db1;
-ATTACH ':memory:' AS db2;
-CREATE table db1.tbl1 (i INTEGER);
-CREATE table db2.tbl2 (j INTEGER);
+SELECT TIMESTAMP '2001-02-16 20:38:40' AT TIME ZONE 'America/Denver' AS ts;
 ```
 
-Reference the tables using their fully qualified name:
-
-```sql
-SELECT * FROM db1.tbl1;
-SELECT * FROM db2.tbl2;
+```text
+2001-02-16 19:38:40-08
 ```
 
-Or set the search path and reference the tables using their name:
+```sql
+SELECT TIMESTAMP WITH TIME ZONE '2001-02-16 20:38:40-05' AT TIME ZONE 'America/Denver' AS ts;
+```
+
+```text
+2001-02-16 18:38:40
+```
+
+Note that numeric timezones are not allowed:
 
 ```sql
-SET search_path = 'db1,db2';
-SELECT * FROM tbl1;
-SELECT * FROM tbl2;
+SELECT TIMESTAMP '2001-02-16 20:38:40-05' AT TIME ZONE '0200' AS ts;
+```
+
+```console
+Not implemented Error: Unknown TimeZone '0200'
 ```

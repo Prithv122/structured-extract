@@ -1,20 +1,25 @@
-The local HTTP server fetches the files for the UI from a remote HTTP
-server so they can be kept up-to-date.
+Tables can be partitioned with the `PARTITIONED BY` clause using the [Iceberg partition transforms](https://iceberg.apache.org/spec/#partition-transforms):
 
-The default URL for the remote server is <https://ui.duckdb.org>.
-
-An alternate remote URL can be configured with a SQL command like:
+| Transform | Description |
+| --- | --- |
+| `⟨column⟩`{:.language-sql .highlight} | Identity – partition by the column value directly. |
+| `year(⟨column⟩)`{:.language-sql .highlight}, `month(⟨column⟩)`{:.language-sql .highlight}, `day(⟨column⟩)`{:.language-sql .highlight}, `hour(⟨column⟩)`{:.language-sql .highlight} | Partition by a date/timestamp component. |
+| `bucket(⟨n⟩, ⟨column⟩)`{:.language-sql .highlight} | Hash the column into `n` buckets. |
+| `truncate(⟨n⟩, ⟨column⟩)`{:.language-sql .highlight} | Truncate the column value to width `n`. |
 
 ```sql
-SET ui_remote_url = 'https://ui.duckdb.org';
+CREATE TABLE my_catalog.sales.events (
+    id INTEGER,
+    event_name VARCHAR,
+    event_time TIMESTAMP
+)
+PARTITIONED BY (day(event_time), bucket(16, id));
 ```
 
-The environment variable `ui_remote_port` can also be used.
+The partition spec can be changed on an existing table with `ALTER TABLE ... SET PARTITIONED BY`:
 
-This setting is available mainly for testing purposes.
+```sql
+ALTER TABLE my_catalog.sales.events SET PARTITIONED BY (month(event_time));
+```
 
-Be sure you trust any URL you configure, as the application can access
-the data you load into DuckDB.
-
-Because of this risk, the setting is only respected
-if `allow_unsigned_extensions` is enabled.
+> The `write.target-file-size-bytes` and `write.parquet.row-group-size-bytes` table properties are not honored for partitioned tables and raise an error. Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.

@@ -1,28 +1,8 @@
-[Iceberg table properties](https://iceberg.apache.org/spec/#table-metadata-fields) can be set at creation time with a `WITH` clause. The `format-version` and `location` keys are recognized specially; any other key-value pairs are stored as table properties:
+Originally, DuckDB extensions lived exclusively in the DuckDB main repository, `github.com/duckdb/duckdb`. These extensions are called in-tree. Later, the concept
+of out-of-tree extensions was added, where extensions were separated into their own repository, which we call out-of-tree.
 
-```sql
-CREATE TABLE my_catalog.sales.events (a INTEGER)
-WITH (
-    'format-version' = '2',                 -- Iceberg format version (2 or 3)
-    'location' = 's3://my-bucket/events',   -- base location for the table's data
-    'my.custom.property' = 'value'
-);
-```
+While from a user's perspective, there are generally no noticeable differences, there are some minor differences related to versioning:
 
-Existing properties can be inspected and modified with the property functions:
-
-```sql
--- View properties
-SELECT * FROM iceberg_table_properties(my_catalog.sales.events);
-
--- Set properties
-CALL set_iceberg_table_properties(
-    my_catalog.sales.events,
-    MAP {'write.update.mode': 'merge-on-read', 'write.delete.mode': 'merge-on-read'}
-);
-
--- Remove properties
-CALL remove_iceberg_table_properties(my_catalog.sales.events, ['my.custom.property']);
-```
-
-See the [Functions and Settings Reference]({% link docs/current/core_extensions/iceberg/reference.md %}#table-and-schema-property-functions) for the equivalent schema (namespace) property functions.
+* in-tree extensions use the version of DuckDB instead of having their own version
+* in-tree extensions do not have dedicated release notes, their changes are reflected in the regular [DuckDB release notes](https://github.com/duckdb/duckdb/releases)
+* core out-of tree extensions tend to live in repositories named `github.com/duckdb/duckdb-⟨extension_name⟩`{:.language-sql .highlight} but the name may vary. See the [full list]({% link docs/current/core_extensions/overview.md %}) of core extensions for details.

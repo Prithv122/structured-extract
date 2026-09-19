@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `default_order`                               | The order type used when none is specified (`ASC` or `DESC`)                                                                                                                                                  | `VARCHAR`   | `ASCENDING`                                         |
+| `s3_endpoint`                                 | S3 Endpoint                                                                                                                                                                                                   | `VARCHAR`   | NULL                                                |

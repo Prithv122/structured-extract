@@ -1,15 +1,19 @@
-```sql
-SET variable_name = variable_value;
+> Warning Only load unsigned extensions from sources you trust.
+> Avoid loading unsigned extensions over HTTP.
+> Consult the [Securing DuckDB page]({% link docs/current/operations_manual/securing_duckdb/securing_extensions.md %}) for guidelines on how to set up DuckDB in a secure manner.
+
+If you wish to load your own extensions or extensions from third-parties you will need to enable the `allow_unsigned_extensions` flag.
+To load unsigned extensions using the [CLI client]({% link docs/current/clients/cli/overview.md %}), pass the `-unsigned` flag to it on startup:
+
+```batch
+duckdb -unsigned
 ```
 
-Where `variable_name` can be one of the following:
+Now any extension can be loaded, signed or not:
 
-| Name | Description | Type | Default |
-|:---|:---|:---|:---|
-| `azure_storage_connection_string` | Azure connection string, used for authenticating and configuring Azure requests. | `STRING` | - |
-| `azure_account_name` | Azure account name, when set, the extension will attempt to automatically detect credentials (not used if you pass the connection string). | `STRING` | - |
-| `azure_endpoint` | Override the Azure endpoint for when the Azure credential providers are used. | `STRING` | `blob.core.windows.net` |
-| `azure_credential_chain`| Ordered list of Azure credential providers, in string format separated by `;`. For example: `'cli;managed_identity;env'`. See the list of possible values in the [`credential_chain` provider section](#credential_chain-provider). Not used if you pass the connection string. | `STRING` | - |
-| `azure_http_proxy` | Proxy to use when login & performing request to Azure. | `STRING` | `HTTP_PROXY` environment variable (if set). |
-| `azure_proxy_user_name` | HTTP proxy username if needed. | `STRING` | - |
-| `azure_proxy_password` | HTTP proxy password if needed. | `STRING` | - |
+```sql
+LOAD './some/local/ext.duckdb_extension';
+```
+
+For client APIs, the `allow_unsigned_extensions` database configuration options needs to be set, see the respective [Client API docs]({% link docs/current/clients/overview.md %}).
+For example, for the Python client, see the [Loading and Installing Extensions section in the Python API documentation]({% link docs/current/clients/python/overview.md %}#loading-and-installing-extensions).

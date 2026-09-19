@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `ieee_floating_point_ops`                     | Use IEE754-compliant floating point operations (returning NAN instead of errors/NULL).                                                                                                                        | `BOOLEAN`   | `true`                                              |
+| `secret_directory`                            | Set the directory to which persistent secrets are stored                                                                                                                                                      | `VARCHAR`   | `~/.duckdb/stored_secrets`                          |

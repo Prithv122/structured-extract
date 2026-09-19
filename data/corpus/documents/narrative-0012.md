@@ -1,18 +1,27 @@
-DuckDB extensions for DuckDB-Wasm, similar for the native cases, are served signed at the default extension endpoint: `https://extensions.duckdb.org`.
-If you are deploying duckdb-wasm you can consider mirroring relevant extensions at a different endpoint, possibly allowing for air-tight deployments on internal networks.
+When the `PARTITION_BY` clause is specified for the [`COPY` statement]({% link docs/current/sql/statements/copy.md %}), the files are written in a [Hive partitioned]({% link docs/current/data/partitioning/hive_partitioning.md %}) folder hierarchy. The target is the name of the root directory (in the example above: `orders`). The files are written in-order in the file hierarchy. Currently, one file is written per thread to each directory.
 
-```sql
-SET custom_extension_repository = '⟨https://some.endpoint.org/path/to/repository⟩';
+```text
+orders
+├── year=2021
+│    ├── month=1
+│    │   ├── data_1.parquet
+│    │   └── data_2.parquet
+│    └── month=2
+│        └── data_1.parquet
+└── year=2022
+     ├── month=11
+     │   ├── data_1.parquet
+     │   └── data_2.parquet
+     └── month=12
+         └── data_1.parquet
 ```
 
-Changes the default extension repository from the public `https://extensions.duckdb.org` to the one specified. Note that extensions are still signed, so the best path is downloading and serving the extensions with a similar structure to the original repository. See the additional notes on [Creating a Custom Repository]({% link docs/current/extensions/extension_distribution.md %}#creating-a-custom-repository).
+The values of the partitions are automatically extracted from the data. Note that it can be very expensive to write a larger number of partitions as many files will be created. The ideal partition count depends on how large your dataset is.
 
-Community extensions are served at <https://community-extensions.duckdb.org>, and they are signed with a different key, so they can be disabled with a one way SQL statement such as:
+To limit the maximum number of files the system can keep open before flushing to disk when writing using `PARTITION_BY`, use the `partitioned_write_max_open_files` configuration option (default: 100):
 
-```sql
-SET allow_community_extensions = false;
+```batch
+SET partitioned_write_max_open_files = 10;
 ```
 
-This will allow loading **only** of core duckdb extensions. Note that the failure is at `LOAD` time, not at `INSTALL` time.
-
-Please review the [Extension Distribution page]({% link docs/current/extensions/extension_distribution.md %}) for general information about extensions.
+> Bestpractice Writing data into many small partitions is expensive. It is generally recommended to have at least `100 MB` of data per partition.

@@ -1,13 +1,20 @@
-If no region is provided explicitly, DuckDB resolves it from the following sources, in order:
+The local HTTP server fetches the files for the UI from a remote HTTP
+server so they can be kept up-to-date.
 
-1. The `REGION` secret parameter.
-2. The `s3_region` [setting]({% link docs/current/configuration/overview.md %}) (`SET s3_region = '⟨region⟩'`).
-3. The `AWS_REGION` environment variable.
-4. The `AWS_DEFAULT_REGION` environment variable.
-5. The `region` of the profile in `~/.aws/config`.
+The default URL for the remote server is <https://ui.duckdb.org>.
 
-If none of these resolve, `CREATE SECRET` still succeeds, but DuckDB logs a warning:
+An alternate remote URL can be configured with a SQL command like:
 
-```console
-Set region explicitly using REGION 'us-east-1' in your CREATE SECRET statement, adding a region to your profile in ~/.aws/config or configure the AWS_REGION or AWS_DEFAULT_REGION environment variables.
+```sql
+SET ui_remote_url = 'https://ui.duckdb.org';
 ```
+
+The environment variable `ui_remote_port` can also be used.
+
+This setting is available mainly for testing purposes.
+
+Be sure you trust any URL you configure, as the application can access
+the data you load into DuckDB.
+
+Because of this risk, the setting is only respected
+if `allow_unsigned_extensions` is enabled.

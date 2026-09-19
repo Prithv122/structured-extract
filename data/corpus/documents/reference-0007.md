@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `default_block_size`                          | The default block size for new duckdb database files (new as-in, they do not yet exist).                                                                                                                      | `UBIGINT`   | `262144`                                            |
+| `enable_external_access`                      | Allow the database to access external state (through e.g., loading/installing modules, COPY TO/FROM, CSV readers, pandas replacement scans, etc)                                                              | `BOOLEAN`   | `true`                                              |

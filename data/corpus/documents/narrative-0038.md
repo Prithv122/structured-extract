@@ -1,27 +1,13 @@
-Identifiers in DuckDB are always case-insensitive, similarly to PostgreSQL.
-However, unlike PostgreSQL (and some other major SQL implementations), DuckDB also treats quoted identifiers as case-insensitive.
+If you are experiencing out-of-memory issues with DuckDB, try tweaking the following configuration options:
 
-**Comparison of identifiers:**
-Case-insensitivity is implemented using an ASCII-based comparison:
-`col_A` and `col_a` are equal but `col_á` is not equal to them.
+* Reduce the number of threads using the `SET threads = ...` command.
+* Setting the memory limit lower than the [default 80%]({% link docs/current/operations_manual/limits.md %}) can help prevent out of memory errors. While this configuration sounds counter-intuitive, it helps because some of DuckDB's operations circumvent the database's buffer manager and thus they can reserve more memory than allowed by the memory limit. If this happens (e.g., DuckDB is killed by the operating system or an OOM reaper process), set the memory limit to just 50-60% of the total system memory by using the `SET memory_limit = '...'` statement.
+* If your query reads a large amount of data from a file or writes a large amount of data, try setting the `preserve_insertion_order` option to `false`: `SET preserve_insertion_order = false`.
 
-```sql
-SELECT col_A FROM (SELECT 'x' AS col_a); -- succeeds
-SELECT col_á FROM (SELECT 'x' AS col_a); -- fails
-```
-
-**Preserving cases:**
-While DuckDB treats identifiers in a case-insensitive manner, it preserves the cases of these identifiers.
-That is, each character's case (uppercase/lowercase) is maintained as originally specified by the user even if a query uses different cases when referring to the identifier.
-For example:
+In short, try the settings:
 
 ```sql
-CREATE TABLE tbl AS SELECT cos(pi()) AS CosineOfPi;
-SELECT cosineofpi FROM tbl;
+SET threads = ⟨lower_than_the_number_of_available_threads⟩;
+SET memory_limit = ⟨lower_than_80%_of_system_memory⟩;
+SET preserve_insertion_order = false;
 ```
-
-| CosineOfPi |
-|-----------:|
-| -1.0       |
-
-To change this behavior, set the `preserve_identifier_case` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) to `false`.

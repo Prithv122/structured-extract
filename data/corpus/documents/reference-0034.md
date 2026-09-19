@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `allow_extensions_metadata_mismatch`          | Allow to load extensions with not compatible metadata                                                                                                                                                         | `BOOLEAN`   | `false`                                             |
+| `allowed_paths`                               | List of files that are ALWAYS allowed to be queried - even when enable_external_access is false                                                                                                               | `VARCHAR[]` | `[]`                                                |

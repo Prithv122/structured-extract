@@ -1,9 +1,11 @@
-Core DuckDB sets the default user-agent as follows:
+With the `preserve_identifier_case` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) set to `false`, all identifiers are turned into lowercase:
 
-```text
-duckdb/v1.4.4(osx_arm64) cli 6ddac802ff
+```sql
+SET preserve_identifier_case = false;
+CREATE TABLE tbl AS SELECT cos(pi()) AS CosineOfPi;
+SELECT CosineOfPi FROM tbl;
 ```
 
-which indicates version, architecture, client, buildref in the agent string. The user-agent string can also be modified via the `custom_user_agent` setting, see [Configuration]({% link docs/current/configuration/overview.md %}). The currently generated user-agent string can be seen via `PRAGMA user_agent;`, see [Configuration/Pragmas]({% link docs/current/configuration/pragmas.md %}#user-agent).
-
-In addition, some extensions set their own user agents; notable examples here include the following.
+| cosineofpi |
+|-----------:|
+| -1.0       |

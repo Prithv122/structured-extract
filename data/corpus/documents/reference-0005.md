@@ -2,4 +2,4 @@
 
 |                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |
 |----|--------|--|---|
-| `allow_parser_override_extension`             | Allow extensions to override the current parser                                                                                                                                                               | `VARCHAR`   | `DEFAULT`                                           |
+| `default_secret_storage`                      | Allows switching the default storage for secrets                                                                                                                                                              | `VARCHAR`   | `local_file`                                        |

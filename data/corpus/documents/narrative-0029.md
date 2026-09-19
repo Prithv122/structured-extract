@@ -1,6 +1,6 @@
-Larger-than-memory workloads are supported by spilling to disk.
-With the default configuration, DuckDB creates the `⟨database_file_name⟩.tmp`{:.language-sql .highlight} temporary directory (in persistent mode) or the `.tmp`{:.language-sql .highlight} directory (in in-memory mode). This directory can be changed using the [`temp_directory` configuration option]({% link docs/current/configuration/pragmas.md %}#temp-directory-for-spilling-data-to-disk), e.g.:
+In in-process mode, DuckDB has two configurable options for concurrency:
 
-```sql
-SET temp_directory = '/path/to/temp_dir.tmp/';
-```
+1. **Read-write mode:** one process can both read and write to the database.
+2. **Read-only mode:** multiple processes can read from the database, but no processes can write ([`access_mode = 'READ_ONLY'`]({% link docs/current/configuration/overview.md %}#configuration-reference)).
+
+When using read-write mode, DuckDB supports multiple writer threads using a combination of [MVCC (Multi-Version Concurrency Control)](https://en.wikipedia.org/wiki/Multiversion_concurrency_control) and optimistic concurrency control (see [Concurrency within a Single Process](#concurrency-model-within-a-single-process)), but all within that single writer process. The reason for this concurrency model is to allow for the caching of data in RAM for faster analytical queries, rather than going back and forth to disk during each query. It also allows the caching of function pointers, the database catalog, and other items so that subsequent queries on the same connection are faster.

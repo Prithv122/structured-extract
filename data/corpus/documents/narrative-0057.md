@@ -1,12 +1,20 @@
-The `union_by_name` option can be used to unify the schema of files that have different or missing columns. For files that do not have certain columns, `NULL` values are filled in.
+Register the CSV text as a file, then load it with `insertCSVFromPath()`. The insert options describe the target table and, when auto-detection is disabled, the CSV dialect and column types:
 
-```sql
-SELECT * FROM read_csv('flights*.csv', union_by_name = true);
-```
+```ts
+import { Int32, Utf8 } from 'apache-arrow';
 
-To load data into _an existing table_ where the table has more columns than the CSV file, you can use the [`INSERT INTO ... BY NAME` clause]({% link docs/current/sql/statements/insert.md %}#insert-into--by-name):
+const csvContent = '1|foo\n2|bar\n';
+await db.registerFileText('data.csv', csvContent);
 
-```sql
-INSERT INTO tbl BY NAME
-    SELECT * FROM read_csv('input.csv');
+await conn.insertCSVFromPath('data.csv', {
+    schema: 'main',
+    name: 'foo',
+    detect: false,
+    header: false,
+    delimiter: '|',
+    columns: {
+        col1: new Int32(),
+        col2: new Utf8(),
+    },
+});
 ```

@@ -15,7 +15,7 @@ import pytest
 
 from structured_extract import corpus as corpus_mod
 from structured_extract import jsonl, paths
-from structured_extract.cli import QUOTAS
+from structured_extract.cli import MAX_SECTION_CHARS, QUOTAS
 from structured_extract.oracle import CORE, EXTENSIONS
 
 EXPECTED_DUCKDB_VERSION = "v1.5.5"
@@ -195,19 +195,63 @@ def test_distractor_documents_are_a_minority(documents):
 
 
 def test_has_signal_is_a_sampling_heuristic_not_a_truth_label(documents):
-    """The reference row for ``password`` documents a real setting and still has no signal.
+    """A reference row documents a real setting and can still carry no signal.
 
     ``has_signal`` asks "does this document name something other than a word that
     is usually not a setting?", which is a question about sampling balance. It is
     not a claim about what the document documents -- only the hand-labelled recall
-    set answers that. The one reference row below is the proof, and it is here so
-    a future reader does not mistake the flag for ground truth.
+    set answers that. Every reference row *is* a documented setting by
+    construction, so any unsignalled one is a live counterexample, and this test
+    exists so a future reader does not mistake the flag for ground truth.
+
+    Which rows get drawn is a property of the seed, not of the claim: the first
+    version of this test pinned the exact draw (``[["password"]]``) and broke the
+    moment the corpus was resampled, for a reason that had nothing to do with
+    what it was testing. The corpus is resampled on purpose to measure seed
+    sensitivity, so assert the invariant instead.
     """
     unsignalled = [d for d in documents if d["stratum"] == "reference" and not d["has_signal"]]
-    assert [d["mentioned_names"] for d in unsignalled] == [["password"]]
+    assert unsignalled, "no unsignalled reference row was drawn -- the counterexample is gone"
+    for doc in unsignalled:
+        assert doc["mentioned_names"], f"{doc['doc_id']} names nothing at all"
+        assert all(m["distractor"] for m in doc["mentions"]), (
+            f"{doc['doc_id']} has no signal but names a non-distractor"
+        )
 
 
 def test_manifest_is_valid_jsonl_with_no_trailing_junk():
     raw = paths.CORPUS_JSONL.read_text(encoding="utf-8").splitlines()
     assert all(json.loads(line) for line in raw)
     assert len(raw) == EXPECTED_CORPUS_DOCS
+
+
+def test_no_committed_document_is_a_generated_html_dump(documents):
+    """Session 3 found ``clients/python/reference/index.md`` in the corpus.
+
+    It is 589 kB of Sphinx HTML with no markdown heading in it, so the splitter
+    emitted the whole file as one "section": 83% of the corpus by volume, about
+    147 k tokens, past the context window of most candidate arms and dearer than
+    the other 119 documents put together -- and not prose, which is what this
+    benchmark claims to extract from. It was eligible only because a setting
+    name appears somewhere inside it.
+    """
+    for doc in documents:
+        text = (paths.CORPUS_DOCUMENTS / f"{doc['doc_id']}.md").read_text(encoding="utf-8")
+        density = corpus_mod.html_density(text)
+        assert density <= corpus_mod.MAX_HTML_DENSITY, (
+            f"{doc['doc_id']} ({doc['source_path']}) is generated HTML: {density:.1f} tags/1k"
+        )
+
+
+def test_every_document_fits_the_smallest_arm_context(documents):
+    """Bounds the cost model and keeps a document a document.
+
+    A prose document is capped at ``MAX_SECTION_CHARS``; reference documents are
+    single table rows and are exempt by construction, so the cap is asserted
+    against the whole corpus only as an upper bound.
+    """
+    oversized = [d for d in documents if d["n_chars"] > MAX_SECTION_CHARS]
+    assert not oversized, [(d["doc_id"], d["n_chars"]) for d in oversized]
+
+    total = sum(d["n_chars"] for d in documents)
+    assert total < 200_000, f"corpus grew to {total} chars -- re-check the per-arm cost estimate"
