@@ -8,10 +8,13 @@ committed artefact with no network and no DuckDB extension downloads.
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from collections import Counter
 
+from structured_extract import arms as arms_mod
 from structured_extract import corpus as corpus_mod
+from structured_extract import extract as extract_mod
 from structured_extract import jsonl, paths
 from structured_extract.docs_table import parse_reference_page
 from structured_extract.oracle import (
@@ -343,6 +346,169 @@ def cmd_corpus_stats(args: argparse.Namespace) -> int:
     return 0
 
 
+# --------------------------------------------------------------------------- arms
+
+
+def cmd_arms_verify(args: argparse.Namespace) -> int:
+    """Resolve every pinned model id against the public catalogue. No key, no spend."""
+    try:
+        checks = arms_mod.verify()
+    except RuntimeError as exc:
+        print(f"FAIL  {exc}", file=sys.stderr)
+        return 2
+
+    for check in checks:
+        arm = check.arm
+        status = "OK  " if check.ok else "FAIL"
+        knobs = ",".join(
+            [
+                "temperature" if check.live_temperature else "-",
+                "seed" if check.live_seed else "-",
+                "reasoning" if arm.reasoning else "-",
+            ]
+        )
+        print(f"{status} {arm.key}  {arm.model_id}")
+        print(
+            f"       structured_outputs={check.structured_outputs} "
+            f"${check.live_price_in:g}/${check.live_price_out:g} per M  "
+            f"ctx={check.context_length:,}  max_out={check.max_completion_tokens}  {knobs}"
+        )
+        for problem in check.problems:
+            print(f"       - {problem}")
+
+    failed = [c for c in checks if not c.ok]
+    print()
+    if failed:
+        print(f"FAIL  {len(failed)} of {len(checks)} arms did not verify", file=sys.stderr)
+        return 1
+    print(f"arms OK  ({len(checks)} hosted arms resolve, all advertise structured outputs)")
+    return 0
+
+
+def cmd_arms_cost(args: argparse.Namespace) -> int:
+    """Estimated spend for the full grid, from the committed corpus and pinned prices."""
+    rows = jsonl.read_list(paths.CORPUS_JSONL)
+    # chars/4 is a rough tokenizer-agnostic estimate and is labelled as one; the
+    # published cost figures come from the providers' own reported token counts.
+    doc_tokens = sum(r["n_chars"] for r in rows) / 4
+    prompt_tokens = doc_tokens + args.overhead * len(rows)
+    completion_tokens = args.completion * len(rows)
+    inflate = 1 + args.repair_rate
+
+    print(f"corpus {len(rows)} documents, ~{doc_tokens:,.0f} document tokens (chars/4, estimate)")
+    print(f"assuming {args.overhead} tokens of prompt+schema and {args.completion} out per call,")
+    print(f"and a {args.repair_rate:.0%} repair rate\n")
+
+    total = 0.0
+    for arm in arms_mod.HOSTED:
+        cost = arm.cost(prompt_tokens * inflate, completion_tokens * inflate)
+        total += cost
+        print(f"  {arm.key}  {arm.model_id:<30} ${cost:7.3f}")
+    print(f"  {'':4}  {'full hosted grid':<30} ${total:7.3f}")
+    print(
+        f"  {'':4}  {'pilot (' + str(args.pilot) + ' documents)':<30} "
+        f"${total * args.pilot / len(rows):7.3f}"
+    )
+    return 0
+
+
+# --------------------------------------------------------------------------- extract
+
+
+def _pilot_documents(rows: list[dict], n: int) -> list[dict]:
+    """A small, fixed, stratified slice: every bucket represented, no sampling.
+
+    Taking the first document of each bucket in manifest order keeps the pilot
+    reproducible and keeps it honest -- it must include a distractor and a
+    reference row, or it cannot show that the outcome columns tell them apart.
+    """
+    buckets: dict[str, list[dict]] = {}
+    for row in rows:
+        key = (
+            row["stratum"]
+            if row["stratum"] == "reference"
+            else f"{row['stratum']}-{'signal' if row['has_signal'] else 'distractor'}"
+        )
+        buckets.setdefault(key, []).append(row)
+
+    picked: list[dict] = []
+    while len(picked) < n:
+        added = False
+        for key in QUOTAS:
+            pool = buckets.get(key, [])
+            index = sum(1 for p in picked if p["doc_id"] in {q["doc_id"] for q in pool})
+            if index < len(pool) and len(picked) < n:
+                picked.append(pool[index])
+                added = True
+        if not added:
+            break
+    return picked
+
+
+def cmd_extract_run(args: argparse.Namespace) -> int:
+    """Run the grid. Replays from the committed cache unless ``--live`` is given."""
+    rows = jsonl.read_list(paths.CORPUS_JSONL)
+    if args.pilot:
+        rows = _pilot_documents(rows, args.pilot)
+    selected = [arms_mod.BY_KEY[k] for k in args.arm] if args.arm else list(arms_mod.HOSTED)
+
+    if args.live and not os.environ.get("OPENROUTER_API_KEY"):
+        print(
+            "--live needs OPENROUTER_API_KEY in the environment (put it in .env, "
+            "never on the command line).",
+            file=sys.stderr,
+        )
+        return 2
+
+    print(f"{len(rows)} documents x {len(selected)} arms = {len(rows) * len(selected)} pairs")
+    print(f"mode: {'LIVE (this spends money)' if args.live else 'replay from cache'}\n")
+
+    results: list[extract_mod.ExtractionRow] = []
+    for arm in selected:
+        for row in rows:
+            document = (paths.CORPUS_DOCUMENTS / f"{row['doc_id']}.md").read_text(encoding="utf-8")
+            try:
+                result, _ = extract_mod.extract_document(
+                    arm,
+                    row["doc_id"],
+                    document,
+                    cache_dir=paths.CACHE_DIR,
+                    allow_live=args.live,
+                )
+            except extract_mod.MissingAPIKey as exc:
+                print(f"FAIL  {exc}", file=sys.stderr)
+                return 2
+            results.append(result)
+            if args.verbose:
+                print(
+                    f"  {arm.key} {result.doc_id:<22} {result.outcome:<22} "
+                    f"repair={result.repair_used!s:<5} {result.finish_reason:<10} "
+                    f"${result.cost_usd:.5f}"
+                )
+
+    out = paths.RESULTS_JSONL if not args.pilot else paths.RESULTS_JSONL.with_name("pilot.jsonl")
+    jsonl.write(out, (r.to_json() for r in results))
+
+    print()
+    print(f"{'arm':<5} {'outcome':<22} {'n':>4}")
+    for arm in selected:
+        counts = Counter(r.outcome for r in results if r.arm == arm.key)
+        for outcome, n in counts.most_common():
+            print(f"{arm.key:<5} {outcome:<22} {n:>4}")
+    print()
+    print(f"{'arm':<5} {'cost':>9} {'repairs':>8} {'tok in':>9} {'tok out':>9}")
+    for arm in selected:
+        group = [r for r in results if r.arm == arm.key]
+        print(
+            f"{arm.key:<5} ${sum(r.cost_usd for r in group):8.4f} "
+            f"{sum(r.repair_used for r in group):>8} "
+            f"{sum(r.prompt_tokens for r in group):>9,} "
+            f"{sum(r.completion_tokens for r in group):>9,}"
+        )
+    print(f"\ntotal ${sum(r.cost_usd for r in results):.4f}  ->  {out}")
+    return 0
+
+
 # --------------------------------------------------------------------------- wiring
 
 
@@ -368,6 +534,31 @@ def build_parser() -> argparse.ArgumentParser:
         func=cmd_corpus_verify
     )
     csub.add_parser("stats", help="corpus shape").set_defaults(func=cmd_corpus_stats)
+
+    arms = sub.add_parser("arms", help="the models under test")
+    asub = arms.add_subparsers(dest="cmd", required=True)
+    asub.add_parser(
+        "verify", help="resolve every pinned model id (public endpoint, no key, no spend)"
+    ).set_defaults(func=cmd_arms_verify)
+    cost = asub.add_parser("cost", help="estimated spend for the grid")
+    cost.add_argument("--overhead", type=int, default=780, help="prompt+schema tokens per call")
+    cost.add_argument("--completion", type=int, default=350, help="output tokens per call")
+    cost.add_argument("--repair-rate", type=float, default=0.20)
+    cost.add_argument("--pilot", type=int, default=8)
+    cost.set_defaults(func=cmd_arms_cost)
+
+    extract = sub.add_parser("extract", help="run the extraction grid")
+    esub = extract.add_subparsers(dest="cmd", required=True)
+    run = esub.add_parser("run", help="replay from the committed cache, or --live to spend")
+    run.add_argument("--arm", action="append", choices=sorted(arms_mod.BY_KEY), help="repeatable")
+    run.add_argument("--pilot", type=int, metavar="N", help="a fixed stratified slice of N docs")
+    run.add_argument(
+        "--live",
+        action="store_true",
+        help="issue real, billed requests for anything not already cached",
+    )
+    run.add_argument("-v", "--verbose", action="store_true", help="one line per document")
+    run.set_defaults(func=cmd_extract_run)
 
     return parser
 

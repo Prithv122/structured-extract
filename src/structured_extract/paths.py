@@ -24,6 +24,13 @@ OBSERVED_VALUES_JSONL = ORACLE_DIR / "observed_values.jsonl"
 CORPUS_JSONL = CORPUS_DIR / "corpus.jsonl"
 CORPUS_DOCUMENTS = CORPUS_DIR / "documents"
 
+#: Raw provider responses, keyed by a hash of the exact request. Committed, so a
+#: clean clone with an empty API key replays every published number offline.
+CACHE_DIR = DATA / "cache"
+
+#: One row per (document, arm), written whatever the outcome.
+RESULTS_JSONL = DATA / "results" / "extractions.jsonl"
+
 #: Upstream docs checkout, pinned in ``scripts/fetch_source_docs.py``.
 DEFAULT_DOCS_ROOT = SOURCE_DIR / "duckdb-web"
 
