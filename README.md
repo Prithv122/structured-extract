@@ -30,11 +30,17 @@ audits DuckDB's published configuration reference against the shipped binary.
 
 | | |
 |---|---|
-| Documentation | [`duckdb/duckdb-web`](https://github.com/duckdb/duckdb-web) @ `6f6cd16` (2026-09-06), 434 pages under `docs/current` |
+| Documentation | [`duckdb/duckdb-web`](https://github.com/duckdb/duckdb-web) @ `6f6cd16` (2026-09-06), 434 pages under `docs/current`, of which **420 are prose** |
 | Oracle | `duckdb_settings()` from the `duckdb` Python package, **v1.5.5** |
 | Licence | MIT (both) — Copyright 2018-2025 Stichting DuckDB Foundation |
-| Corpus | 120 documents sampled from 7,498 heading sections, seed `20260919` |
+| Corpus | 120 documents sampled from 4,793 heading sections, seed `20260919` |
 | Refresh | one-off, pinned |
+
+The 14 excluded pages are generated API reference — the `clients/c/` tree, the
+Sphinx dump at `clients/python/reference/index.md`, and the docs landing page,
+which is a grid of navigation tiles. They are HTML, not prose, and the two
+families do not overlap: every excluded page carries 10–24 block-HTML tags per
+1000 characters and every prose page carries ≤ 1.6.
 
 The docs checkout's `_config.yml` sets `current_duckdb_version: "1.5.5"`, exactly
 the installed `duckdb`. Documentation and oracle describe the same release, and
@@ -56,12 +62,12 @@ flowchart LR
         BIN -.machine-dependent.-> OV["observed_values.jsonl"]
     end
     subgraph corpus["corpus"]
-        DOCS["434 doc pages"] --> SEC["7,498 heading sections"]
+        DOCS["434 pages<br/>420 prose"] --> SEC["4,793 heading sections"]
         SEC --> SAMP["stratified sample<br/>seed 20260919"]
         SAMP --> CD["120 documents"]
     end
     CD --> ARM["extraction arms<br/>H1-H4 · L1 · B0 · B1"]
-    ARM --> VAL["Pydantic validate<br/>+ one bounded repair"]
+    ARM --> VAL["Pydantic validate<br/>+ grounding check<br/>+ one bounded repair"]
     VAL --> SCORE["score"]
     OR --> SCORE
     DR --> SCORE
@@ -86,13 +92,33 @@ and make the benchmark measure itself.
 | Corpus unit | Heading sections of real pages | Whole pages, or synthetic paragraphs | Sections are what a reader consumes and fit a context window, so truncation policy does not become a confound. Prose stays exactly as shipped, tables and Jekyll markup included. |
 | Stratum sizes | Measured, then rebalanced | The planned 55/35/30 | Only **19** extension pages contain a section naming a non-distractor setting. 35 was not obtainable without sampling the same pages four times; `extension-signal` is a census of all 19 and says so. |
 | Distractors | Fixed 16 of 120 | Whatever the corpus produced | 60% of prose sections mentioning a "known setting" mention only `schema`/`user`/`username`/`password`/`threads`/`secret`. Left alone they took 54 of 90 prose documents. They are a real failure mode, sampled on purpose instead of by accident. |
-| Pydantic | Yes, here | The `extract_json` + dataclass approach that [project 24](https://github.com/Prithv122/production-rag) chose | Not a reversal — a different layer. 24's payload was one flat field, where Pydantic would have duplicated `extract_json`. This payload is a nested list of 8-field records with enums, optionals and cross-field constraints, `model_json_schema()` drives `response_format` so contract and validator cannot drift, and the per-field `ValidationError.errors()` list *is* the repair prompt's input. `extract_json` still sits underneath as stage one. |
+| Pydantic | Yes, here | The `extract_json` + dataclass approach that [project 24](https://github.com/Prithv122/production-rag) chose | Not a reversal — a different layer. 24's payload was one flat field, where Pydantic would have duplicated `extract_json`. This payload is a nested list of records with closed enums, a pattern-constrained identifier and a cross-field uniqueness rule; `model_json_schema()` drives `response_format` so contract and validator cannot drift, and the per-field `ValidationError.errors()` list *is* the repair prompt's input. |
+| Hallucination check | Leave `name` a free string | An enum of the 274 known settings | Putting the oracle in the schema would make a hallucinated name impossible to emit — and delete the benchmark's primary measurement. The schema must accept `frobnicate_cache`; scoring it wrong is the oracle's job, afterwards. There is a test asserting exactly this. |
+| Grounding check | `evidence` must be a verbatim span of the document | An LLM judge, or trusting the model | Free, exact and unarguable, in the same way the oracle is. JSON Schema cannot express it, so the decoder enforces shape and a Pydantic validator enforces grounding — which means an arm can be perfectly schema-valid and still fail for quoting something the document does not say. Those are separate columns. Whitespace runs are normalised on both sides, because markdown hard-wraps mid-sentence; nothing else is. |
+| Arm selection | Four hosted models, all with native structured outputs | A mix of structured and unstructured arms | Holding the mechanism constant means H1–H4 vary by capability alone. "Does constrained decoding help at all?" is a different question and belongs to the B0/B1 baselines. |
+| Determinism | Send only the knobs each provider advertises, and record which | `temperature=0` everywhere | It is no longer available everywhere: Sonnet 5 accepts neither `temperature` nor `seed`. Pretending otherwise would be a lie in the method section; dropping those arms would cut the frontier out of the comparison. Reproducibility comes from the committed response cache instead. |
+| Repair vs retry | A `ValidationError` consumes the one repair; a 429 or 502 does not | One counter for both | A 502 is not a bad answer, it is no answer. Merging them would let a flaky provider look like a model that needs fewer repairs. |
 
 ## 5. Results
 
 **Not measured yet.** The extraction arms have not been run; this section will
 carry hallucination rate, per-field accuracy, cost and latency per arm, with the
 sampling band alongside, once they have.
+
+The arms are pinned, and every id was resolved against OpenRouter's public
+catalogue before a line of client code was written against it
+(`structured-extract arms verify`):
+
+| Arm | Model | $/M in | $/M out | Structured outputs | `temperature` | `seed` |
+|---|---|---:|---:|:-:|:-:|:-:|
+| H1 | `anthropic/claude-sonnet-5` | 2.00 | 10.00 | ✓ | ✗ | ✗ |
+| H2 | `google/gemini-2.5-flash` | 0.30 | 2.50 | ✓ | ✓ | ✓ |
+| H3 | `openai/gpt-4.1-nano` | 0.10 | 0.40 | ✓ | ✓ | ✓ |
+| H4 | `openai/gpt-oss-120b` | 0.15 | 0.60 | ✓ | ✓ | ✓ |
+
+Estimated cost of the full 120 × 4 grid: **$1.06**
+(`structured-extract arms cost`). Published costs will come from the token
+counts the providers actually report, not from this estimate.
 
 What *is* measured is the ground truth itself — the docs-vs-binary audit, which
 is a result in its own right and needed no model at all:
@@ -124,14 +150,45 @@ uv sync --all-groups
 uv run pytest
 ```
 
-That works offline, with no API key. The committed oracle and corpus are checked
-by 53 tests, including a cross-check of the committed core settings against a
-live plain `duckdb`.
+That works offline, with no API key. 120 tests check the committed oracle, the
+corpus, the extraction schema and the repair ladder, including a cross-check of
+the committed core settings against a live plain `duckdb`.
 
 ```bash
 uv run structured-extract oracle verify --detail   # the audit above
 uv run structured-extract corpus verify            # re-hash every document
 uv run structured-extract corpus stats
+```
+
+The arms are pinned by exact model id and price. Checking them costs nothing —
+OpenRouter's model catalogue is a public endpoint and needs no key:
+
+```bash
+uv run structured-extract arms verify
+uv run structured-extract arms cost
+```
+
+Running the grid replays from the committed cache by default, so every published
+number reproduces with `OPENROUTER_API_KEY` empty and no network:
+
+```bash
+uv run structured-extract extract run
+uv run structured-extract extract run --pilot 8 --verbose
+```
+
+`--live` issues real, billed requests for anything not already cached. It is the
+only command in this repo that spends money, and it refuses to start unless
+`OPENROUTER_API_KEY` is set in the environment:
+
+```bash
+uv run structured-extract extract run --pilot 8 --live --verbose
+```
+
+One test reads the live catalogue to confirm the pinned ids still resolve. It is
+deselected by default so the suite stays offline:
+
+```bash
+uv run pytest -m live
 ```
 
 To rebuild the ground truth from scratch (needs network once, ~2 min for the

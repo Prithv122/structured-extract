@@ -135,7 +135,7 @@ the README reports.
 
 ---
 
-## Open questions for session 3
+## Open questions raised in session 2 (answered or carried forward in session 3)
 
 - **Seed sensitivity is unmeasured.** The corpus is seeded at `20260919` and
   reproducible, but nothing yet says how much a different seed moves a score.
@@ -160,3 +160,166 @@ Missed locally because I had only ever run `ruff format` on `src/ tests/ scripts
 
 `extend-exclude = ["data"]` in `pyproject.toml`. The corpus is evidence, not
 source.
+
+---
+
+## Session 3 — verifying before spending
+
+The rule for this session was: nothing is billed until every id, price and
+capability has been checked against something authoritative. That turned out to
+matter for a reason that had nothing to do with OpenRouter.
+
+### One document was 83% of the corpus
+
+Building the cost model was the first thing that touched the corpus in anger,
+and the size distribution was absurd: 120 documents, 710,288 characters, and a
+single document holding 588,774 of them.
+
+`narrative-0036` was `clients/python/reference/index.md` — the Sphinx-generated
+Python API reference. It contains **no markdown heading at all**, so
+`split_sections` did the only thing it could and emitted the entire file as one
+"section". It was eligible for sampling because three setting names appear
+somewhere inside 589 kB of `<dl class="py class">`.
+
+Had it gone to the grid it would have been ~147 k tokens per arm per run: past
+the context window of most candidate models, and more expensive on its own than
+the other 119 documents put together. Those calls would have failed as
+`provider_error` and looked like model failures.
+
+`clients/c/api.md` is the same artefact at 441 kB. It was not drawn at this
+seed — but seed sensitivity is an open question and the corpus is *due* to be
+resampled, so it was a landmine, not a near miss.
+
+Two filters, chosen after measuring rather than guessing:
+
+- **Block-HTML density > 5 tags/1000 chars excludes the page.** The two
+  families do not overlap at all: the 14 generated pages score 10–24, every one
+  of the 420 prose pages scores <= 1.6. Any threshold in 2..10 selects exactly
+  the same pages, which is what makes this a separator rather than a tuned knob.
+  `docs/current/index.md` goes too — it is a grid of `box-link` divs with no
+  prose in it.
+- **`MAX_SECTION_CHARS = 8000`.** Sections are median 255 chars, p95 1.5 kB,
+  p99 3.8 kB, and then a tail of generated list dumps: the time-zone reference
+  list at 46 kB, the encodings table at 26 kB, the spatial function index at
+  17 kB. None of those is prose a reader consumes. The `reference` stratum is
+  exempt — its documents are single table rows by construction.
+
+Resampled at the same seed, same quotas. The composition held exactly
+(50/10/19/6/35), max document is now 6,142 chars, and the corpus went from
+710,288 to 114,783 characters — **6.2x cheaper per arm**.
+
+**The cost:** distinct settings mentioned anywhere fell from 111 to 103. Eight
+settings only ever appeared inside the dumps. That is a real reduction in
+coverage and it is recorded rather than absorbed.
+
+One test broke, and it was the right kind of break:
+`test_has_signal_is_a_sampling_heuristic_not_a_truth_label` asserted the exact
+seeded draw, `[["password"]]`. Resampling drew the `threads` reference row too.
+The test's *claim* was still true; it had just been written against the sample
+instead of the invariant. It now asserts that an unsignalled reference row
+exists and names only distractors, which a re-seed cannot break spuriously.
+
+### The arms
+
+`GET /api/v1/models` is public — no key, no spend — so the whole of steps 2–4
+happened for free. 447 models in the catalogue, 362 advertising
+`structured_outputs`.
+
+Pinned H1 `anthropic/claude-sonnet-5`, H2 `google/gemini-2.5-flash`,
+H3 `openai/gpt-4.1-nano`, H4 `openai/gpt-oss-120b`. Roughly an order of
+magnitude in price between each step, all four with native structured outputs
+so the *mechanism* is held constant and only capability varies. No `:free` ids
+(that is the 50/day account-wide cap that killed 24's hosted comparison) and no
+`:batch` ids (cheaper, but asynchronous, so they cannot measure latency).
+
+`arms verify` refuses to pass if an id stops resolving, if structured-output
+support disappears, if a determinism knob appears or vanishes, or if the price
+drifts more than 0.1% from the pin. Project 24 shipped a table with an arm that
+had never executed once, because a wrong model id just 404s quietly.
+
+**`temperature=0` is not available across the frontier any more.** Sonnet 5
+advertises neither `temperature` nor `seed`; the GPT-5 reasoning family takes
+`seed` but not `temperature`. Three options: drop the frontier from the
+comparison, pretend the knob was set, or record per arm what the provider
+actually accepts and send only those. Took the third. Reproducibility comes
+from the committed response cache, not from the sampler.
+
+### The schema, and the two holes left in it on purpose
+
+`name` is **not** an enum of the 274 known settings. It is one line of code to
+paste the oracle in, and it would make a hallucinated name impossible to emit —
+along with the benchmark's primary measurement. There is a test asserting the
+schema happily accepts `frobnicate_cache`.
+
+Grounding is not in the JSON Schema either, because no JSON Schema can say "this
+string must be a substring of that document". A Pydantic validator reads the
+document from the validation context and enforces it. So the decoder enforces
+shape and the validator enforces grounding, and an arm can be perfectly
+schema-valid and still fail for quoting something the document does not say.
+Two separate columns, because they are two separate failures.
+
+Whitespace runs are normalised on both sides before comparing — markdown
+hard-wraps mid-sentence and a model that joins two lines with a space has quoted
+the same text. Nothing else is normalised.
+
+`name` is pattern-constrained to a bare SQL identifier, so a name arriving with
+its markdown backticks still attached **fails**. Stripping them silently would
+have inflated `valid_first_pass` for every arm.
+
+The wire schema inlines every `$ref` and drops `$defs`. Pydantic factors enums
+out and refers to them with a `$ref` sitting next to a sibling `description`;
+providers disagree about that — some merge, some ignore, some reject the
+request. A rejected request is an arm that quietly produces no data, which is
+the failure `arms verify` exists to prevent, so it is not worth risking.
+
+### The oracle-leak test caught me writing the leak
+
+`test_the_repair_prompt_never_contains_the_oracle` walks all 274 oracle names
+against the outgoing prompt. It failed on its first run, on the system prompt I
+had just written:
+
+> Words like schema, user, password and threads appear constantly in ordinary
+> prose and in connection strings for other databases
+
+That is *verbatim* `corpus.DISTRACTOR_NAMES`. It would have handed every arm the
+list of planted traps, and the 16 distractor documents exist precisely to
+measure that false-positive case. Rewritten to describe the phenomenon without
+naming any of them.
+
+Two names cannot be kept out: `schema` (any English instruction mentioning a
+JSON schema) and `user` (the request envelope's role). Both are real settings
+and both are already `DISTRACTOR_NAMES`. The test allows exactly those two,
+asserts the allow-list is a subset of `DISTRACTOR_NAMES` so it cannot quietly
+grow, and additionally asserts neither is ever followed by a comma — so they can
+be used as prose but never enumerated as a list of candidate names.
+
+### Repair is not retry
+
+A `ValidationError` consumes the one bounded repair. A 429 or 502 does not,
+because there was no answer to repair — it is retried with backoff instead.
+Merging the two counters would let a flaky provider look like a model that
+needed fewer repairs.
+
+`length_truncated` outranks `unparseable` in the outcome ladder: truncated JSON
+does not parse, but the cause is the token budget, not the model's formatting.
+402/403/404 become `provider_unavailable` and are neither retried nor repaired —
+retrying "no credit" is just a slower way to fail.
+
+### Nothing has been spent
+
+Total OpenRouter charges after three sessions: **$0.00**. The estimate for the
+full 120 x 4 grid is **$1.06**, and the 8-document pilot is about **$0.07**.
+Before the corpus fix the same grid would have cost roughly six times that, for
+a benchmark that would have been 83% one HTML dump.
+
+## Open questions for session 4
+
+- **The pilot has not been run.** Everything up to it is built and tested
+  offline; the pilot is the first billed call and it needs a key.
+- **Seed sensitivity is still unmeasured**, and the corpus has now been
+  resampled once, which makes the re-draw more interesting rather than less.
+- **The 40-section hand-label recall set is not started.**
+- **The repair rate is a guess.** `arms cost` assumes 20%. The pilot's job is to
+  replace that with a measurement before the full grid is authorised.
+- **L1 (local Ollama), B0 (table parser) and B1 (null) are not built.** B0 is
+  the `docs_table` parser already in the repo and should be cheap.

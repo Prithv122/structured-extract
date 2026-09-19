@@ -17,9 +17,9 @@ duckdb 1.5.5 (the oracle) · OpenRouter (hosted arms) · Ollama (local arm) · p
 
 ## Acceptance criteria
 
-- [ ] Oracle committed and verified: `data/oracle/settings.jsonl` + `data/oracle/docs_reference.jsonl`
-- [ ] Corpus committed: 120 documents, 3 strata, seeded, provenance-pinned
-- [ ] Pydantic schema + exactly one bounded repair (never fed the oracle)
+- [x] Oracle committed and verified: `data/oracle/settings.jsonl` + `data/oracle/docs_reference.jsonl`
+- [x] Corpus committed: 120 documents, 3 strata, seeded, provenance-pinned
+- [x] Pydantic schema + exactly one bounded repair (never fed the oracle) — built and tested offline, not yet exercised against a provider
 - [ ] Hallucination rate, per-field accuracy and cost measured across arms H1-H4 + L1 + B0 + B1
 - [ ] Hand-labelled recall set (40 sections) — mentioned != documented
 - [ ] Every published number replays from the committed cache with an empty API key
@@ -35,4 +35,8 @@ duckdb 1.5.5 (the oracle) · OpenRouter (hosted arms) · Ollama (local arm) · p
   disagreements are a finding, not a bug.
 - **Never let the oracle into the pipeline.** The repair prompt sees the document, the raw
   output, `ValidationError.errors()` and the schema. Nothing else.
-- No API key ever enters an agent session.
+- **Arms are pinned in `arms.py`** with price and capability. `arms verify` resolves
+  every id against the *public* catalogue — no key, no spend — and fails on drift.
+  Run it before any session that will spend.
+- No API key ever enters an agent session. `extract run --live` is the only command
+  that costs money, and only the user runs it.
