@@ -1,0 +1,8 @@
+# Default: let git normalise line endings in source.
+* text=auto
+
+# Committed benchmark data must be byte-identical on every platform. The corpus
+# manifest commits a sha256 of each document and `corpus verify` re-checks it,
+# so a CRLF conversion on checkout would turn a Windows clone into a different
+# benchmark. Treat these as bytes, not text.
+data/** -text
