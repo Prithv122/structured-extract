@@ -44,3 +44,6 @@ mlruns/
 Thumbs.db
 .vscode/
 .idea/
+
+# Upstream docs checkout, fetched by scripts/fetch_source_docs.py (not vendored)
+data/source/
