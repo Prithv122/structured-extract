@@ -144,3 +144,19 @@ the README reports.
 - **`narrative-distractor` at 10 documents** is enough to notice a
   false-positive problem, not enough to quantify one. State it as an
   observation, not a rate.
+
+---
+
+## Session 2 addendum — CI caught `ruff format` editing the corpus
+
+First CI run after committing the data failed on `ruff format --check`. Not a
+style nit: **ruff formats fenced code blocks inside markdown**, and it wanted to
+rewrap a pandas snippet in `data/corpus/documents/narrative-0013.md`.
+
+That document is a verbatim excerpt of a DuckDB docs page whose sha256 is
+committed in the manifest. A `ruff format .` would have rewritten the corpus and
+broken `corpus verify` — and it would have looked like a formatting commit.
+Missed locally because I had only ever run `ruff format` on `src/ tests/ scripts/`.
+
+`extend-exclude = ["data"]` in `pyproject.toml`. The corpus is evidence, not
+source.
