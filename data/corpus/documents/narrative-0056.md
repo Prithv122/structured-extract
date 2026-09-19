@@ -1,0 +1,1 @@
+The Rust client can register user-defined functions written in Rust: scalar functions with the `vscalar` feature and table functions with the `vtab` feature. Both operate on DuckDB's columnar data chunks, so a single call processes a batch of rows. The sections below build and register each, then point to a template for packaging them as a loadable extension.

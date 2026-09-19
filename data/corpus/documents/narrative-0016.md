@@ -1,0 +1,6 @@
+- DuckDB follows [Semantic Versioning](https://semver.org/) (`v<MAJOR>.<MINOR>.<PATCH>`)
+- Minor versions are released approximately every 4 months
+- Patch releases are issued as needed for:
+    - The latest stable version
+    - The current Long Term Support (LTS) version
+- All releases are listed in the [Release Calendar]({% link release_calendar.md %})
