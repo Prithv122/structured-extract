@@ -658,6 +658,57 @@ def _group_errors(rows: list[extract_mod.ExtractionRow]) -> dict[str, list]:
     return grouped
 
 
+def cmd_extract_cache(args: argparse.Namespace) -> int:
+    """Say what a run would replay and what it would buy, before it buys anything.
+
+    The cache is keyed by a hash of the exact request, so re-running after a
+    crash cannot double-charge: a call already answered is found and replayed.
+    This command makes that checkable rather than something to take on trust,
+    which matters most straight after a run died part-way through.
+    """
+    rows = jsonl.read_list(paths.CORPUS_JSONL)
+    if args.pilot:
+        rows = _pilot_documents(rows, args.pilot)
+    selected = [arms_mod.BY_KEY[k] for k in args.arm] if args.arm else list(arms_mod.HOSTED)
+    prompts = args.prompt or list(extract_mod.PROMPTS)
+
+    on_disk = (
+        {p.stem for p in paths.CACHE_DIR.rglob("*.json")} if paths.CACHE_DIR.exists() else set()
+    )
+    planned: dict[str, tuple[str, str, str]] = {}
+    for prompt in prompts:
+        system = extract_mod.PROMPTS[prompt]
+        for arm in selected:
+            for row in rows:
+                text = (paths.CORPUS_DOCUMENTS / f"{row['doc_id']}.md").read_text(encoding="utf-8")
+                messages = [
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": text},
+                ]
+                key = extract_mod.cache_key(arm.model_id, extract_mod.build_payload(arm, messages))
+                planned[key] = (prompt, arm.key, row["doc_id"])
+
+    cached = sorted(planned[k] for k in planned.keys() & on_disk)
+    orphans = on_disk - planned.keys()
+
+    print(
+        f"{len(planned)} first-pass calls planned "
+        f"({len(rows)} documents x {len(selected)} arms x {len(prompts)} prompts)"
+    )
+    print(f"  already cached, will replay for $0.00   {len(cached)}")
+    print(f"  not cached, will be billed by --live    {len(planned) - len(cached)}")
+    for prompt, arm, doc_id in cached:
+        print(f"      replay  {prompt:<15} {arm:<4} {doc_id}")
+    if orphans:
+        print(f"\n  {len(orphans)} cached responses match no planned call.")
+        print("  Repair calls look like this, and so does anything left by an older")
+        print("  contract. They are inert -- nothing reads them -- but if the schema")
+        print("  changed they are dead weight and can be deleted.")
+    print("\nA crashed run is safe to repeat: the cache is keyed by the exact request,")
+    print("so every call already answered is replayed rather than bought again.")
+    return 0
+
+
 # --------------------------------------------------------------------------- score
 
 
@@ -836,6 +887,14 @@ def build_parser() -> argparse.ArgumentParser:
     )
     run.add_argument("-v", "--verbose", action="store_true", help="one line per document")
     run.set_defaults(func=cmd_extract_run)
+
+    cache = esub.add_parser(
+        "cache", help="what a run would replay vs buy (offline, spends nothing)"
+    )
+    cache.add_argument("--arm", action="append", choices=sorted(arms_mod.BY_KEY))
+    cache.add_argument("--pilot", type=int, metavar="N")
+    cache.add_argument("--prompt", action="append", choices=sorted(extract_mod.PROMPTS))
+    cache.set_defaults(func=cmd_extract_cache)
 
     score = sub.add_parser("score", help="score extractions against the oracle")
     ssub = score.add_subparsers(dest="cmd", required=True)

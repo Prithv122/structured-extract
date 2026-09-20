@@ -6,7 +6,9 @@ exercised offline and for free.
 
 from __future__ import annotations
 
+import http.client
 import json
+import ssl
 from dataclasses import replace
 
 import pytest
@@ -517,3 +519,155 @@ def test_the_records_persisted_on_the_row_carry_the_default_fields(tmp_path, tra
         "default_value",
         "default_evidence",
     }
+
+
+# ------------------------------------------------- transport failure handling
+#
+# These drive the REAL `_post`, with only `urlopen` replaced, because the bug
+# being regressed lives in `_post`'s except clauses. A test that mocks `_post`
+# cannot see it.
+
+
+class FakeResponse:
+    """A response whose ``read()`` fails the way a truncated one does."""
+
+    def __init__(self, raises=None, body: bytes = b"{}"):
+        self._raises, self._body = raises, body
+
+    def read(self):
+        if self._raises is not None:
+            raise self._raises
+        return self._body
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        return False
+
+
+def urlopen_raising(*errors):
+    """Fail on the first calls, then return a good body."""
+    queue = list(errors)
+
+    def fake(request, timeout=None):
+        if queue:
+            raise_this = queue.pop(0)
+            if isinstance(raise_this, str):  # raised by read(), mid-body
+                return FakeResponse(raises=http.client.IncompleteRead(raise_this.encode()))
+            raise raise_this
+        return FakeResponse(body=json.dumps(body(GOOD)).encode())
+
+    return fake
+
+
+PARTIAL_CHUNKED = [
+    http.client.IncompleteRead(b"x" * 605),
+    http.client.RemoteDisconnected("Remote end closed connection without response"),
+    ConnectionResetError(10054, "An existing connection was forcibly closed"),
+    ssl.SSLError("record layer failure"),
+    TimeoutError("timed out"),
+]
+
+
+@pytest.mark.parametrize("error", PARTIAL_CHUNKED, ids=lambda e: type(e).__name__)
+def test_a_broken_response_becomes_a_value_not_a_traceback(monkeypatch, error):
+    """The regression. `IncompleteRead: 605 bytes read` killed a live pilot
+    two-thirds of the way through, because it is an HTTPException and a
+    ValueError but not a URLError, so it missed the handler entirely."""
+    monkeypatch.setattr(E.urllib.request, "urlopen", urlopen_raising(error))
+    body_, err, unavailable = E._post({"model": "m"}, "key")
+
+    assert body_ is None
+    assert err is not None, f"{type(error).__name__} escaped _post"
+    assert type(error).__name__ in err, "the row must name what actually happened"
+    assert unavailable is False, "a broken pipe is transient, not a dead route"
+
+
+def test_a_body_truncated_inside_a_multibyte_character_is_handled(monkeypatch):
+    """A chunked body cut mid-UTF-8 raises from .decode(), before json sees it."""
+    cut = '{"model":"m","choices":[{"message":{"content":"caf\u00e9'.encode()[:-1]
+    monkeypatch.setattr(E.urllib.request, "urlopen", lambda *a, **k: FakeResponse(body=cut))
+    body_, err, unavailable = E._post({"model": "m"}, "key")
+    assert body_ is None
+    assert "DecodeError" in err
+    assert unavailable is False
+
+
+def test_a_truncated_body_that_is_valid_utf8_but_not_json_is_handled(monkeypatch):
+    monkeypatch.setattr(
+        E.urllib.request, "urlopen", lambda *a, **k: FakeResponse(body=b'{"choices": [')
+    )
+    body_, err, _ = E._post({"model": "m"}, "key")
+    assert body_ is None
+    assert "JSONDecodeError" in err
+
+
+def test_an_unanticipated_exception_still_becomes_a_row(monkeypatch):
+    """Belt and braces: 80 billed calls must not be lost to a surprise."""
+
+    class Surprise(Exception):
+        pass
+
+    monkeypatch.setattr(
+        E.urllib.request, "urlopen", lambda *a, **k: FakeResponse(raises=Surprise("boom"))
+    )
+    body_, err, unavailable = E._post({"model": "m"}, "key")
+    assert body_ is None
+    assert err == "unexpected Surprise: boom"
+    assert unavailable is False
+
+
+def test_the_last_resort_handler_cannot_swallow_ctrl_c(monkeypatch):
+    monkeypatch.setattr(
+        E.urllib.request, "urlopen", lambda *a, **k: FakeResponse(raises=KeyboardInterrupt())
+    )
+    with pytest.raises(KeyboardInterrupt):
+        E._post({"model": "m"}, "key")
+
+
+def test_a_truncated_response_is_retried_and_recovers(monkeypatch, tmp_path):
+    """End to end through `call`: two broken reads, then a good one."""
+    monkeypatch.setattr(E.time, "sleep", lambda _s: None)
+    monkeypatch.setattr(
+        E.urllib.request,
+        "urlopen",
+        urlopen_raising(http.client.IncompleteRead(b"x" * 605), http.client.IncompleteRead(b"y")),
+    )
+    row, extraction = E.extract_document(ARM, "doc-1", DOCUMENT, cache_dir=tmp_path, api_key="key")
+    assert row.outcome == E.Outcome.VALID_FIRST_PASS
+    assert row.repair_used is False, "a broken pipe is not a bad answer; there was none to repair"
+    assert extraction is not None
+
+
+def test_a_truncated_response_that_never_recovers_is_a_provider_error(monkeypatch, tmp_path):
+    """Not provider_unavailable: that means no route exists, and it is excluded
+    from retries. A truncated read is transient and must be retried first, or a
+    flaky connection would be indistinguishable from an account with no credit."""
+    monkeypatch.setattr(E.time, "sleep", lambda _s: None)
+    monkeypatch.setattr(
+        E.urllib.request,
+        "urlopen",
+        urlopen_raising(
+            *[http.client.IncompleteRead(b"x") for _ in range(E.MAX_TRANSPORT_RETRIES)]
+        ),
+    )
+    row, extraction = E.extract_document(ARM, "doc-1", DOCUMENT, cache_dir=tmp_path, api_key="key")
+    assert row.outcome == E.Outcome.PROVIDER_ERROR
+    assert row.repair_used is False
+    assert "IncompleteRead" in row.error
+    assert extraction is None
+
+
+def test_a_broken_read_writes_nothing_to_the_cache(monkeypatch, tmp_path):
+    """A partial response must never be replayable as if it were an answer."""
+    monkeypatch.setattr(E.time, "sleep", lambda _s: None)
+    monkeypatch.setattr(
+        E.urllib.request,
+        "urlopen",
+        urlopen_raising(
+            *[http.client.IncompleteRead(b"x") for _ in range(E.MAX_TRANSPORT_RETRIES)]
+        ),
+    )
+    E.extract_document(ARM, "doc-1", DOCUMENT, cache_dir=tmp_path, api_key="key")
+    assert list(tmp_path.rglob("*.json")) == []

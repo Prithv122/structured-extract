@@ -39,8 +39,10 @@ someone who will never buy an OpenRouter credit.
 from __future__ import annotations
 
 import hashlib
+import http.client
 import json
 import os
+import ssl
 import time
 import urllib.error
 import urllib.request
@@ -65,7 +67,39 @@ BACKOFF_SECONDS = (1.0, 4.0, 10.0)
 #: across the five arms is 32,768, so this stays comfortably inside every one.
 MAX_OUTPUT_TOKENS = 8000
 
+#: Socket **inactivity** timeout, not a deadline on the whole call. A response
+#: that keeps trickling bytes can run far past it: the first call of the third
+#: pilot took 180 s under this 120 s setting, because the provider was streaming
+#: reasoning the entire time. Latency is recorded per row so that shows up in
+#: the results rather than being a surprise at grid scale.
 REQUEST_TIMEOUT = 120.0
+
+#: Everything ``urlopen(...).read()`` can raise that means "the response did not
+#: arrive intact", as distinct from "the provider said no" (an ``HTTPError``).
+#: These are transient by nature and are retried; see ``call``.
+#:
+#: The subclass relationships are not obvious and getting them wrong cost a live
+#: pilot, so the reasoning is written down rather than assumed:
+#:
+#: * ``IncompleteRead`` and ``RemoteDisconnected`` are ``HTTPException``\\s;
+#:   ``IncompleteRead`` is *not* a ``URLError``, which is why it escaped.
+#: * ``RemoteDisconnected`` is also a ``ConnectionResetError``.
+#: * ``URLError`` and ``ConnectionError`` are both ``OSError``\\s, but a raw
+#:   socket error during ``read()`` is not wrapped in ``URLError`` the way a
+#:   connection failure during ``urlopen()`` is.
+#: * A body cut inside a multi-byte character raises ``UnicodeDecodeError``
+#:   from ``.decode()``, and a body cut anywhere else raises
+#:   ``JSONDecodeError`` from ``json.loads`` -- both ``ValueError``\\s, neither
+#:   an ``OSError``.
+TRANSPORT_ERRORS = (
+    urllib.error.URLError,
+    http.client.HTTPException,
+    ConnectionError,
+    ssl.SSLError,
+    TimeoutError,
+    json.JSONDecodeError,
+    UnicodeDecodeError,
+)
 
 
 class Outcome(StrEnum):
@@ -321,7 +355,19 @@ def build_payload(arm: Arm, messages: list[dict]) -> dict:
 
 
 def _post(payload: dict, api_key: str) -> tuple[dict | None, str | None, bool]:
-    """POST once. Returns ``(body, error, unavailable)``; never raises on HTTP status."""
+    """POST once. Returns ``(body, error, unavailable)``; never raises.
+
+    Never raising is the contract. A pilot is 80 billed calls and a grid is
+    1,200; one unhandled exception two-thirds of the way through throws away
+    every call already paid for, because the results file is only written at the
+    end. So every failure comes back as a value and the run keeps going.
+
+    That contract was already broken once. ``http.client.IncompleteRead``
+    -- a chunked response that stopped early -- inherits from ``HTTPException``
+    and ``ValueError``, **not** from ``URLError``, so it walked straight past
+    the handler below and killed a live pilot with
+    ``IncompleteRead: 605 bytes read``.
+    """
     request = urllib.request.Request(
         COMPLETIONS_URL,
         data=json.dumps(payload).encode("utf-8"),
@@ -335,14 +381,22 @@ def _post(payload: dict, api_key: str) -> tuple[dict | None, str | None, bool]:
         with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT) as response:
             return json.loads(response.read().decode("utf-8")), None, False
     except urllib.error.HTTPError as exc:
-        detail = exc.read().decode("utf-8", errors="replace")[:500]
+        try:
+            detail = exc.read().decode("utf-8", errors="replace")[:500]
+        except Exception:  # the error body can be truncated too
+            detail = "(the error body could not be read)"
         # 402 no credit, 404 unknown id, 403 route refused: no provider will
         # ever serve this request, so it is not a model result and not a bug in
         # the prompt. Retrying is pointless and repairing is meaningless.
         unavailable = exc.code in (402, 403, 404)
         return None, f"HTTP {exc.code}: {detail}", unavailable
-    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
+    except TRANSPORT_ERRORS as exc:
         return None, f"{type(exc).__name__}: {exc}", False
+    except Exception as exc:  # last resort -- see the docstring
+        # Last resort, and deliberate. Anything unanticipated becomes a row that
+        # says what happened instead of a traceback that loses the whole run.
+        # It cannot swallow Ctrl-C: KeyboardInterrupt is not an Exception.
+        return None, f"unexpected {type(exc).__name__}: {exc}", False
 
 
 def call(
