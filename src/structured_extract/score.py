@@ -80,6 +80,22 @@ MACHINE_DEPENDENT = frozenset(
 #: First cell of a markdown table row: ``| `access_mode` | ...``.
 _FIRST_CELL = re.compile(r"^\|\s*`?([A-Za-z_][A-Za-z0-9_]*)`?\s*\|")
 
+#: Decoration the reference table puts around a default that carries no meaning:
+#: ``` `automatic` ``` and ``automatic`` are the same default.
+_DEFAULT_NOISE = "`\"'" + " \t"
+
+
+def normalise_default(value: str) -> str:
+    """Compare defaults on their content, not their markdown.
+
+    The reference table writes defaults inside backticks; a model may or may not
+    copy them. Casefolded because ``NULLS LAST`` and ``nulls last`` are the same
+    default and marking the second wrong would be a typography complaint.
+    Nothing else is touched -- ``512.0 MiB`` does not become ``512MB``, because
+    those really are different strings and the docs chose one of them.
+    """
+    return value.strip().strip(_DEFAULT_NOISE).strip().casefold()
+
 
 class Status(StrEnum):
     """Which of the four outcomes this (document, arm, prompt) had."""
@@ -146,6 +162,17 @@ class RecordScore:
     #: Re-checked here rather than trusted: a row can reach the scorer having
     #: failed validation, and the failure analysis wants to know which part.
     evidence_grounded: bool
+    #: What the model said the default was, and of what sort.
+    default_kind: str
+    default_value: str | None
+    #: ``None`` when unscorable: a hallucinated name, or a real setting the
+    #: reference table does not document (105 of the 274 are in no table).
+    #: For a machine-dependent setting the *value* is never compared, only the
+    #: classification -- "80% of RAM" has no literal to be right about.
+    default_kind_correct: bool | None
+    default_value_correct: bool | None
+    #: True when the reference table documents this setting's default as a rule.
+    default_is_machine_dependent: bool
 
     def to_json(self) -> dict:
         return asdict(self)
@@ -211,10 +238,54 @@ def reference_target(text: str) -> str | None:
     return None
 
 
+def score_default(record: dict, canonical: str | None, oracle: Oracle):
+    """Judge the default against the reference table.
+
+    Returns ``(kind_correct, value_correct, is_machine_dependent)``, with
+    ``None`` wherever there is nothing to compare against. Three cases are
+    deliberately not scored as wrong:
+
+    * a hallucinated setting -- no truth exists;
+    * a real setting in no reference table -- 105 of the 274 are in none, and
+      the binary does not carry a documented default;
+    * the *value* of a machine-dependent default -- "80% of RAM" is a rule, so
+      only the classification is scored. Marking a literal comparison wrong
+      there would punish a model for the docs' phrasing.
+
+    ``duckdb_settings().value`` is never used. It is this laptop's core count
+    and this laptop's RAM, and scoring against it would grade every model on
+    one machine.
+    """
+    if canonical is None:
+        return None, None, False
+    documented = oracle.documented.get(canonical)
+    if documented is None:
+        return None, None, False
+
+    machine_dependent = oracle.is_machine_dependent(canonical)
+    if machine_dependent:
+        expected_kind = "machine_dependent"
+    elif documented["default_is_empty_cell"]:
+        expected_kind = "absent"
+    else:
+        expected_kind = "literal"
+
+    kind_correct = record["default_kind"] == expected_kind
+    if machine_dependent or expected_kind == "absent":
+        return kind_correct, None, machine_dependent
+
+    got = record["default_value"]
+    value_correct = got is not None and normalise_default(got) == normalise_default(
+        documented["default_value"]
+    )
+    return kind_correct, value_correct, False
+
+
 def score_record(record: dict, document: str, oracle: Oracle) -> RecordScore:
     canonical = oracle.resolve(record["name"])
     truth = oracle.settings.get(canonical) if canonical else None
     grounded = S.normalise_whitespace(record["evidence"]) in S.normalise_whitespace(document)
+    kind_ok, value_ok, machine_dependent = score_default(record, canonical, oracle)
     return RecordScore(
         name=record["name"],
         canonical=canonical,
@@ -222,6 +293,11 @@ def score_record(record: dict, document: str, oracle: Oracle) -> RecordScore:
         input_type_correct=None if truth is None else record["input_type"] == truth["input_type"],
         scope_correct=None if truth is None else record["scope"] == truth["scope"],
         evidence_grounded=grounded,
+        default_kind=record["default_kind"],
+        default_value=record["default_value"],
+        default_kind_correct=kind_ok,
+        default_value_correct=value_ok,
+        default_is_machine_dependent=machine_dependent,
     )
 
 
@@ -307,6 +383,18 @@ class Summary:
     scope_correct: int
     #: Denominator for type/scope: records that resolved to a real setting.
     records_real: int
+    #: Records whose setting the reference table documents, so the default
+    #: classification can be judged at all.
+    default_scorable: int
+    default_kind_correct: int
+    #: Narrower still: of the scorable ones, those with a literal default,
+    #: where the value itself can be compared.
+    default_value_scorable: int
+    default_value_correct: int
+    #: The four settings the docs describe as a rule. Scored on whether the
+    #: model said so, never on a literal it could not know.
+    machine_dependent_seen: int
+    machine_dependent_classified: int
     empty_correct: int
     empty_wrong: int
     #: Reference stratum only, where ground truth is exact.
@@ -340,6 +428,15 @@ class Summary:
         return self.records_grounded / self.records_returned if self.records_returned else 0.0
 
     @property
+    def default_kind_accuracy(self) -> float:
+        return self.default_kind_correct / self.default_scorable if self.default_scorable else 0.0
+
+    @property
+    def default_value_accuracy(self) -> float:
+        n = self.default_value_scorable
+        return self.default_value_correct / n if n else 0.0
+
+    @property
     def reference_recall(self) -> float:
         """Real recall. 35 documents, exact ground truth, no human needed."""
         return self.reference_found / self.reference_expected if self.reference_expected else 0.0
@@ -357,6 +454,8 @@ class Summary:
             type_accuracy=round(self.type_accuracy, 4),
             scope_accuracy=round(self.scope_accuracy, 4),
             grounding_rate=round(self.grounding_rate, 4),
+            default_kind_accuracy=round(self.default_kind_accuracy, 4),
+            default_value_accuracy=round(self.default_value_accuracy, 4),
             reference_recall=round(self.reference_recall, 4),
             recall_vs_mentioned=round(self.recall_vs_mentioned, 4),
         )
@@ -402,6 +501,15 @@ def summarise(scores: list[DocumentScore]) -> list[Summary]:
                 type_correct=sum(bool(r.input_type_correct) for r in real),
                 scope_correct=sum(bool(r.scope_correct) for r in real),
                 records_real=len(real),
+                default_scorable=sum(r.default_kind_correct is not None for r in records),
+                default_kind_correct=sum(r.default_kind_correct is True for r in records),
+                default_value_scorable=sum(r.default_value_correct is not None for r in records),
+                default_value_correct=sum(r.default_value_correct is True for r in records),
+                machine_dependent_seen=sum(r.default_is_machine_dependent for r in records),
+                machine_dependent_classified=sum(
+                    r.default_is_machine_dependent and r.default_kind == "machine_dependent"
+                    for r in records
+                ),
                 empty_correct=sum(1 for s in cell if s.empty_was_correct is True),
                 empty_wrong=sum(1 for s in cell if s.empty_was_correct is False),
                 reference_expected=expected_reference,

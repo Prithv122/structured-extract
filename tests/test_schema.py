@@ -24,6 +24,9 @@ def valid_record(**overrides) -> dict:
         "input_type": "VARCHAR",
         "scope": "GLOBAL",
         "evidence": "caps how much memory DuckDB may use",
+        "default_kind": "absent",
+        "default_value": None,
+        "default_evidence": None,
     }
     record.update(overrides)
     return record
@@ -167,3 +170,107 @@ def test_response_format_is_the_shape_openrouter_expects():
     assert block["type"] == "json_schema"
     assert block["json_schema"]["strict"] is True
     assert block["json_schema"]["schema"] == S.json_schema()
+
+
+# ------------------------------------------------------------------ defaults
+
+
+def with_default(kind, value, span, **kw) -> dict:
+    """``span`` is the default_evidence; ``evidence`` can still be overridden."""
+    return valid_record(default_kind=kind, default_value=value, default_evidence=span, **kw)
+
+
+def test_a_literal_default_backed_by_a_quote_validates():
+    parsed = parse({"settings": [with_default("literal", "VARCHAR", "It is a `VARCHAR` and")]})
+    record = parsed.settings[0]
+    assert record.default_kind is S.DefaultKind.LITERAL
+    assert record.default_value == "VARCHAR"
+
+
+def test_a_machine_dependent_default_keeps_the_rule_instead_of_a_number():
+    """A model reading '80% of RAM' must not invent a number for a machine it
+    cannot see, and must not be forced to."""
+    document = "The `memory_limit` setting defaults to 80% of RAM on the host machine."
+    parsed = parse(
+        {
+            "settings": [
+                with_default(
+                    "machine_dependent",
+                    "80% of RAM",
+                    "defaults to 80% of RAM",
+                    evidence="setting defaults to 80% of RAM on the host",
+                )
+            ]
+        },
+        document=document,
+    )
+    record = parsed.settings[0]
+    assert record.default_kind is S.DefaultKind.MACHINE_DEPENDENT
+    assert record.default_value == "80% of RAM"
+
+
+def test_an_absent_default_must_be_null_on_both_fields():
+    parsed = parse({"settings": [with_default("absent", None, None)]})
+    assert parsed.settings[0].default_value is None
+    assert parsed.settings[0].default_evidence is None
+
+
+@pytest.mark.parametrize(
+    ("value", "evidence"),
+    [("VARCHAR", None), ("VARCHAR", ""), ("VARCHAR", "   ")],
+)
+def test_a_stated_default_without_an_evidence_span_is_rejected(value, evidence):
+    """The one field a model can fill from memory instead of from the text."""
+    with pytest.raises(ValidationError) as exc:
+        parse({"settings": [with_default("literal", value, evidence)]})
+    assert "default_evidence" in str(exc.value)
+
+
+def test_default_evidence_that_is_not_verbatim_is_rejected():
+    with pytest.raises(ValidationError) as exc:
+        parse({"settings": [with_default("literal", "VARCHAR", "the default is a VARCHAR type")]})
+    assert "not a verbatim span" in str(exc.value)
+
+
+def test_a_stated_default_with_no_value_is_rejected():
+    with pytest.raises(ValidationError) as exc:
+        parse({"settings": [with_default("literal", None, "It is a `VARCHAR` and")]})
+    assert "default_value" in str(exc.value)
+
+
+@pytest.mark.parametrize("kind", ["literal", "machine_dependent"])
+def test_absent_must_not_smuggle_a_value_through_the_other_fields(kind):
+    with pytest.raises(ValidationError) as exc:
+        parse({"settings": [with_default("absent", "false", "It is a `VARCHAR` and")]})
+    assert "must both be null" in str(exc.value)
+
+
+def test_default_kind_is_a_closed_enum():
+    with pytest.raises(ValidationError):
+        parse({"settings": [with_default("unknown", None, None)]})
+
+
+def test_a_short_default_quote_is_allowed_because_defaults_live_in_table_cells():
+    """`evidence` needs a sentence; `| false |` is a perfectly good default quote."""
+    document = "| `access_mode` | how to open | `VARCHAR` | `automatic` |\nSome prose here."
+    parse(
+        {
+            "settings": [
+                with_default(
+                    "literal",
+                    "automatic",
+                    "`automatic`",
+                    evidence="how to open | `VARCHAR`",
+                )
+            ]
+        },
+        document=document,
+    )
+
+
+def test_the_default_fields_are_in_the_wire_schema_and_required():
+    item = S.json_schema()["properties"]["settings"]["items"]
+    for name in ("default_kind", "default_value", "default_evidence"):
+        assert name in item["properties"]
+        assert name in item["required"]
+    assert item["properties"]["default_kind"]["enum"] == [k.value for k in S.DefaultKind]

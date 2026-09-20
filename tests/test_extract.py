@@ -31,9 +31,19 @@ GOOD = json.dumps(
                 "input_type": "VARCHAR",
                 "scope": "GLOBAL",
                 "evidence": "caps how much memory DuckDB may use",
+                "default_kind": "absent",
+                "default_value": None,
+                "default_evidence": None,
             }
         ]
     }
+)
+
+#: A stated default the document never states -- the field a model is most
+#: likely to fill from what it already knows about DuckDB.
+UNGROUNDED_DEFAULT = GOOD.replace(
+    '"default_kind": "absent", "default_value": null, "default_evidence": null',
+    '"default_kind": "literal", "default_value": "80%", "default_evidence": "defaults to 80%"',
 )
 
 BACKTICKED = GOOD.replace('"memory_limit"', '"`memory_limit`"', 1)
@@ -45,6 +55,9 @@ UNGROUNDED = json.dumps(
                 "input_type": "VARCHAR",
                 "scope": "GLOBAL",
                 "evidence": "a sentence that appears nowhere in the document",
+                "default_kind": "absent",
+                "default_value": None,
+                "default_evidence": None,
             }
         ]
     }
@@ -457,3 +470,50 @@ def test_the_two_variants_cannot_share_a_cache_entry(tmp_path, transport):
 def test_an_unknown_prompt_variant_fails_loudly_rather_than_defaulting(tmp_path):
     with pytest.raises(KeyError):
         E.extract_document(ARM, "d", DOCUMENT, cache_dir=tmp_path, api_key="k", prompt="v3")
+
+
+def test_the_cache_key_changes_when_the_schema_changes(tmp_path, transport):
+    """A schema change is a new experiment, and must not reuse old answers.
+
+    Adding `default_value` to the record invalidated every cached response from
+    the second pilot. That is correct and it is the expensive kind of staleness:
+    the request contract changed, so the answers have to be bought again. The
+    dangerous failure would be the opposite -- a key that ignored the schema and
+    silently served answers produced under a different contract.
+    """
+    messages = [{"role": "system", "content": "s"}, {"role": "user", "content": "d"}]
+    payload = E.build_payload(ARM, messages)
+    assert "default_kind" in json.dumps(payload["response_format"]), (
+        "the schema must be inside the request, or the key cannot depend on it"
+    )
+
+    before = E.cache_key(ARM.model_id, payload)
+    altered = json.loads(json.dumps(payload))
+    schema = altered["response_format"]["json_schema"]["schema"]
+    schema["properties"]["settings"]["items"]["properties"].pop("default_kind")
+    assert E.cache_key(ARM.model_id, altered) != before
+
+
+def test_a_default_the_document_never_states_is_repaired_not_accepted(tmp_path, transport):
+    """The failure mode `default_value` introduces: filling it from memory."""
+    transport.returns((body(UNGROUNDED_DEFAULT), None, False), (body(GOOD), None, False))
+    row, extraction = run(tmp_path, transport)
+
+    assert row.outcome == E.Outcome.VALID_AFTER_REPAIR
+    assert extraction.settings[0].default_kind.value == "absent"
+    assert "default_evidence" in json.dumps(transport.calls[1]["messages"])
+
+
+def test_the_records_persisted_on_the_row_carry_the_default_fields(tmp_path, transport):
+    transport.returns((body(GOOD), None, False))
+    row, _ = run(tmp_path, transport)
+    (record,) = row.settings
+    assert set(record) == {
+        "name",
+        "input_type",
+        "scope",
+        "evidence",
+        "default_kind",
+        "default_value",
+        "default_evidence",
+    }

@@ -38,12 +38,23 @@ def oracle() -> SC.Oracle:
     return SC.load_oracle()
 
 
-def record(name: str, input_type="VARCHAR", scope="GLOBAL", evidence=None) -> dict:
+def record(
+    name: str,
+    input_type="VARCHAR",
+    scope="GLOBAL",
+    evidence=None,
+    default_kind="absent",
+    default_value=None,
+    default_evidence=None,
+) -> dict:
     return {
         "name": name,
         "input_type": input_type,
         "scope": scope,
         "evidence": evidence or "caps how much memory DuckDB may use",
+        "default_kind": default_kind,
+        "default_value": default_value,
+        "default_evidence": default_evidence,
     }
 
 
@@ -416,3 +427,145 @@ def test_the_committed_pilot_scores_without_network_or_key():
         assert s.no_answer + s.failed_extraction + s.answered_empty + s.answered == s.n_documents, (
             "every document must land in exactly one status"
         )
+
+
+# ------------------------------------------- 4. default accuracy vs the docs
+
+
+def test_a_literal_default_matching_the_reference_table_scores_correct(oracle):
+    truth = oracle.documented["access_mode"]
+    assert not truth["default_is_empty_cell"]
+    scored = SC.score_record(
+        record("access_mode", default_kind="literal", default_value=truth["default_value"]),
+        DOCUMENT,
+        oracle,
+    )
+    assert scored.default_kind_correct is True
+    assert scored.default_value_correct is True
+
+
+def test_backticks_and_case_do_not_make_a_default_wrong(oracle):
+    """The table writes `automatic`; a model may or may not copy the backticks."""
+    truth = oracle.documented["access_mode"]["default_value"]
+    for written in (f"`{truth}`", f'"{truth}"', truth.upper(), f"  {truth}  "):
+        scored = SC.score_record(
+            record("access_mode", default_kind="literal", default_value=written),
+            DOCUMENT,
+            oracle,
+        )
+        assert scored.default_value_correct is True, written
+
+
+def test_a_wrong_literal_default_is_caught(oracle):
+    scored = SC.score_record(
+        record("access_mode", default_kind="literal", default_value="read_write"),
+        DOCUMENT,
+        oracle,
+    )
+    assert scored.default_value_correct is False
+
+
+def test_a_machine_dependent_default_is_scored_on_the_classification_only(oracle):
+    """'80% of RAM' has no literal to be right about. Scoring one would grade
+    the model on this laptop's memory."""
+    scored = SC.score_record(
+        record("max_memory", default_kind="machine_dependent", default_value="80% of RAM"),
+        DOCUMENT,
+        oracle,
+    )
+    assert scored.default_is_machine_dependent is True
+    assert scored.default_kind_correct is True
+    assert scored.default_value_correct is None, "no literal comparison may happen here"
+
+
+def test_calling_a_machine_dependent_default_literal_is_a_classification_error(oracle):
+    scored = SC.score_record(
+        record("threads", default_kind="literal", default_value="16"),
+        DOCUMENT,
+        oracle,
+    )
+    assert scored.default_kind_correct is False
+    assert scored.default_value_correct is None, "still no literal comparison"
+
+
+def test_an_alias_inherits_the_canonical_settings_documented_default(oracle):
+    """`memory_limit` is `max_memory`; both are machine-dependent."""
+    scored = SC.score_record(
+        record("memory_limit", default_kind="machine_dependent", default_value="80% of RAM"),
+        DOCUMENT,
+        oracle,
+    )
+    assert scored.canonical == "max_memory"
+    assert scored.default_is_machine_dependent is True
+    assert scored.default_kind_correct is True
+
+
+def test_a_setting_in_no_reference_table_has_no_default_to_score_against(oracle):
+    """105 of the 274 are in no table. Absent truth is not a wrong answer."""
+    undocumented = next(name for name in oracle.settings if name not in oracle.documented)
+    scored = SC.score_record(
+        record(undocumented, default_kind="literal", default_value="whatever"),
+        DOCUMENT,
+        oracle,
+    )
+    assert scored.hallucinated is False
+    assert scored.default_kind_correct is None
+    assert scored.default_value_correct is None
+
+
+def test_a_hallucinated_setting_has_no_default_to_score_against(oracle):
+    scored = SC.score_record(
+        record("frobnicate_cache", default_kind="literal", default_value="1"), DOCUMENT, oracle
+    )
+    assert scored.default_kind_correct is None
+    assert scored.default_value_correct is None
+
+
+def test_an_empty_default_cell_in_the_table_means_absent_is_correct(oracle):
+    empty = next(
+        name
+        for name, row in oracle.documented.items()
+        if row["default_is_empty_cell"] and name not in SC.MACHINE_DEPENDENT
+    )
+    right = SC.score_record(record(empty, default_kind="absent"), DOCUMENT, oracle)
+    assert right.default_kind_correct is True
+    assert right.default_value_correct is None
+
+    wrong = SC.score_record(
+        record(empty, default_kind="literal", default_value="false"), DOCUMENT, oracle
+    )
+    assert wrong.default_kind_correct is False
+
+
+def test_default_metrics_aggregate_with_their_own_denominators(oracle):
+    truth = oracle.documented["access_mode"]["default_value"]
+    rows = [
+        result_row(settings=[record("access_mode", default_kind="literal", default_value=truth)]),
+        result_row(
+            settings=[record("threads", default_kind="machine_dependent", default_value="# CPU")]
+        ),
+        result_row(settings=[record("frobnicate_cache")]),
+    ]
+    scored = [score_one(r, "d", DOCUMENT, "narrative", [], oracle) for r in rows]
+    (summary,) = SC.summarise(scored)
+
+    assert summary.default_scorable == 2, "the hallucination is not scorable"
+    assert summary.default_kind_accuracy == 1.0
+    assert summary.default_value_scorable == 1, "only the literal one has a value to compare"
+    assert summary.default_value_accuracy == 1.0
+    assert summary.machine_dependent_seen == 1
+    assert summary.machine_dependent_classified == 1
+
+
+def test_the_observed_values_file_is_never_consulted_when_scoring(oracle):
+    """`duckdb_settings().value` is this laptop's core count and this laptop's
+    RAM. Scoring against it would grade every model on one machine."""
+    observed = {row["name"]: row["value"] for row in jsonl.read_list(paths.OBSERVED_VALUES_JSONL)}
+    assert observed.get("threads"), "the host really did report a value"
+    scored = SC.score_record(
+        record("threads", default_kind="literal", default_value=str(observed["threads"])),
+        DOCUMENT,
+        oracle,
+    )
+    assert scored.default_value_correct is None
+    assert scored.default_kind_correct is False, "the docs call it a rule, not a number"

@@ -118,6 +118,15 @@ correct answer for a section that documents nothing.
 For each setting, quote a span of the section verbatim as evidence. Copy the \
 characters exactly as they appear. Do not paraphrase, tidy or complete the quote.
 
+Also report the setting's default, but only if this section states it. If the \
+section gives a concrete value, that is a literal default. If it describes the \
+default as something that depends on the machine -- a share of RAM, the number \
+of CPU cores, the system locale -- copy that description rather than guessing a \
+number, and say it is machine-dependent. If the section does not state a \
+default, say it is absent; do not fill it in from what you already know about \
+DuckDB. A stated default must be backed by a verbatim quote in the same way the \
+setting itself is.
+
 Answer only with JSON matching the supplied schema."""
 
 #: The same task with the entity type pinned down. This is a *specification*,
@@ -154,6 +163,15 @@ of those in passing is not documenting a DuckDB setting.
 
 For each setting, quote a span of the section verbatim as evidence. Copy the \
 characters exactly as they appear. Do not paraphrase, tidy or complete the quote.
+
+Also report the setting's default, but only if this section states it. If the \
+section gives a concrete value, that is a literal default. If it describes the \
+default as something that depends on the machine -- a share of RAM, the number \
+of CPU cores, the system locale -- copy that description rather than guessing a \
+number, and say it is machine-dependent. If the section does not state a \
+default, say it is absent; do not fill it in from what you already know about \
+DuckDB. A stated default must be backed by a verbatim quote in the same way the \
+setting itself is.
 
 Answer only with JSON matching the supplied schema."""
 

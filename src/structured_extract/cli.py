@@ -661,16 +661,45 @@ def _group_errors(rows: list[extract_mod.ExtractionRow]) -> dict[str, list]:
 # --------------------------------------------------------------------------- score
 
 
+def _stale_results_reason(results: list[dict]) -> str | None:
+    """Why this results file cannot be scored by the current code, in one line.
+
+    Two different kinds of staleness, and they cost different amounts to fix.
+    A missing *row* field (``settings``, ``cost_reported``) is free: the request
+    was identical, so a replay rebuilds the file from the committed cache. A
+    missing *record* field means the request contract itself changed, the cache
+    keys no longer match, and the answers have to be bought again.
+    """
+    if not results:
+        return None
+    row_fields = {"settings", "cost_reported", "prompt", "arm"}
+    absent = sorted(row_fields - set(results[0]))
+    if absent:
+        return (
+            f"predates the current results schema (no {', '.join(absent)}).\n"
+            f"      Re-run to rewrite it from the cache -- free, no network:\n"
+            f"      structured-extract extract run --pilot <N>"
+        )
+    record_fields = {"default_kind", "default_value", "default_evidence"}
+    for row in results:
+        for record in row["settings"]:
+            missing = sorted(record_fields - set(record))
+            if missing:
+                return (
+                    f"was produced before the schema gained {', '.join(missing)}.\n"
+                    f"      The request contract changed, so the cache cannot answer this --\n"
+                    f"      these records have to be bought again:\n"
+                    f"      structured-extract extract run --pilot <N> --live"
+                )
+    return None
+
+
 def cmd_score_run(args: argparse.Namespace) -> int:
     """Score a results file against the oracle. Offline, free, no API key."""
     results = jsonl.read_list(args.results)
-    if results and "settings" not in results[0]:
-        print(
-            f"FAIL  {args.results.name} predates the current results schema (no per-record\n"
-            f"      'settings'). Re-run to rewrite it from the cache -- free, no network:\n"
-            f"      structured-extract extract run --pilot <N>",
-            file=sys.stderr,
-        )
+    stale = _stale_results_reason(results)
+    if stale:
+        print(f"FAIL  {args.results.name} {stale}", file=sys.stderr)
         return 2
 
     scores = score_mod.score_all(results)
@@ -698,6 +727,17 @@ def cmd_score_run(args: argparse.Namespace) -> int:
             f"{s.prompt:<15} {s.arm:<4} {s.records_returned:>5} {s.records_hallucinated:>7} "
             f"{s.hallucination_rate:>7.0%} {s.type_accuracy:>7.0%} "
             f"{s.scope_accuracy:>7.0%} {s.grounding_rate:>8.0%}"
+        )
+
+    print("\ndefaults  (against the reference table, never against this laptop's values)")
+    head = f"{'prompt':<15} {'arm':<4} {'kind n':>7} {'kind%':>7}"
+    print(f"{head} {'value n':>8} {'value%':>7} {'mach-dep':>9}")
+    for s in summaries:
+        print(
+            f"{s.prompt:<15} {s.arm:<4} {s.default_scorable:>7} "
+            f"{s.default_kind_accuracy:>7.0%} {s.default_value_scorable:>8} "
+            f"{s.default_value_accuracy:>7.0%} "
+            f"{f'{s.machine_dependent_classified}/{s.machine_dependent_seen}':>9}"
         )
 
     print("\nrecall  (reference stratum is exact; vs-mentioned is a proxy, biased low)")
@@ -760,7 +800,10 @@ def build_parser() -> argparse.ArgumentParser:
         "verify", help="resolve every pinned model id (public endpoint, no key, no spend)"
     ).set_defaults(func=cmd_arms_verify)
     cost = asub.add_parser("cost", help="estimated spend for the grid")
-    cost.add_argument("--overhead", type=int, default=780, help="prompt+schema tokens per call")
+    # Measured, not guessed: the wire schema is ~664 tokens and the longer of
+    # the two system prompts ~512, plus the request envelope. It was 780 before
+    # the record gained the three default fields.
+    cost.add_argument("--overhead", type=int, default=1240, help="prompt+schema tokens per call")
     cost.add_argument("--completion", type=int, default=350, help="output tokens per call")
     cost.add_argument("--repair-rate", type=float, default=0.20)
     cost.add_argument("--pilot", type=int, default=8)

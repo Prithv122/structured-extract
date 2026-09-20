@@ -41,7 +41,14 @@ from __future__ import annotations
 import re
 from enum import StrEnum
 
-from pydantic import BaseModel, ConfigDict, Field, ValidationInfo, field_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    ValidationInfo,
+    field_validator,
+    model_validator,
+)
 
 #: Key under which the source document is passed to ``model_validate(context=...)``.
 DOCUMENT_KEY = "document"
@@ -88,6 +95,26 @@ class Scope(StrEnum):
     LOCAL = "LOCAL"
 
 
+class DefaultKind(StrEnum):
+    """What *sort* of default the document states, asked before the value itself.
+
+    Four of the reference table's defaults are not values at all. ``threads`` is
+    documented as "# CPU cores", ``max_memory`` as "80% of RAM",
+    ``TimeZone`` as "System (locale) timezone". A schema that only offered a
+    string would force a model reading "80% of RAM" either to invent a number
+    for a machine it cannot see, or to put the rule in a field the scorer would
+    then compare literally and mark wrong. Both are the schema's fault, not the
+    model's, so the distinction is a field the model declares.
+    """
+
+    #: A concrete value the document states: ``automatic``, ``false``, ``512MB``.
+    LITERAL = "literal"
+    #: A rule that resolves differently per machine: "# CPU cores", "80% of RAM".
+    MACHINE_DEPENDENT = "machine_dependent"
+    #: The document does not state a default for this setting.
+    ABSENT = "absent"
+
+
 class SettingRecord(BaseModel):
     """One configuration setting the document documents."""
 
@@ -116,6 +143,28 @@ class SettingRecord(BaseModel):
             "summarise or repair the text."
         ),
     )
+    default_kind: DefaultKind = Field(
+        description=(
+            "literal if the document states a concrete default value; "
+            "machine_dependent if it describes the default as a rule that depends "
+            "on the machine, such as a share of RAM or the number of CPU cores; "
+            "absent if the document does not state a default at all."
+        )
+    )
+    default_value: str | None = Field(
+        description=(
+            "The default exactly as the document writes it, with no backticks or "
+            "quotes added or removed. For a machine_dependent default, copy the "
+            "rule itself rather than guessing a number. Null, and only null, when "
+            "default_kind is absent."
+        )
+    )
+    default_evidence: str | None = Field(
+        description=(
+            "A verbatim span copied from the document that states this default. "
+            "Null, and only null, when default_kind is absent."
+        )
+    )
 
     @field_validator("evidence")
     @classmethod
@@ -141,6 +190,52 @@ class SettingRecord(BaseModel):
                 "characters from the document instead of paraphrasing"
             )
         return value
+
+    @model_validator(mode="after")
+    def a_stated_default_must_be_shown(self, info: ValidationInfo):
+        """A default the document never states is the thing to catch here.
+
+        ``default_value`` is the one field a model can fill from what it already
+        knows about DuckDB rather than from the text in front of it, which is
+        exactly the failure the benchmark is trying to count. Requiring a span
+        makes that impossible to do quietly: either the document says so and the
+        span proves it, or the honest answer is ``absent``.
+
+        The span is held to a lower minimum length than ``evidence``. A default
+        is often stated in a table cell -- ``| false |`` -- and demanding a
+        sentence would push a model into quoting a whole row to satisfy a length
+        rule, which is a worse quote, not a better one.
+        """
+        stated = self.default_kind is not DefaultKind.ABSENT
+        if not stated:
+            if self.default_value is not None or self.default_evidence is not None:
+                raise ValueError(
+                    "default_kind is 'absent', so default_value and default_evidence "
+                    "must both be null"
+                )
+            return self
+
+        if not (self.default_value or "").strip():
+            raise ValueError(
+                f"default_kind is {self.default_kind.value!r}, so default_value must "
+                f"be the default as the document writes it, not null or empty"
+            )
+        span = (self.default_evidence or "").strip()
+        if not span:
+            raise ValueError(
+                f"default_kind is {self.default_kind.value!r}, so default_evidence "
+                f"must quote the text that states it; answer 'absent' if the "
+                f"document does not state a default"
+            )
+        document = (info.context or {}).get(DOCUMENT_KEY)
+        if document is not None and normalise_whitespace(span) not in normalise_whitespace(
+            document
+        ):
+            raise ValueError(
+                "default_evidence is not a verbatim span of the document: copy the "
+                "exact characters that state the default, or answer 'absent'"
+            )
+        return self
 
 
 class DocumentExtraction(BaseModel):
