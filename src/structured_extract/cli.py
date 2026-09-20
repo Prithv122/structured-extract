@@ -314,7 +314,30 @@ def cmd_corpus_verify(args: argparse.Namespace) -> int:
     if counts != Counter(QUOTAS):
         problems.append(f"bucket counts {dict(counts)} != quotas {QUOTAS}")
 
+    # Byte-identical documents are not a corruption -- the docs really do
+    # publish some sections at two paths -- but they are not two observations
+    # either. Their cache keys collide, so both arms of the "pair" get the same
+    # response, and any narrative-vs-extension comparison is quietly sharing a
+    # document. Reported loudly and never allowed to be silent.
+    by_hash: dict[str, list[str]] = {}
+    for row in rows:
+        by_hash.setdefault(row["sha256"], []).append(row["doc_id"])
+    duplicates = {h: ids for h, ids in by_hash.items() if len(ids) > 1}
+
     print(f"corpus.jsonl {len(rows)} documents {dict(counts)}")
+    if duplicates:
+        n_extra = sum(len(ids) - 1 for ids in duplicates.values())
+        print(
+            f"NOTE  {len(rows)} documents but only {len(by_hash)} distinct texts "
+            f"({n_extra} duplicate{'s' if n_extra > 1 else ''})"
+        )
+        for ids in duplicates.values():
+            paired = [next(r for r in rows if r["doc_id"] == i) for i in ids]
+            print(f"      {' == '.join(ids)}  ({paired[0]['n_chars']} chars, identical)")
+            for row in paired:
+                print(f"        {row['stratum']:<10} {row['source_path']}")
+            if len({r["stratum"] for r in paired}) > 1:
+                print("        ^ spans two strata: both are inflated by the same text")
     if problems:
         for p in problems:
             print(f"FAIL  {p}", file=sys.stderr)

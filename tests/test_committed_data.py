@@ -255,3 +255,28 @@ def test_every_document_fits_the_smallest_arm_context(documents):
 
     total = sum(d["n_chars"] for d in documents)
     assert total < 200_000, f"corpus grew to {total} chars -- re-check the per-arm cost estimate"
+
+
+def test_the_corpus_has_exactly_one_known_duplicate_pair(documents):
+    """`narrative-0021` and `extension-0008` are byte-identical.
+
+    DuckDB publishes the jemalloc "Background Threads" section at both
+    `internals/jemalloc.md` and `core_extensions/jemalloc.md`, so the sampler
+    drew the same 489 characters into two different strata. That is a faithful
+    sample of the documentation and a flawed benchmark item: the two rows share
+    a cache key, so both arms of the pair receive the identical model response,
+    and any narrative-vs-extension comparison silently shares a document.
+
+    Pinned rather than fixed, because dropping one would break the bucket
+    quotas and the decision is not the test's to make. What the test does
+    guarantee is that a *second* duplicate cannot arrive unnoticed.
+    """
+    by_hash: dict[str, list[str]] = {}
+    for doc in documents:
+        by_hash.setdefault(doc["sha256"], []).append(doc["doc_id"])
+    duplicates = {h: sorted(ids) for h, ids in by_hash.items() if len(ids) > 1}
+
+    assert list(duplicates.values()) == [["extension-0008", "narrative-0021"]], (
+        f"the corpus duplicate set changed: {duplicates}"
+    )
+    assert len(by_hash) == EXPECTED_CORPUS_DOCS - 1, "119 distinct texts across 120 documents"
