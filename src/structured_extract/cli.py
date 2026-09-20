@@ -8,6 +8,7 @@ committed artefact with no network and no DuckDB extension downloads.
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 from collections import Counter
@@ -506,7 +507,42 @@ def cmd_extract_run(args: argparse.Namespace) -> int:
             f"{sum(r.completion_tokens for r in group):>9,}"
         )
     print(f"\ntotal ${sum(r.cost_usd for r in results):.4f}  ->  {out}")
+
+    # A run where nothing was answered must say *why* on the terminal. The first
+    # live pilot returned 40 rows of `provider_unavailable` and the reason -- a
+    # 402 saying the account had never bought credits -- was only in the JSONL.
+    # Distinct messages, not one per row: 40 copies of one error is not a report.
+    failed = [r for r in results if r.error]
+    if failed:
+        print()
+        print(f"{len(failed)} of {len(results)} calls returned no answer:")
+        for message, group in _group_errors(failed).items():
+            arms = ", ".join(sorted({r.arm for r in group}))
+            print(f"  [{len(group):>3} rows · arms {arms}] {message}")
+        if len(failed) == len(results):
+            print("\nNothing was scored. Fix the error above before reading these results.")
+            return 1
     return 0
+
+
+def _group_errors(rows: list[extract_mod.ExtractionRow]) -> dict[str, list]:
+    """Collapse identical provider errors, keeping the provider's own wording.
+
+    The message is the useful part -- OpenRouter's 402 body names the remedy and
+    the URL -- so it is reproduced rather than replaced with a guess at what it
+    meant.
+    """
+    grouped: dict[str, list] = {}
+    for row in rows:
+        message = (row.error or "").strip()
+        try:  # OpenRouter wraps the real message in a JSON envelope.
+            _, _, body = message.partition(": ")
+            inner = json.loads(body)["error"]["message"]
+            message = f"{message.split(':', 1)[0]}: {inner}"
+        except (ValueError, KeyError, TypeError):
+            pass
+        grouped.setdefault(message, []).append(row)
+    return grouped
 
 
 # --------------------------------------------------------------------------- wiring

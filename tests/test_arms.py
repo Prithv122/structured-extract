@@ -11,7 +11,8 @@ import pytest
 
 from structured_extract import arms as A
 from structured_extract import jsonl, paths
-from structured_extract.cli import QUOTAS, _pilot_documents
+from structured_extract.cli import QUOTAS, _group_errors, _pilot_documents
+from structured_extract.extract import ExtractionRow
 
 
 def catalogue_entry(arm: A.Arm, **overrides) -> dict:
@@ -156,3 +157,62 @@ def test_the_pilot_is_deterministic():
 def test_the_pilot_cannot_ask_for_more_documents_than_exist():
     rows = jsonl.read_list(paths.CORPUS_JSONL)
     assert len(_pilot_documents(rows, 10_000)) == len(rows)
+
+
+# ------------------------------------------------------------- error reporting
+
+
+REAL_402 = (
+    'HTTP 402: {"error":{"message":"Insufficient credits. This account never '
+    'purchased credits. Make sure your key is on the correct account or org, and '
+    'if so, purchase more at https://openrouter.ai/settings/credits","code":402,'
+    '"metadata":{"limit_source":"openrouter_credits"}}}'
+)
+
+
+def row(arm: str, error: str | None):
+    return ExtractionRow(
+        doc_id="d",
+        arm=arm,
+        requested_model="m",
+        answering_model="",
+        outcome="provider_unavailable",
+        repair_used=False,
+        finish_reason="",
+        first_finish_reason="",
+        prompt_tokens=0,
+        completion_tokens=0,
+        latency_s=0.0,
+        cost_usd=0.0,
+        n_settings=0,
+        error=error,
+        validation_errors=[],
+    )
+
+
+def test_identical_provider_errors_collapse_to_one_line():
+    """The first live pilot printed 40 rows and not one reason. 40 copies of one
+    error is not a report."""
+    grouped = _group_errors([row(a, REAL_402) for a in ["H1", "H2", "H3", "H4", "H5"]])
+    assert len(grouped) == 1
+    assert sum(len(v) for v in grouped.values()) == 5
+
+
+def test_the_providers_own_wording_survives_the_json_envelope():
+    """OpenRouter's 402 body names the remedy and the URL -- reproduce it, do not
+    replace it with a guess at what it meant."""
+    (message,) = _group_errors([row("H1", REAL_402)])
+    assert message.startswith("HTTP 402: ")
+    assert "This account never purchased credits" in message
+    assert "openrouter.ai/settings/credits" in message
+    assert '{"error"' not in message, "the JSON envelope should be unwrapped"
+
+
+def test_an_error_that_is_not_json_is_passed_through_unchanged():
+    (message,) = _group_errors([row("H1", "TimeoutError: timed out")])
+    assert message == "TimeoutError: timed out"
+
+
+def test_different_errors_stay_separate():
+    grouped = _group_errors([row("H1", REAL_402), row("H2", "HTTP 500: upstream")])
+    assert len(grouped) == 2
