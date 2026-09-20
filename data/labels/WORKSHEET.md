@@ -1,6 +1,6 @@
 # Hand-labelling worksheet
 
-40 prose sections drawn from the 85 in the corpus, seeded and
+45 prose sections drawn from the 85 in the corpus, seeded and
 stratified. The reference stratum is excluded: those 35 documents are single
 rows of the generated configuration reference table and already have exact
 ground truth.
@@ -15,7 +15,7 @@ the oracle and the reference table already know them for any name you give.
 
 ---
 
-## [ ] `extension-0001`  ·  extension-signal
+## [x] `extension-0001`  ·  extension-signal
 
 - source: `core_extensions/aws.md`
 - heading: AWS Extension > Installing and Loading > `credential_chain` Provider > Region Resolution
@@ -37,7 +37,37 @@ Set region explicitly using REGION 'us-east-1' in your CREATE SECRET statement, 
 ```
 ```
 
-## [ ] `extension-0003`  ·  extension-signal
+## [ ] `extension-0002`  ·  extension-signal
+
+- source: `core_extensions/iceberg/overview.md`
+- heading: Iceberg Extension > Installing and Loading > Reading Iceberg Tables > “Guessing” Metadata Versions
+- names the detector found: `unsafe_enable_version_guessing`
+
+```markdown
+By default, either a table version number or a `version-hint.text` **must** be provided for the `iceberg` extension to read a table. This is typically provided by an external data catalog. In the event neither is present, the `iceberg` extension can attempt to guess the latest version by passing `?` as the `version` parameter:
+
+```sql
+SELECT count(*)
+FROM iceberg_scan(
+    'data/iceberg/lineitem_iceberg_no_hint',
+    version = '?',
+    allow_moved_paths = true
+);
+```
+
+The “latest” version is assumed to be the filename that is lexicographically largest when sorting the filenames. Collations are not considered. This behavior is not enabled by default as it may potentially violate ACID constraints. It can be enabled by setting `unsafe_enable_version_guessing` to `true`. When this is set, `iceberg` functions will attempt to guess the latest version by default before failing.
+
+```sql
+SET unsafe_enable_version_guessing = true;
+SELECT count(*)
+FROM iceberg_scan(
+    'data/iceberg/lineitem_iceberg_no_hint',
+    allow_moved_paths = true
+);
+```
+```
+
+## [x] `extension-0003`  ·  extension-signal
 
 - source: `core_extensions/postgres/connection_pool.md`
 - heading: PostgreSQL Extension Connection Pool > Parallel Scans > Thread-local Cache
@@ -51,7 +81,7 @@ To support this the `pg_pool_enable_thread_local_cache` configuration option can
 > Thread-local connection are not checked and not cleaned up by the reaper thread. Thread-local cache should be used with caution as cached connections, while not available to other threads, are still take the place in the pool, so can cause a "pool startvation".
 ```
 
-## [ ] `extension-0005`  ·  extension-signal
+## [x] `extension-0005`  ·  extension-signal
 
 - source: `core_extensions/postgres/overview.md`
 - heading: PostgreSQL Extension > Installing and Loading > Schema Cache
@@ -73,7 +103,7 @@ In version 1.5.5 a support for automatic detection of schema changes was added u
  - for Postgres-wire-compatible databases a custom "staleness query" can be set using `pg_staleness_query` option.
 ```
 
-## [ ] `extension-0006`  ·  extension-signal
+## [x] `extension-0006`  ·  extension-signal
 
 - source: `core_extensions/iceberg/iceberg_options.md`
 - heading: Iceberg Options > `ATTACH` Options > Settings
@@ -87,7 +117,7 @@ In version 1.5.5 a support for automatic detection of schema changes was added u
 | `iceberg_unsafe_skip_puffin_verification` | `BOOLEAN` | `false` | When reading V3 Deletion Vectors, skip the Puffin file verification (for compatibility with files written by older versions). |
 ```
 
-## [ ] `extension-0008`  ·  extension-signal
+## [x] `extension-0008`  ·  extension-signal
 
 - source: `core_extensions/jemalloc.md`
 - heading: jemalloc Extension > Operating System Support > Configuration > Background Threads
@@ -103,7 +133,7 @@ SET allocator_background_threads = true;
 Background threads asynchronously purge outstanding allocations so that this doesn't have to be done synchronously by the foreground threads. This improves allocation performance, and should be noticeable in allocation-heavy workloads, especially on many-core CPUs.
 ```
 
-## [ ] `extension-0012`  ·  extension-signal
+## [x] `extension-0012`  ·  extension-signal
 
 - source: `core_extensions/spatial/r-tree_indexes.md`
 - heading: R-Tree Indexes > Why Should I Use an R-Tree Index? > Performance Considerations > Memory Usage
@@ -113,7 +143,7 @@ Background threads asynchronously purge outstanding allocations so that this doe
 Like DuckDB's built in ART-index, all the associated buffers containing the R-tree will be lazily loaded from disk (when running DuckDB in disk-backed mode), but they are currently never unloaded unless the index is dropped. This means that if you end up scanning the entire index, the entire index will be loaded into memory and stay there for the duration of the database connection. However, all memory used by the R-tree index (even during bulk-loading) is tracked by DuckDB, and will count towards the memory limit set by the `memory_limit` configuration parameter.
 ```
 
-## [ ] `extension-0014`  ·  extension-signal
+## [x] `extension-0014`  ·  extension-signal
 
 - source: `core_extensions/httpfs/s3api_legacy_authentication.md`
 - heading: Legacy Authentication Scheme for S3 API > Legacy Authentication Scheme
@@ -162,7 +192,7 @@ SET s3_session_token = '⟨aws_session_token⟩';
 The [`aws` extension]({% link docs/current/core_extensions/aws.md %}) allows for loading AWS credentials.
 ```
 
-## [ ] `extension-0015`  ·  extension-signal
+## [x] `extension-0015`  ·  extension-signal
 
 - source: `core_extensions/mysql.md`
 - heading: MySQL Extension > Installing and Loading > Settings
@@ -188,7 +218,7 @@ The [`aws` extension]({% link docs/current/core_extensions/aws.md %}) allows for
 | `mysql_tinyint1_as_boolean` | Whether or not to convert `TINYINT(1)` columns to `BOOLEAN` | `true` |
 ```
 
-## [ ] `extension-0016`  ·  extension-signal
+## [x] `extension-0016`  ·  extension-signal
 
 - source: `extensions/installing_extensions.md`
 - heading: Installing Extensions > Extension Repositories > Installing Extensions from Different Repositories
@@ -240,7 +270,20 @@ DuckDB contains the following predefined repositories:
 | `local_build_release` | `./build/release/repository`             | Repository created when building DuckDB from source in release mode (for development)  |
 ```
 
-## [ ] `extension-0021`  ·  extension-distractor
+## [ ] `extension-0020`  ·  extension-distractor
+
+- source: `core_extensions/postgres/secrets.md`
+- heading: PostgreSQL Extension and the Secret Manager > Managing Multiple Secrets > AWS RDS IAM Authentication
+- names the detector found: `password`
+
+```markdown
+Managed PostgreSQL databases running on RDS/Aurora services allow to use [IAM authentication](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html).
+In that case the authentication token is generated using AWS SDK and must be refreshed every 15 minutes.
+
+The `postgres` extension supports IAM authentication, when the password is not specified in the secret, but instead one of the configured AWS Credential Providers is used to generate the password, that is refreshed by the `postgres` extension automatically.
+```
+
+## [x] `extension-0021`  ·  extension-distractor
 
 - source: `core_extensions/ui.md`
 - heading: UI Extension
@@ -254,7 +297,7 @@ An overview of its features can be found
 in the [MotherDuck documentation](https://motherduck.com/docs/getting-started/motherduck-quick-tour/).
 ```
 
-## [ ] `extension-0022`  ·  extension-distractor
+## [x] `extension-0022`  ·  extension-distractor
 
 - source: `extensions/versioning_of_extensions.md`
 - heading: Versioning of Extensions > Extension Versioning > In-Tree vs. Out-of-Tree
@@ -271,7 +314,7 @@ While from a user's perspective, there are generally no noticeable differences, 
 * core out-of tree extensions tend to live in repositories named `github.com/duckdb/duckdb-⟨extension_name⟩`{:.language-sql .highlight} but the name may vary. See the [full list]({% link docs/current/core_extensions/overview.md %}) of core extensions for details.
 ```
 
-## [ ] `extension-0024`  ·  extension-distractor
+## [x] `extension-0024`  ·  extension-distractor
 
 - source: `core_extensions/ducklake.md`
 - heading: DuckLake > Installing and Loading > Functions > `ducklake_snapshots`
@@ -294,7 +337,50 @@ The information is encoded into a table with the following schema:
 | `changes`        | `MAP(VARCHAR, VARCHAR[])`  |
 ```
 
-## [ ] `narrative-0003`  ·  narrative-signal
+## [ ] `narrative-0001`  ·  narrative-signal
+
+- source: `sql/statements/copy.md`
+- heading: COPY Statement > Examples > `COPY ... TO` > `COPY ... TO` Options
+- names the detector found: `preserve_insertion_order`
+
+```markdown
+Zero or more copy options may be provided as a part of the copy operation. The `WITH` specifier is optional, but if any options are specified, the parentheses are required. Parameter values can be passed in with or without wrapping in single quotes. Arbitrary expressions may be used for parameter values.
+
+Any option that is a Boolean can be enabled or disabled in multiple ways. You can write `true`, `ON`, or `1` to enable the option, and `false`, `OFF`, or `0` to disable it. The `BOOLEAN` value can also be omitted, e.g., by only passing `(HEADER)`, in which case `true` is assumed.
+
+With few exceptions, the below options are applicable to all formats written with `COPY`.
+
+| Name | Description | Type | Default |
+|:--|:-----|:-|:-|
+| `FORMAT` | Specifies the copy function to use. The default is selected from the file extension (e.g., `.parquet` results in a Parquet file being written/read). If the file extension is unknown `CSV` is selected. Vanilla DuckDB provides `CSV`, `PARQUET` and `JSON` but additional copy functions can be added by [`extensions`]({% link docs/current/extensions/overview.md %}). | `VARCHAR` | `auto` |
+| `USE_TMP_FILE` | Whether or not to write to a temporary file first if the original file exists (`target.csv.tmp`). This prevents overwriting an existing file with a broken file in case the writing is cancelled. | `BOOL` | `auto` |
+| `OVERWRITE_OR_IGNORE` | Whether or not to allow overwriting files if they already exist. Only has an effect when used with options that write multiple files, such as `PARTITION_BY`, `PER_THREAD_OUTPUT` or `FILE_SIZE_BYTES`. | `BOOL` | `false` |
+| `OVERWRITE` | When `true`, all existing files inside targeted directories will be removed (not supported on remote filesystems). Only has an effect when used with options that write multiple files, such as `PARTITION_BY`, `PER_THREAD_OUTPUT` or `FILE_SIZE_BYTES`. | `BOOL` | `false` |
+| `APPEND` | When `true`, in the event a filename pattern is generated that already exists, the path will be regenerated to ensure no existing files are overwritten. Only has an effect when used with options that write multiple files, such as `PARTITION_BY`, `PER_THREAD_OUTPUT` or `FILE_SIZE_BYTES`. | `BOOL` | `false` |
+| `FILENAME_PATTERN` | Set a pattern to use for the filename, can optionally contain `{uuid}` / `{uuidv4}` or `{uuidv7}` to be filled in with a generated [UUID]({% link docs/current/sql/data_types/numeric.md %}#universally-unique-identifiers-uuids) (v4 or v7, respectively), and `{i}`, which is replaced by an incrementing index. Only has an effect when used with options that write multiple files, such as `PARTITION_BY`, `PER_THREAD_OUTPUT` or `FILE_SIZE_BYTES`. | `VARCHAR` | `auto` |
+| `FILE_EXTENSION` | Set the file extension that should be assigned to the generated file(s). | `VARCHAR` | `auto` |
+| `PER_THREAD_OUTPUT` | When `true`, the `COPY` command generates one file per thread, rather than one file in total. This allows for faster parallel writing. | `BOOL` | `false` |
+| `FILE_SIZE_BYTES` | If this parameter is set, the `COPY` process creates a directory which will contain the exported files. If a file exceeds the set limit (specified as bytes such as `1000` or in human-readable format such as `1k`), the process creates a new file in the directory. This parameter works in combination with `PER_THREAD_OUTPUT`. Note that the size is used as an approximation, and files can be occasionally slightly over the limit. | `VARCHAR` or `BIGINT` | (empty) |
+| `PARTITION_BY` | The columns to partition by using a Hive partitioning scheme, see the [partitioned writes section]({% link docs/current/data/partitioning/partitioned_writes.md %}). | `VARCHAR[]` | (empty) |
+| `PRESERVE_ORDER` | Whether or not to [preserve order]({% link docs/current/sql/dialect/order_preservation.md %}) during the copy operation. Defaults to the value of the `preserve_insertion_order` [configuration option]({% link docs/current/configuration/overview.md %}). | `BOOL`| (*) |
+| `RETURN_FILES` | Whether or not to include the created filepath(s) (as a `files VARCHAR[]` column) in the query result. | `BOOL` | `false` |
+| `RETURN_STATS` | Whether or not to return the files and their column statistics that were written as part of the `COPY` statement. | `BOOL`| `false` |
+| `WRITE_PARTITION_COLUMNS` | Whether or not to write partition columns into files. Only has an effect when used with `PARTITION_BY`. | `BOOL` | `false` |
+```
+
+## [ ] `narrative-0002`  ·  narrative-signal
+
+- source: `clients/wasm/troubleshoot.md`
+- heading: Troubleshoot > Overview > Extension Fails to Load from a Custom Repository
+- names the detector found: `custom_extension_repository`
+
+```markdown
+DuckDB-Wasm fetches each extension over the network when it is loaded. If you serve extensions from a [custom repository]({% link docs/current/clients/wasm/deploying_duckdb_wasm.md %}#duckdb-extensions) with `SET custom_extension_repository = '⟨https://some.url.com⟩'`, the `GET` requests for the extension files must be [CORS enabled](https://www.w3.org/wiki/CORS_Enabled) for the browser to allow the connection, exactly as for remote data files above.
+
+Extensions remain signed regardless of where they are served, so copying an extension to a different location keeps its signature valid.
+```
+
+## [x] `narrative-0003`  ·  narrative-signal
 
 - source: `sql/expressions/collations.md`
 - heading: Collations > Using Collations > Default Collations
@@ -369,7 +455,7 @@ WHERE names.name COLLATE NOACCENT.NOCASE = other_names.name COLLATE NOACCENT.NOC
 | hännes | HÄNNES     |
 ```
 
-## [ ] `narrative-0010`  ·  narrative-signal
+## [x] `narrative-0010`  ·  narrative-signal
 
 - source: `sql/dialect/keywords_and_identifiers.md`
 - heading: Keywords and Identifiers > Identifiers > Rules for Case-Sensitivity > Case-Sensitivity of Keys in Nested Data Structures > Disabling Preserving Cases
@@ -389,7 +475,7 @@ SELECT CosineOfPi FROM tbl;
 | -1.0       |
 ```
 
-## [ ] `narrative-0012`  ·  narrative-signal
+## [x] `narrative-0012`  ·  narrative-signal
 
 - source: `data/partitioning/partitioned_writes.md`
 - heading: Partitioned Writes > Examples > Partitioned Writes
@@ -425,7 +511,7 @@ SET partitioned_write_max_open_files = 10;
 > Bestpractice Writing data into many small partitions is expensive. It is generally recommended to have at least `100 MB` of data per partition.
 ```
 
-## [ ] `narrative-0013`  ·  narrative-signal
+## [x] `narrative-0013`  ·  narrative-signal
 
 - source: `quack/reference.md`
 - heading: Reference > Function Reference > Logging > HTTP Log
@@ -455,7 +541,7 @@ FROM duckdb_logs_parsed('HTTP');
 Requests are `POST`s to a `/quack` endpoint.
 ```
 
-## [ ] `narrative-0014`  ·  narrative-signal
+## [x] `narrative-0014`  ·  narrative-signal
 
 - source: `sql/data_types/geometry.md`
 - heading: Geometry Data Type > Types of Geometries > Geometry Storage > Shredding and Compression
@@ -561,7 +647,7 @@ SELECT DISTINCT(segment_type) FROM pragma_storage_info('shredded_db.points');
 ```
 ```
 
-## [ ] `narrative-0015`  ·  narrative-signal
+## [x] `narrative-0015`  ·  narrative-signal
 
 - source: `operations_manual/user_agents.md`
 - heading: HTTP User-Agent
@@ -579,7 +665,7 @@ which indicates version, architecture, client, buildref in the agent string. The
 In addition, some extensions set their own user agents; notable examples here include the following.
 ```
 
-## [ ] `narrative-0017`  ·  narrative-signal
+## [x] `narrative-0017`  ·  narrative-signal
 
 - source: `sql/query_syntax/with.md`
 - heading: WITH Clause > Basic CTE Examples > Recursive CTEs with `USING KEY`
@@ -620,7 +706,7 @@ In each iteration, a regular recursive CTE appends result rows to the union tabl
 This allows a CTE to exercise fine-grained control over the union table contents. Avoiding the append-only behavior can lead to significantly smaller union table sizes. This helps query runtime, memory consumption, and makes it feasible to access the union table while the iteration is still ongoing. In a CTE `WITH RECURSIVE T(...) USING KEY ...`, table `T` denotes the rows added by the last iteration (as is usual for recursive CTEs), while table `recurring.T` denotes the [union table built so far](#accessing-the-union-table-with-recurring). References to `recurring.T` allow for the elegant and idiomatic translation of rather complex algorithms into readable SQL code.
 ```
 
-## [ ] `narrative-0019`  ·  narrative-signal
+## [x] `narrative-0019`  ·  narrative-signal
 
 - source: `clients/wasm/extensions.md`
 - heading: Load Extensions > Overview > Serving Extensions from a Third-Party Repository
@@ -632,7 +718,7 @@ As with regular DuckDB, if you use `SET custom_extension_repository = 'https://s
 Note that `GET` requests for the extensions must be [CORS enabled](https://www.w3.org/wiki/CORS_Enabled) for a browser to allow the connection; see [Troubleshoot]({% link docs/current/clients/wasm/troubleshoot.md %}#extension-fails-to-load-from-a-custom-repository) if a load fails.
 ```
 
-## [ ] `narrative-0021`  ·  narrative-signal
+## [x] `narrative-0021`  ·  narrative-signal
 
 - source: `internals/jemalloc.md`
 - heading: jemalloc > Operating System Support > Configuration > Background Threads
@@ -648,7 +734,7 @@ SET allocator_background_threads = true;
 Background threads asynchronously purge outstanding allocations so that this doesn't have to be done synchronously by the foreground threads. This improves allocation performance, and should be noticeable in allocation-heavy workloads, especially on many-core CPUs.
 ```
 
-## [ ] `narrative-0022`  ·  narrative-signal
+## [x] `narrative-0022`  ·  narrative-signal
 
 - source: `configuration/pragmas.md`
 - heading: Pragmas > Metadata > Implicit Casting to `VARCHAR`
@@ -662,7 +748,7 @@ SET old_implicit_casting = true;
 ```
 ```
 
-## [ ] `narrative-0023`  ·  narrative-signal
+## [x] `narrative-0023`  ·  narrative-signal
 
 - source: `guides/odbc/general.md`
 - heading: ODBC 101: A Duck Themed Guide to ODBC > or > 2. Define the ODBC Handles and Connect to the Database > 2.a. Connecting with SQLConnect > 2.b. Connecting with SQLDriverConnect
@@ -691,7 +777,7 @@ std::cout << "Connected!" << std::endl;
 ```
 ```
 
-## [ ] `narrative-0025`  ·  narrative-signal
+## [x] `narrative-0025`  ·  narrative-signal
 
 - source: `sql/data_types/timestamp.md`
 - heading: Timestamp Types > Time Zones > Time Zone Support
@@ -732,7 +818,7 @@ ORDER BY
 You can also find a reference table of [available time zones]({% link docs/current/sql/data_types/timezones.md %}).
 ```
 
-## [ ] `narrative-0027`  ·  narrative-signal
+## [x] `narrative-0027`  ·  narrative-signal
 
 - source: `sql/functions/utility.md`
 - heading: Utility Functions > Scalar Utility Functions > Utility Table Functions
@@ -747,7 +833,7 @@ A [table function]({% link docs/current/sql/query_syntax/from.md %}#table-functi
 | [`repeat_row(varargs, num_rows)`](#repeat_rowvarargs-num_rows) | Returns a table with `num_rows` rows, each containing the fields defined in `varargs`. |
 ```
 
-## [ ] `narrative-0028`  ·  narrative-signal
+## [x] `narrative-0028`  ·  narrative-signal
 
 - source: `clients/rust/profiling.md`
 - heading: Profile and Monitor > Overview > Further Reading
@@ -759,7 +845,7 @@ A [table function]({% link docs/current/sql/query_syntax/from.md %}#table-functi
 * [Connect]({% link docs/current/clients/rust/connecting.md %}) — the `Connection` that profiling and the interrupt handle operate on.
 ```
 
-## [ ] `narrative-0030`  ·  narrative-signal
+## [x] `narrative-0030`  ·  narrative-signal
 
 - source: `sql/data_types/typecasting.md`
 - heading: Typecasting > Explicit Casting > Casting Operations Matrix
@@ -780,7 +866,7 @@ Even though a casting operation is supported based on the source and target data
 > However, please note that this flag will be deprecated in the future.
 ```
 
-## [ ] `narrative-0031`  ·  narrative-signal
+## [x] `narrative-0031`  ·  narrative-signal
 
 - source: `data/parquet/overview.md`
 - heading: Reading and Writing Parquet Files > Examples > `read_parquet` Function > Parameters
@@ -801,7 +887,7 @@ There are a number of options exposed that can be passed to the `read_parquet` f
 | `schema` | Allows you to read a Parquet file as if it has the supplied schema. Field IDs are required. | `MAP` | `NULL` |
 ```
 
-## [ ] `narrative-0032`  ·  narrative-signal
+## [x] `narrative-0032`  ·  narrative-signal
 
 - source: `clients/odbc/configuration.md`
 - heading: ODBC Configuration > `odbc.ini` and `.odbc.ini`
@@ -826,7 +912,7 @@ The lines correspond to the following parameters:
 * `access_mode`: The mode in which to connect to the database.
 ```
 
-## [ ] `narrative-0034`  ·  narrative-signal
+## [x] `narrative-0034`  ·  narrative-signal
 
 - source: `clients/r.md`
 - heading: R Client > Summarize the dataset in DuckDB to avoid reading 12 Parquet files into R's memory > Memory Limit
@@ -843,7 +929,7 @@ Note that this limit is only applied to the memory DuckDB uses and it does not a
 Therefore, the total memory used by the R process may be higher than the configured `memory_limit`.
 ```
 
-## [ ] `narrative-0036`  ·  narrative-signal
+## [x] `narrative-0036`  ·  narrative-signal
 
 - source: `sql/meta/duckdb_table_functions.md`
 - heading: DuckDB_% Metadata Functions > `duckdb_columns` > `duckdb_optimizers`
@@ -858,7 +944,7 @@ These can be selectively turned off using [`PRAGMA disabled_optimizers`]({% link
 | `name` | The name of the optimization rule. | `VARCHAR` |
 ```
 
-## [ ] `narrative-0042`  ·  narrative-signal
+## [x] `narrative-0042`  ·  narrative-signal
 
 - source: `sql/query_syntax/orderby.md`
 - heading: ORDER BY Clause > `ORDER BY ALL` > `NULL` Order Modifier
@@ -882,7 +968,7 @@ SET default_order = 'DESC';
 ```
 ```
 
-## [ ] `narrative-0043`  ·  narrative-signal
+## [x] `narrative-0043`  ·  narrative-signal
 
 - source: `clients/python/data_ingestion.md`
 - heading: Data Ingestion > insert into an existing table from the contents of a DataFrame > Pandas DataFrames – `object` Columns
@@ -899,7 +985,7 @@ The sample size can be changed by setting the `pandas_analyze_sample` config opt
 ```python
 ```
 
-## [ ] `narrative-0045`  ·  narrative-signal
+## [x] `narrative-0045`  ·  narrative-signal
 
 - source: `sql/statements/attach.md`
 - heading: ATTACH and DETACH Statements > Examples > Name Qualification > Changing the Catalog Search Path
@@ -931,7 +1017,7 @@ SELECT * FROM tbl2;
 ```
 ```
 
-## [ ] `narrative-0047`  ·  narrative-signal
+## [x] `narrative-0047`  ·  narrative-signal
 
 - source: `sql/dialect/order_preservation.md`
 - heading: Order Preservation > Example > Insertion Order
@@ -953,7 +1039,7 @@ SET preserve_insertion_order = false;
 ```
 ```
 
-## [ ] `narrative-0051`  ·  narrative-distractor
+## [x] `narrative-0051`  ·  narrative-distractor
 
 - source: `configuration/secrets_manager.md`
 - heading: Secrets Manager
@@ -965,7 +1051,18 @@ The **Secrets manager** provides a unified user interface for secrets across all
 > Warning Persistent secrets are stored in unencrypted binary format on the disk.
 ```
 
-## [ ] `narrative-0057`  ·  narrative-distractor
+## [ ] `narrative-0052`  ·  narrative-distractor
+
+- source: `sql/statements/show.md`
+- heading: SHOW, SHOW DATABASES, and SHOW SCHEMAS Statements > `SHOW` Statement
+- names the detector found: `schema`
+
+```markdown
+The `SHOW` statement is an alias for [`DESCRIBE`]({% link docs/current/sql/statements/describe.md %}).
+It shows the schema of a table, view or query.
+```
+
+## [x] `narrative-0057`  ·  narrative-distractor
 
 - source: `clients/wasm/data_ingestion.md`
 - heading: Import Data > Overview > CSV
@@ -994,7 +1091,7 @@ await conn.insertCSVFromPath('data.csv', {
 ```
 ```
 
-## [ ] `narrative-0058`  ·  narrative-distractor
+## [x] `narrative-0058`  ·  narrative-distractor
 
 - source: `sql/data_types/struct.md`
 - heading: Struct Data Type
@@ -1010,7 +1107,7 @@ Conceptually, a `STRUCT` column contains an ordered list of columns called “en
 See the [data types overview]({% link docs/current/sql/data_types/overview.md %}) for a comparison between nested data types.
 ```
 
-## [ ] `narrative-0059`  ·  narrative-distractor
+## [x] `narrative-0059`  ·  narrative-distractor
 
 - source: `sql/dialect/postgresql_compatibility.md`
 - heading: PostgreSQL Compatibility > Floating-Point Arithmetic > Resolution of Type Names in the Schema
@@ -1045,7 +1142,7 @@ DESCRIBE myschema.mytable;
 | v           | ENUM('as', 'df') | YES  | NULL | NULL    | NULL  |
 ```
 
-## [ ] `narrative-0060`  ·  narrative-distractor
+## [x] `narrative-0060`  ·  narrative-distractor
 
 - source: `sql/meta/information_schema.md`
 - heading: Information Schema > Tables > `character_sets`: Character Sets

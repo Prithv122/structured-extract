@@ -155,7 +155,8 @@ class RecordScore:
 
     name: str
     canonical: str | None
-    #: The binary has no setting by this name or any alias of it.
+    #: The binary has no setting by this name or any alias of it, **and** no
+    #: labeller has confirmed the document documents it anyway.
     hallucinated: bool
     #: ``None`` when hallucinated -- there is nothing to compare against.
     input_type_correct: bool | None
@@ -174,6 +175,13 @@ class RecordScore:
     default_value_correct: bool | None
     #: True when the reference table documents this setting's default as a rule.
     default_is_machine_dependent: bool
+    #: The binary has no such setting, but a labeller read this section and
+    #: confirmed it documents one. The model read the documentation correctly
+    #: and the documentation is wrong -- neither a hallucination nor a scorable
+    #: record. Three exist: mysql_enable_filter_pushdown (renamed in the binary
+    #: to mysql_experimental_filter_pushdown) and two iceberg_* settings with no
+    #: equivalent at all.
+    documented_not_in_binary: bool = False
 
     def to_json(self) -> dict:
         return asdict(self)
@@ -286,15 +294,22 @@ def score_default(record: dict, canonical: str | None, oracle: Oracle):
     return kind_correct, value_correct, False
 
 
-def score_record(record: dict, document: str, oracle: Oracle) -> RecordScore:
+def score_record(
+    record: dict,
+    document: str,
+    oracle: Oracle,
+    documented_absent: frozenset[str] = frozenset(),
+) -> RecordScore:
     canonical = oracle.resolve(record["name"])
+    absent = canonical is None and record["name"].strip().lower() in documented_absent
     truth = oracle.settings.get(canonical) if canonical else None
     grounded = S.normalise_whitespace(record["evidence"]) in S.normalise_whitespace(document)
     kind_ok, value_ok, machine_dependent = score_default(record, canonical, oracle)
     return RecordScore(
         name=record["name"],
         canonical=canonical,
-        hallucinated=canonical is None,
+        hallucinated=canonical is None and not absent,
+        documented_not_in_binary=absent,
         input_type_correct=None if truth is None else record["input_type"] == truth["input_type"],
         scope_correct=None if truth is None else record["scope"] == truth["scope"],
         evidence_grounded=grounded,
@@ -312,6 +327,7 @@ def score_row(
     documents: dict[str, str],
     oracle: Oracle,
     hand_labels: dict[str, list[str]] | None = None,
+    absent_labels: dict[str, list[str]] | None = None,
 ):
     """Score one results row. ``corpus`` and ``documents`` are keyed by doc_id.
 
@@ -319,6 +335,9 @@ def score_row(
     document. Absent, the prose strata fall back to the proxy and say so.
     """
     hand_labels = hand_labels or {}
+    documented_absent = frozenset(
+        name.lower() for name in (absent_labels or {}).get(row["doc_id"], [])
+    )
     meta = corpus[row["doc_id"]]
     text = documents[row["doc_id"]]
     outcome = row["outcome"]
@@ -364,7 +383,7 @@ def score_row(
         stratum=meta["stratum"],
         status=status.value,
         outcome=outcome,
-        records=[score_record(r, text, oracle) for r in row["settings"]],
+        records=[score_record(r, text, oracle, documented_absent) for r in row["settings"]],
         expected=expected,
         mentioned=mentioned,
         truth_source=truth_source,
@@ -381,15 +400,19 @@ def score_row(
 
 def score_all(results: list[dict]) -> list[DocumentScore]:
     oracle = load_oracle()
-    hand = {
-        label.doc_id: label.documents for label in labels_mod.load() if label.documents is not None
+    loaded = labels_mod.load()
+    hand = {label.doc_id: label.documents for label in loaded if label.documents is not None}
+    absent = {
+        label.doc_id: label.documented_not_in_binary
+        for label in loaded
+        if label.documented_not_in_binary
     }
     corpus = {row["doc_id"]: row for row in jsonl.read_list(paths.CORPUS_JSONL)}
     documents = {
         doc_id: (paths.CORPUS_DOCUMENTS / f"{doc_id}.md").read_text(encoding="utf-8")
         for doc_id in {row["doc_id"] for row in results}
     }
-    return [score_row(row, corpus, documents, oracle, hand) for row in results]
+    return [score_row(row, corpus, documents, oracle, hand, absent) for row in results]
 
 
 @dataclass
@@ -405,6 +428,9 @@ class Summary:
     answered: int
     records_returned: int
     records_hallucinated: int
+    #: Returned, real in the docs, absent from the binary. Not a hallucination
+    #: and not scorable -- a finding about DuckDB's documentation.
+    records_documented_not_in_binary: int
     records_grounded: int
     type_correct: int
     scope_correct: int
@@ -524,6 +550,7 @@ def summarise(scores: list[DocumentScore]) -> list[Summary]:
                 answered=counts.get(Status.ANSWERED.value, 0),
                 records_returned=len(records),
                 records_hallucinated=sum(r.hallucinated for r in records),
+                records_documented_not_in_binary=sum(r.documented_not_in_binary for r in records),
                 records_grounded=sum(r.evidence_grounded for r in records),
                 type_correct=sum(bool(r.input_type_correct) for r in real),
                 scope_correct=sum(bool(r.scope_correct) for r in real),

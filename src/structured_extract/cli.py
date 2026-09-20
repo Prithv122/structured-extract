@@ -738,7 +738,15 @@ def cmd_extract_cache(args: argparse.Namespace) -> int:
 def cmd_labels_init(args: argparse.Namespace) -> int:
     """Generate (or regenerate) the worksheet. Never discards a judgement."""
     corpus = jsonl.read_list(paths.CORPUS_JSONL)
-    fresh = labels_mod.build(corpus, n=args.size, seed=args.seed)
+    # Every prose document the pilot reads is pinned into the label set. The
+    # pilot is what gets looked at first and argued about; leaving its documents
+    # on the proxy means the fastest feedback loop is the least trustworthy one.
+    pinned = tuple(
+        row["doc_id"]
+        for row in _pilot_documents(corpus, args.pin_pilot)
+        if row["stratum"] != "reference"
+    )
+    fresh = labels_mod.build(corpus, n=args.size, seed=args.seed, pin=pinned)
     merged = labels_mod.merge(fresh, labels_mod.load())
 
     paths.LABELS_DIR.mkdir(parents=True, exist_ok=True)
@@ -858,12 +866,19 @@ def cmd_score_run(args: argparse.Namespace) -> int:
 
     print("\nprecision side  (exact: the binary adjudicates, no human involved)")
     head = f"{'prompt':<15} {'arm':<4} {'recs':>5} {'halluc':>7} {'halluc%':>8}"
-    print(f"{head} {'type%':>7} {'scope%':>7} {'ground%':>8}")
+    print(f"{head} {'type%':>7} {'scope%':>7} {'ground%':>8} {'doc-only':>9}")
     for s in summaries:
         print(
             f"{s.prompt:<15} {s.arm:<4} {s.records_returned:>5} {s.records_hallucinated:>7} "
             f"{s.hallucination_rate:>7.0%} {s.type_accuracy:>7.0%} "
-            f"{s.scope_accuracy:>7.0%} {s.grounding_rate:>8.0%}"
+            f"{s.scope_accuracy:>7.0%} {s.grounding_rate:>8.0%} "
+            f"{s.records_documented_not_in_binary:>9}"
+        )
+    if any(s.records_documented_not_in_binary for s in summaries):
+        print(
+            "  doc-only: returned, documented by DuckDB, absent from duckdb_settings().\n"
+            "  The model read the docs correctly and the docs are wrong, so these are\n"
+            "  not hallucinations and are not scored. See data/labels/."
         )
 
     print("\ndefaults  (against the reference table, never against this laptop's values)")
@@ -992,6 +1007,13 @@ def build_parser() -> argparse.ArgumentParser:
     linit = lsub.add_parser("init", help="generate the worksheet (keeps existing judgements)")
     linit.add_argument("--size", type=int, default=labels_mod.LABEL_SET_SIZE)
     linit.add_argument("--seed", type=int, default=labels_mod.DEFAULT_LABEL_SEED)
+    linit.add_argument(
+        "--pin-pilot",
+        type=int,
+        default=8,
+        metavar="N",
+        help="always include the prose documents of the N-document pilot (0 to disable)",
+    )
     linit.set_defaults(func=cmd_labels_init)
     lsub.add_parser("verify", help="check the judgements (offline)").set_defaults(
         func=cmd_labels_verify

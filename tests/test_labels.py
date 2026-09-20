@@ -7,6 +7,7 @@ import pytest
 from structured_extract import jsonl, paths
 from structured_extract import labels as L
 from structured_extract import score as SC
+from structured_extract.cli import _pilot_documents
 
 
 @pytest.fixture(scope="module")
@@ -243,14 +244,42 @@ def test_scoring_without_labels_still_works_and_says_so(corpus, oracle):
 # ------------------------------------------------------- the committed set
 
 
-def test_the_committed_worksheet_matches_what_init_would_generate(corpus):
+def test_the_committed_set_is_the_seeded_draw_plus_the_pinned_pilot(corpus):
     """Guards against a worksheet edited by hand drifting from the selection."""
     committed = L.load()
     if not committed:
         pytest.skip("no label set committed yet")
-    assert [label.doc_id for label in committed] == [
-        label.doc_id for label in L.build(corpus, n=len(committed))
-    ]
+
+    pilot = tuple(
+        row["doc_id"] for row in _pilot_documents(corpus, 8) if row["stratum"] != "reference"
+    )
+    expected = L.build(corpus, pin=pilot)
+    assert [label.doc_id for label in committed] == [label.doc_id for label in expected]
+
+
+def test_every_prose_document_the_pilot_reads_is_in_the_label_set(corpus):
+    """The gap the first draw left. The pilot reads the first document of each
+    bucket; the label set sampled 40 of 85 at random; only two were in both, and
+    `narrative-0001` -- the document that motivated building a label set --
+    was not one of them."""
+    pilot = {row["doc_id"] for row in _pilot_documents(corpus, 8) if row["stratum"] != "reference"}
+    assert pilot <= {label.doc_id for label in L.build(corpus, pin=tuple(pilot))}
+    assert "narrative-0001" in pilot
+
+
+def test_pinning_adds_to_the_draw_rather_than_displacing_it(corpus):
+    """Shrinking the random sample to make room would discard judgements
+    someone had already made."""
+    plain = {label.doc_id for label in L.build(corpus)}
+    pinned = {label.doc_id for label in L.build(corpus, pin=("narrative-0001",))}
+    assert plain <= pinned
+    assert "narrative-0001" in pinned
+
+
+def test_pinning_a_document_already_drawn_changes_nothing(corpus):
+    plain = [label.doc_id for label in L.build(corpus)]
+    again = [label.doc_id for label in L.build(corpus, pin=(plain[0],))]
+    assert again == plain
 
 
 def test_every_committed_judgement_is_consistent_with_the_oracle(oracle):

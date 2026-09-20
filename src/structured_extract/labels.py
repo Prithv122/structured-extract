@@ -30,6 +30,21 @@ Two lists per document, and the distinction between them is the whole point:
     to be a setting name. Recording these separately is what lets a later
     analysis say *why* an arm returned something, rather than only that it was
     wrong.
+``documented_not_in_binary``
+    Settings the section documents that ``duckdb_settings()`` does not have.
+    The first pass of labelling found three: ``mysql_enable_filter_pushdown``
+    (the binary calls it ``mysql_experimental_filter_pushdown`` -- the docs
+    are stale), ``iceberg_default_format_version`` and
+    ``iceberg_unsafe_skip_puffin_verification`` (no equivalent at all). A
+    model that returns one of these read the documentation correctly and the
+    documentation is wrong. Scoring it as a hallucination would be blaming
+    the model for DuckDB's docs, so these are counted in their own column,
+    are not required for recall, and are not held against precision.
+
+    This is also a finding in its own right. The session-2 audit reported
+    zero documented names unknown to the binary -- but it only covered the
+    169 rows of the *generated* configuration reference table. These three
+    come from hand-written extension pages, which nothing had checked.
 
 Why the reference stratum is excluded
 -------------------------------------
@@ -86,6 +101,11 @@ class Label:
     documents: list[str] | None = UNLABELLED
     #: Mentioned but not documented here.
     cross_referenced: list[str] = field(default_factory=list)
+    #: Settings this section documents that ``duckdb_settings()`` does not
+    #: have. A model returning one of these read the documentation correctly
+    #: and the documentation is wrong, so it is neither a hallucination nor a
+    #: scorable record. See the module docstring.
+    documented_not_in_binary: list[str] = field(default_factory=list)
     note: str = ""
 
     @property
@@ -100,8 +120,24 @@ class Label:
         return cls(**row)
 
 
-def select(corpus: list[dict], n: int = LABEL_SET_SIZE, seed: int = DEFAULT_LABEL_SEED):
-    """A seeded, stratified draw from the prose documents.
+def select(
+    corpus: list[dict],
+    n: int = LABEL_SET_SIZE,
+    seed: int = DEFAULT_LABEL_SEED,
+    pin: tuple[str, ...] = (),
+):
+    """A seeded, stratified draw from the prose documents, plus anything pinned.
+
+    ``pin`` exists because the first draw got this wrong. The pilot reads the
+    first document of each bucket; the label set sampled 40 of 85 at random;
+    only two documents were in both. ``narrative-0001`` -- the COPY-options
+    table that motivated building a label set at all -- was not labelled, so
+    the pilot could not benefit from the very thing it argued for.
+
+    Pinned documents are added to the sample rather than displacing part of
+    it, so the set can come back larger than ``n``. That is deliberate:
+    shrinking the random draw to make room would silently discard judgements
+    someone had already made.
 
     Proportional to each bucket's share of the prose pool, so the distractor
     buckets are represented at roughly the rate they occur rather than being
@@ -124,10 +160,19 @@ def select(corpus: list[dict], n: int = LABEL_SET_SIZE, seed: int = DEFAULT_LABE
     for key in sorted(buckets):
         pool = sorted(buckets[key], key=lambda row: row["doc_id"])
         picked.extend(rng.sample(pool, min(quota[key], len(pool))))
+
+    chosen = {row["doc_id"] for row in picked}
+    wanted = set(pin) - chosen
+    picked.extend(row for row in prose if row["doc_id"] in wanted)
     return sorted(picked, key=lambda row: row["doc_id"])
 
 
-def build(corpus: list[dict], n: int = LABEL_SET_SIZE, seed: int = DEFAULT_LABEL_SEED):
+def build(
+    corpus: list[dict],
+    n: int = LABEL_SET_SIZE,
+    seed: int = DEFAULT_LABEL_SEED,
+    pin: tuple[str, ...] = (),
+):
     """Create the empty worksheet. Never overwrites a judgement; see ``merge``."""
     return [
         Label(
@@ -138,7 +183,7 @@ def build(corpus: list[dict], n: int = LABEL_SET_SIZE, seed: int = DEFAULT_LABEL
             n_chars=row["n_chars"],
             candidates=sorted(row["mentioned_names"]),
         )
-        for row in select(corpus, n, seed)
+        for row in select(corpus, n, seed, pin)
     ]
 
 
@@ -166,6 +211,7 @@ def merge(fresh: list[Label], existing: list[Label]) -> list[Label]:
                 candidates=label.candidates,
                 documents=prior.documents,
                 cross_referenced=prior.cross_referenced,
+                documented_not_in_binary=prior.documented_not_in_binary,
                 note=prior.note,
             )
         )
@@ -208,6 +254,12 @@ def validate(labels: list[Label], resolve) -> list[str]:
         for name in label.cross_referenced:
             if resolve(name) is None:
                 problems.append(f"{label.doc_id}: cross_referenced {name!r} is not a real setting")
+        for name in label.documented_not_in_binary:
+            if resolve(name) is not None:
+                problems.append(
+                    f"{label.doc_id}: {name!r} is in documented_not_in_binary but the "
+                    f"binary does have it -- it belongs in documents"
+                )
 
         both = {resolve(n) for n in label.documents or []} & {
             resolve(n) for n in label.cross_referenced
@@ -231,6 +283,7 @@ def coverage(labels: list[Label]) -> dict:
         "correctly_empty": len(done) - len(non_empty),
         "settings_labelled": sum(len(label.documents or []) for label in done),
         "cross_references": sum(len(label.cross_referenced) for label in done),
+        "documented_not_in_binary": sum(len(label.documented_not_in_binary) for label in done),
         "distractor_only_candidates": sum(
             1 for label in done if label.candidates and set(label.candidates) <= DISTRACTOR_NAMES
         ),
