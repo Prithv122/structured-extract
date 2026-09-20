@@ -58,7 +58,7 @@ def body(content: str, finish_reason: str = "stop", model: str = "openai/gpt-4.1
     return {
         "model": model,
         "choices": [{"finish_reason": finish_reason, "message": {"content": content}}],
-        "usage": {"prompt_tokens": 100, "completion_tokens": 20},
+        "usage": {"prompt_tokens": 100, "completion_tokens": 20, "cost": 0.0001},
     }
 
 
@@ -104,7 +104,8 @@ def test_valid_first_pass_never_makes_a_second_call(tmp_path, transport):
     assert extraction is not None
     assert extraction.settings[0].name == "memory_limit"
     assert row.n_settings == 1
-    assert row.cost_usd == pytest.approx((100 * 0.10 + 20 * 0.40) / 1e6)
+    assert row.cost_estimated == pytest.approx((100 * 0.10 + 20 * 0.40) / 1e6)
+    assert row.cost_reported == pytest.approx(0.0001)
 
 
 def test_an_empty_extraction_is_a_valid_first_pass(tmp_path, transport):

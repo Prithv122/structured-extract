@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789875045-YZXQ1N9IGwgQaPbi6Qnr",
+ "object": "chat.completion",
+ "created": 1789875045,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"unsafe_enable_version_guessing\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET unsafe_enable_version_guessing = true;\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. The section mentions \"unsafe_enable_version_guessing\". That's a setting changed with SET. So we should output that setting with its type? The schema not provided but likely expects list of objects with name, type, default, description? Need to infer schema. The instruction: \"Answer only with JSON matching the supplied schema.\" But we don't have schema in prompt. Probably earlier context? We must guess typical schema: maybe [{\"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"description\": \"...\", \"evidence\": \"...\"}]. However we only have one setting. We need to include a quote as evidence.\n\nWe don't know type, default, description from this snippet. The snippet only says \"unsafe_enable_version_guessing\" can be set to true. No type given. Might be boolean. Default is false (since not enabled by default). Description: \"When this is set, iceberg functions will attempt to guess the latest version by default before failing.\" Could include that.\n\nBut schema unknown. Could be something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"unsafe_enable_version_guessing\",\n      \"type\": \"boolean\",\n      \"default\": \"false\",\n      \"description\": \"When this is set, iceberg functions will attempt to guess the latest version by default before failing.\",\n      \"evidence\": \"SET unsafe_enable_version_guessing = true;\"\n    }\n  ]\n}\n\nOr maybe just list of objects with name and evidence. Since not specified, we guess minimal: [{\"name\": \"...\", \"evidence\": \"...\"}].\n\nBetter to include name and evidence only. Let's output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"unsafe_enable_version_guessing\",\n      \"evidence\": \"SET unsafe_enable_version_guessing = true;\"\n    }\n  ]\n}\n\nWill that match? Probably.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. The section mentions \"unsafe_enable_version_guessing\". That's a setting changed with SET. So we should output that setting with its type? The schema not provided but likely expects list of objects with name, type, default, description? Need to infer schema. The instruction: \"Answer only with JSON matching the supplied schema.\" But we don't have schema in prompt. Probably earlier context? We must guess typical schema: maybe [{\"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"description\": \"...\", \"evidence\": \"...\"}]. However we only have one setting. We need to include a quote as evidence.\n\nWe don't know type, default, description from this snippet. The snippet only says \"unsafe_enable_version_guessing\" can be set to true. No type given. Might be boolean. Default is false (since not enabled by default). Description: \"When this is set, iceberg functions will attempt to guess the latest version by default before failing.\" Could include that.\n\nBut schema unknown. Could be something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"unsafe_enable_version_guessing\",\n      \"type\": \"boolean\",\n      \"default\": \"false\",\n      \"description\": \"When this is set, iceberg functions will attempt to guess the latest version by default before failing.\",\n      \"evidence\": \"SET unsafe_enable_version_guessing = true;\"\n    }\n  ]\n}\n\nOr maybe just list of objects with name and evidence. Since not specified, we guess minimal: [{\"name\": \"...\", \"evidence\": \"...\"}].\n\nBetter to include name and evidence only. Let's output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"unsafe_enable_version_guessing\",\n      \"evidence\": \"SET unsafe_enable_version_guessing = true;\"\n    }\n  ]\n}\n\nWill that match? Probably.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 613,
+  "completion_tokens": 450,
+  "total_tokens": 1063,
+  "cost": 9.489e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.489e-05,
+   "upstream_inference_prompt_cost": 1.839e-05,
+   "upstream_inference_completions_cost": 7.65e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 448,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 43.53100000001723
+}

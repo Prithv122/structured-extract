@@ -12,6 +12,7 @@ import json
 import os
 import sys
 from collections import Counter
+from pathlib import Path
 
 from structured_extract import arms as arms_mod
 from structured_extract import corpus as corpus_mod
@@ -386,9 +387,65 @@ def cmd_arms_verify(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cost_from_measured(results_path, corpus: list[dict]) -> int:
+    """Extrapolate the full grid from what a pilot was actually billed.
+
+    Guessing from pinned prices was wrong by 1.94x overall on the second pilot.
+    This uses ``usage.cost`` instead, so the only guess left is whether the
+    pilot slice resembles the corpus -- and that is measurable too, so both
+    bounds are printed rather than one confident number.
+    """
+    measured = jsonl.read_list(results_path)
+    chars = {row["doc_id"]: row["n_chars"] for row in corpus}
+    seen = {row["doc_id"] for row in measured}
+    missing = sorted(seen - set(chars))
+    if missing:
+        print(f"FAIL  {len(missing)} result rows name documents not in the corpus", file=sys.stderr)
+        return 2
+
+    required = {"cost_reported", "cost_estimated", "prompt", "arm"}
+    absent = sorted(required - set(measured[0])) if measured else sorted(required)
+    if absent:
+        print(
+            f"FAIL  {results_path.name} predates the current results schema "
+            f"(no {', '.join(absent)}).\n"
+            f"      Re-run to rewrite it from the cache -- free, no network:\n"
+            f"      structured-extract extract run --pilot <N>",
+            file=sys.stderr,
+        )
+        return 2
+
+    by_doc = len(chars) / len(seen)
+    by_chars = sum(chars.values()) / sum(chars[d] for d in seen)
+    billed = sum(r["cost_reported"] for r in measured)
+    predicted = sum(r["cost_estimated"] for r in measured)
+    prompts = sorted({r["prompt"] for r in measured})
+    arms_seen = sorted({r["arm"] for r in measured})
+
+    print(f"measured from {results_path.name}: {len(measured)} calls over {len(seen)} documents")
+    print(f"  arms {', '.join(arms_seen)} x prompts {', '.join(prompts)}")
+    print(f"  billed     ${billed:.4f}")
+    print(f"  predicted  ${predicted:.4f}  ({billed / predicted:.2f}x out)" if predicted else "")
+    print()
+    print(f"  pilot documents average {sum(chars[d] for d in seen) / len(seen):,.0f} chars,")
+    print(f"  the corpus averages {sum(chars.values()) / len(chars):,.0f}")
+    print()
+    print("full grid, same arms and prompts, extrapolated from the bill:")
+    print(f"  by document count  x{by_doc:.1f}   ${billed * by_doc:.2f}")
+    print(f"  by total chars     x{by_chars:.2f}  ${billed * by_chars:.2f}")
+    print()
+    print(
+        "Take the higher one. Output tokens do not scale with document length --\n"
+        "reasoning does what it likes -- so neither bound is a guarantee."
+    )
+    return 0
+
+
 def cmd_arms_cost(args: argparse.Namespace) -> int:
     """Estimated spend for the full grid, from the committed corpus and pinned prices."""
     rows = jsonl.read_list(paths.CORPUS_JSONL)
+    if args.measured:
+        return _cost_from_measured(args.measured, rows)
     # chars/4 is a rough tokenizer-agnostic estimate and is labelled as one; the
     # published cost figures come from the providers' own reported token counts.
     doc_tokens = sum(r["n_chars"] for r in rows) / 4
@@ -500,7 +557,7 @@ def cmd_extract_run(args: argparse.Namespace) -> int:
                         f"  {prompt:<15} {arm.key} {result.doc_id:<22} "
                         f"{result.outcome:<22} repair={result.repair_used!s:<5} "
                         f"{result.finish_reason:<10} n={result.n_settings:<3} "
-                        f"${result.cost_usd:.5f}"
+                        f"${result.cost_reported:.5f}"
                     )
 
     out = paths.RESULTS_JSONL if not args.pilot else paths.RESULTS_JSONL.with_name("pilot.jsonl")
@@ -523,7 +580,7 @@ def cmd_extract_run(args: argparse.Namespace) -> int:
             if not group:
                 continue
             print(
-                f"{prompt:<15} {arm.key:<5} ${sum(r.cost_usd for r in group):8.4f} "
+                f"{prompt:<15} {arm.key:<5} ${sum(r.cost_reported for r in group):8.4f} "
                 f"{sum(r.repair_used for r in group):>8} "
                 f"{sum(r.prompt_tokens for r in group):>9,} "
                 f"{sum(r.completion_tokens for r in group):>9,} "
@@ -542,7 +599,26 @@ def cmd_extract_run(args: argparse.Namespace) -> int:
             total = sum(r.n_settings for r in group)
             per = total / len(answered) if answered else 0.0
             print(f"  {prompt:<15} {total:>5} across {len(answered):>3} answered  ({per:.2f}/doc)")
-    print(f"\ntotal ${sum(r.cost_usd for r in results):.4f}  ->  {out}")
+    billed = sum(r.cost_reported for r in results)
+    estimated = sum(r.cost_estimated for r in results)
+    print(f"\ntotal ${billed:.4f} billed  ->  {out}")
+
+    # The second pilot printed $0.0382 and OpenRouter charged $0.0743. Pinned
+    # catalogue price x reported tokens does not reconstruct the bill, in either
+    # direction -- 2.94x low on H1, 3.8x high on H4 -- because reasoning tokens
+    # are not consistently inside completion_tokens and providers round their
+    # own way. usage.cost is authoritative; the estimate only cross-checks it,
+    # and a run says so out loud rather than leaving it in the JSONL.
+    if estimated and abs(billed - estimated) / max(billed, estimated) > 0.05:
+        print(
+            f"      ${estimated:.4f} was what the pinned prices predicted "
+            f"({billed / estimated:.2f}x out). Publish the billed figure."
+        )
+        for arm in selected:
+            group = [r for r in results if r.arm == arm.key]
+            b, e = sum(r.cost_reported for r in group), sum(r.cost_estimated for r in group)
+            if e and abs(b - e) / max(b, e) > 0.05:
+                print(f"        {arm.key}  billed ${b:.5f}  predicted ${e:.5f}  {b / e:.2f}x")
 
     # A run where nothing was answered must say *why* on the terminal. The first
     # live pilot returned 40 rows of `provider_unavailable` and the reason -- a
@@ -619,6 +695,12 @@ def build_parser() -> argparse.ArgumentParser:
     cost.add_argument("--pilot", type=int, default=8)
     cost.add_argument(
         "--prompts", type=int, default=0, help="how many prompt variants (default: all of them)"
+    )
+    cost.add_argument(
+        "--measured",
+        type=Path,
+        metavar="RESULTS.JSONL",
+        help="extrapolate from what a pilot was actually billed, not from pinned prices",
     )
     cost.set_defaults(func=cmd_arms_cost)
 

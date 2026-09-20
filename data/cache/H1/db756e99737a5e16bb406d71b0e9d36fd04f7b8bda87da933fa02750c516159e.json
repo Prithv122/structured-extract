@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789874784-mEG6LnyNTsjH2iGJgf3P",
+ "object": "chat.completion",
+ "created": 1789874784,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need likely output list of settings with evidence spans. Need decide empty list? The section documents COPY options, not DuckDB configuration settings. The prompt explicitly says options/arguments of SQL statement such as COPY are not configuration settings. So correct answer empty list. Need output JSON. Since schema not shown, likely something like {\"settings\": []} or maybe array. Need infer from instruction: \"For each setting, quote a span...\" \"Answer only with JSON matching the supplied schema.\" No schema in message. We need produce maybe []? We need be careful.\n\nThe user asks: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" Then provides section about COPY options. It says if section documents those, correct answer is empty list. So answer should be empty list. JSON matching supplied schema maybe maybe `[]` if schema is list. But \"For each setting, quote a span...\" suggests schema likely object with settings array? We don't know. Need maybe output `[]` as empty list. The instruction \"Answer only with JSON matching the supplied schema.\" Since no schema, safest is JSON empty list? But if schema expected object, maybe fail. Let's examine wording: \"For each setting, quote a span of the section verbatim as evidence.\" Could be schema like:\n{\n  \"settings\": [\n    {\"name\": \"...\", \"evidence\": \"...\"}\n  ]\n}\nBut not supplied. The phrase \"empty list\" suggests answer is a list. So output `[]`. Need only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need likely output list of settings with evidence spans. Need decide empty list? The section documents COPY options, not DuckDB configuration settings. The prompt explicitly says options/arguments of SQL statement such as COPY are not configuration settings. So correct answer empty list. Need output JSON. Since schema not shown, likely something like {\"settings\": []} or maybe array. Need infer from instruction: \"For each setting, quote a span...\" \"Answer only with JSON matching the supplied schema.\" No schema in message. We need produce maybe []? We need be careful.\n\nThe user asks: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" Then provides section about COPY options. It says if section documents those, correct answer is empty list. So answer should be empty list. JSON matching supplied schema maybe maybe `[]` if schema is list. But \"For each setting, quote a span...\" suggests schema likely object with settings array? We don't know. Need maybe output `[]` as empty list. The instruction \"Answer only with JSON matching the supplied schema.\" Since no schema, safest is JSON empty list? But if schema expected object, maybe fail. Let's examine wording: \"For each setting, quote a span of the section verbatim as evidence.\" Could be schema like:\n{\n  \"settings\": [\n    {\"name\": \"...\", \"evidence\": \"...\"}\n  ]\n}\nBut not supplied. The phrase \"empty list\" suggests answer is a list. So output `[]`. Need only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1556,
+  "completion_tokens": 349,
+  "total_tokens": 1905,
+  "cost": 0.00267935,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00267935,
+   "upstream_inference_prompt_cost": 0.0017894,
+   "upstream_inference_completions_cost": 0.00088995
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 410,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 11.077999999979511
+}

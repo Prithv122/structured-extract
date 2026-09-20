@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789874944-iLirAvaZUzfvmkvTJY6O",
+ "object": "chat.completion",
+ "created": 1789874944,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a snippet about \"Secrets manager\". We need to determine if this section documents any configuration settings (i.e., settings changed with SET, RESET, PRAGMA). The snippet mentions \"Secrets manager\", \"unified user interface\", \"scoped\", \"persisted\", \"Persistent secrets are stored in unencrypted binary format\". No mention of SET, RESET, PRAGMA, or any configuration setting name. So likely no settings. According to instructions, if the section documents other things, answer empty list.\n\nThus output JSON with empty list. Schema? Not given explicitly but likely something like {\"settings\": []} or just []? The instruction: \"Answer only with JSON matching the supplied schema.\" No schema provided in prompt. Usually previous tasks expect list of objects each with name, type, default, description, evidence. But since empty, we can output [].\n\nThus final answer: []",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a snippet about \"Secrets manager\". We need to determine if this section documents any configuration settings (i.e., settings changed with SET, RESET, PRAGMA). The snippet mentions \"Secrets manager\", \"unified user interface\", \"scoped\", \"persisted\", \"Persistent secrets are stored in unencrypted binary format\". No mention of SET, RESET, PRAGMA, or any configuration setting name. So likely no settings. According to instructions, if the section documents other things, answer empty list.\n\nThus output JSON with empty list. Schema? Not given explicitly but likely something like {\"settings\": []} or just []? The instruction: \"Answer only with JSON matching the supplied schema.\" No schema provided in prompt. Usually previous tasks expect list of objects each with name, type, default, description, evidence. But since empty, we can output [].\n\nThus final answer: []",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 451,
+  "completion_tokens": 215,
+  "total_tokens": 666,
+  "cost": 5.008e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 5.008e-05,
+   "upstream_inference_prompt_cost": 1.353e-05,
+   "upstream_inference_completions_cost": 3.655e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 247,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 20.46799999999348
+}

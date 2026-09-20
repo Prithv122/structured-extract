@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789874527-YO7hNBK9C9VC75HkpjaS",
+ "object": "chat.completion",
+ "created": 1789874527,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"evidence\": \"`SET custom_extension_repository = '⟨https://some.url.com⟩'`\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"custom_extension_repository\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. Need produce likely list of settings with evidence. Need identify documented settings in section. The section text:\n\n\"DuckDB-Wasm fetches each extension over the network when it is loaded. If you serve extensions from a [custom repository]({% link docs/current/clients/wasm/deploying_duckdb_wasm.md %}#duckdb-extensions) with `SET custom_extension_repository = '⟨https://some.url.com⟩'`, the `GET` requests for the extension files must be [CORS enabled](https://www.w3.org/wiki/CORS_Enabled) for the browser to allow the connection, exactly as for remote data files above.\n\nExtensions remain signed regardless of where they are served, so copying an extension to a different location keeps its signature valid.\"\n\nThis documents setting `custom_extension_repository`? It tells how to set it: `SET custom_extension_repository = '⟨https://some.url.com⟩'`. It tells what it does? It sets custom repository for extensions. So yes. Need quote verbatim span. Could quote entire sentence or just the SET part. Need include setting name. Evidence: \"If you serve extensions from a [custom repository]({% link docs/current/clients/wasm/deploying_duckdb_wasm.md %}#duckdb-extensions) with `SET custom_extension_repository = '⟨https://some.url.com⟩'`\" maybe enough. Need JSON. Schema unknown. Likely array of objects with setting and evidence? Need decide. The instruction: \"For each setting, quote a span of the section verbatim as evidence.\" \"Answer only with JSON matching the supplied schema.\" No schema. Could be something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"custom_extension_repository\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\nNeed maybe include only settings. Let's craft.\n\nNeed ensure no other settings? \"CORS enabled\" not DuckDB setting. \"GET\" no. \"custom_extension_repository\" is setting. So one.\n\nNeed quote exactly. Use the exact text including markdown link? The span includes link syntax. We can quote from \"If you serve extensions...\" to \"...`SET custom_extension_repository = '⟨https://some.url.com⟩'`\" maybe. Need copy exactly. The angle brackets are ⟨⟩? In text: `SET custom_extension_repository = '⟨https://some.url.com⟩'` includes Unicode angle brackets. Need preserve. Could quote just the code span: \"`SET custom_extension_repository = '⟨https://some.url.com⟩'`\" That is verbatim and documents setting. But maybe need include context that it's for custom repository. The code span alone shows setting and value. Good.\n\nNeed JSON. If schema maybe expects list directly? The prompt: \"Return every configuration setting... For each setting, quote a span...\" Could be array. \"Answer only with JSON matching the supplied schema.\" No schema. I'll output object with settings array. But maybe they expect just array? Hmm.\n\nGiven typical tasks, schema might be:\n{\n  \"settings\": [\n    {\"setting\": \"custom_extension_repository\", \"evidence\": \"...\"}\n  ]\n}\nNeed choose. Could use \"setting\" and \"evidence\". Let's think of likely hidden schema. The user says \"supplied schema\" but not in prompt. Maybe from previous context? We don't have. Need infer from wording: \"Return every configuration setting that this section documents.\" \"For each setting, quote a span...\" So likely JSON array of objects with fields \"setting\" and \"evidence\". Could be \"name\" and \"quote\". Need be safe. Maybe use both? But must match schema. Without schema, impossible. But we can provide minimal plausible.\n\nMaybe the expected answer is:\n[\n  {\n    \"setting\": \"custom_extension_repository\",\n    \"evidence\": \"`SET custom_extension_repository = '⟨https://some.url.com⟩'`\"\n  }\n]\nThis is common. I'll output that.\n\nNeed ensure no extra text. Final JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. Need produce likely list of settings with evidence. Need identify documented settings in section. The section text:\n\n\"DuckDB-Wasm fetches each extension over the network when it is loaded. If you serve extensions from a [custom repository]({% link docs/current/clients/wasm/deploying_duckdb_wasm.md %}#duckdb-extensions) with `SET custom_extension_repository = '⟨https://some.url.com⟩'`, the `GET` requests for the extension files must be [CORS enabled](https://www.w3.org/wiki/CORS_Enabled) for the browser to allow the connection, exactly as for remote data files above.\n\nExtensions remain signed regardless of where they are served, so copying an extension to a different location keeps its signature valid.\"\n\nThis documents setting `custom_extension_repository`? It tells how to set it: `SET custom_extension_repository = '⟨https://some.url.com⟩'`. It tells what it does? It sets custom repository for extensions. So yes. Need quote verbatim span. Could quote entire sentence or just the SET part. Need include setting name. Evidence: \"If you serve extensions from a [custom repository]({% link docs/current/clients/wasm/deploying_duckdb_wasm.md %}#duckdb-extensions) with `SET custom_extension_repository = '⟨https://some.url.com⟩'`\" maybe enough. Need JSON. Schema unknown. Likely array of objects with setting and evidence? Need decide. The instruction: \"For each setting, quote a span of the section verbatim as evidence.\" \"Answer only with JSON matching the supplied schema.\" No schema. Could be something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"custom_extension_repository\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\nNeed maybe include only settings. Let's craft.\n\nNeed ensure no other settings? \"CORS enabled\" not DuckDB setting. \"GET\" no. \"custom_extension_repository\" is setting. So one.\n\nNeed quote exactly. Use the exact text including markdown link? The span includes link syntax. We can quote from \"If you serve extensions...\" to \"...`SET custom_extension_repository = '⟨https://some.url.com⟩'`\" maybe. Need copy exactly. The angle brackets are ⟨⟩? In text: `SET custom_extension_repository = '⟨https://some.url.com⟩'` includes Unicode angle brackets. Need preserve. Could quote just the code span: \"`SET custom_extension_repository = '⟨https://some.url.com⟩'`\" That is verbatim and documents setting. But maybe need include context that it's for custom repository. The code span alone shows setting and value. Good.\n\nNeed JSON. If schema maybe expects list directly? The prompt: \"Return every configuration setting... For each setting, quote a span...\" Could be array. \"Answer only with JSON matching the supplied schema.\" No schema. I'll output object with settings array. But maybe they expect just array? Hmm.\n\nGiven typical tasks, schema might be:\n{\n  \"settings\": [\n    {\"setting\": \"custom_extension_repository\", \"evidence\": \"...\"}\n  ]\n}\nNeed choose. Could use \"setting\" and \"evidence\". Let's think of likely hidden schema. The user says \"supplied schema\" but not in prompt. Maybe from previous context? We don't have. Need infer from wording: \"Return every configuration setting that this section documents.\" \"For each setting, quote a span...\" So likely JSON array of objects with fields \"setting\" and \"evidence\". Could be \"name\" and \"quote\". Need be safe. Maybe use both? But must match schema. Without schema, impossible. But we can provide minimal plausible.\n\nMaybe the expected answer is:\n[\n  {\n    \"setting\": \"custom_extension_repository\",\n    \"evidence\": \"`SET custom_extension_repository = '⟨https://some.url.com⟩'`\"\n  }\n]\nThis is common. I'll output that.\n\nNeed ensure no extra text. Final JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 388,
+  "completion_tokens": 960,
+  "total_tokens": 1348,
+  "cost": 0.0028942,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0028942,
+   "upstream_inference_prompt_cost": 0.0004462,
+   "upstream_inference_completions_cost": 0.002448
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 970,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 18.67200000002049
+}

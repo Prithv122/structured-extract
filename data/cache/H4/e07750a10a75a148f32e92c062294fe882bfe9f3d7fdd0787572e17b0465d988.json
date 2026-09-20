@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789874633-2RL2imebjeiyetQk4jI9",
+ "object": "chat.completion",
+ "created": 1789874633,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The text is about Secrets manager. It mentions \"Secrets manager\", \"unified user interface\", \"secrets across all backends\", \"scoped\", \"persisted\". Are any of these configuration settings? DuckDB has config settings like \"secret_directory\", \"allow_unsigned_extensions\", etc. I'm not sure. The text does not mention any setting name like \"secret_directory\". It just describes the feature. No explicit setting name. So answer empty list.\n\nWe must output JSON matching schema. Likely schema expects list of objects with name and evidence. Since none, empty list.\n\nThus output: {\"settings\": []} maybe? Need to infer schema. The prompt: \"Answer only with JSON matching the supplied schema.\" But schema not shown. Usually they expect array of objects with \"setting\" and \"evidence\". Could be like [{\"setting\": \"...\", \"evidence\": \"...\"}]. Since none, output [].\n\nI'll output an empty JSON array.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The text is about Secrets manager. It mentions \"Secrets manager\", \"unified user interface\", \"secrets across all backends\", \"scoped\", \"persisted\". Are any of these configuration settings? DuckDB has config settings like \"secret_directory\", \"allow_unsigned_extensions\", etc. I'm not sure. The text does not mention any setting name like \"secret_directory\". It just describes the feature. No explicit setting name. So answer empty list.\n\nWe must output JSON matching schema. Likely schema expects list of objects with name and evidence. Since none, empty list.\n\nThus output: {\"settings\": []} maybe? Need to infer schema. The prompt: \"Answer only with JSON matching the supplied schema.\" But schema not shown. Usually they expect array of objects with \"setting\" and \"evidence\". Could be like [{\"setting\": \"...\", \"evidence\": \"...\"}]. Since none, output [].\n\nI'll output an empty JSON array.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 322,
+  "completion_tokens": 226,
+  "total_tokens": 548,
+  "cost": 4.808e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 224,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 4.808e-05,
+   "upstream_inference_prompt_cost": 9.66e-06,
+   "upstream_inference_completions_cost": 3.842e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 242,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 5.797000000020489
+}

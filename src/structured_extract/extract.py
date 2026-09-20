@@ -197,10 +197,15 @@ class CallResult:
     answering_model: str
     prompt_tokens: int
     completion_tokens: int
-    #: Subset of completion_tokens the provider attributes to thinking, when it
-    #: says so at all. 0 means 'none, or not reported' -- the two are not
-    #: distinguishable from the response and the README says so.
+    #: What the provider says it attributes to thinking. NOT reliably a subset
+    #: of completion_tokens: DeepSeek V4 Pro reported 1,493 reasoning tokens
+    #: against 1,147 completion tokens in the second pilot. 0 means 'none, or
+    #: not reported' -- indistinguishable from the response, and the README
+    #: says so rather than implying the model did no thinking.
     reasoning_tokens: int
+    #: ``usage.cost`` -- the USD OpenRouter says this call actually cost. This
+    #: is the authoritative figure; see ExtractionRow for why.
+    cost_reported: float
     latency_s: float
     cached: bool
     error: str | None = None
@@ -227,7 +232,13 @@ class ExtractionRow:
     completion_tokens: int
     reasoning_tokens: int
     latency_s: float
-    cost_usd: float
+    #: What OpenRouter billed, summed over the one or two calls. Authoritative.
+    cost_reported: float
+    #: Pinned catalogue price x reported tokens. Kept as a cross-check, never
+    #: published as the cost. The second pilot found the two disagree badly and
+    #: in both directions -- 2.94x low on H1, 3.8x high on H4 -- so reconstructing
+    #: a bill from advertised per-token prices does not work.
+    cost_estimated: float
     n_settings: int
     error: str | None
     #: ``ValidationError.errors()`` from the final attempt, for the failure analysis.
@@ -370,6 +381,7 @@ def call(
         prompt_tokens=0,
         completion_tokens=0,
         reasoning_tokens=0,
+        cost_reported=0.0,
         latency_s=0.0,
         cached=False,
         error=error,
@@ -390,6 +402,7 @@ def _from_body(body: dict, latency_s: float, cached: bool) -> CallResult:
             prompt_tokens=0,
             completion_tokens=0,
             reasoning_tokens=0,
+            cost_reported=0.0,
             latency_s=latency_s,
             cached=cached,
             error=f"provider error: {text}",
@@ -409,6 +422,7 @@ def _from_body(body: dict, latency_s: float, cached: bool) -> CallResult:
         prompt_tokens=int(usage.get("prompt_tokens") or 0),
         completion_tokens=int(usage.get("completion_tokens") or 0),
         reasoning_tokens=int(details.get("reasoning_tokens") or 0),
+        cost_reported=float(usage.get("cost") or 0.0),
         latency_s=latency_s,
         cached=cached,
     )
@@ -461,6 +475,7 @@ def extract_document(
         prompt_tokens: int,
         completion_tokens: int,
         reasoning_tokens: int,
+        cost_reported: float,
         latency: float,
         first_reason: str,
     ) -> ExtractionRow:
@@ -478,7 +493,8 @@ def extract_document(
             completion_tokens=completion_tokens,
             reasoning_tokens=reasoning_tokens,
             latency_s=round(latency, 3),
-            cost_usd=arm.cost(prompt_tokens, completion_tokens),
+            cost_reported=round(cost_reported, 8),
+            cost_estimated=arm.cost(prompt_tokens, completion_tokens),
             n_settings=n_settings,
             error=result.error,
             validation_errors=errors,
@@ -486,7 +502,10 @@ def extract_document(
 
     if first.error is not None:
         outcome = Outcome.PROVIDER_UNAVAILABLE if first.unavailable else Outcome.PROVIDER_ERROR
-        return row(first, outcome, False, [], 0, 0, 0, 0, first.latency_s, ""), None
+        failed = row(
+            first, outcome, False, [], 0, 0, 0, 0, first.cost_reported, first.latency_s, ""
+        )
+        return failed, None
 
     extraction, errors, _parseable = validate(first.content, document)
     if extraction is not None:
@@ -500,6 +519,7 @@ def extract_document(
                 first.prompt_tokens,
                 first.completion_tokens,
                 first.reasoning_tokens,
+                first.cost_reported,
                 first.latency_s,
                 first.finish_reason,
             ),
@@ -526,6 +546,7 @@ def extract_document(
     tokens_in = first.prompt_tokens + second.prompt_tokens
     tokens_out = first.completion_tokens + second.completion_tokens
     tokens_think = first.reasoning_tokens + second.reasoning_tokens
+    billed = first.cost_reported + second.cost_reported
     latency = first.latency_s + second.latency_s
 
     if second.error is not None:
@@ -540,6 +561,7 @@ def extract_document(
                 tokens_in,
                 tokens_out,
                 tokens_think,
+                billed,
                 latency,
                 first.finish_reason,
             ),
@@ -568,6 +590,7 @@ def extract_document(
             tokens_in,
             tokens_out,
             tokens_think,
+            billed,
             latency,
             first.finish_reason,
         ),

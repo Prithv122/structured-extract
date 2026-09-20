@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789874891-fQzfEYAsJPEaU1TwXj4s",
+ "object": "chat.completion",
+ "created": 1789874891,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer only JSON matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe from previous? We have only current. Need produce JSON likely list of settings? Need inspect section. The section is about SHOW statement alias for DESCRIBE. It shows schema of table/view/query. This is not configuration settings. Correct answer empty list. Need JSON maybe {\"settings\": []} or []? Need infer. They said \"For each setting, quote a span...\" and \"Answer only with JSON matching the supplied schema.\" No schema visible. We need decide format. Likely expected array of objects? Hmm.\n\nGiven no schema, maybe from task context? We need output JSON only. Could be list of settings with evidence. Since no settings, empty list. I'll output [].\n\nBut let's think: The section is \"SHOW\" statement alias for DESCRIBE. It shows schema. Not config settings. So empty list.\n\nNeed ensure JSON only. Use [] maybe.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer only JSON matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe from previous? We have only current. Need produce JSON likely list of settings? Need inspect section. The section is about SHOW statement alias for DESCRIBE. It shows schema of table/view/query. This is not configuration settings. Correct answer empty list. Need JSON maybe {\"settings\": []} or []? Need infer. They said \"For each setting, quote a span...\" and \"Answer only with JSON matching the supplied schema.\" No schema visible. We need decide format. Likely expected array of objects? Hmm.\n\nGiven no schema, maybe from task context? We need output JSON only. Could be list of settings with evidence. Since no settings, empty list. I'll output [].\n\nBut let's think: The section is \"SHOW\" statement alias for DESCRIBE. It shows schema. Not config settings. So empty list.\n\nNeed ensure JSON only. Use [] maybe.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 423,
+  "completion_tokens": 226,
+  "total_tokens": 649,
+  "cost": 0.00106275,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00106275,
+   "upstream_inference_prompt_cost": 0.00048645,
+   "upstream_inference_completions_cost": 0.0005763
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 248,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 6.875
+}

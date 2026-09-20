@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789874546-NKYaBxBGazTH9ACPWMKc",
+ "object": "chat.completion",
+ "created": 1789874546,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse task. User asks: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation. Return every configuration setting that this section documents. A section documents a setting when it tells the reader what the setting does, what it accepts, or how to set it. Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting. An empty list is the correct answer for a section that documents nothing. For each setting, quote a span of the section verbatim as evidence. Copy the characters exactly as they appear. Do not paraphrase, tidy or complete the quote. Answer only with JSON matching the supplied schema.\"\n\nWe need infer schema? Not provided in prompt? It says \"matching the supplied schema\" but no schema in message. Need maybe output JSON with settings list? We need decide. The section given: \"The `SHOW` statement is an alias for [`DESCRIBE`]({% link docs/current/sql/statements/describe.md %}). It shows the schema of a table, view or query.\"\n\nThis section documents SHOW statement, not configuration settings. No DuckDB configuration settings. So empty list. Need output JSON. But schema unknown. Likely expected: {\"settings\": []} or maybe {\"configuration_settings\": []}. Need infer from typical tasks. The prompt says \"Return every configuration setting ... Answer only with JSON matching the supplied schema.\" No schema included. Could be from benchmark where schema is known? We need produce likely format. Maybe list of objects with setting name and evidence? Let's think.\n\nThe user says: \"For each setting, quote a span of the section verbatim as evidence.\" So if settings found, each item likely has \"name\" and \"evidence\" or \"quote\". But no schema. We need answer only JSON. Since no settings, empty list maybe just [].\n\nNeed be careful: \"Return every configuration setting that this section documents.\" Could be JSON array of settings. If empty, [].\n\nBut \"Answer only with JSON matching the supplied schema.\" Maybe schema is something like:\n{\n  \"settings\": [\n    {\"name\": \"...\", \"evidence\": \"...\"}\n  ]\n}\nWe don't know. Need maybe use common schema from these tasks? Let's search memory. There is a known task type: \"extract DuckDB configuration settings from documentation section\" maybe from a dataset. The schema might be:\n{\"settings\": [{\"name\": string, \"evidence\": string}]}\nor maybe {\"configuration_settings\": [{\"setting\": \"...\", \"quote\": \"...\"}]}.\n\nGiven no schema, safest is to output an empty JSON array? But \"matching supplied schema\" implies there is a schema, but not shown. Could be hidden in system? No. We need maybe produce {\"settings\": []} because that's common.\n\nLet's examine wording: \"Return every configuration setting that this section documents.\" \"For each setting, quote a span...\" \"Answer only with JSON matching the supplied schema.\" If no settings, empty list is correct. They mention \"An empty list is the correct answer for a section that documents nothing.\" That suggests the JSON output might be a list, not object. \"empty list\" specifically. So output [] likely.\n\nBut they also say \"For each setting, quote a span...\" If list items are objects, empty list is []. So answer [].\n\nNeed ensure no settings. The section is about SHOW alias for DESCRIBE. No config settings. So [].\n\nBut maybe \"SHOW\" itself could be a setting? No, it's a statement. Not config. \"schema\" not setting. So empty.\n\nThus final: [].\n\nNeed only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse task. User asks: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation. Return every configuration setting that this section documents. A section documents a setting when it tells the reader what the setting does, what it accepts, or how to set it. Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting. An empty list is the correct answer for a section that documents nothing. For each setting, quote a span of the section verbatim as evidence. Copy the characters exactly as they appear. Do not paraphrase, tidy or complete the quote. Answer only with JSON matching the supplied schema.\"\n\nWe need infer schema? Not provided in prompt? It says \"matching the supplied schema\" but no schema in message. Need maybe output JSON with settings list? We need decide. The section given: \"The `SHOW` statement is an alias for [`DESCRIBE`]({% link docs/current/sql/statements/describe.md %}). It shows the schema of a table, view or query.\"\n\nThis section documents SHOW statement, not configuration settings. No DuckDB configuration settings. So empty list. Need output JSON. But schema unknown. Likely expected: {\"settings\": []} or maybe {\"configuration_settings\": []}. Need infer from typical tasks. The prompt says \"Return every configuration setting ... Answer only with JSON matching the supplied schema.\" No schema included. Could be from benchmark where schema is known? We need produce likely format. Maybe list of objects with setting name and evidence? Let's think.\n\nThe user says: \"For each setting, quote a span of the section verbatim as evidence.\" So if settings found, each item likely has \"name\" and \"evidence\" or \"quote\". But no schema. We need answer only JSON. Since no settings, empty list maybe just [].\n\nNeed be careful: \"Return every configuration setting that this section documents.\" Could be JSON array of settings. If empty, [].\n\nBut \"Answer only with JSON matching the supplied schema.\" Maybe schema is something like:\n{\n  \"settings\": [\n    {\"name\": \"...\", \"evidence\": \"...\"}\n  ]\n}\nWe don't know. Need maybe use common schema from these tasks? Let's search memory. There is a known task type: \"extract DuckDB configuration settings from documentation section\" maybe from a dataset. The schema might be:\n{\"settings\": [{\"name\": string, \"evidence\": string}]}\nor maybe {\"configuration_settings\": [{\"setting\": \"...\", \"quote\": \"...\"}]}.\n\nGiven no schema, safest is to output an empty JSON array? But \"matching supplied schema\" implies there is a schema, but not shown. Could be hidden in system? No. We need maybe produce {\"settings\": []} because that's common.\n\nLet's examine wording: \"Return every configuration setting that this section documents.\" \"For each setting, quote a span...\" \"Answer only with JSON matching the supplied schema.\" If no settings, empty list is correct. They mention \"An empty list is the correct answer for a section that documents nothing.\" That suggests the JSON output might be a list, not object. \"empty list\" specifically. So output [] likely.\n\nBut they also say \"For each setting, quote a span...\" If list items are objects, empty list is []. So answer [].\n\nNeed ensure no settings. The section is about SHOW alias for DESCRIBE. No config settings. So [].\n\nBut maybe \"SHOW\" itself could be a setting? No, it's a statement. Not config. \"schema\" not setting. So empty.\n\nThus final: [].\n\nNeed only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 291,
+  "completion_tokens": 806,
+  "total_tokens": 1097,
+  "cost": 0.00238995,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00238995,
+   "upstream_inference_prompt_cost": 0.00033465,
+   "upstream_inference_completions_cost": 0.0020553
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 924,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 18.18799999996554
+}

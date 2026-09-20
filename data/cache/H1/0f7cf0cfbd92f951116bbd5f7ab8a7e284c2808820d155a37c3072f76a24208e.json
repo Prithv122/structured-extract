@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789874829-vUoAcvBIfyaGsdSbnWGA",
+ "object": "chat.completion",
+ "created": 1789874829,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON schema? User asks extract DuckDB config settings from section. Need infer schema not provided? We need output JSON matching supplied schema, but schema not in prompt. Need likely list of settings with evidence. Need parse section. The section text is about Managed PostgreSQL databases RDS/Aurora IAM authentication, postgres extension supports IAM authentication. This is DuckDB documentation? It mentions postgres extension. Need determine if any DuckDB configuration settings documented. Likely none. Need answer empty list. But need JSON. Need know schema. Maybe from prior tasks: {\"settings\": [{\"name\": \"...\", \"evidence\": \"...\"}]}? We need infer. User says \"Answer only with JSON matching the supplied schema.\" No schema supplied in conversation. We need maybe output empty list? Could be {\"settings\": []}. Need include evidence? If no settings, empty list. Let's craft JSON with empty settings array. Ensure no extra text.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON schema? User asks extract DuckDB config settings from section. Need infer schema not provided? We need output JSON matching supplied schema, but schema not in prompt. Need likely list of settings with evidence. Need parse section. The section text is about Managed PostgreSQL databases RDS/Aurora IAM authentication, postgres extension supports IAM authentication. This is DuckDB documentation? It mentions postgres extension. Need determine if any DuckDB configuration settings documented. Likely none. Need answer empty list. But need JSON. Need know schema. Maybe from prior tasks: {\"settings\": [{\"name\": \"...\", \"evidence\": \"...\"}]}? We need infer. User says \"Answer only with JSON matching the supplied schema.\" No schema supplied in conversation. We need maybe output empty list? Could be {\"settings\": []}. Need include evidence? If no settings, empty list. Let's craft JSON with empty settings array. Ensure no extra text.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 494,
+  "completion_tokens": 202,
+  "total_tokens": 696,
+  "cost": 0.00084,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00084,
+   "upstream_inference_prompt_cost": 0.0003249,
+   "upstream_inference_completions_cost": 0.0005151
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 237,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 6.14000000001397
+}
