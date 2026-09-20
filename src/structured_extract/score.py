@@ -504,6 +504,28 @@ class Summary:
         return self.labelled_found / n if n else 0.0
 
     @property
+    def real_truth_expected(self) -> int:
+        """Settings to find across documents whose ground truth is not a guess."""
+        return self.reference_expected + self.labelled_expected
+
+    @property
+    def real_truth_found(self) -> int:
+        return self.reference_found + self.labelled_found
+
+    @property
+    def recall(self) -> float:
+        """**The headline recall.** Reference rows and hand labels only.
+
+        The proxy is excluded by construction rather than by convention, so no
+        report can accidentally average an estimate into a measurement. On the
+        120-document grid this covers 80 documents: 35 whose answer is a table
+        row and 45 a person read. The other 40 are reported beside it, never
+        inside it.
+        """
+        n = self.real_truth_expected
+        return self.real_truth_found / n if n else 0.0
+
+    @property
     def recall_vs_mentioned(self) -> float:
         """A proxy, and biased low. See the module docstring before quoting it."""
         return self.mentioned_found / self.mentioned_expected if self.mentioned_expected else 0.0
@@ -518,6 +540,9 @@ class Summary:
             grounding_rate=round(self.grounding_rate, 4),
             default_kind_accuracy=round(self.default_kind_accuracy, 4),
             default_value_accuracy=round(self.default_value_accuracy, 4),
+            recall=round(self.recall, 4),
+            real_truth_expected=self.real_truth_expected,
+            real_truth_found=self.real_truth_found,
             reference_recall=round(self.reference_recall, 4),
             labelled_recall=round(self.labelled_recall, 4),
             recall_vs_mentioned=round(self.recall_vs_mentioned, 4),

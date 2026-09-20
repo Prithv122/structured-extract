@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789893468-Q1mYGCokkBoo1BbvkJfc",
+ "object": "chat.completion",
+ "created": 1789893468,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"The `PRAGMA` `default_collation` can be used to specify the global default collator. This is the collator that will be used if no other one is specified.\",\n      \"input_type\": \"VARCHAR\",\n      \"name\": \"default_collation\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer only JSON matching schema. Need fix validation: default_kind absent => default_value and default_evidence both null. We previously had default_evidence non-null. Need set null. Also ensure schema maybe fields. Need output corrected JSON only. Let's inspect user says \"Do not add settings you did not previously return, and do not remove settings that were valid -- change only what the errors point at.\" So only change default_evidence to null. Keep default_value null. Output JSON. Ensure no markdown? They said answer only with JSON. We'll output JSON object.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer only JSON matching schema. Need fix validation: default_kind absent => default_value and default_evidence both null. We previously had default_evidence non-null. Need set null. Also ensure schema maybe fields. Need output corrected JSON only. Let's inspect user says \"Do not add settings you did not previously return, and do not remove settings that were valid -- change only what the errors point at.\" So only change default_evidence to null. Keep default_value null. Output JSON. Ensure no markdown? They said answer only with JSON. We'll output JSON object.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1411,
+  "completion_tokens": 230,
+  "total_tokens": 1641,
+  "cost": 0.00220915,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00220915,
+   "upstream_inference_prompt_cost": 0.00162265,
+   "upstream_inference_completions_cost": 0.0005865
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 144,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 6.313000000000102
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789893586-HMAFfk6T7lcAEpprMqMj",
+ "object": "chat.completion",
+ "created": 1789893586,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"jdbc:duckdb:/tmp/my_database;threads=4\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"threads\",\n      \"scope\": \"GLOBAL\"\n    },\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"memory_limit=4GB\",\n      \"input_type\": \"VARCHAR\",\n      \"name\": \"memory_limit\",\n      \"scope\": \"GLOBAL\"\n    },\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"jdbc_stream_results=true\",\n      \"input_type\": \"BOOLEAN\",\n      \"name\": \"jdbc_stream_results\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer only JSON matching schema. Need fix errors. We need understand schema. We have previous answer with settings. Errors:\n- settings[0].evidence must be at least 12 chars copied from document; got 'threads=4'. Need longer verbatim span. We can quote more from document around threads=4. The document text: \"jdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\" maybe quote \"threads=4;memory_limit=4GB\" or \"jdbc:duckdb:/tmp/my_database;threads=4\". Need at least 12 chars. But evidence should be verbatim span. We can use \"threads=4;memory_limit=4GB\" (24 chars) or \"jdbc:duckdb:/tmp/my_database;threads=4\" (36). Need ensure exactly from document. The document includes code block:\n```text\njdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\n```\nSo evidence can be \"jdbc:duckdb:/tmp/my_database;threads=4\" or \"threads=4;memory_limit=4GB\". But setting name threads, evidence should include setting. Use \"jdbc:duckdb:/tmp/my_database;threads=4\" maybe includes threads=4. That's verbatim. Need at least 12. Good.\n\n- settings[1] and [2]: default_kind is 'absent', so default_value and default_evidence must both be null. In previous answer we set default_evidence \"absent\", default_value \"absent\". Need change to null. Also for setting 0? Error only for settings 1 and 2? Actually settings[0] only evidence length error, not default_kind error? Wait settings[0] default_kind absent, default_value absent, default_evidence absent. But error list only settings[1] and [2] for default_kind. Why not settings[0]? Maybe because settings[0] had evidence error first? But likely same issue. Need fix all: if default_kind absent, default_value and default_evidence must be null. So set default_evidence: null, default_value: null for all settings. But schema maybe default_kind can be \"absent\" and default_value/evidence null. Need confirm. The error says \"default_kind is 'absent', so default_value and default_evidence must both be null\". So yes.\n\nNeed also ensure input_type maybe correct? We had DOUBLE for threads? Is threads integer? But schema maybe input_type enum? We need not change unless error. No error for input_type. But maybe threads should be BIGINT? Not relevant. We can keep.\n\nNeed return JSON only. Ensure evidence for settings[1] and [2] also at least 12 chars? They didn't error for evidence length? They had \"memory_limit=4GB\" length 15? Actually \"memory_limit=4GB\" is 15 chars, okay. \"jdbc_stream_results=true\" length 23, okay. But if we change default fields to null, evidence remains. Need maybe evidence for setting 0 longer. Use \"jdbc:duckdb:/tmp/my_database;threads=4\" length 36. But note that includes \"jdbc:duckdb:/tmp/my_database;threads=4\" exactly from document. Good.\n\nNeed output JSON with settings array. Ensure no extra text. Let's craft.\n\nBut wait: The instruction says \"Do not add settings you did not previously return, and do not remove settings that were valid -- change only what the errors point at.\" So we keep same three settings. Fix evidence for first, default fields null for all? The error only for settings[1] and [2], but likely settings[0] also has same default_kind issue but not flagged because evidence error? Actually validation may stop at first error per item? It reported evidence error for settings[0], and default_kind errors for settings[1] and [2]. It didn't report default_kind for settings[0] because maybe evidence error prevented further validation? But to be safe, set default_evidence and default_value null for all three. That is consistent with schema. Need ensure default_kind remains \"absent\". Good.\n\nNow produce JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer only JSON matching schema. Need fix errors. We need understand schema. We have previous answer with settings. Errors:\n- settings[0].evidence must be at least 12 chars copied from document; got 'threads=4'. Need longer verbatim span. We can quote more from document around threads=4. The document text: \"jdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\" maybe quote \"threads=4;memory_limit=4GB\" or \"jdbc:duckdb:/tmp/my_database;threads=4\". Need at least 12 chars. But evidence should be verbatim span. We can use \"threads=4;memory_limit=4GB\" (24 chars) or \"jdbc:duckdb:/tmp/my_database;threads=4\" (36). Need ensure exactly from document. The document includes code block:\n```text\njdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\n```\nSo evidence can be \"jdbc:duckdb:/tmp/my_database;threads=4\" or \"threads=4;memory_limit=4GB\". But setting name threads, evidence should include setting. Use \"jdbc:duckdb:/tmp/my_database;threads=4\" maybe includes threads=4. That's verbatim. Need at least 12. Good.\n\n- settings[1] and [2]: default_kind is 'absent', so default_value and default_evidence must both be null. In previous answer we set default_evidence \"absent\", default_value \"absent\". Need change to null. Also for setting 0? Error only for settings 1 and 2? Actually settings[0] only evidence length error, not default_kind error? Wait settings[0] default_kind absent, default_value absent, default_evidence absent. But error list only settings[1] and [2] for default_kind. Why not settings[0]? Maybe because settings[0] had evidence error first? But likely same issue. Need fix all: if default_kind absent, default_value and default_evidence must be null. So set default_evidence: null, default_value: null for all settings. But schema maybe default_kind can be \"absent\" and default_value/evidence null. Need confirm. The error says \"default_kind is 'absent', so default_value and default_evidence must both be null\". So yes.\n\nNeed also ensure input_type maybe correct? We had DOUBLE for threads? Is threads integer? But schema maybe input_type enum? We need not change unless error. No error for input_type. But maybe threads should be BIGINT? Not relevant. We can keep.\n\nNeed return JSON only. Ensure evidence for settings[1] and [2] also at least 12 chars? They didn't error for evidence length? They had \"memory_limit=4GB\" length 15? Actually \"memory_limit=4GB\" is 15 chars, okay. \"jdbc_stream_results=true\" length 23, okay. But if we change default fields to null, evidence remains. Need maybe evidence for setting 0 longer. Use \"jdbc:duckdb:/tmp/my_database;threads=4\" length 36. But note that includes \"jdbc:duckdb:/tmp/my_database;threads=4\" exactly from document. Good.\n\nNeed output JSON with settings array. Ensure no extra text. Let's craft.\n\nBut wait: The instruction says \"Do not add settings you did not previously return, and do not remove settings that were valid -- change only what the errors point at.\" So we keep same three settings. Fix evidence for first, default fields null for all? The error only for settings[1] and [2], but likely settings[0] also has same default_kind issue but not flagged because evidence error? Actually validation may stop at first error per item? It reported evidence error for settings[0], and default_kind errors for settings[1] and [2]. It didn't report default_kind for settings[0] because maybe evidence error prevented further validation? But to be safe, set default_evidence and default_value null for all three. That is consistent with schema. Need ensure default_kind remains \"absent\". Good.\n\nNow produce JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1483,
+  "completion_tokens": 1145,
+  "total_tokens": 2628,
+  "cost": 0.004382,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.004382,
+   "upstream_inference_prompt_cost": 0.00146225,
+   "upstream_inference_completions_cost": 0.00291975
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 916,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 26.92200000000048
+}

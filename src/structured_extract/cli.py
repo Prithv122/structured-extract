@@ -948,6 +948,147 @@ def cmd_score_run(args: argparse.Namespace) -> int:
     return 0
 
 
+# --------------------------------------------------------------------------- report
+
+
+def _provenance(results: list[dict]) -> None:
+    """What the numbers below rest on. Printed first, never derived twice."""
+    corpus = jsonl.read_list(paths.CORPUS_JSONL)
+    by_hash: dict[str, list[str]] = {}
+    for row in corpus:
+        by_hash.setdefault(row["sha256"], []).append(row["doc_id"])
+    duplicates = {h: sorted(ids) for h, ids in by_hash.items() if len(ids) > 1}
+
+    hand = {label.doc_id for label in labels_mod.load() if label.documents is not None}
+    reference = {row["doc_id"] for row in corpus if row["stratum"] == "reference"}
+    prose = {row["doc_id"] for row in corpus if row["stratum"] != "reference"}
+
+    print("CORPUS")
+    print(f"  document records                 {len(corpus)}")
+    print(f"  distinct texts                   {len(by_hash)}")
+    for ids in duplicates.values():
+        strata = {next(r for r in corpus if r["doc_id"] == i)["stratum"] for i in ids}
+        across = " (crosses strata)" if len(strata) > 1 else ""
+        print(f"    identical: {' == '.join(ids)}{across}")
+
+    print()
+    print("TRUTH COVERAGE")
+    print(f"  reference-row (exact)            {len(reference)}")
+    print(f"  hand-labelled (exact)            {len(hand & prose)}")
+    print(f"  mentioned-proxy (estimate)       {len(prose - hand)}")
+    print(f"  documents with real truth        {len(reference) + len(hand & prose)}")
+
+    pilot = paths.RESULTS_JSONL.with_name("pilot.jsonl")
+    carried = set()
+    if pilot.exists():
+        carried = {
+            (r["arm"], r["prompt"], r["doc_id"]) for r in jsonl.read_list(pilot) if not r["error"]
+        }
+    replayed = [r for r in results if (r["arm"], r["prompt"], r["doc_id"]) in carried]
+    billed = sum(r["cost_reported"] for r in results)
+
+    print()
+    print("PAID EXPERIMENT")
+    distinct = len({(r["arm"], r["prompt"], r["doc_id"]) for r in results})
+    carried_cost = sum(r["cost_reported"] for r in replayed)
+    print(f"  result rows                      {len(results)}")
+    print(f"  distinct (arm, prompt, doc)      {distinct}")
+    print(f"  carried in from the pilot        {len(replayed)}")
+    print(f"  total billed                     ${billed:.4f}")
+    print(f"    of which carried in            ${carried_cost:.4f}")
+    print(f"    incremental for this run       ${billed - carried_cost:.4f}")
+    predicted = sum(r["cost_estimated"] for r in results)
+    if predicted:
+        print(
+            f"  pinned prices predicted          ${predicted:.4f}  ({billed / predicted:.2f}x out)"
+        )
+
+
+def cmd_report(args: argparse.Namespace) -> int:
+    """The final report: provenance, headline, and the failures behind them."""
+    results = jsonl.read_list(args.results)
+    stale = _stale_results_reason(results)
+    if stale:
+        print(f"FAIL  {args.results.name} {stale}", file=sys.stderr)
+        return 2
+
+    scores = score_mod.score_all(results)
+    summaries = score_mod.summarise(scores)
+
+    _provenance(results)
+
+    print()
+    print("HEADLINE  (recall is reference-row + hand-label only; the proxy is below)")
+    head = f"{'prompt':<15} {'arm':<4} {'avail':>6} {'halluc':>7} {'recall':>7} {'n':>7}"
+    print(f"{head} {'type':>6} {'scope':>6} {'ground':>7} {'cost':>9}")
+    for s in summaries:
+        print(
+            f"{s.prompt:<15} {s.arm:<4} {s.availability:>6.0%} {s.hallucination_rate:>7.0%} "
+            f"{s.recall:>7.0%} {f'{s.real_truth_found}/{s.real_truth_expected}':>7} "
+            f"{s.type_accuracy:>6.0%} {s.scope_accuracy:>6.0%} {s.grounding_rate:>7.0%} "
+            f"${s.cost_reported:>8.4f}"
+        )
+
+    print()
+    print("PROMPT EFFECT  (hand-labelled prose only -- where the truth is a judgement)")
+    labelled_docs = {s.doc_id for s in scores if s.truth_source == "hand-label"}
+    print(f"{'arm':<4} {'v1 halluc':>12} {'v2 halluc':>12}   {'v1 recall':>11} {'v2 recall':>11}")
+    for arm in dict.fromkeys(s.arm for s in scores):
+        cells = {}
+        for prompt in dict.fromkeys(s.prompt for s in scores):
+            sub = [
+                s
+                for s in scores
+                if s.arm == arm and s.prompt == prompt and s.doc_id in labelled_docs
+            ]
+            records = [r for s in sub for r in s.records]
+            want = sum(len(s.expected) for s in sub)
+            got = sum(len(set(s.expected) & {r.canonical for r in s.records}) for s in sub)
+            cells[prompt] = (
+                f"{sum(r.hallucinated for r in records)}/{len(records)}" if records else "0/0",
+                f"{got}/{want}",
+            )
+        keys = list(cells)
+        a, b = cells[keys[0]], cells[keys[1] if len(keys) > 1 else keys[0]]
+        print(f"{arm:<4} {a[0]:>12} {b[0]:>12}   {a[1]:>11} {b[1]:>11}")
+
+    print()
+    print("PROXY  (40 unlabelled prose documents -- shown, never in the headline)")
+    for s in summaries:
+        if s.mentioned_expected:
+            print(
+                f"  {s.prompt:<15} {s.arm:<4} {s.mentioned_found}/{s.mentioned_expected} "
+                f"= {s.recall_vs_mentioned:.0%}  (estimate: cannot tell documented from mentioned)"
+            )
+
+    print()
+    print("FAILURES")
+    truncated = [r for r in results if r["outcome"] == "length_truncated"]
+    errored = [r for r in results if r["error"]]
+    print(f"  length_truncated   {len(truncated)} of {len(results)}")
+    for r in sorted(truncated, key=lambda r: -r["cost_reported"])[: args.detail or 10]:
+        print(
+            f"    {r['arm']} {r['prompt']:<15} {r['doc_id']:<16} "
+            f"out={r['completion_tokens']:>6} think={r['reasoning_tokens']:>6} "
+            f"${r['cost_reported']:.5f} {r['latency_s']:>6.0f}s"
+        )
+    if truncated:
+        share = sum(r["cost_reported"] for r in truncated) / max(
+            sum(r["cost_reported"] for r in results), 1e-9
+        )
+        print(f"    they are {share:.0%} of total spend")
+
+    print(f"  provider errors    {len(errored)} of {len(results)}")
+    for message, group in _group_errors(errored).items():
+        arms = ", ".join(sorted({r["arm"] for r in group}))
+        print(f"    [{len(group):>4} rows · arms {arms}] {message[:120]}")
+
+    print(f"\n-> {paths.SCORES_JSONL}\n-> {paths.SUMMARY_JSONL}")
+    jsonl.write(paths.SCORES_JSONL, (s.to_json() for s in scores))
+    jsonl.write(paths.SUMMARY_JSONL, (s.to_json() for s in summaries))
+    return 0
+
+
 # --------------------------------------------------------------------------- wiring
 
 
@@ -1067,6 +1208,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="also list the N most frequent hallucinated names",
     )
     srun.set_defaults(func=cmd_score_run)
+
+    report = sub.add_parser("report", help="the final report: provenance, headline, failures")
+    report.add_argument("results", type=Path, nargs="?", default=paths.RESULTS_JSONL)
+    report.add_argument("--detail", type=int, default=10, help="failure rows to list")
+    report.set_defaults(func=cmd_report)
 
     return parser
 

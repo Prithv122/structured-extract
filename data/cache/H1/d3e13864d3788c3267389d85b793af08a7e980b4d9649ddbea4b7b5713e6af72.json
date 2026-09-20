@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789893446-jjpBLJ0zTj4pstU7pVuL",
+ "object": "chat.completion",
+ "created": 1789893446,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": \"The `PRAGMA` `default_collation` can be used to specify the global default collator. This is the collator that will be used if no other one is specified.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"The `PRAGMA` `default_collation` can be used to specify the global default collator. This is the collator that will be used if no other one is specified.\",\n      \"input_type\": \"VARCHAR\",\n      \"name\": \"default_collation\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only with schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need produce likely list of settings with evidence and default. Need identify settings documented in section. Section is about collations. It documents PRAGMA default_collation? It says \"The `PRAGMA` `default_collation` can be used to specify the global default collator. This is the collator that will be used if no other one is specified.\" Then SQL `SET default_collation = NOCASE;`. So setting name likely `default_collation`. It documents what it does and how to set. Default? Does section state default? It says \"The collations we have seen so far have all been specified per expression. It is also possible to specify a default collator, either on the global database level or on a base table column. The `PRAGMA` `default_collation` can be used to specify the global default collator. This is the collator that will be used if no other one is specified.\" No default value stated. So default absent.\n\nNeed quote verbatim. Could quote \"The `PRAGMA` `default_collation` can be used to specify the global default collator. This is the collator that will be used if no other one is specified.\" Or include SET example? Need evidence setting documented. We can quote that sentence. Need maybe setting name is `default_collation`. Also maybe `default_collation` is a PRAGMA, but setting? DuckDB config settings include `default_collation`? Yes.\n\nNeed ensure no other settings. Section mentions `COLLATE` per column, but not a setting. `SET default_collation = NOCASE` is setting. No other config settings. So list one.\n\nNeed output JSON. Schema likely array of objects with setting, evidence, default? Need decide fields. User: \"For each setting, quote a span ... Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" Since schema not shown, we need infer. Maybe from previous tasks? Could be:\n{\n  \"settings\": [\n    {\n      \"setting\": \"default_collation\",\n      \"evidence\": \"...\",\n      \"default\": null\n    }\n  ]\n}\nOr maybe array directly. Need choose. The prompt says \"Return every configuration setting...\" and \"Answer only with JSON matching the supplied schema.\" No schema in prompt. We need produce valid JSON. Could use object with \"settings\" array. But if schema expected maybe list. Need think.\n\nThe user likely expects JSON with fields: setting, evidence, default. We can output:\n[\n  {\n    \"setting\": \"default_collation\",\n    \"evidence\": \"The `PRAGMA` `default_collation` can be used to specify the global default collator. This is the collator that will be used if no other one is specified.\",\n    \"default\": \"absent\"\n  }\n]\nBut \"default\" maybe should be null if absent. They said \"If the section does not state a default, say it is absent\". So value \"absent\" or null? They said \"say it is absent\"; in JSON maybe \"absent\" string. Need include \"default\": \"absent\". But schema might expect default as string or null. We can use \"absent\" to be explicit.\n\nNeed ensure quote exact. The text: \"The `PRAGMA` `default_collation` can be used to specify the global default collator. This is the collator that will be used if no other one is specified.\" Copy exactly. Good.\n\nNeed maybe include setting name as \"default_collation\". Could also include \"PRAGMA default_collation\"? Setting name likely default_collation.\n\nLet's craft final JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only with schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need produce likely list of settings with evidence and default. Need identify settings documented in section. Section is about collations. It documents PRAGMA default_collation? It says \"The `PRAGMA` `default_collation` can be used to specify the global default collator. This is the collator that will be used if no other one is specified.\" Then SQL `SET default_collation = NOCASE;`. So setting name likely `default_collation`. It documents what it does and how to set. Default? Does section state default? It says \"The collations we have seen so far have all been specified per expression. It is also possible to specify a default collator, either on the global database level or on a base table column. The `PRAGMA` `default_collation` can be used to specify the global default collator. This is the collator that will be used if no other one is specified.\" No default value stated. So default absent.\n\nNeed quote verbatim. Could quote \"The `PRAGMA` `default_collation` can be used to specify the global default collator. This is the collator that will be used if no other one is specified.\" Or include SET example? Need evidence setting documented. We can quote that sentence. Need maybe setting name is `default_collation`. Also maybe `default_collation` is a PRAGMA, but setting? DuckDB config settings include `default_collation`? Yes.\n\nNeed ensure no other settings. Section mentions `COLLATE` per column, but not a setting. `SET default_collation = NOCASE` is setting. No other config settings. So list one.\n\nNeed output JSON. Schema likely array of objects with setting, evidence, default? Need decide fields. User: \"For each setting, quote a span ... Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" Since schema not shown, we need infer. Maybe from previous tasks? Could be:\n{\n  \"settings\": [\n    {\n      \"setting\": \"default_collation\",\n      \"evidence\": \"...\",\n      \"default\": null\n    }\n  ]\n}\nOr maybe array directly. Need choose. The prompt says \"Return every configuration setting...\" and \"Answer only with JSON matching the supplied schema.\" No schema in prompt. We need produce valid JSON. Could use object with \"settings\" array. But if schema expected maybe list. Need think.\n\nThe user likely expects JSON with fields: setting, evidence, default. We can output:\n[\n  {\n    \"setting\": \"default_collation\",\n    \"evidence\": \"The `PRAGMA` `default_collation` can be used to specify the global default collator. This is the collator that will be used if no other one is specified.\",\n    \"default\": \"absent\"\n  }\n]\nBut \"default\" maybe should be null if absent. They said \"If the section does not state a default, say it is absent\". So value \"absent\" or null? They said \"say it is absent\"; in JSON maybe \"absent\" string. Need include \"default\": \"absent\". But schema might expect default as string or null. We can use \"absent\" to be explicit.\n\nNeed ensure quote exact. The text: \"The `PRAGMA` `default_collation` can be used to specify the global default collator. This is the collator that will be used if no other one is specified.\" Copy exactly. Good.\n\nNeed maybe include setting name as \"default_collation\". Could also include \"PRAGMA default_collation\"? Setting name likely default_collation.\n\nLet's craft final JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 784,
+  "completion_tokens": 954,
+  "total_tokens": 1738,
+  "cost": 0.0033343,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0033343,
+   "upstream_inference_prompt_cost": 0.0009016,
+   "upstream_inference_completions_cost": 0.0024327
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 868,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 21.42200000000048
+}
