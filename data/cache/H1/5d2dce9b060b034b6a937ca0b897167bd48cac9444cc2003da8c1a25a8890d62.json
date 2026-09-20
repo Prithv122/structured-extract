@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789886001-k0Fb1nSl8waa0bOB6q9L",
+ "object": "chat.completion",
+ "created": 1789886001,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse task. User asks extract DuckDB configuration settings from single section of DuckDB documentation. But provided text is about Managed PostgreSQL databases RDS/Aurora IAM authentication, postgres extension. It seems not DuckDB documentation? Need determine if section documents any DuckDB configuration settings. Likely none. Need answer JSON matching schema. We need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. Need maybe produce list of settings with evidence/default. We need decide structure. Since no schema, maybe expected: {\"settings\": []}? Need be careful.\n\nThe text: \"Managed PostgreSQL databases running on RDS/Aurora services allow to use IAM authentication... In that case the authentication token is generated using AWS SDK and must be refreshed every 15 minutes. The `postgres` extension supports IAM authentication, when the password is not specified in the secret, but instead one of the configured AWS Credential Providers is used to generate the password, that is refreshed by the `postgres` extension automatically.\"\n\nThis is not DuckDB documentation. It mentions `postgres` extension, AWS, IAM. No DuckDB configuration settings documented. So empty list correct.\n\nNeed output JSON only. But schema? Could be array of objects with fields: setting, evidence, default. Need maybe include \"default\": null or \"absent\". The instruction: \"For each setting, quote a span... Also report the setting's default... If section does not state a default, say it is absent\". So each object likely has setting name, evidence, default. If no settings, empty array.\n\nNeed answer only JSON. Could be:\n{\n  \"settings\": []\n}\nBut maybe schema expects list directly? The phrase \"Return every configuration setting\" and \"Answer only with JSON matching the supplied schema.\" Without schema, safest to include an object with \"settings\" array? Hmm.\n\nNeed infer from typical extraction tasks. They might expect:\n[\n  {\n    \"setting\": \"...\",\n    \"evidence\": \"...\",\n    \"default\": \"...\"\n  }\n]\nIf empty: []\n\nThe instruction says \"Return every configuration setting that this section documents.\" Could be JSON array. \"For each setting, quote a span...\" So likely array of objects. \"Answer only with JSON matching the supplied schema.\" Since no schema, maybe they expect array. But \"settings\" key? Let's examine wording: \"Return every configuration setting...\" not \"Return an object with settings\". \"For each setting, quote...\" So array is natural.\n\nNeed decide. The user says \"Answer only with JSON matching the supplied schema.\" There is no supplied schema in conversation. Could be hidden? We need produce valid JSON. I'd output empty array `[]` because no settings. That matches \"Return every configuration setting\" as a list. If they expected object, maybe fail. But empty array is concise.\n\nNeed ensure no extra text. Final: []",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse task. User asks extract DuckDB configuration settings from single section of DuckDB documentation. But provided text is about Managed PostgreSQL databases RDS/Aurora IAM authentication, postgres extension. It seems not DuckDB documentation? Need determine if section documents any DuckDB configuration settings. Likely none. Need answer JSON matching schema. We need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. Need maybe produce list of settings with evidence/default. We need decide structure. Since no schema, maybe expected: {\"settings\": []}? Need be careful.\n\nThe text: \"Managed PostgreSQL databases running on RDS/Aurora services allow to use IAM authentication... In that case the authentication token is generated using AWS SDK and must be refreshed every 15 minutes. The `postgres` extension supports IAM authentication, when the password is not specified in the secret, but instead one of the configured AWS Credential Providers is used to generate the password, that is refreshed by the `postgres` extension automatically.\"\n\nThis is not DuckDB documentation. It mentions `postgres` extension, AWS, IAM. No DuckDB configuration settings documented. So empty list correct.\n\nNeed output JSON only. But schema? Could be array of objects with fields: setting, evidence, default. Need maybe include \"default\": null or \"absent\". The instruction: \"For each setting, quote a span... Also report the setting's default... If section does not state a default, say it is absent\". So each object likely has setting name, evidence, default. If no settings, empty array.\n\nNeed answer only JSON. Could be:\n{\n  \"settings\": []\n}\nBut maybe schema expects list directly? The phrase \"Return every configuration setting\" and \"Answer only with JSON matching the supplied schema.\" Without schema, safest to include an object with \"settings\" array? Hmm.\n\nNeed infer from typical extraction tasks. They might expect:\n[\n  {\n    \"setting\": \"...\",\n    \"evidence\": \"...\",\n    \"default\": \"...\"\n  }\n]\nIf empty: []\n\nThe instruction says \"Return every configuration setting that this section documents.\" Could be JSON array. \"For each setting, quote a span...\" So likely array of objects. \"Answer only with JSON matching the supplied schema.\" Since no schema, maybe they expect array. But \"settings\" key? Let's examine wording: \"Return every configuration setting...\" not \"Return an object with settings\". \"For each setting, quote...\" So array is natural.\n\nNeed decide. The user says \"Answer only with JSON matching the supplied schema.\" There is no supplied schema in conversation. Could be hidden? We need produce valid JSON. I'd output empty array `[]` because no settings. That matches \"Return every configuration setting\" as a list. If they expected object, maybe fail. But empty array is concise.\n\nNeed ensure no extra text. Final: []",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 483,
+  "completion_tokens": 614,
+  "total_tokens": 1097,
+  "cost": 0.00212115,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00212115,
+   "upstream_inference_prompt_cost": 0.00055545,
+   "upstream_inference_completions_cost": 0.0015657
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 738,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 14.32799999999952
+}

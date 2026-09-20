@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789886509-g63QoNmahVBrOWpOwXIA",
+ "object": "chat.completion",
+ "created": 1789886509,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. User asks extract DuckDB configuration settings from single section of docs. Section is \"Secrets manager\" text provided. Need determine if any configuration settings documented. Likely none? Need be careful. The section describes secrets manager, not settings. It mentions secrets can be scoped/persisted. No table of settings. Need output empty list. Need JSON matching schema? We don't have schema in prompt? It says answer only with JSON matching supplied schema. But schema not included. Need infer likely list of objects with setting, default, evidence? We need produce JSON. Since no settings, empty list maybe [].\n\nNeed ensure no settings. The text: \"The **Secrets manager** provides a unified user interface for secrets across all backends that use them. Secrets can be scoped, so different storage prefixes can have different secrets, allowing for example to join data across organizations in a single query. Secrets can also be persisted, so that they do not need to be specified every time DuckDB is launched.\n\n> Warning Persistent secrets are stored in unencrypted binary format on the disk.\"\n\nNo configuration settings. Return empty list. Need maybe include schema? The instruction \"Answer only with JSON matching the supplied schema.\" We don't have schema. Could be array. I'll output [].\n\nNeed ensure no markdown.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. User asks extract DuckDB configuration settings from single section of docs. Section is \"Secrets manager\" text provided. Need determine if any configuration settings documented. Likely none? Need be careful. The section describes secrets manager, not settings. It mentions secrets can be scoped/persisted. No table of settings. Need output empty list. Need JSON matching schema? We don't have schema in prompt? It says answer only with JSON matching supplied schema. But schema not included. Need infer likely list of objects with setting, default, evidence? We need produce JSON. Since no settings, empty list maybe [].\n\nNeed ensure no settings. The text: \"The **Secrets manager** provides a unified user interface for secrets across all backends that use them. Secrets can be scoped, so different storage prefixes can have different secrets, allowing for example to join data across organizations in a single query. Secrets can also be persisted, so that they do not need to be specified every time DuckDB is launched.\n\n> Warning Persistent secrets are stored in unencrypted binary format on the disk.\"\n\nNo configuration settings. Return empty list. Need maybe include schema? The instruction \"Answer only with JSON matching the supplied schema.\" We don't have schema. Could be array. I'll output [].\n\nNeed ensure no markdown.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 587,
+  "completion_tokens": 283,
+  "total_tokens": 870,
+  "cost": 0.0013967,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0013967,
+   "upstream_inference_prompt_cost": 0.00067505,
+   "upstream_inference_completions_cost": 0.00072165
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 346,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.141000000000531
+}

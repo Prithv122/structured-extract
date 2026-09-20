@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789886218-Fro4pu1tsXu2b0lQWkDm",
+ "object": "chat.completion",
+ "created": 1789886218,
+ "model": "google/gemini-2.5-flash",
+ "provider": "Google",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "STOP",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"custom_extension_repository\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"If you serve extensions from a [custom repository]({% link docs/current/clients/wasm/deploying_duckdb_wasm.md %}#duckdb-extensions) with `SET custom_extension_repository = '⟨https://some.url.com⟩'`, the `GET` requests for the extension files must be [CORS enabled](https://www.w3.org/wiki/CORS_Enabled) for the browser to allow the connection, exactly as for remote data files above.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 434,
+  "completion_tokens": 187,
+  "total_tokens": 621,
+  "cost": 0.0005977,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0005977,
+   "upstream_inference_prompt_cost": 0.0001302,
+   "upstream_inference_completions_cost": 0.0004675
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 2.1409999999996217
+}

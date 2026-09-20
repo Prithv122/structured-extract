@@ -7,6 +7,7 @@ exercised offline and for free.
 from __future__ import annotations
 
 import http.client
+import io
 import json
 import ssl
 from dataclasses import replace
@@ -671,3 +672,53 @@ def test_a_broken_read_writes_nothing_to_the_cache(monkeypatch, tmp_path):
     )
     E.extract_document(ARM, "doc-1", DOCUMENT, cache_dir=tmp_path, api_key="key")
     assert list(tmp_path.rglob("*.json")) == []
+
+
+def test_a_rate_limited_provider_is_given_time_to_recover(monkeypatch, tmp_path):
+    """The third pilot lost 6 of 16 H5 calls to an upstream 429, because three
+    retries fitted inside five seconds. That measured the retry policy, not the
+    provider."""
+    slept: list[float] = []
+    monkeypatch.setattr(E.time, "sleep", slept.append)
+
+    rate_limited = E.urllib.error.HTTPError(
+        E.COMPLETIONS_URL, 429, "Too Many Requests", {}, io.BytesIO(b'{"error":"overloaded"}')
+    )
+    calls = {"n": 0}
+
+    def fake(request, timeout=None):
+        calls["n"] += 1
+        if calls["n"] <= 2:
+            raise rate_limited
+        return FakeResponse(body=json.dumps(body(GOOD)).encode())
+
+    monkeypatch.setattr(E.urllib.request, "urlopen", fake)
+    row, _ = E.extract_document(ARM, "doc-1", DOCUMENT, cache_dir=tmp_path, api_key="key")
+
+    assert row.outcome == E.Outcome.VALID_FIRST_PASS
+    assert row.repair_used is False, "a 429 is not a bad answer"
+    assert sum(slept) > 20, f"gave up after only {sum(slept):.1f}s of waiting"
+
+
+def test_a_429_is_retried_but_a_402_is_not(monkeypatch, tmp_path):
+    """No credit will not fix itself; an overloaded engine might."""
+    monkeypatch.setattr(E.time, "sleep", lambda _s: None)
+    for code, expected_calls in ((429, E.MAX_TRANSPORT_RETRIES), (402, 1)):
+        calls = {"n": 0}
+
+        def fake(request, timeout=None, _code=code, _calls=calls):
+            _calls["n"] += 1
+            raise E.urllib.error.HTTPError(E.COMPLETIONS_URL, _code, "no", {}, io.BytesIO(b"{}"))
+
+        monkeypatch.setattr(E.urllib.request, "urlopen", fake)
+        E.extract_document(ARM, f"d{code}", DOCUMENT, cache_dir=tmp_path, api_key="key")
+        assert calls["n"] == expected_calls, f"{code} was attempted {calls['n']} times"
+
+
+def test_backoff_grows_and_is_jittered():
+    delays = [E.backoff_delay(i) for i in range(E.MAX_TRANSPORT_RETRIES)]
+    assert delays[0] < delays[1] < delays[2]
+    assert len({round(E.backoff_delay(0), 6) for _ in range(20)}) > 1, "no jitter"
+    for i, delay in enumerate(delays):
+        base = E.BACKOFF_SECONDS[min(i, len(E.BACKOFF_SECONDS) - 1)]
+        assert base * 0.7 <= delay <= base * 1.3

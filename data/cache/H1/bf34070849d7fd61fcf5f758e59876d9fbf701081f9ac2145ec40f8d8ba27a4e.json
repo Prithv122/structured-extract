@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789885959-zOvUah3egsGXhquAgWBZ",
+ "object": "chat.completion",
+ "created": 1789885959,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe from previous? We need produce JSON with settings, quotes, defaults. Need inspect section. The section is about Secrets manager. It documents? It mentions \"Secrets can be scoped\", \"persisted\", warning. Does it document any configuration settings? Likely no DuckDB configuration settings. Need return empty list? Need know schema. Probably something like {\"settings\": [{\"name\": ..., \"evidence\": ..., \"default\": ...}]}. Since no settings documented, return {\"settings\": []}. Need ensure only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe from previous? We need produce JSON with settings, quotes, defaults. Need inspect section. The section is about Secrets manager. It documents? It mentions \"Secrets can be scoped\", \"persisted\", warning. Does it document any configuration settings? Likely no DuckDB configuration settings. Need return empty list? Need know schema. Probably something like {\"settings\": [{\"name\": ..., \"evidence\": ..., \"default\": ...}]}. Since no settings documented, return {\"settings\": []}. Need ensure only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 455,
+  "completion_tokens": 146,
+  "total_tokens": 601,
+  "cost": 0.00089555,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00089555,
+   "upstream_inference_prompt_cost": 0.00052325,
+   "upstream_inference_completions_cost": 0.0003723
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 167,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 10.07799999999952
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789887096-hCuVKdQPGXctUXsNyJ0A",
+ "object": "chat.completion",
+ "created": 1789887096,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"custom_extension_repository\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET custom_extension_repository = '⟨https://some.url.com⟩'\",\n      \"default_kind\": \"absent\"\n   \n    , \"default_value\": \"absent\"\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The text mentions \"SET custom_extension_repository = '⟨https://some.url.com⟩'\". That's a configuration setting: custom_extension_repository. We need to provide evidence quote and default if stated. The text does not state default value. It just mentions setting. No default given. So default is absent.\n\nThus output JSON list with one object: name, evidence, default: \"absent\". Schema? Not provided but likely list of objects with fields name, evidence, default. We'll output accordingly.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The text mentions \"SET custom_extension_repository = '⟨https://some.url.com⟩'\". That's a configuration setting: custom_extension_repository. We need to provide evidence quote and default if stated. The text does not state default value. It just mentions setting. No default given. So default is absent.\n\nThus output JSON list with one object: name, evidence, default: \"absent\". Schema? Not provided but likely list of objects with fields name, evidence, default. We'll output accordingly.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 629,
+  "completion_tokens": 223,
+  "total_tokens": 852,
+  "cost": 5.678e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 5.678e-05,
+   "upstream_inference_prompt_cost": 1.887e-05,
+   "upstream_inference_completions_cost": 3.791e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 144,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 5.359000000000378
+}

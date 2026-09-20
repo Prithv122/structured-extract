@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789886328-4y8Gp0GJEnDNQnAm6ZP6",
+ "object": "chat.completion",
+ "created": 1789886328,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"custom_extension_repository\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET custom_extension_repository = '⟨https://some.url.com⟩'`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). When default_kind is \"absent\", default_value must be null and default_evidence null. In previous answer default_value was \"absent\" string, which is wrong. Also there is stray commas and formatting errors. Need proper JSON.\n\nWe need to provide evidence as verbatim span from the section. The section text: \"with `SET custom_extension_repository = '⟨https://some.url.com⟩'`\". The evidence should be the exact characters, likely without backticks? The instruction: quote a span verbatim as evidence. The span includes backticks? The text includes backticks around the SET command. The verbatim span could be \"`SET custom_extension_repository = '⟨https://some.url.com⟩'`\". That's fine.\n\nWe need to include default_kind: \"absent\". default_value: null. default_evidence: null.\n\nAlso need to include input_type, scope. The schema expects those fields. We have them.\n\nMake sure JSON is valid: array of settings, each object with fields.\n\nThus output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"custom_extension_repository\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET custom_extension_repository = '⟨https://some.url.com⟩'`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck no extra commas.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). When default_kind is \"absent\", default_value must be null and default_evidence null. In previous answer default_value was \"absent\" string, which is wrong. Also there is stray commas and formatting errors. Need proper JSON.\n\nWe need to provide evidence as verbatim span from the section. The section text: \"with `SET custom_extension_repository = '⟨https://some.url.com⟩'`\". The evidence should be the exact characters, likely without backticks? The instruction: quote a span verbatim as evidence. The span includes backticks? The text includes backticks around the SET command. The verbatim span could be \"`SET custom_extension_repository = '⟨https://some.url.com⟩'`\". That's fine.\n\nWe need to include default_kind: \"absent\". default_value: null. default_evidence: null.\n\nAlso need to include input_type, scope. The schema expects those fields. We have them.\n\nMake sure JSON is valid: array of settings, each object with fields.\n\nThus output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"custom_extension_repository\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET custom_extension_repository = '⟨https://some.url.com⟩'`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck no extra commas.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 973,
+  "completion_tokens": 444,
+  "total_tokens": 1417,
+  "cost": 0.00010467,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00010467,
+   "upstream_inference_prompt_cost": 2.919e-05,
+   "upstream_inference_completions_cost": 7.548e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 377,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.140000000000327
+}

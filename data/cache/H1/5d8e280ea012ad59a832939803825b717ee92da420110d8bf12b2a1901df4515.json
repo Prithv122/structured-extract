@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789886504-yooYV38KyNKX4UqaJAf0",
+ "object": "chat.completion",
+ "created": 1789886504,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need produce likely list of settings with evidence and default. Need parse section. The section is about COPY options. These are options/arguments of SQL statement COPY, not configuration settings. The instructions explicitly: options and arguments of a SQL statement, such as parenthesised options of COPY... none are configuration settings. If section documents those, correct answer empty list. So answer should be empty list. Need JSON matching schema maybe {\"settings\": []} or maybe array? We need decide. User says \"For each setting, quote...\" and \"Answer only with JSON matching supplied schema.\" No schema. We need likely output empty list. Could be {\"settings\":[]}. Need ensure no settings. Let's craft JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need produce likely list of settings with evidence and default. Need parse section. The section is about COPY options. These are options/arguments of SQL statement COPY, not configuration settings. The instructions explicitly: options and arguments of a SQL statement, such as parenthesised options of COPY... none are configuration settings. If section documents those, correct answer empty list. So answer should be empty list. Need JSON matching schema maybe {\"settings\": []} or maybe array? We need decide. User says \"For each setting, quote...\" and \"Answer only with JSON matching supplied schema.\" No schema. We need likely output empty list. Could be {\"settings\":[]}. Need ensure no settings. Let's craft JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1677,
+  "completion_tokens": 183,
+  "total_tokens": 1860,
+  "cost": 0.0023952,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0023952,
+   "upstream_inference_prompt_cost": 0.00192855,
+   "upstream_inference_completions_cost": 0.00046665
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 221,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 5.407000000000153
+}

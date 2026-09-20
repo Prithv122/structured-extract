@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789887018-fMlQYLIsMB4IwBd9D0es",
+ "object": "chat.completion",
+ "created": 1789887018,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "The user gave a paragraph about PostgreSQL IAM authentication. The task: extract DuckDB configuration settings from a single section of the DuckDB documentation. The provided text is not DuckDB documentation; it's about PostgreSQL IAM authentication. So there are no DuckDB settings. According to instructions, if the section documents other things, answer empty list. So output JSON with empty list.\n\nWe need to follow schema. The schema likely expects something like {\"settings\": []} or maybe just []? The prompt says \"Answer only with JSON matching the supplied schema.\" But we don't have the schema explicitly. Usually for these tasks, the schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut not sure. Could be just an array of objects. However typical prior tasks: they expect an array of objects. The instruction: \"For each setting, quote a span of the section verbatim as evidence.\" So output likely an array of objects with fields name, default, evidence. If none, output [].\n\nThus answer: [].\n\nI'll output empty JSON array.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The user gave a paragraph about PostgreSQL IAM authentication. The task: extract DuckDB configuration settings from a single section of the DuckDB documentation. The provided text is not DuckDB documentation; it's about PostgreSQL IAM authentication. So there are no DuckDB settings. According to instructions, if the section documents other things, answer empty list. So output JSON with empty list.\n\nWe need to follow schema. The schema likely expects something like {\"settings\": []} or maybe just []? The prompt says \"Answer only with JSON matching the supplied schema.\" But we don't have the schema explicitly. Usually for these tasks, the schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut not sure. Could be just an array of objects. However typical prior tasks: they expect an array of objects. The instruction: \"For each setting, quote a span of the section verbatim as evidence.\" So output likely an array of objects with fields name, default, evidence. If none, output [].\n\nThus answer: [].\n\nI'll output empty JSON array.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 597,
+  "completion_tokens": 258,
+  "total_tokens": 855,
+  "cost": 6.177e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.177e-05,
+   "upstream_inference_prompt_cost": 1.791e-05,
+   "upstream_inference_completions_cost": 4.386e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 287,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 6.188000000000102
+}

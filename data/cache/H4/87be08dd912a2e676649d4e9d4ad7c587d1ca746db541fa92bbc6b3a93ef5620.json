@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789887117-rd43iXvcEAwvLR9Jd8nc",
+ "object": "chat.completion",
+ "created": 1789887117,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a snippet: \"The `SHOW` statement is an alias for [`DESCRIBE`]({% link docs/current/sql/statements/describe.md %}). It shows the schema of a table, view or query.\"\n\nWe need to see if this section documents any configuration settings. It describes the SHOW statement, which is a SQL statement, not a configuration setting. So per instructions, if the section documents options/arguments of a SQL statement, it's not a configuration setting. Therefore answer should be an empty list.\n\nWe must output JSON matching the supplied schema. The schema is not explicitly given, but likely something like an array of objects with fields: name, description, default, evidence. But we need to infer. Usually these tasks expect something like:\n\n{\n  \"settings\": []\n}\n\nBut we need to check typical format from previous similar tasks. The instruction: \"Answer only with JSON matching the supplied schema.\" The schema wasn't provided in the prompt, but likely it's something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut since no settings, we can output an empty array for settings. Could be just [].\n\nBetter to output something like:\n\n{\n  \"settings\": []\n}\n\nI'll go with that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a snippet: \"The `SHOW` statement is an alias for [`DESCRIBE`]({% link docs/current/sql/statements/describe.md %}). It shows the schema of a table, view or query.\"\n\nWe need to see if this section documents any configuration settings. It describes the SHOW statement, which is a SQL statement, not a configuration setting. So per instructions, if the section documents options/arguments of a SQL statement, it's not a configuration setting. Therefore answer should be an empty list.\n\nWe must output JSON matching the supplied schema. The schema is not explicitly given, but likely something like an array of objects with fields: name, description, default, evidence. But we need to infer. Usually these tasks expect something like:\n\n{\n  \"settings\": []\n}\n\nBut we need to check typical format from previous similar tasks. The instruction: \"Answer only with JSON matching the supplied schema.\" The schema wasn't provided in the prompt, but likely it's something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut since no settings, we can output an empty array for settings. Could be just [].\n\nBetter to output something like:\n\n{\n  \"settings\": []\n}\n\nI'll go with that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 528,
+  "completion_tokens": 317,
+  "total_tokens": 845,
+  "cost": 6.973e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.973e-05,
+   "upstream_inference_prompt_cost": 1.584e-05,
+   "upstream_inference_completions_cost": 5.389e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 360,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 5.860000000000582
+}

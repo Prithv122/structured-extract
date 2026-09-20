@@ -42,6 +42,7 @@ import hashlib
 import http.client
 import json
 import os
+import random
 import ssl
 import time
 import urllib.error
@@ -56,8 +57,20 @@ from structured_extract import schema as S
 from structured_extract.arms import COMPLETIONS_URL, Arm
 
 #: Transport retries. Not the repair -- see the module docstring.
-MAX_TRANSPORT_RETRIES = 3
-BACKOFF_SECONDS = (1.0, 4.0, 10.0)
+#:
+#: The delays were (1, 4, 10) and that was far too impatient for the failure
+#: that actually happens. The third pilot lost 6 of 16 H5 calls to
+#: ``HTTP 429 ... z-ai/glm-5.3-flash is temporarily rate-limited upstream ...
+#: engine_overloaded``: all three attempts were spent inside five seconds, which
+#: is no time at all for an overloaded upstream to recover. Those rows became
+#: ``provider_error`` and dropped out of every denominator -- an availability
+#: figure produced by a stingy retry policy, not by the provider.
+#:
+#: Jittered because five arms hitting the same provider in lockstep after a
+#: shared outage is how a thundering herd is built.
+MAX_TRANSPORT_RETRIES = 4
+BACKOFF_SECONDS = (5.0, 20.0, 60.0, 60.0)
+BACKOFF_JITTER = 0.25
 
 #: Generous enough that truncation means the model ran away rather than that the
 #: budget was stingy. Reasoning tokens count against this on most providers, and
@@ -303,6 +316,12 @@ class ExtractionRow:
         return asdict(self)
 
 
+def backoff_delay(attempt: int) -> float:
+    """Seconds to wait before retry ``attempt``, with jitter."""
+    base = BACKOFF_SECONDS[min(attempt, len(BACKOFF_SECONDS) - 1)]
+    return base * (1.0 + random.uniform(-BACKOFF_JITTER, BACKOFF_JITTER))
+
+
 class MissingAPIKey(RuntimeError):
     """Raised only when a live call is actually needed and no key is configured."""
 
@@ -447,7 +466,7 @@ def call(
         if unavailable:
             break
         if attempt < MAX_TRANSPORT_RETRIES - 1:
-            time.sleep(BACKOFF_SECONDS[attempt])
+            time.sleep(backoff_delay(attempt))
 
     return CallResult(
         content="",

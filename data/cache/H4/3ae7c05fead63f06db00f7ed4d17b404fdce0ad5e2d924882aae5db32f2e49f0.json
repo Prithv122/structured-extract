@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789886276-mlzJeGMyXyy1IEmAxycQ",
+ "object": "chat.completion",
+ "created": 1789886276,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. The section is about \"Secrets manager\". We need to find any configuration settings documented: i.e., settings that the section tells what they do, what they accept, or how to set them. The text mentions \"Secrets manager provides a unified user interface for secrets across all backends that use them. Secrets can be scoped, so different storage prefixes can have different secrets, allowing for example to join data across organizations in a single query. Secrets can also be persisted, so that they do not need to be specified every time DuckDB is launched.\"\n\nNo explicit mention of a setting name like \"secret_directory\" or \"allow_persistent_secrets\". The warning says \"Persistent secrets are stored in unencrypted binary format on the disk.\" No setting name.\n\nThus likely no settings documented. So answer empty list.\n\nWe must output JSON matching schema. The schema likely expects something like {\"settings\": []} but not given. We need to infer. Usually they want an array of objects each with name, description, default, evidence. But not given. Let's assume schema: list of objects with fields: \"setting\", \"default\", \"evidence\". But we need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't provided in the prompt. Hmm. The developer says \"Return every configuration setting that this section documents.\" Probably expects JSON array of objects with keys: \"setting\", \"default\", \"evidence\". Let's assume.\n\nWe'll output [].\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. The section is about \"Secrets manager\". We need to find any configuration settings documented: i.e., settings that the section tells what they do, what they accept, or how to set them. The text mentions \"Secrets manager provides a unified user interface for secrets across all backends that use them. Secrets can be scoped, so different storage prefixes can have different secrets, allowing for example to join data across organizations in a single query. Secrets can also be persisted, so that they do not need to be specified every time DuckDB is launched.\"\n\nNo explicit mention of a setting name like \"secret_directory\" or \"allow_persistent_secrets\". The warning says \"Persistent secrets are stored in unencrypted binary format on the disk.\" No setting name.\n\nThus likely no settings documented. So answer empty list.\n\nWe must output JSON matching schema. The schema likely expects something like {\"settings\": []} but not given. We need to infer. Usually they want an array of objects each with name, description, default, evidence. But not given. Let's assume schema: list of objects with fields: \"setting\", \"default\", \"evidence\". But we need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't provided in the prompt. Hmm. The developer says \"Return every configuration setting that this section documents.\" Probably expects JSON array of objects with keys: \"setting\", \"default\", \"evidence\". Let's assume.\n\nWe'll output [].\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 443,
+  "completion_tokens": 322,
+  "total_tokens": 765,
+  "cost": 6.803e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.803e-05,
+   "upstream_inference_prompt_cost": 1.329e-05,
+   "upstream_inference_completions_cost": 5.474e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 385,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 3.391000000000531
+}

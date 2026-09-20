@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789887024-Uz2JIjNnjZbLUEgO8sDq",
+ "object": "chat.completion",
+ "created": 1789887024,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"default_order\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`default_order` | The order type used when none is specified (`ASC` or `DESC`) | `VARCHAR` | `ASCENDING`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"ASCENDING\"\n   \n    ,    \"default_evidence\": \"`ASCENDING`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with a single row: Name `default_order`, description, type VARCHAR, default value `ASCENDING`. We need to determine if this is a DuckDB configuration setting. The instruction says: \"A configuration setting is one you change with SET, RESET or PRAGMA, and it then applies to the whole database instance or to your connection. It is a property of the database's configuration, not of any one query.\"\n\nIs `default_order` a DuckDB setting? I'm not aware of a setting named default_order in DuckDB. DuckDB has settings like `default_order`, maybe not. I recall DuckDB has a setting `default_order`? Actually, DuckDB has a setting `default_order`? I think there is a setting `default_order` that determines default order direction for ORDER BY? I'm not sure. I know DuckDB has `default_order`? Quick recall: DuckDB has `default_order`? I think there is a setting `default_order` that can be `ASCENDING` or `DESCENDING`. Not sure. But the instruction: we must only include settings that are documented as configuration settings (changeable via SET, RESET, PRAGMA). The table appears to be a \"Global Configuration Options\" section, which likely lists configuration settings. So we should treat it as a setting.\n\nThus we output JSON with list of settings. Schema? Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\"\n    }\n  ]\n}\n\nBut we need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't given in the prompt. We need to infer typical schema from previous tasks. Usually it's something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"default_order\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"ASCENDING\",\n      \"description\": \"The order type used when none is specified (`ASC` or `DESC`)\"\n    }\n  ]\n}\n\nAlso need to include evidence quotes for each setting. Possibly include \"evidence\" field with quote. The instruction: \"For each setting, quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" So we need to include a field for evidence. The schema likely includes \"evidence\". Not sure. Could be:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut we need to match supplied schema. Since not given, we guess typical. In previous similar tasks, schema was:\n\n{\n  \"settings\": [\n    {\n      \"name\": string,\n      \"type\": string,\n      \"default\": string,\n      \"description\": string,\n      \"evidence\": string\n    }\n  ]\n}\n\nWe'll include description as well. Provide evidence as the row line? Could quote the row: \"`default_order` | The order type used when none is specified (`ASC` or `DESC`) | `VARCHAR` | `ASCENDING`\". Provide that.\n\nThus final JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with a single row: Name `default_order`, description, type VARCHAR, default value `ASCENDING`. We need to determine if this is a DuckDB configuration setting. The instruction says: \"A configuration setting is one you change with SET, RESET or PRAGMA, and it then applies to the whole database instance or to your connection. It is a property of the database's configuration, not of any one query.\"\n\nIs `default_order` a DuckDB setting? I'm not aware of a setting named default_order in DuckDB. DuckDB has settings like `default_order`, maybe not. I recall DuckDB has a setting `default_order`? Actually, DuckDB has a setting `default_order`? I think there is a setting `default_order` that determines default order direction for ORDER BY? I'm not sure. I know DuckDB has `default_order`? Quick recall: DuckDB has `default_order`? I think there is a setting `default_order` that can be `ASCENDING` or `DESCENDING`. Not sure. But the instruction: we must only include settings that are documented as configuration settings (changeable via SET, RESET, PRAGMA). The table appears to be a \"Global Configuration Options\" section, which likely lists configuration settings. So we should treat it as a setting.\n\nThus we output JSON with list of settings. Schema? Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\"\n    }\n  ]\n}\n\nBut we need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't given in the prompt. We need to infer typical schema from previous tasks. Usually it's something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"default_order\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"ASCENDING\",\n      \"description\": \"The order type used when none is specified (`ASC` or `DESC`)\"\n    }\n  ]\n}\n\nAlso need to include evidence quotes for each setting. Possibly include \"evidence\" field with quote. The instruction: \"For each setting, quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" So we need to include a field for evidence. The schema likely includes \"evidence\". Not sure. Could be:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut we need to match supplied schema. Since not given, we guess typical. In previous similar tasks, schema was:\n\n{\n  \"settings\": [\n    {\n      \"name\": string,\n      \"type\": string,\n      \"default\": string,\n      \"description\": string,\n      \"evidence\": string\n    }\n  ]\n}\n\nWe'll include description as well. Provide evidence as the row line? Could quote the row: \"`default_order` | The order type used when none is specified (`ASC` or `DESC`) | `VARCHAR` | `ASCENDING`\". Provide that.\n\nThus final JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 558,
+  "completion_tokens": 791,
+  "total_tokens": 1349,
+  "cost": 0.00015121,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00015121,
+   "upstream_inference_prompt_cost": 1.674e-05,
+   "upstream_inference_completions_cost": 0.00013447
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 749,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 71.125
+}

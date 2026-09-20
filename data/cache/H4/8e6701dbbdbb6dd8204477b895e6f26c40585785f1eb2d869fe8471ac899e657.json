@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789887123-OxeNeq1gFcyYNrVYaeAh",
+ "object": "chat.completion",
+ "created": 1789887123,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"unsafe_enable_version_guessing\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"It can be enabled by setting `unsafe_enable_version_guessing` to `true`.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"This behavior is not enabled by default as it may potentially violate ACID constraints.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The section mentions a setting: `unsafe_enable_version_guessing`. It is set via SET. So it's a configuration setting. Need to provide JSON with list of settings, each with name, default (if stated), and evidence (quote). The default is not explicitly stated in the text. It says \"This behavior is not enabled by default\". That implies default is false. The phrase: \"This behavior is not enabled by default as it may potentially violate ACID constraints.\" So default is false. Need to quote that phrase as evidence for default. Also need a quote for the setting name. Provide both.\n\nSchema? Not given explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": [\"...\",\"...\"]\n    }\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't provided in the prompt, but typical tasks: maybe {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": [\"...\"]}]}.\n\nWe'll output that.\n\nEvidence for setting: \"It can be enabled by setting `unsafe_enable_version_guessing` to `true`.\" Also the SET example: \"SET unsafe_enable_version_guessing = true;\". Provide one quote.\n\nDefault evidence: \"This behavior is not enabled by default as it may potentially violate ACID constraints.\"\n\nThus JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The section mentions a setting: `unsafe_enable_version_guessing`. It is set via SET. So it's a configuration setting. Need to provide JSON with list of settings, each with name, default (if stated), and evidence (quote). The default is not explicitly stated in the text. It says \"This behavior is not enabled by default\". That implies default is false. The phrase: \"This behavior is not enabled by default as it may potentially violate ACID constraints.\" So default is false. Need to quote that phrase as evidence for default. Also need a quote for the setting name. Provide both.\n\nSchema? Not given explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": [\"...\",\"...\"]\n    }\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't provided in the prompt, but typical tasks: maybe {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": [\"...\"]}]}.\n\nWe'll output that.\n\nEvidence for setting: \"It can be enabled by setting `unsafe_enable_version_guessing` to `true`.\" Also the SET example: \"SET unsafe_enable_version_guessing = true;\". Provide one quote.\n\nDefault evidence: \"This behavior is not enabled by default as it may potentially violate ACID constraints.\"\n\nThus JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 734,
+  "completion_tokens": 416,
+  "total_tokens": 1150,
+  "cost": 9.274e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.274e-05,
+   "upstream_inference_prompt_cost": 2.202e-05,
+   "upstream_inference_completions_cost": 7.072e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 346,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 11.030999999999949
+}

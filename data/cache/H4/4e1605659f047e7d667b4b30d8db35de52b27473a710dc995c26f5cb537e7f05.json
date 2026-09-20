@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789886314-02ff6HDRhDW0SGq6Fx9t",
+ "object": "chat.completion",
+ "created": 1789886314,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"default_order\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`default_order` | The order type used when none is specified (`ASC` or `DESC`) | `VARCHAR` | `ASCENDING`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"ASCENDING\"\n    \t\t\n   \t,\t\n   \t\"default_evidence\": \"`default_order` | The order type used when none is specified (`ASC` or `DESC`) | `VARCHAR` | `ASCENDING`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract settings documented in the given section. The user provided a table with one setting: `default_order`. We need to output JSON with list of settings, each with name, description, type, default (if stated). Provide evidence quote for each field? The instruction: \"For each setting, quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" Likely need to include a field \"evidence\" with the quote? The schema not provided explicitly. We need to infer schema. Probably something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut not sure. The instruction: \"Answer only with JSON matching the supplied schema.\" No schema given in prompt. Might be expecting a certain format used in previous tasks: maybe:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe'll assume that. Provide evidence as a quote from the section that includes the setting line. Could quote the whole row: \"`default_order` | The order type used when none is specified (`ASC` or `DESC`) | `VARCHAR` | `ASCENDING`\". Provide that.\n\nDefault is `ASCENDING`. It's stated. So default: \"ASCENDING\". Provide as string.\n\nNow produce JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract settings documented in the given section. The user provided a table with one setting: `default_order`. We need to output JSON with list of settings, each with name, description, type, default (if stated). Provide evidence quote for each field? The instruction: \"For each setting, quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" Likely need to include a field \"evidence\" with the quote? The schema not provided explicitly. We need to infer schema. Probably something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut not sure. The instruction: \"Answer only with JSON matching the supplied schema.\" No schema given in prompt. Might be expecting a certain format used in previous tasks: maybe:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe'll assume that. Provide evidence as a quote from the section that includes the setting line. Could quote the whole row: \"`default_order` | The order type used when none is specified (`ASC` or `DESC`) | `VARCHAR` | `ASCENDING`\". Provide that.\n\nDefault is `ASCENDING`. It's stated. So default: \"ASCENDING\". Provide as string.\n\nNow produce JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 429,
+  "completion_tokens": 464,
+  "total_tokens": 893,
+  "cost": 9.175e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.175e-05,
+   "upstream_inference_prompt_cost": 1.287e-05,
+   "upstream_inference_completions_cost": 7.888e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 352,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.344000000000051
+}

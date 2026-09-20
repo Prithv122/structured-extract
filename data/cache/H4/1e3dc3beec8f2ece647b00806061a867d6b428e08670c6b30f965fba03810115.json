@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789886322-wHvy4RnLHLt7Zp9OuSYE",
+ "object": "chat.completion",
+ "created": 1789886322,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"custom_extension_repository\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET custom_extension_repository = '⟨https://some.url.com⟩'`\",\n      \"default_kind\": \"absent\"\n    \n  ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The text mentions `SET custom_extension_repository = '⟨https://some.url.com⟩'`. So setting name: custom_extension_repository. Need to see if any other settings mentioned. The text also mentions \"CORS enabled\" but not a setting. So only custom_extension_repository.\n\nWe need to provide evidence quote: the span that mentions it. Quote: \"`SET custom_extension_repository = '⟨https://some.url.com⟩'`\". Provide default if stated. The section does not state default. So default is absent.\n\nReturn JSON matching schema. Need to know schema: Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" Since we don't have schema, we infer typical: maybe an array of objects with fields name, evidence, default. We'll output that.\n\nThus:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"custom_extension_repository\",\n      \"evidence\": \"`SET custom_extension_repository = '⟨https://some.url.com⟩'`\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nMake sure JSON is valid.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The text mentions `SET custom_extension_repository = '⟨https://some.url.com⟩'`. So setting name: custom_extension_repository. Need to see if any other settings mentioned. The text also mentions \"CORS enabled\" but not a setting. So only custom_extension_repository.\n\nWe need to provide evidence quote: the span that mentions it. Quote: \"`SET custom_extension_repository = '⟨https://some.url.com⟩'`\". Provide default if stated. The section does not state default. So default is absent.\n\nReturn JSON matching schema. Need to know schema: Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" Since we don't have schema, we infer typical: maybe an array of objects with fields name, evidence, default. We'll output that.\n\nThus:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"custom_extension_repository\",\n      \"evidence\": \"`SET custom_extension_repository = '⟨https://some.url.com⟩'`\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nMake sure JSON is valid.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 500,
+  "completion_tokens": 395,
+  "total_tokens": 895,
+  "cost": 8.215e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.215e-05,
+   "upstream_inference_prompt_cost": 1.5e-05,
+   "upstream_inference_completions_cost": 6.715e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 314,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 5.813000000000102
+}

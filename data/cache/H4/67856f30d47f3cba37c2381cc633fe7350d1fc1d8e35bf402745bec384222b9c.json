@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789886289-FT4GwP5Ftaua0p4wJvhG",
+ "object": "chat.completion",
+ "created": 1789886289,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. The user provided a paragraph about PostgreSQL IAM authentication, not DuckDB. Likely no DuckDB settings are documented. So answer empty list.\n\nWe must output JSON matching supplied schema. Schema not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to infer. Usually tasks like this expect output like:\n\n{\n  \"settings\": []\n}\n\nLet's assume schema: an object with \"settings\" array of objects each with \"name\", \"evidence\", \"default\". Could be \"setting\", \"evidence\", \"default\". Not sure. The instruction: \"Return every configuration setting that this section documents.\" \"For each setting, quote a span of the section verbatim as evidence.\" Also \"Also report the setting's default, but only if this section states it.\" So each setting entry likely includes \"name\", \"evidence\", \"default\". We'll output empty array.\n\nThus JSON: {\"settings\": []}.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. The user provided a paragraph about PostgreSQL IAM authentication, not DuckDB. Likely no DuckDB settings are documented. So answer empty list.\n\nWe must output JSON matching supplied schema. Schema not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to infer. Usually tasks like this expect output like:\n\n{\n  \"settings\": []\n}\n\nLet's assume schema: an object with \"settings\" array of objects each with \"name\", \"evidence\", \"default\". Could be \"setting\", \"evidence\", \"default\". Not sure. The instruction: \"Return every configuration setting that this section documents.\" \"For each setting, quote a span of the section verbatim as evidence.\" Also \"Also report the setting's default, but only if this section states it.\" So each setting entry likely includes \"name\", \"evidence\", \"default\". We'll output empty array.\n\nThus JSON: {\"settings\": []}.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 468,
+  "completion_tokens": 245,
+  "total_tokens": 713,
+  "cost": 5.569e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 5.569e-05,
+   "upstream_inference_prompt_cost": 1.404e-05,
+   "upstream_inference_completions_cost": 4.165e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 265,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 25.28099999999995
+}

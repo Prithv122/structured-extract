@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789886383-miPrdVPcnKp88g19ZpuH",
+ "object": "chat.completion",
+ "created": 1789886383,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\"name\": \"FORMAT\", \"input_type\": \"VARCHAR\", \"scope\": \"GLOBAL\", \"evidence\": \"`FORMAT` | Specifies the copy function to use. The default is selected from the file extension\", \"default_kind\": \"literal\", \"default_value\": \"auto\", \"default_evidence\": \"| `VARCHAR` | `auto` |\"},\n    {\"name\": \"USE_TMP_FILE\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"`USE_TMP_FILE` | Whether or not to write to a temporary file first if the original file exists (`target.csv.tmp`).\", \"default_kind\": \"literal\", \"default_value\": \"auto\", \"default_evidence\": \"| `BOOL` | `auto` |\"},\n    {\"name\": \"OVERWRITE_OR_IGNORE\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"`OVERWRITE_OR_IGNORE` | Whether or not to allow overwriting files if they already exist.\", \"default_kind\": \"literal\", \"default_value\": \"false\", \"default_evidence\": \"| `BOOL` | `false` |\"},\n    {\"name\": \"OVERWRITE\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"`OVERWRITE` | When `true`, all existing files inside targeted directories will be removed (not supported on remote filesystems).\", \"default_kind\": \"literal\", \"default_value\": \"false\", \"default_evidence\": \"| `BOOL` | `false` |\"},\n    {\"name\": \"APPEND\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"`APPEND` | When `true`, in the event a filename pattern is generated that already exists, the path will be regenerated to ensure no existing files are overwritten.\", \"default_kind\": \"literal\", \"default_value\": \"false\", \"default_evidence\": \"| `BOOL` | `false` |\"},\n    {\"name\": \"FILENAME_PATTERN\", \"input_type\": \"VARCHAR\", \"scope\": \"GLOBAL\", \"evidence\": \"`FILENAME_PATTERN` | Set a pattern to use for the filename, can optionally contain `{uuid}` / `{uuidv4}` or `{uuidv7}`\", \"default_kind\": \"literal\", \"default_value\": \"auto\", \"default_evidence\": \"| `VARCHAR` | `auto` |\"},\n    {\"name\": \"FILE_EXTENSION\", \"input_type\": \"VARCHAR\", \"scope\": \"GLOBAL\", \"evidence\": \"`FILE_EXTENSION` | Set the file extension that should be assigned to the generated file(s).\", \"default_kind\": \"literal\", \"default_value\": \"auto\", \"default_evidence\": \"| `VARCHAR` | `auto` |\"},\n    {\"name\": \"PER_THREAD_OUTPUT\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"`PER_THREAD_OUTPUT` | When `true`, the `COPY` command generates one file per thread, rather than one file in total.\", \"default_kind\": \"literal\", \"default_value\": \"false\", \"default_evidence\": \"| `BOOL` | `false` |\"},\n    {\"name\": \"FILE_SIZE_BYTES\", \"input_type\": \"VARCHAR\", \"scope\": \"GLOBAL\", \"evidence\": \"`FILE_SIZE_BYTES` | If this parameter is set, the `COPY` process creates a directory which will contain the exported files.\", \"default_kind\": \"literal\", \"default_value\": \"(empty)\", \"default_evidence\": \"| `VARCHAR` or `BIGINT` | (empty) |\"},\n    {\"name\": \"PARTITION_BY\", \"input_type\": \"VARCHAR[]\", \"scope\": \"GLOBAL\", \"evidence\": \"`PARTITION_BY` | The columns to partition by using a Hive partitioning scheme\", \"default_kind\": \"literal\", \"default_value\": \"(empty)\", \"default_evidence\": \"| `VARCHAR[]` | (empty) |\"},\n    {\"name\": \"PRESERVE_ORDER\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"`PRESERVE_ORDER` | Whether or not to [preserve order]({% link docs/current/sql/dialect/order_preservation.md %}) during the copy operation.\", \"default_kind\": \"literal\", \"default_value\": \"(*)\", \"default_evidence\": \"| `BOOL`| (*) |\"},\n    {\"name\": \"RETURN_FILES\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"`RETURN_FILES` | Whether or not to include the created filepath(s) (as a `files VARCHAR[]` column) in the query result.\", \"default_kind\": \"literal\", \"default_value\": \"false\", \"default_evidence\": \"| `BOOL` | `false` |\"},\n    {\"name\": \"RETURN_STATS\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"`RETURN_STATS` | Whether or not to return the files and their column statistics that were written as part of the `COPY` statement.\", \"default_kind\": \"literal\", \"default_value\": \"false\", \"default_evidence\": \"| `BOOL`| `false` |\"},\n    {\"name\": \"WRITE_PARTITION_COLUMNS\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"`WRITE_PARTITION_COLUMNS` | Whether or not to write partition columns into files.\", \"default_kind\": \"literal\", \"default_value\": \"false\", \"default_evidence\": \"| `BOOL` | `false` |\"}\n  ]\n}",
+    "refusal": null,
+    "reasoning": "List all settings with defaults.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "List all settings with defaults.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1380,
+  "completion_tokens": 1166,
+  "total_tokens": 2546,
+  "cost": 0.000395,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000395,
+   "upstream_inference_prompt_cost": 0.0001035,
+   "upstream_inference_completions_cost": 0.0002915
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 6,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 69.48499999999967
+}

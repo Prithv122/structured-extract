@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789886347-sZR1JJZQXt0yO0yn0yPf",
+ "object": "chat.completion",
+ "created": 1789886347,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"unsafe_enable_version_guessing\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"It can be enabled by setting `unsafe_enable_version_guessing` to `true`.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"This behavior is not enabled by default as it may potentially violate ACID constraints.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The text mentions a setting `unsafe_enable_version_guessing`. It describes what it does, and says it can be set to true. Does it state default? It says \"This behavior is not enabled by default\". So default is false. The text: \"This behavior is not enabled by default as it may potentially violate ACID constraints.\" That's about the behavior, but also implies default of unsafe_enable_version_guessing is false. We need a verbatim quote for default. The quote: \"This behavior is not enabled by default\". That references the behavior, not directly the setting default, but it's acceptable as evidence that default is false. The setting name appears: `unsafe_enable_version_guessing`. So we output JSON with one entry.\n\nSchema? Not provided but likely something like list of objects with fields: setting, evidence, default. We'll assume format: [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]. Provide default as \"false (not enabled by default)\". But need to quote default statement verbatim. The quote: \"This behavior is not enabled by default\". So default: \"not enabled by default\". Might phrase as \"not enabled by default\". We'll output.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The text mentions a setting `unsafe_enable_version_guessing`. It describes what it does, and says it can be set to true. Does it state default? It says \"This behavior is not enabled by default\". So default is false. The text: \"This behavior is not enabled by default as it may potentially violate ACID constraints.\" That's about the behavior, but also implies default of unsafe_enable_version_guessing is false. We need a verbatim quote for default. The quote: \"This behavior is not enabled by default\". That references the behavior, not directly the setting default, but it's acceptable as evidence that default is false. The setting name appears: `unsafe_enable_version_guessing`. So we output JSON with one entry.\n\nSchema? Not provided but likely something like list of objects with fields: setting, evidence, default. We'll assume format: [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]. Provide default as \"false (not enabled by default)\". But need to quote default statement verbatim. The quote: \"This behavior is not enabled by default\". So default: \"not enabled by default\". Might phrase as \"not enabled by default\". We'll output.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 605,
+  "completion_tokens": 375,
+  "total_tokens": 980,
+  "cost": 8.19e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.19e-05,
+   "upstream_inference_prompt_cost": 1.815e-05,
+   "upstream_inference_completions_cost": 6.375e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 308,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 34.64100000000053
+}
