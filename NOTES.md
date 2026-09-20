@@ -388,3 +388,34 @@ which sat close enough to the 0.1% tolerance to risk a spurious failure.
   replace that with a measurement before the full grid is authorised.
 - **L1 (local Ollama), B0 (table parser) and B1 (null) are not built.** B0 is
   the `docs_table` parser already in the repo and should be cheap.
+
+### Pilot 3 and the retry policy that measured itself
+
+`data/results/pilot-01-short-backoff.jsonl` is kept deliberately. It is the
+complete 80-row pilot run under `BACKOFF_SECONDS = (1, 4, 10)`, and six of its
+rows are `provider_error` from `HTTP 429 ... z-ai/glm-5.3-flash is temporarily
+rate-limited upstream ... engine_overloaded`.
+
+Those six are not a fact about GLM 5.3 Flash. Three retries inside five seconds
+is no time for an overloaded upstream to recover, so the availability figure
+they produce is a property of this harness. The backoff is now
+`(5, 20, 60, 60)` with jitter -- 85 s of patience -- and only those six calls
+were re-bought, because the cache is keyed by the request and nothing else had
+changed.
+
+The file stays so the two runs can be diffed: nothing about the experiment
+changed between them except how long the client was willing to wait.
+
+Pilot 3 also produced two runaway generations, and they are **different
+failures that look identical in the outcome column**:
+
+- **H1 / v1 / narrative-0001** -- 16,185 reasoning tokens across two calls, both
+  hitting the 8,000 cap, $0.04515, 343 s. The model thought until the budget
+  was gone. Reproduced on a fresh repair call, so it is not a stale artefact.
+- **H4 / v2 / extension-0001** -- 16,000 completion tokens and only 559
+  reasoning. It fell into a whitespace repetition loop and emitted newlines
+  until the cap.
+
+Neither is being "fixed". Changing H1's token cap or H4's configuration on the
+evidence of one adversarial document each, before either arm's field-level
+accuracy has been scored, would be tuning the experiment to its hardest case.
