@@ -452,10 +452,19 @@ def call(
         )
 
     error, unavailable = None, False
+    # Wall clock across every attempt including the waits, so a row that failed
+    # says how hard the client tried. The first version reported 0.0 on failure,
+    # which made "gave up after 5 seconds" and "waited 85 seconds" look
+    # identical in the results -- the exact confusion that made the H5 429s
+    # unreadable until the cache was inspected by hand.
+    spent = 0.0
+    attempts = 0
     for attempt in range(MAX_TRANSPORT_RETRIES):
         started = time.monotonic()
         body, error, unavailable = _post(payload, key)
         latency = time.monotonic() - started
+        spent += latency
+        attempts += 1
         if body is not None:
             body["_latency_s"] = latency
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -466,7 +475,12 @@ def call(
         if unavailable:
             break
         if attempt < MAX_TRANSPORT_RETRIES - 1:
-            time.sleep(backoff_delay(attempt))
+            delay = backoff_delay(attempt)
+            spent += delay
+            time.sleep(delay)
+
+    if error is not None:
+        error = f"{error} [gave up after {attempts} attempt(s) over {spent:.0f}s]"
 
     return CallResult(
         content="",
@@ -476,7 +490,7 @@ def call(
         completion_tokens=0,
         reasoning_tokens=0,
         cost_reported=0.0,
-        latency_s=0.0,
+        latency_s=round(spent, 3),
         cached=False,
         error=error,
         unavailable=unavailable,

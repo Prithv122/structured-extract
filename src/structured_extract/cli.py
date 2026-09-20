@@ -518,6 +518,15 @@ def cmd_extract_run(args: argparse.Namespace) -> int:
     rows = jsonl.read_list(paths.CORPUS_JSONL)
     if args.pilot:
         rows = _pilot_documents(rows, args.pilot)
+    if args.doc:
+        known = {r["doc_id"] for r in rows}
+        unknown = sorted(set(args.doc) - known)
+        if unknown:
+            print(
+                f"FAIL  no such document in this selection: {', '.join(unknown)}", file=sys.stderr
+            )
+            return 2
+        rows = [r for r in rows if r["doc_id"] in set(args.doc)]
     selected = [arms_mod.BY_KEY[k] for k in args.arm] if args.arm else list(arms_mod.HOSTED)
     prompts = args.prompt or list(extract_mod.PROMPTS)
 
@@ -561,7 +570,18 @@ def cmd_extract_run(args: argparse.Namespace) -> int:
                         f"${result.cost_reported:.5f}"
                     )
 
-    out = paths.RESULTS_JSONL if not args.pilot else paths.RESULTS_JSONL.with_name("pilot.jsonl")
+    # A narrowed run writes a *different* file unless told otherwise. `--arm H5`
+    # against the pilot path would replace 80 rows with 16 and destroy the other
+    # 64, which is a one-keystroke way to lose a paid experiment.
+    if args.out:
+        out = args.out
+    elif args.arm or args.doc or args.prompt:
+        out = paths.RESULTS_JSONL.with_name("probe.jsonl")
+        print(f"(narrowed run -> {out.name}, so the full results file is left alone)")
+    else:
+        out = (
+            paths.RESULTS_JSONL if not args.pilot else paths.RESULTS_JSONL.with_name("pilot.jsonl")
+        )
     jsonl.write(out, (r.to_json() for r in results))
 
     print()
@@ -669,6 +689,8 @@ def cmd_extract_cache(args: argparse.Namespace) -> int:
     rows = jsonl.read_list(paths.CORPUS_JSONL)
     if args.pilot:
         rows = _pilot_documents(rows, args.pilot)
+    if args.doc:
+        rows = [r for r in rows if r["doc_id"] in set(args.doc)]
     selected = [arms_mod.BY_KEY[k] for k in args.arm] if args.arm else list(arms_mod.HOSTED)
     prompts = args.prompt or list(extract_mod.PROMPTS)
 
@@ -885,6 +907,10 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="issue real, billed requests for anything not already cached",
     )
+    run.add_argument(
+        "--doc", action="append", metavar="DOC_ID", help="only these documents, repeatable"
+    )
+    run.add_argument("--out", type=Path, help="write results here instead of the default file")
     run.add_argument("-v", "--verbose", action="store_true", help="one line per document")
     run.set_defaults(func=cmd_extract_run)
 
@@ -894,6 +920,7 @@ def build_parser() -> argparse.ArgumentParser:
     cache.add_argument("--arm", action="append", choices=sorted(arms_mod.BY_KEY))
     cache.add_argument("--pilot", type=int, metavar="N")
     cache.add_argument("--prompt", action="append", choices=sorted(extract_mod.PROMPTS))
+    cache.add_argument("--doc", action="append", metavar="DOC_ID")
     cache.set_defaults(func=cmd_extract_cache)
 
     score = sub.add_parser("score", help="score extractions against the oracle")

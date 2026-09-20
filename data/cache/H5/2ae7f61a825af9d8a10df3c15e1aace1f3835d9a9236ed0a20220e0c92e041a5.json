@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789889580-sTOA7drqNCorcs0fAS8J",
+ "object": "chat.completion",
+ "created": 1789889580,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"custom_extension_repository\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"If you serve extensions from a [custom repository]({% link docs/current/clients/wasm/deploying_duckdb_wasm.md %}#duckdb-extensions) with `SET custom_extension_repository = '⟨https://some.url.com⟩'`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "custom_extension_repository is documented here.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "custom_extension_repository is documented here.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 436,
+  "completion_tokens": 132,
+  "total_tokens": 568,
+  "cost": 6.57e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.57e-05,
+   "upstream_inference_prompt_cost": 3.27e-05,
+   "upstream_inference_completions_cost": 3.3e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 7,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 5.905999999999949
+}
