@@ -697,7 +697,12 @@ def test_a_rate_limited_provider_is_given_time_to_recover(monkeypatch, tmp_path)
 
     assert row.outcome == E.Outcome.VALID_FIRST_PASS
     assert row.repair_used is False, "a 429 is not a bad answer"
-    assert sum(slept) > 20, f"gave up after only {sum(slept):.1f}s of waiting"
+    # Two waits at bases 5 and 20, each jittered by up to +/-25%, so the
+    # guaranteed floor is 18.75s. Asserting anything above that is a test that
+    # fails once in a while for no reason.
+    floor = sum(E.BACKOFF_SECONDS[:2]) * (1 - E.BACKOFF_JITTER)
+    assert sum(slept) >= floor, f"gave up after only {sum(slept):.1f}s of waiting"
+    assert sum(slept) > 15, "the old (1, 4, 10) policy would have waited 5s in total"
 
 
 def test_a_429_is_retried_but_a_402_is_not(monkeypatch, tmp_path):

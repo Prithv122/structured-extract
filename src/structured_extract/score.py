@@ -453,7 +453,10 @@ class Summary:
     #: Reference stratum only, where ground truth is exact.
     reference_expected: int
     reference_found: int
-    #: Prose strata, proxy only.
+    #: Prose strata with a hand label: real recall, no proxy involved.
+    labelled_expected: int
+    labelled_found: int
+    #: Prose strata still unlabelled. Shrinks to zero as labelling proceeds.
     mentioned_expected: int
     mentioned_found: int
     cost_reported: float
@@ -495,6 +498,12 @@ class Summary:
         return self.reference_found / self.reference_expected if self.reference_expected else 0.0
 
     @property
+    def labelled_recall(self) -> float:
+        """Real recall on the prose strata, against a human judgement."""
+        n = self.labelled_expected
+        return self.labelled_found / n if n else 0.0
+
+    @property
     def recall_vs_mentioned(self) -> float:
         """A proxy, and biased low. See the module docstring before quoting it."""
         return self.mentioned_found / self.mentioned_expected if self.mentioned_expected else 0.0
@@ -510,6 +519,7 @@ class Summary:
             default_kind_accuracy=round(self.default_kind_accuracy, 4),
             default_value_accuracy=round(self.default_value_accuracy, 4),
             reference_recall=round(self.reference_recall, 4),
+            labelled_recall=round(self.labelled_recall, 4),
             recall_vs_mentioned=round(self.recall_vs_mentioned, 4),
         )
         return row
@@ -533,11 +543,25 @@ def summarise(scores: list[DocumentScore]) -> list[Summary]:
         )
         expected_reference = sum(1 for s in cell if s.stratum == "reference" and s.expected)
 
+        # Recall over the prose strata, from the best truth each document has.
+        # A hand-labelled document is scored against what a human said it
+        # documents; only an unlabelled one falls back to the proxy. Averaging
+        # the two would hide which is which, so they are separate denominators
+        # and the proxy one shrinks to zero as labelling progresses.
         prose = [s for s in cell if s.stratum != "reference"]
-        mentioned_expected = sum(len(s.mentioned) for s in prose)
-        mentioned_found = sum(
-            len(set(s.mentioned) & {r.canonical for r in s.records if r.canonical}) for s in prose
-        )
+        labelled = [s for s in prose if s.truth_source == "hand-label"]
+        unlabelled = [s for s in prose if s.truth_source == "mentioned-proxy"]
+
+        def found(scores, target):
+            return sum(
+                len(set(target(s)) & {r.canonical for r in s.records if r.canonical})
+                for s in scores
+            )
+
+        labelled_expected = sum(len(s.expected) for s in labelled)
+        labelled_found = found(labelled, lambda s: s.expected)
+        mentioned_expected = sum(len(s.mentioned) for s in unlabelled)
+        mentioned_found = found(unlabelled, lambda s: s.mentioned)
 
         out.append(
             Summary(
@@ -568,6 +592,8 @@ def summarise(scores: list[DocumentScore]) -> list[Summary]:
                 empty_wrong=sum(1 for s in cell if s.empty_was_correct is False),
                 reference_expected=expected_reference,
                 reference_found=found_reference,
+                labelled_expected=labelled_expected,
+                labelled_found=labelled_found,
                 mentioned_expected=mentioned_expected,
                 mentioned_found=mentioned_found,
                 cost_reported=round(sum(s.cost_reported for s in cell), 6),

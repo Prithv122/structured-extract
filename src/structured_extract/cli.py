@@ -892,16 +892,21 @@ def cmd_score_run(args: argparse.Namespace) -> int:
             f"{f'{s.machine_dependent_classified}/{s.machine_dependent_seen}':>9}"
         )
 
-    print("\nrecall  (reference stratum is exact; vs-mentioned is a proxy, biased low)")
-    head = f"{'prompt':<15} {'arm':<4} {'ref found':>10} {'ref recall':>11}"
-    print(f"{head} {'proxy':>8} {'empty ok':>9} {'empty bad':>10}")
+    print("\nrecall  (reference rows and hand labels are exact truth; proxy is not)")
+    head = f"{'prompt':<15} {'arm':<4} {'ref':>7} {'ref%':>6} {'labelled':>9} {'lab%':>6}"
+    print(f"{head} {'proxy%':>7} {'empty ok':>9} {'empty bad':>10}")
     for s in summaries:
+        proxy = f"{s.recall_vs_mentioned:.0%}" if s.mentioned_expected else "-"
         print(
             f"{s.prompt:<15} {s.arm:<4} "
-            f"{f'{s.reference_found}/{s.reference_expected}':>10} "
-            f"{s.reference_recall:>11.0%} {s.recall_vs_mentioned:>8.0%} "
+            f"{f'{s.reference_found}/{s.reference_expected}':>7} "
+            f"{s.reference_recall:>6.0%} "
+            f"{f'{s.labelled_found}/{s.labelled_expected}':>9} "
+            f"{s.labelled_recall:>6.0%} {proxy:>7} "
             f"{s.empty_correct:>9} {s.empty_wrong:>10}"
         )
+    if all(not s.mentioned_expected for s in summaries):
+        print("  proxy column is empty: every prose document here is hand-labelled.")
 
     print("\ncost  (usage.cost as billed, never reconstructed from token prices)")
     for prompt in dict.fromkeys(s.prompt for s in summaries):
