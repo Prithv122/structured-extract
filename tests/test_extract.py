@@ -329,10 +329,40 @@ def test_every_arm_in_the_current_grid_can_be_pinned(tmp_path, transport):
         assert arm.supports_seed, f"{arm.key} {arm.model_id} cannot take a seed"
 
 
-def test_reasoning_is_disabled_where_the_arm_supports_thinking(tmp_path, transport):
+def test_no_arm_is_sent_a_reasoning_field_at_all(tmp_path, transport):
+    """The inverse of what this test asserted before the first pilot.
+
+    It used to require ``reasoning: {"enabled": False}`` on every thinking arm,
+    which is what killed 16 of 40 calls in the first live pilot: H4 and H5 both
+    answer ``HTTP 400: Reasoning is mandatory for this endpoint and cannot be
+    disabled``. The catalogue cannot warn about it -- both advertise
+    ``reasoning`` *and* ``reasoning_effort``, so `arms verify` passed them.
+
+    Sending nothing is the only policy that is identical across all five arms.
+    Disabling it only where the provider allows would make the arms differ on
+    something that is not capability.
+    """
+    transport.returns((body(GOOD), None, False), (body(GOOD), None, False))
+    for key in ("H2", "H3"):
+        run(tmp_path, transport, arm=BY_KEY[key])
+    assert all("reasoning" not in call for call in transport.calls)
+
+
+def test_reasoning_tokens_are_recorded_so_thinking_cost_stays_visible(tmp_path, transport):
+    """Reasoning is billed as completion tokens; leaving it on means saying so."""
+    thinking = body(GOOD)
+    thinking["usage"]["completion_tokens_details"] = {"reasoning_tokens": 512}
+    transport.returns((thinking, None, False))
+    row, _ = run(tmp_path, transport, arm=BY_KEY["H2"])
+    assert row.reasoning_tokens == 512
+    assert row.completion_tokens == 20
+
+
+def test_a_provider_that_reports_no_reasoning_detail_records_zero(tmp_path, transport):
+    """'none' and 'not reported' are indistinguishable here, and the README says so."""
     transport.returns((body(GOOD), None, False))
-    run(tmp_path, transport, arm=BY_KEY["H2"])
-    assert transport.calls[0]["reasoning"] == {"enabled": False}
+    row, _ = run(tmp_path, transport, arm=BY_KEY["H3"])
+    assert row.reasoning_tokens == 0
 
 
 def test_a_second_identical_run_replays_from_cache_and_issues_no_http(tmp_path, transport):
@@ -361,3 +391,68 @@ def test_a_changed_prompt_is_a_different_cache_entry(tmp_path, transport):
     run(tmp_path, transport, document=DOCUMENT + "\nAn extra sentence.\n")
     assert len(transport.calls) == 2
     assert len(list((tmp_path / ARM.key).glob("*.json"))) == 2
+
+
+# --------------------------------------------------------------- prompt variants
+
+
+def test_the_two_prompt_variants_are_actually_different():
+    assert E.PROMPTS["v1-unspecified"] != E.PROMPTS["v2-specified"]
+    assert E.DEFAULT_PROMPT in E.PROMPTS
+
+
+def test_only_the_specified_prompt_defines_what_a_setting_is():
+    """The whole experiment is that v2 pins the entity type and v1 does not."""
+    v1, v2 = E.PROMPTS["v1-unspecified"], E.PROMPTS["v2-specified"]
+    assert "PRAGMA" in v2 and "PRAGMA" not in v1
+    assert "COPY" in v2 and "COPY" not in v1
+
+
+def test_neither_prompt_leaks_the_oracle(tmp_path, transport):
+    """v2 names look-alike *categories*, never a setting. Same guard as the repair.
+
+    This is the risk the sharpened prompt introduces: it would be very easy to
+    "specify the task" by listing real setting names, which is the answer key
+    wearing a hat.
+    """
+    oracle_names = {row["name"] for row in jsonl.read_list(paths.SETTINGS_JSONL)}
+    incidental = {"schema", "user"}
+    for key, text in E.PROMPTS.items():
+        lowered = text.lower()
+        leaked = sorted(
+            n for n in oracle_names if n.lower() not in incidental and n.lower() in lowered
+        )
+        assert not leaked, f"{key} names real settings: {leaked}"
+
+
+def test_the_prompt_variant_is_recorded_on_every_row(tmp_path, transport):
+    transport.returns((body(GOOD), None, False))
+    row, _ = E.extract_document(
+        ARM, "doc-1", DOCUMENT, cache_dir=tmp_path, api_key="k", prompt="v1-unspecified"
+    )
+    assert row.prompt == "v1-unspecified"
+
+
+def test_each_variant_is_actually_sent_and_the_repair_reuses_the_same_one(tmp_path, transport):
+    """A repair under v2 that silently re-asked with v1 would corrupt the pair."""
+    transport.returns((body(BACKTICKED), None, False), (body(GOOD), None, False))
+    E.extract_document(
+        ARM, "doc-1", DOCUMENT, cache_dir=tmp_path, api_key="k", prompt="v2-specified"
+    )
+    for call in transport.calls:
+        assert call["messages"][0]["content"] == E.PROMPTS["v2-specified"]
+
+
+def test_the_two_variants_cannot_share_a_cache_entry(tmp_path, transport):
+    """Otherwise the comparison would quietly be one prompt measured twice."""
+    transport.returns((body(GOOD), None, False), (body(GOOD), None, False))
+    for key in E.PROMPTS:
+        E.extract_document(ARM, "doc-1", DOCUMENT, cache_dir=tmp_path, api_key="k", prompt=key)
+
+    assert len(transport.calls) == 2, "the second variant reused the first one's cache"
+    assert len(list((tmp_path / ARM.key).glob("*.json"))) == 2
+
+
+def test_an_unknown_prompt_variant_fails_loudly_rather_than_defaulting(tmp_path):
+    with pytest.raises(KeyError):
+        E.extract_document(ARM, "d", DOCUMENT, cache_dir=tmp_path, api_key="k", prompt="v3")

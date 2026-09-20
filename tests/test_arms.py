@@ -174,6 +174,7 @@ def row(arm: str, error: str | None):
     return ExtractionRow(
         doc_id="d",
         arm=arm,
+        prompt="v2-specified",
         requested_model="m",
         answering_model="",
         outcome="provider_unavailable",
@@ -182,6 +183,7 @@ def row(arm: str, error: str | None):
         first_finish_reason="",
         prompt_tokens=0,
         completion_tokens=0,
+        reasoning_tokens=0,
         latency_s=0.0,
         cost_usd=0.0,
         n_settings=0,

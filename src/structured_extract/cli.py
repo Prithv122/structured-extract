@@ -392,11 +392,13 @@ def cmd_arms_cost(args: argparse.Namespace) -> int:
     # chars/4 is a rough tokenizer-agnostic estimate and is labelled as one; the
     # published cost figures come from the providers' own reported token counts.
     doc_tokens = sum(r["n_chars"] for r in rows) / 4
-    prompt_tokens = doc_tokens + args.overhead * len(rows)
-    completion_tokens = args.completion * len(rows)
+    variants = args.prompts if args.prompts else len(extract_mod.PROMPTS)
+    prompt_tokens = (doc_tokens + args.overhead * len(rows)) * variants
+    completion_tokens = args.completion * len(rows) * variants
     inflate = 1 + args.repair_rate
 
     print(f"corpus {len(rows)} documents, ~{doc_tokens:,.0f} document tokens (chars/4, estimate)")
+    print(f"{variants} prompt variant(s): {', '.join(sorted(extract_mod.PROMPTS))}")
     print(f"assuming {args.overhead} tokens of prompt+schema and {args.completion} out per call,")
     print(f"and a {args.repair_rate:.0%} repair rate\n")
 
@@ -409,6 +411,13 @@ def cmd_arms_cost(args: argparse.Namespace) -> int:
     print(
         f"  {'':4}  {'pilot (' + str(args.pilot) + ' documents)':<30} "
         f"${total * args.pilot / len(rows):7.3f}"
+    )
+    print()
+    print(
+        "This EXCLUDES reasoning tokens. Reasoning is left at each provider's default\n"
+        "(see extract.build_payload) and bills as completion tokens, so four of the five\n"
+        "arms can exceed this. How much is exactly what the pilot is for -- the figure\n"
+        "published in the README will come from reported token counts, not from here."
     )
     return 0
 
@@ -452,6 +461,7 @@ def cmd_extract_run(args: argparse.Namespace) -> int:
     if args.pilot:
         rows = _pilot_documents(rows, args.pilot)
     selected = [arms_mod.BY_KEY[k] for k in args.arm] if args.arm else list(arms_mod.HOSTED)
+    prompts = args.prompt or list(extract_mod.PROMPTS)
 
     if args.live and not os.environ.get("OPENROUTER_API_KEY"):
         print(
@@ -461,51 +471,77 @@ def cmd_extract_run(args: argparse.Namespace) -> int:
         )
         return 2
 
-    print(f"{len(rows)} documents x {len(selected)} arms = {len(rows) * len(selected)} pairs")
+    pairs = len(rows) * len(selected) * len(prompts)
+    print(f"{len(rows)} documents x {len(selected)} arms x {len(prompts)} prompts = {pairs} pairs")
+    print(f"prompts: {', '.join(prompts)}")
     print(f"mode: {'LIVE (this spends money)' if args.live else 'replay from cache'}\n")
 
     results: list[extract_mod.ExtractionRow] = []
-    for arm in selected:
-        for row in rows:
-            document = (paths.CORPUS_DOCUMENTS / f"{row['doc_id']}.md").read_text(encoding="utf-8")
-            try:
-                result, _ = extract_mod.extract_document(
-                    arm,
-                    row["doc_id"],
-                    document,
-                    cache_dir=paths.CACHE_DIR,
-                    allow_live=args.live,
-                )
-            except extract_mod.MissingAPIKey as exc:
-                print(f"FAIL  {exc}", file=sys.stderr)
-                return 2
-            results.append(result)
-            if args.verbose:
-                print(
-                    f"  {arm.key} {result.doc_id:<22} {result.outcome:<22} "
-                    f"repair={result.repair_used!s:<5} {result.finish_reason:<10} "
-                    f"${result.cost_usd:.5f}"
-                )
+    for prompt in prompts:
+        for arm in selected:
+            for row in rows:
+                path = paths.CORPUS_DOCUMENTS / f"{row['doc_id']}.md"
+                document = path.read_text(encoding="utf-8")
+                try:
+                    result, _ = extract_mod.extract_document(
+                        arm,
+                        row["doc_id"],
+                        document,
+                        cache_dir=paths.CACHE_DIR,
+                        allow_live=args.live,
+                        prompt=prompt,
+                    )
+                except extract_mod.MissingAPIKey as exc:
+                    print(f"FAIL  {exc}", file=sys.stderr)
+                    return 2
+                results.append(result)
+                if args.verbose:
+                    print(
+                        f"  {prompt:<15} {arm.key} {result.doc_id:<22} "
+                        f"{result.outcome:<22} repair={result.repair_used!s:<5} "
+                        f"{result.finish_reason:<10} n={result.n_settings:<3} "
+                        f"${result.cost_usd:.5f}"
+                    )
 
     out = paths.RESULTS_JSONL if not args.pilot else paths.RESULTS_JSONL.with_name("pilot.jsonl")
     jsonl.write(out, (r.to_json() for r in results))
 
     print()
-    print(f"{'arm':<5} {'outcome':<22} {'n':>4}")
-    for arm in selected:
-        counts = Counter(r.outcome for r in results if r.arm == arm.key)
-        for outcome, n in counts.most_common():
-            print(f"{arm.key:<5} {outcome:<22} {n:>4}")
+    print(f"{'prompt':<15} {'arm':<5} {'outcome':<22} {'n':>4}")
+    for prompt in prompts:
+        for arm in selected:
+            counts = Counter(r.outcome for r in results if r.arm == arm.key and r.prompt == prompt)
+            for outcome, n in counts.most_common():
+                print(f"{prompt:<15} {arm.key:<5} {outcome:<22} {n:>4}")
+
     print()
-    print(f"{'arm':<5} {'cost':>9} {'repairs':>8} {'tok in':>9} {'tok out':>9}")
-    for arm in selected:
-        group = [r for r in results if r.arm == arm.key]
-        print(
-            f"{arm.key:<5} ${sum(r.cost_usd for r in group):8.4f} "
-            f"{sum(r.repair_used for r in group):>8} "
-            f"{sum(r.prompt_tokens for r in group):>9,} "
-            f"{sum(r.completion_tokens for r in group):>9,}"
-        )
+    header = f"{'prompt':<15} {'arm':<5} {'cost':>9} {'repairs':>8} {'tok in':>9} {'tok out':>9}"
+    print(f"{header} {'think':>8} {'settings':>9}")
+    for prompt in prompts:
+        for arm in selected:
+            group = [r for r in results if r.arm == arm.key and r.prompt == prompt]
+            if not group:
+                continue
+            print(
+                f"{prompt:<15} {arm.key:<5} ${sum(r.cost_usd for r in group):8.4f} "
+                f"{sum(r.repair_used for r in group):>8} "
+                f"{sum(r.prompt_tokens for r in group):>9,} "
+                f"{sum(r.completion_tokens for r in group):>9,} "
+                f"{sum(r.reasoning_tokens for r in group):>8,} "
+                f"{sum(r.n_settings for r in group):>9}"
+            )
+
+    # The whole point of running two prompts: the same arms, the same documents,
+    # a different specification of what is being asked for.
+    if len(prompts) > 1:
+        print()
+        print("settings returned, by prompt (the oracle has not scored these yet)")
+        for prompt in prompts:
+            group = [r for r in results if r.prompt == prompt]
+            answered = [r for r in group if not r.error]
+            total = sum(r.n_settings for r in group)
+            per = total / len(answered) if answered else 0.0
+            print(f"  {prompt:<15} {total:>5} across {len(answered):>3} answered  ({per:.2f}/doc)")
     print(f"\ntotal ${sum(r.cost_usd for r in results):.4f}  ->  {out}")
 
     # A run where nothing was answered must say *why* on the terminal. The first
@@ -581,6 +617,9 @@ def build_parser() -> argparse.ArgumentParser:
     cost.add_argument("--completion", type=int, default=350, help="output tokens per call")
     cost.add_argument("--repair-rate", type=float, default=0.20)
     cost.add_argument("--pilot", type=int, default=8)
+    cost.add_argument(
+        "--prompts", type=int, default=0, help="how many prompt variants (default: all of them)"
+    )
     cost.set_defaults(func=cmd_arms_cost)
 
     extract = sub.add_parser("extract", help="run the extraction grid")
@@ -588,6 +627,12 @@ def build_parser() -> argparse.ArgumentParser:
     run = esub.add_parser("run", help="replay from the committed cache, or --live to spend")
     run.add_argument("--arm", action="append", choices=sorted(arms_mod.BY_KEY), help="repeatable")
     run.add_argument("--pilot", type=int, metavar="N", help="a fixed stratified slice of N docs")
+    run.add_argument(
+        "--prompt",
+        action="append",
+        choices=sorted(extract_mod.PROMPTS),
+        help="prompt variant, repeatable; default is every variant",
+    )
     run.add_argument(
         "--live",
         action="store_true",
