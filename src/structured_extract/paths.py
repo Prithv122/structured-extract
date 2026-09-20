@@ -31,6 +31,10 @@ CACHE_DIR = DATA / "cache"
 #: One row per (document, arm), written whatever the outcome.
 RESULTS_JSONL = DATA / "results" / "extractions.jsonl"
 
+#: Per-document scores and the per-(arm, prompt) summary, written by `score run`.
+SCORES_JSONL = DATA / "results" / "scores.jsonl"
+SUMMARY_JSONL = DATA / "results" / "summary.jsonl"
+
 #: Upstream docs checkout, pinned in ``scripts/fetch_source_docs.py``.
 DEFAULT_DOCS_ROOT = SOURCE_DIR / "duckdb-web"
 

@@ -240,6 +240,9 @@ class ExtractionRow:
     #: a bill from advertised per-token prices does not work.
     cost_estimated: float
     n_settings: int
+    #: The validated records themselves, so scoring never has to replay the
+    #: cache or re-validate. Empty when nothing validated.
+    settings: list[dict]
     error: str | None
     #: ``ValidationError.errors()`` from the final attempt, for the failure analysis.
     validation_errors: list[dict]
@@ -472,6 +475,7 @@ def extract_document(
         repair_used: bool,
         errors: list[dict],
         n_settings: int,
+        settings: list[dict],
         prompt_tokens: int,
         completion_tokens: int,
         reasoning_tokens: int,
@@ -496,6 +500,7 @@ def extract_document(
             cost_reported=round(cost_reported, 8),
             cost_estimated=arm.cost(prompt_tokens, completion_tokens),
             n_settings=n_settings,
+            settings=settings,
             error=result.error,
             validation_errors=errors,
         )
@@ -503,7 +508,7 @@ def extract_document(
     if first.error is not None:
         outcome = Outcome.PROVIDER_UNAVAILABLE if first.unavailable else Outcome.PROVIDER_ERROR
         failed = row(
-            first, outcome, False, [], 0, 0, 0, 0, first.cost_reported, first.latency_s, ""
+            first, outcome, False, [], 0, [], 0, 0, 0, first.cost_reported, first.latency_s, ""
         )
         return failed, None
 
@@ -516,6 +521,7 @@ def extract_document(
                 False,
                 [],
                 len(extraction.settings),
+                [r.model_dump(mode="json") for r in extraction.settings],
                 first.prompt_tokens,
                 first.completion_tokens,
                 first.reasoning_tokens,
@@ -558,6 +564,7 @@ def extract_document(
                 True,
                 errors,
                 0,
+                [],
                 tokens_in,
                 tokens_out,
                 tokens_think,
@@ -587,6 +594,7 @@ def extract_document(
             True,
             errors2,
             len(repaired.settings) if repaired else 0,
+            [r.model_dump(mode="json") for r in repaired.settings] if repaired else [],
             tokens_in,
             tokens_out,
             tokens_think,

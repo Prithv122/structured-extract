@@ -188,6 +188,7 @@ def row(arm: str, error: str | None):
         cost_reported=0.0,
         cost_estimated=0.0,
         n_settings=0,
+        settings=[],
         error=error,
         validation_errors=[],
     )

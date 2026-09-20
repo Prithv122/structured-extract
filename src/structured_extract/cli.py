@@ -18,6 +18,7 @@ from structured_extract import arms as arms_mod
 from structured_extract import corpus as corpus_mod
 from structured_extract import extract as extract_mod
 from structured_extract import jsonl, paths
+from structured_extract import score as score_mod
 from structured_extract.docs_table import parse_reference_page
 from structured_extract.oracle import (
     EXTENSIONS,
@@ -657,6 +658,76 @@ def _group_errors(rows: list[extract_mod.ExtractionRow]) -> dict[str, list]:
     return grouped
 
 
+# --------------------------------------------------------------------------- score
+
+
+def cmd_score_run(args: argparse.Namespace) -> int:
+    """Score a results file against the oracle. Offline, free, no API key."""
+    results = jsonl.read_list(args.results)
+    if results and "settings" not in results[0]:
+        print(
+            f"FAIL  {args.results.name} predates the current results schema (no per-record\n"
+            f"      'settings'). Re-run to rewrite it from the cache -- free, no network:\n"
+            f"      structured-extract extract run --pilot <N>",
+            file=sys.stderr,
+        )
+        return 2
+
+    scores = score_mod.score_all(results)
+    summaries = score_mod.summarise(scores)
+
+    jsonl.write(paths.SCORES_JSONL, (s.to_json() for s in scores))
+    jsonl.write(paths.SUMMARY_JSONL, (s.to_json() for s in summaries))
+
+    print(f"scored {len(scores)} cells from {args.results.name}\n")
+
+    print("what happened  (no_answer is the provider's fault, failed is the model's)")
+    head = f"{'prompt':<15} {'arm':<4} {'docs':>5} {'no_ans':>7} {'failed':>7}"
+    print(f"{head} {'empty':>6} {'answered':>9}")
+    for s in summaries:
+        print(
+            f"{s.prompt:<15} {s.arm:<4} {s.n_documents:>5} {s.no_answer:>7} "
+            f"{s.failed_extraction:>7} {s.answered_empty:>6} {s.answered:>9}"
+        )
+
+    print("\nprecision side  (exact: the binary adjudicates, no human involved)")
+    head = f"{'prompt':<15} {'arm':<4} {'recs':>5} {'halluc':>7} {'halluc%':>8}"
+    print(f"{head} {'type%':>7} {'scope%':>7} {'ground%':>8}")
+    for s in summaries:
+        print(
+            f"{s.prompt:<15} {s.arm:<4} {s.records_returned:>5} {s.records_hallucinated:>7} "
+            f"{s.hallucination_rate:>7.0%} {s.type_accuracy:>7.0%} "
+            f"{s.scope_accuracy:>7.0%} {s.grounding_rate:>8.0%}"
+        )
+
+    print("\nrecall  (reference stratum is exact; vs-mentioned is a proxy, biased low)")
+    head = f"{'prompt':<15} {'arm':<4} {'ref found':>10} {'ref recall':>11}"
+    print(f"{head} {'proxy':>8} {'empty ok':>9} {'empty bad':>10}")
+    for s in summaries:
+        print(
+            f"{s.prompt:<15} {s.arm:<4} "
+            f"{f'{s.reference_found}/{s.reference_expected}':>10} "
+            f"{s.reference_recall:>11.0%} {s.recall_vs_mentioned:>8.0%} "
+            f"{s.empty_correct:>9} {s.empty_wrong:>10}"
+        )
+
+    print("\ncost  (usage.cost as billed, never reconstructed from token prices)")
+    for prompt in dict.fromkeys(s.prompt for s in summaries):
+        cell = [s for s in summaries if s.prompt == prompt]
+        print(f"  {prompt:<15} ${sum(s.cost_reported for s in cell):.4f}")
+    print(f"  {'total':<15} ${sum(s.cost_reported for s in summaries):.4f}")
+
+    if args.detail:
+        print("\nhallucinated names, most frequent first")
+        bad = Counter(r.name for s in scores for r in s.records if r.hallucinated)
+        for name, n in bad.most_common(args.detail):
+            where = sorted({s.doc_id for s in scores for r in s.records if r.name == name})
+            print(f"  {name:<32} x{n:<4} {', '.join(where[:3])}")
+
+    print(f"\n-> {paths.SCORES_JSONL}\n-> {paths.SUMMARY_JSONL}")
+    return 0
+
+
 # --------------------------------------------------------------------------- wiring
 
 
@@ -722,6 +793,27 @@ def build_parser() -> argparse.ArgumentParser:
     )
     run.add_argument("-v", "--verbose", action="store_true", help="one line per document")
     run.set_defaults(func=cmd_extract_run)
+
+    score = sub.add_parser("score", help="score extractions against the oracle")
+    ssub = score.add_subparsers(dest="cmd", required=True)
+    srun = ssub.add_parser("run", help="score a results file (offline, no key)")
+    srun.add_argument(
+        "results",
+        type=Path,
+        nargs="?",
+        default=paths.RESULTS_JSONL,
+        help="results JSONL from `extract run` (default: the full-grid file)",
+    )
+    srun.add_argument(
+        "--detail",
+        type=int,
+        nargs="?",
+        const=20,
+        default=0,
+        metavar="N",
+        help="also list the N most frequent hallucinated names",
+    )
+    srun.set_defaults(func=cmd_score_run)
 
     return parser
 
