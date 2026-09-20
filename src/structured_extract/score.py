@@ -50,6 +50,7 @@ from dataclasses import asdict, dataclass, field
 from enum import StrEnum
 
 from structured_extract import jsonl, paths
+from structured_extract import labels as labels_mod
 from structured_extract import schema as S
 from structured_extract.corpus import DISTRACTOR_NAMES
 from structured_extract.extract import NO_ANSWER, Outcome
@@ -194,6 +195,10 @@ class DocumentScore:
     #: Proxy ground truth for the prose strata: non-distractor names that appear
     #: in the text. An upper bound on what the section might document.
     mentioned: list[str] = field(default_factory=list)
+    #: Where ``expected`` came from. ``"reference-row"`` and ``"hand-label"`` are
+    #: real ground truth; ``"mentioned-proxy"`` is not, and is reported apart
+    #: from them everywhere rather than averaged in.
+    truth_source: str = "mentioned-proxy"
     #: ``True``/``False`` only for an empty answer; ``None`` otherwise.
     empty_was_correct: bool | None = None
     cost_reported: float = 0.0
@@ -301,8 +306,19 @@ def score_record(record: dict, document: str, oracle: Oracle) -> RecordScore:
     )
 
 
-def score_row(row: dict, corpus: dict[str, dict], documents: dict[str, str], oracle: Oracle):
-    """Score one results row. ``corpus`` and ``documents`` are keyed by doc_id."""
+def score_row(
+    row: dict,
+    corpus: dict[str, dict],
+    documents: dict[str, str],
+    oracle: Oracle,
+    hand_labels: dict[str, list[str]] | None = None,
+):
+    """Score one results row. ``corpus`` and ``documents`` are keyed by doc_id.
+
+    ``hand_labels`` maps doc_id to the settings a human judged that section to
+    document. Absent, the prose strata fall back to the proxy and say so.
+    """
+    hand_labels = hand_labels or {}
     meta = corpus[row["doc_id"]]
     text = documents[row["doc_id"]]
     outcome = row["outcome"]
@@ -316,12 +332,19 @@ def score_row(row: dict, corpus: dict[str, dict], documents: dict[str, str], ora
     else:
         status = Status.ANSWERED
 
+    # Ground truth, best available first. A hand label beats the proxy on the
+    # prose strata because the proxy cannot tell a documented setting from a
+    # cross-referenced one -- on narrative-0001 it gets that exactly backwards.
     expected: list[str] = []
+    truth_source = "mentioned-proxy"
     if meta["stratum"] == "reference":
         target = reference_target(text)
         resolved = oracle.resolve(target) if target else None
         if resolved:
-            expected = [resolved]
+            expected, truth_source = [resolved], "reference-row"
+    elif (hand := hand_labels.get(row["doc_id"])) is not None:
+        expected = sorted({c for name in hand if (c := oracle.resolve(name))})
+        truth_source = "hand-label"
 
     # Distractors are excluded: a document whose only "known" name is `schema`
     # is exactly the case where an empty answer is right, and counting those as
@@ -344,25 +367,29 @@ def score_row(row: dict, corpus: dict[str, dict], documents: dict[str, str], ora
         records=[score_record(r, text, oracle) for r in row["settings"]],
         expected=expected,
         mentioned=mentioned,
+        truth_source=truth_source,
         cost_reported=row["cost_reported"],
     )
     if status is Status.ANSWERED_EMPTY:
         # Empty is right when there was nothing to find. For a reference
         # document that is never true; for prose, the proxy is the best
         # available answer until the hand labels exist.
-        target_set = expected if meta["stratum"] == "reference" else mentioned
+        target_set = mentioned if truth_source == "mentioned-proxy" else expected
         score.empty_was_correct = not target_set
     return score
 
 
 def score_all(results: list[dict]) -> list[DocumentScore]:
     oracle = load_oracle()
+    hand = {
+        label.doc_id: label.documents for label in labels_mod.load() if label.documents is not None
+    }
     corpus = {row["doc_id"]: row for row in jsonl.read_list(paths.CORPUS_JSONL)}
     documents = {
         doc_id: (paths.CORPUS_DOCUMENTS / f"{doc_id}.md").read_text(encoding="utf-8")
         for doc_id in {row["doc_id"] for row in results}
     }
-    return [score_row(row, corpus, documents, oracle) for row in results]
+    return [score_row(row, corpus, documents, oracle, hand) for row in results]
 
 
 @dataclass

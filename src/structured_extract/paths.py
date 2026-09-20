@@ -31,6 +31,11 @@ CACHE_DIR = DATA / "cache"
 #: One row per (document, arm), written whatever the outcome.
 RESULTS_JSONL = DATA / "results" / "extractions.jsonl"
 
+#: The hand-labelled recall set: the judgements, and a reading companion.
+LABELS_DIR = DATA / "labels"
+LABELS_JSONL = LABELS_DIR / "recall_labels.jsonl"
+LABELS_WORKSHEET = LABELS_DIR / "WORKSHEET.md"
+
 #: Per-document scores and the per-(arm, prompt) summary, written by `score run`.
 SCORES_JSONL = DATA / "results" / "scores.jsonl"
 SUMMARY_JSONL = DATA / "results" / "summary.jsonl"

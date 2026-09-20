@@ -18,6 +18,7 @@ from structured_extract import arms as arms_mod
 from structured_extract import corpus as corpus_mod
 from structured_extract import extract as extract_mod
 from structured_extract import jsonl, paths
+from structured_extract import labels as labels_mod
 from structured_extract import score as score_mod
 from structured_extract.docs_table import parse_reference_page
 from structured_extract.oracle import (
@@ -731,6 +732,69 @@ def cmd_extract_cache(args: argparse.Namespace) -> int:
     return 0
 
 
+# --------------------------------------------------------------------------- labels
+
+
+def cmd_labels_init(args: argparse.Namespace) -> int:
+    """Generate (or regenerate) the worksheet. Never discards a judgement."""
+    corpus = jsonl.read_list(paths.CORPUS_JSONL)
+    fresh = labels_mod.build(corpus, n=args.size, seed=args.seed)
+    merged = labels_mod.merge(fresh, labels_mod.load())
+
+    paths.LABELS_DIR.mkdir(parents=True, exist_ok=True)
+    labels_mod.save(merged)
+    documents = {
+        label.doc_id: (paths.CORPUS_DOCUMENTS / f"{label.doc_id}.md").read_text(encoding="utf-8")
+        for label in merged
+    }
+    paths.LABELS_WORKSHEET.write_text(
+        labels_mod.worksheet_markdown(merged, documents), encoding="utf-8", newline="\n"
+    )
+
+    kept = sum(1 for label in merged if label.labelled)
+    chars = sum(label.n_chars for label in merged)
+    print(f"{len(merged)} sections, seed {args.seed}, {chars:,} chars to read")
+    for bucket, n in sorted(Counter(label.bucket for label in merged).items()):
+        print(f"  {bucket:<22} {n:>3}")
+    print()
+    print(f"already judged {kept}, to do {len(merged) - kept}")
+    print(f"  read   {paths.LABELS_WORKSHEET}")
+    print(f"  write  {paths.LABELS_JSONL}")
+    return 0
+
+
+def cmd_labels_verify(args: argparse.Namespace) -> int:
+    """Check the judgements for the mistakes a labeller can actually make."""
+    labels = labels_mod.load()
+    if not labels:
+        print("no label set yet. Run: structured-extract labels init", file=sys.stderr)
+        return 2
+
+    oracle = score_mod.load_oracle()
+    problems = labels_mod.validate(labels, oracle.resolve)
+    stats = labels_mod.coverage(labels)
+
+    print(f"{stats['labelled']} of {stats['total']} sections judged")
+    print(f"  document at least one setting   {stats['documents_something']}")
+    print(f"  correctly empty                 {stats['correctly_empty']}")
+    print(f"  settings named in total         {stats['settings_labelled']}")
+    print(f"  cross-references recorded       {stats['cross_references']}")
+
+    if problems:
+        print()
+        for problem in problems:
+            print(f"FAIL  {problem}", file=sys.stderr)
+        return 1
+    remaining = stats["total"] - stats["labelled"]
+    if remaining:
+        print()
+        print(f"{remaining} still to judge -- not usable for scoring yet")
+        return 0
+    print()
+    print("labels OK -- complete and consistent with the oracle")
+    return 0
+
+
 # --------------------------------------------------------------------------- score
 
 
@@ -922,6 +986,16 @@ def build_parser() -> argparse.ArgumentParser:
     cache.add_argument("--prompt", action="append", choices=sorted(extract_mod.PROMPTS))
     cache.add_argument("--doc", action="append", metavar="DOC_ID")
     cache.set_defaults(func=cmd_extract_cache)
+
+    labels = sub.add_parser("labels", help="the hand-labelled recall set")
+    lsub = labels.add_subparsers(dest="cmd", required=True)
+    linit = lsub.add_parser("init", help="generate the worksheet (keeps existing judgements)")
+    linit.add_argument("--size", type=int, default=labels_mod.LABEL_SET_SIZE)
+    linit.add_argument("--seed", type=int, default=labels_mod.DEFAULT_LABEL_SEED)
+    linit.set_defaults(func=cmd_labels_init)
+    lsub.add_parser("verify", help="check the judgements (offline)").set_defaults(
+        func=cmd_labels_verify
+    )
 
     score = sub.add_parser("score", help="score extractions against the oracle")
     ssub = score.add_subparsers(dest="cmd", required=True)
