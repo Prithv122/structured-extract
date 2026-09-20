@@ -164,7 +164,7 @@ def test_the_pilot_cannot_ask_for_more_documents_than_exist():
 
 REAL_402 = (
     'HTTP 402: {"error":{"message":"Insufficient credits. This account never '
-    'purchased credits. Make sure your key is on the correct account or org, and '
+    "purchased credits. Make sure your key is on the correct account or org, and "
     'if so, purchase more at https://openrouter.ai/settings/credits","code":402,'
     '"metadata":{"limit_source":"openrouter_credits"}}}'
 )
