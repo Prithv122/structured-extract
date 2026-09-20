@@ -66,7 +66,7 @@ flowchart LR
         SEC --> SAMP["stratified sample<br/>seed 20260919"]
         SAMP --> CD["120 documents"]
     end
-    CD --> ARM["extraction arms<br/>H1-H4 · L1 · B0 · B1"]
+    CD --> ARM["extraction arms<br/>H1-H5 · L1 · B0 · B1"]
     ARM --> VAL["Pydantic validate<br/>+ grounding check<br/>+ one bounded repair"]
     VAL --> SCORE["score"]
     OR --> SCORE
@@ -95,8 +95,9 @@ and make the benchmark measure itself.
 | Pydantic | Yes, here | The `extract_json` + dataclass approach that [project 24](https://github.com/Prithv122/production-rag) chose | Not a reversal — a different layer. 24's payload was one flat field, where Pydantic would have duplicated `extract_json`. This payload is a nested list of records with closed enums, a pattern-constrained identifier and a cross-field uniqueness rule; `model_json_schema()` drives `response_format` so contract and validator cannot drift, and the per-field `ValidationError.errors()` list *is* the repair prompt's input. |
 | Hallucination check | Leave `name` a free string | An enum of the 274 known settings | Putting the oracle in the schema would make a hallucinated name impossible to emit — and delete the benchmark's primary measurement. The schema must accept `frobnicate_cache`; scoring it wrong is the oracle's job, afterwards. There is a test asserting exactly this. |
 | Grounding check | `evidence` must be a verbatim span of the document | An LLM judge, or trusting the model | Free, exact and unarguable, in the same way the oracle is. JSON Schema cannot express it, so the decoder enforces shape and a Pydantic validator enforces grounding — which means an arm can be perfectly schema-valid and still fail for quoting something the document does not say. Those are separate columns. Whitespace runs are normalised on both sides, because markdown hard-wraps mid-sentence; nothing else is. |
-| Arm selection | Four hosted models, all with native structured outputs | A mix of structured and unstructured arms | Holding the mechanism constant means H1–H4 vary by capability alone. "Does constrained decoding help at all?" is a different question and belongs to the B0/B1 baselines. |
-| Determinism | Send only the knobs each provider advertises, and record which | `temperature=0` everywhere | It is no longer available everywhere: Sonnet 5 accepts neither `temperature` nor `seed`. Pretending otherwise would be a lie in the method section; dropping those arms would cut the frontier out of the comparison. Reproducibility comes from the committed response cache instead. |
+| Arm selection | Five hosted models, all with native structured outputs | A mix of structured and unstructured arms | Holding the mechanism constant means H1–H5 vary by capability alone. "Does constrained decoding help at all?" is a different question and belongs to the B0/B1 baselines. |
+| The ceiling | `deepseek-v4-pro` | `claude-sonnet-5` | A grid with no strong arm cannot separate "this task is hard" from "these models are small", so a ceiling is not optional. But Sonnet was 76% of the cost and is the only candidate that accepts neither `temperature` nor `seed`. Decoupling "ceiling" from "frontier" made the grid 2.7× cheaper, one arm wider, and fully pinnable. |
+| Determinism | Send only the knobs each provider advertises, and record which | Assume `temperature=0` works | It does not work everywhere — Sonnet 5 takes neither control, the GPT-5 family takes `seed` but not `temperature`. The client sends only what an arm advertises and `arms verify` fails if that changes, so the method section stays re-derivable rather than aspirational. |
 | Repair vs retry | A `ValidationError` consumes the one repair; a 429 or 502 does not | One counter for both | A 502 is not a bad answer, it is no answer. Merging them would let a flaky provider look like a model that needs fewer repairs. |
 
 ## 5. Results
@@ -109,16 +110,35 @@ The arms are pinned, and every id was resolved against OpenRouter's public
 catalogue before a line of client code was written against it
 (`structured-extract arms verify`):
 
-| Arm | Model | $/M in | $/M out | Structured outputs | `temperature` | `seed` |
-|---|---|---:|---:|:-:|:-:|:-:|
-| H1 | `anthropic/claude-sonnet-5` | 2.00 | 10.00 | ✓ | ✗ | ✗ |
-| H2 | `google/gemini-2.5-flash` | 0.30 | 2.50 | ✓ | ✓ | ✓ |
-| H3 | `openai/gpt-4.1-nano` | 0.10 | 0.40 | ✓ | ✓ | ✓ |
-| H4 | `openai/gpt-oss-120b` | 0.15 | 0.60 | ✓ | ✓ | ✓ |
+| Arm | Model | $/M in | $/M out | Role | Structured outputs | `temperature` + `seed` |
+|---|---|---:|---:|---|:-:|:-:|
+| H1 | `deepseek/deepseek-v4-pro` | 0.4223 | 0.8446 | ceiling | ✓ | ✓ |
+| H2 | `google/gemini-2.5-flash` | 0.30 | 2.50 | mid-tier | ✓ | ✓ |
+| H3 | `openai/gpt-4.1-nano` | 0.10 | 0.40 | small, non-reasoning | ✓ | ✓ |
+| H4 | `openai/gpt-oss-120b` | 0.15 | 0.60 | open weights | ✓ | ✓ |
+| H5 | `z-ai/glm-5.3-flash` | 0.090 | 0.300 | floor | ✓ | ✓ |
 
-Estimated cost of the full 120 × 4 grid: **$1.06**
+Five vendors, every arm on native structured outputs so the *mechanism* is held
+constant, and **every arm accepts `temperature=0` and a seed** — which took a
+deliberate choice, see below.
+
+Estimated cost of the full 120 × 5 grid: **$0.39**
 (`structured-extract arms cost`). Published costs will come from the token
 counts the providers actually report, not from this estimate.
+
+**Claude Sonnet 5 was the original ceiling and was dropped.** At $2.00/$10.00 it
+was 76% of the grid's cost on its own, and it is the only model considered here
+that advertises neither `temperature` nor `seed` — so keeping it meant either
+pretending the knob was set or publishing a grid with one arm that could not be
+held still. The fix was to stop treating "ceiling" as a synonym for "frontier":
+DeepSeek V4 Pro is flagship-class, takes both controls, and costs 7.6× less. The
+grid got cheaper, wider and more reproducible at the same time.
+
+No `:free` model ids anywhere. They are not the same endpoint —
+`z-ai/glm-5.2:free` reports `structured_outputs=False`, `response_format=False`
+and a 32 k context against the paid id's 1 M, so it cannot accept this schema at
+all — and `:free` carries OpenRouter's 50-requests/day account-wide cap, while a
+single arm needs 120 calls before any repair.
 
 What *is* measured is the ground truth itself — the docs-vs-binary audit, which
 is a result in its own right and needed no model at all:

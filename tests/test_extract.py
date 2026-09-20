@@ -7,13 +7,14 @@ exercised offline and for free.
 from __future__ import annotations
 
 import json
+from dataclasses import replace
 
 import pytest
 
 from structured_extract import corpus as corpus_mod
 from structured_extract import extract as E
 from structured_extract import jsonl, paths
-from structured_extract.arms import BY_KEY, Arm
+from structured_extract.arms import BY_KEY, HOSTED, Arm
 
 DOCUMENT = """\
 ## Memory Limit
@@ -298,16 +299,34 @@ def test_fallbacks_are_off_so_another_model_cannot_answer_silently(tmp_path, tra
 
 
 def test_only_the_knobs_an_arm_advertises_are_sent(tmp_path, transport):
+    """Sending a parameter a provider does not advertise can fail the whole request.
+
+    Tested against a synthetic arm rather than a grid member: the grid's line-up
+    is a decision that will change again, and this is a property of the client.
+    """
     transport.returns((body(GOOD), None, False), (body(GOOD), None, False))
 
     run(tmp_path, transport, arm=BY_KEY["H3"])
     assert transport.calls[0]["temperature"] == 0
     assert transport.calls[0]["seed"] == 0
 
-    run(tmp_path, transport, arm=BY_KEY["H1"])
-    sonnet = transport.calls[1]
-    assert "temperature" not in sonnet, "Sonnet 5 does not advertise temperature"
-    assert "seed" not in sonnet, "Sonnet 5 does not advertise seed"
+    uncontrollable = replace(BY_KEY["H3"], supports_temperature=False, supports_seed=False)
+    run(tmp_path, transport, arm=uncontrollable)
+    assert "temperature" not in transport.calls[1]
+    assert "seed" not in transport.calls[1]
+
+
+def test_every_arm_in_the_current_grid_can_be_pinned(tmp_path, transport):
+    """A property of *this* line-up, and the reason Claude Sonnet 5 is not in it.
+
+    Sonnet advertises neither temperature nor seed. Keeping it would have meant
+    publishing a grid with one arm that could not be held still. Swapping the
+    ceiling to DeepSeek V4 Pro bought full determinism *and* cut the grid cost,
+    so this assertion is the cheap guard on that decision.
+    """
+    for arm in HOSTED:
+        assert arm.supports_temperature, f"{arm.key} {arm.model_id} cannot take temperature=0"
+        assert arm.supports_seed, f"{arm.key} {arm.model_id} cannot take a seed"
 
 
 def test_reasoning_is_disabled_where_the_arm_supports_thinking(tmp_path, transport):

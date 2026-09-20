@@ -16,15 +16,32 @@ price in this file. If OpenRouter reprices a model after the grid is run, the
 published cost is still exactly what the run cost; ``arms verify`` then reports
 drift so the next reader knows the two no longer agree.
 
-Determinism, honestly
----------------------
-``temperature=0`` is not available across the frontier any more: Claude Sonnet 5
-accepts neither ``temperature`` nor ``seed``, and the GPT-5 reasoning family
-accepts ``seed`` but not ``temperature``. Rather than quietly drop the
-uncontrollable arms or pretend the knob was set, each arm records which controls
-the provider actually advertises, ``arms verify`` prints them, and the run sends
-only the ones an arm supports. Replay does not depend on any of this: every
-published number replays from the committed response cache.
+Determinism, and what it cost to get it
+---------------------------------------
+``temperature=0`` is no longer free at the top of the market. Claude Sonnet 5
+advertises neither ``temperature`` nor ``seed``; the GPT-5 reasoning family
+takes ``seed`` but not ``temperature``. Including a frontier arm therefore meant
+either pretending the knob was set or publishing a grid where one arm could not
+be pinned.
+
+The way out was to stop equating "ceiling" with "frontier". DeepSeek V4 Pro is
+flagship-class, accepts both controls, and costs a fraction of either. **Every
+arm in this grid now advertises both ``temperature`` and ``seed``**, which is a
+stronger position than the original line-up and a cheaper one. Each arm still
+records what the provider advertises rather than assuming it, the run sends only
+the knobs an arm supports, and ``arms verify`` fails if that ever changes --
+because the honest version of this note is one a future reader can re-derive.
+
+None of it is load-bearing for reproducibility: every published number replays
+from the committed response cache.
+
+Why no ``:free`` ids
+--------------------
+They are not the same endpoint. ``z-ai/glm-5.2:free`` reports
+``structured_outputs=False``, ``response_format=False`` and a 32 k context
+against the paid id's 1 M -- it cannot accept the JSON Schema this whole grid is
+built on. On top of that, ``:free`` carries OpenRouter's 50-requests/day
+account-wide cap, and one arm needs 120 calls before a single repair.
 """
 
 from __future__ import annotations
@@ -83,24 +100,32 @@ class Arm:
         }
 
 
-#: The four hosted arms. Chosen to span roughly an order of magnitude in price
-#: at each step while holding the *mechanism* constant -- every one of them
-#: advertises native structured outputs, so what varies across the grid is model
-#: capability and not whether the schema was enforced by the decoder or by
-#: begging in the prompt. That contrast is B0/B1's job, not H1-H4's.
+#: The five hosted arms, holding the *mechanism* constant so that capability is
+#: the only thing that varies: every one advertises native structured outputs,
+#: so the grid never confuses "the decoder enforced the schema" with "the prompt
+#: asked nicely". That contrast belongs to B0/B1, not to H1-H5.
+#:
+#: Claude Sonnet 5 was the original H1 and was dropped. It is an excellent model
+#: and a poor *arm*: at $2.00/$10.00 it was 76% of the grid's cost, and it is the
+#: only candidate considered that advertises neither ``temperature`` nor
+#: ``seed``. DeepSeek V4 Pro is flagship-class at 7.6x less, accepts both, and
+#: its own Flash sibling sits four rows below it -- so the table now carries a
+#: within-family comparison for free.
 HOSTED: tuple[Arm, ...] = (
     Arm(
         key="H1",
-        model_id="anthropic/claude-sonnet-5",
-        label="Claude Sonnet 5",
-        price_in=2.00,
-        price_out=10.00,
+        model_id="deepseek/deepseek-v4-pro",
+        label="DeepSeek V4 Pro",
+        price_in=0.4223,
+        price_out=0.8446,
         rationale=(
-            "Frontier ceiling. Also the arm that documents the determinism limit: "
-            "the provider advertises neither temperature nor seed."
+            "The ceiling. Without a known-strong arm the grid cannot tell "
+            "'this task is hard' from 'these models are small', which is the one "
+            "thing only a ceiling buys. Flagship-class, and unlike the frontier "
+            "models it takes both temperature and seed."
         ),
-        supports_temperature=False,
-        supports_seed=False,
+        supports_temperature=True,
+        supports_seed=True,
         reasoning=True,
     ),
     Arm(
@@ -110,8 +135,9 @@ HOSTED: tuple[Arm, ...] = (
         price_in=0.30,
         price_out=2.50,
         rationale=(
-            "Mid-tier workhorse from a third vendor stack, and the cheapest arm "
-            "that still accepts both temperature and seed."
+            "Mid-tier workhorse from a third vendor stack. Its output price is "
+            "the highest in the grid, which makes it the arm where a runaway "
+            "repair rate would hurt most."
         ),
         supports_temperature=True,
         supports_seed=True,
@@ -141,6 +167,21 @@ HOSTED: tuple[Arm, ...] = (
         rationale=(
             "Open weights, so it is the like-for-like hosted counterpart to the "
             "L1 Ollama arm: same openness, two orders of magnitude more hardware."
+        ),
+        supports_temperature=True,
+        supports_seed=True,
+        reasoning=True,
+    ),
+    Arm(
+        key="H5",
+        model_id="z-ai/glm-5.3-flash",
+        label="GLM 5.3 Flash",
+        price_in=0.090,
+        price_out=0.300,
+        rationale=(
+            "The floor, and the fifth vendor. A very large model served at a "
+            "very small price is the case a reader most wants priced: if it "
+            "matches the ceiling here, nobody needs the ceiling for this task."
         ),
         supports_temperature=True,
         supports_seed=True,

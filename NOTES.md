@@ -312,6 +312,71 @@ full 120 x 4 grid is **$1.06**, and the 8-document pilot is about **$0.07**.
 Before the corpus fix the same grid would have cost roughly six times that, for
 a benchmark that would have been 83% one HTML dump.
 
+### Session 3 addendum — Sonnet dropped, grid went to five arms
+
+Prithvi pushed back on H1: Claude Sonnet 5 at $2.00/$10.00 was **76% of the grid's
+cost**, and asked whether GLM 5.3 Flash or DeepSeek V4 Flash could take its place.
+
+Half of that is right and the half that isn't is worth writing down. The Flash
+models are not Sonnet-tier — they sit alongside `gpt-4.1-nano` and `gpt-oss-120b`
+at $0.04–$0.09/M in. Swapping Sonnet for one does not buy a cheaper ceiling, it
+**deletes the ceiling**, and a grid with no known-strong arm cannot separate "this
+task is hard" from "these models are small". That separation is the only thing a
+ceiling buys and nothing else supplies it.
+
+But the pushback exposed a real error in my reasoning: I had treated *ceiling* and
+*frontier* as the same thing. They are not, and haven't been for a while.
+
+| model | $/M in | $/M out | grid | vs Sonnet | temp+seed |
+|---|---:|---:|---:|---:|:-:|
+| `anthropic/claude-sonnet-5` | 2.000 | 10.000 | $0.798 | 1× | **no** |
+| `z-ai/glm-5.3` | 0.896 | 2.816 | $0.273 | 2.9× | yes |
+| `deepseek/deepseek-v4-pro` | 0.4223 | 0.8446 | $0.105 | 7.6× | yes |
+| `z-ai/glm-5.3-flash` | 0.090 | 0.300 | $0.028 | 28× | yes |
+| `deepseek/deepseek-v4-flash` | 0.037 | 0.074 | $0.009 | 87× | yes |
+
+DeepSeek V4 Pro is flagship-class, costs 7.6× less than Sonnet, and takes both
+`temperature` and `seed` — which Sonnet does not. So the swap improved three
+things at once, and the determinism one was the one I had been quietly rationalising:
+the previous `arms.py` docstring presented "H1 cannot be pinned" as a *finding*
+about the state of the market. It was a finding, but it was also a defect I had
+chosen, and I had not said so.
+
+**Final grid: H1 `deepseek-v4-pro`, H2 `gemini-2.5-flash`, H3 `gpt-4.1-nano`,
+H4 `gpt-oss-120b`, H5 `glm-5.3-flash`.** Five vendors, all on native structured
+outputs, **all five accept `temperature=0` and a seed**. Grid $1.06 → **$0.39**,
+pilot $0.07 → **$0.026**. Cheaper, wider, and fully pinnable.
+
+`test_every_arm_in_the_current_grid_can_be_pinned` now locks that property, so a
+future arm swap cannot quietly reintroduce an unpinnable model.
+
+### `:free` ids are not the same endpoint
+
+Prithvi's first suggestion was `glm-5.2:free`, which OpenRouter does list at $0.
+It fails twice:
+
+```
+z-ai/glm-5.2:free   structured_outputs=False  response_format=False  ctx=32,768
+z-ai/glm-5.2        structured_outputs=True   response_format=True   ctx=1,048,576
+```
+
+The free endpoint **cannot accept `response_format` at all**, so it cannot run this
+benchmark's schema — it is a reduced endpoint wearing the same model's name, not a
+discount on the same thing. And `:free` still carries the 50-requests/day
+account-wide cap that killed project 24's hosted comparison, against 120 calls per
+arm before any repair.
+
+Worth remembering generally: on OpenRouter, `:free` is a different product and
+`supported_parameters` is the only reliable way to tell.
+
+### Prices move faster than expected
+
+`deepseek-v4-flash` went from $0.041 to $0.037 input in the 24 hours between
+pinning the arms and revisiting them. Nothing depended on it, but it is the first
+live evidence that `arms verify`'s drift check earns its place — and the reason
+`deepseek-v4-pro` is pinned at 0.4223/0.8446 rather than the rounded 0.422/0.845,
+which sat close enough to the 0.1% tolerance to risk a spurious failure.
+
 ## Open questions for session 4
 
 - **The pilot has not been run.** Everything up to it is built and tested
