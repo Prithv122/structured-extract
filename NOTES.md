@@ -583,6 +583,35 @@ checking.
 - One H4 call ran **896 seconds**, because `REQUEST_TIMEOUT` is a socket
   inactivity timeout and not a deadline. Recorded as a defect in the README.
 
+
+### A number in the README was written, not computed
+
+The first draft of §5 said grounding held "across 1,891 records". The committed
+summaries say **1,519**. Nobody mistyped it and no data changed — the figure was
+never derived from anything. I wrote a plausible number into prose while the
+surrounding sentence was true.
+
+It survived a full test suite, a lint pass and a read-through, for the reason
+every prose error survives those: **prose is not executed.** The results files
+were correct the whole time. The document describing them was not, and the
+document is the only part a reader sees.
+
+So the load-bearing figures are now asserted. `test_committed_data.py`
+re-derives the call count, the record count, the billed total and the 100%
+grounding claim from `data/results/` and fails if the README's text disagrees,
+and pins the "this does not rank models" disclaimer against a future edit that
+trims it. A fifth test asserts the acceptance criterion itself: every one of the
+1,200 rows resolves to either a cached response or a recorded exhausted attempt,
+so `extract run` on a clean clone cannot abort partway through again.
+
+Before keeping the guard I put the wrong number back and watched it fail. A
+test that has never failed is a test that has never been shown to work.
+
+The general form, which is the part worth keeping: **a number that appears only
+in prose is unverified by construction.** Either derive it in a test, or expect
+it to be wrong eventually — and the README is exactly where being wrong costs
+the most, because it is the one artefact a reader cannot check against anything.
+
 ## Open questions for session 5
 
 - **Seed sensitivity is still unmeasured**, and now it is the largest single
