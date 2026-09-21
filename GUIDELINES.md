@@ -25,7 +25,7 @@ duckdb 1.5.5 (the oracle) · OpenRouter (hosted arms) · Ollama (local arm) · p
 - [x] Hand-labelled recall set (40 sections) — mentioned != documented
 - [x] Every published number replays from the committed cache with an empty API key —
       verified on a clean tree, diff against the published rows empty
-- [ ] Ship gate passes (`/ship`)
+- [ ] Ship gate passes
 
 ## Project-specific notes
 
