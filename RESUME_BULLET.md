@@ -34,7 +34,7 @@ Form: **action → technical specifics → measured outcome.** Numbers or it doe
 
 - Made every published figure reproducible offline — SHA-256 request-keyed
   response cache committed to the repo, so a clean clone with an empty API key
-  regenerates all 1,200 rows with a **field-by-field diff of zero**; 241 tests,
+  regenerates all 1,200 rows with a **field-by-field diff of zero**; 245 tests,
   CI, no network required.
 
 - Audited the documentation against the shipped binary as a by-product: **0**
@@ -52,7 +52,7 @@ Form: **action → technical specifics → measured outcome.** Numbers or it doe
 Strongest for **AI Engineer** — this is an LLM evaluation project first. It
 carries DS/ML on experimental design (stratified sampling, stated limitations,
 refusing to claim effects the n doesn't support) and Python on the engineering
-(typed contracts, caching, retry/repair separation, 241 tests).
+(typed contracts, caching, retry/repair separation, 245 tests).
 
 ## Keywords this project earns
 

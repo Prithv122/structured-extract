@@ -102,7 +102,7 @@ and make the benchmark measure itself.
 
 ## 5. Results
 
-**1,200 calls — 5 arms × 2 prompts × 120 documents — $2.0528 billed, 239 tests
+**1,200 calls — 5 arms × 2 prompts × 120 documents — $2.0528 billed, 245 tests
 green.** Every raw response is committed, so every number below replays offline
 with `OPENROUTER_API_KEY` empty: `uv run structured-extract report`.
 
@@ -347,7 +347,7 @@ uv sync --all-groups
 uv run pytest
 ```
 
-That works offline, with no API key. **239 tests** check the committed oracle,
+That works offline, with no API key. **245 tests** check the committed oracle,
 the corpus, the extraction schema, the repair ladder and the scorer, including a
 cross-check of the committed core settings against a live plain `duckdb`. Two
 further tests are marked `live` and deselected by default.
