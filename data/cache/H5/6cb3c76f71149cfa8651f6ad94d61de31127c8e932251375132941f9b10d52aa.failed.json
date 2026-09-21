@@ -1,0 +1,8 @@
+{
+ "_failure": true,
+ "_backfilled": true,
+ "error": "HTTP 429: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"z-ai/glm-5.3-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\",\"provider_name\":\"DeepInfra\",\"is_byok\":false,\"provider_error_code\":\"engine_overloaded\",\"limit_source\":\"upstream_provider_shared_pool\",\"remedy_hint\":\"Retry shortly, add your own provider key (https://openrouter.ai/settings/integrations), or route to  [gave up after 4 attempt(s) over 81s]",
+ "unavailable": false,
+ "attempts": null,
+ "latency_s": 81.088
+}

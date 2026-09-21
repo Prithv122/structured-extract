@@ -19,10 +19,12 @@ duckdb 1.5.5 (the oracle) · OpenRouter (hosted arms) · Ollama (local arm) · p
 
 - [x] Oracle committed and verified: `data/oracle/settings.jsonl` + `data/oracle/docs_reference.jsonl`
 - [x] Corpus committed: 120 documents, 3 strata, seeded, provenance-pinned
-- [x] Pydantic schema + exactly one bounded repair (never fed the oracle) — built and tested offline, not yet exercised against a provider
-- [ ] Hallucination rate, per-field accuracy and cost measured across arms H1-H5 + L1 + B0 + B1
-- [ ] Hand-labelled recall set (40 sections) — mentioned != documented
-- [ ] Every published number replays from the committed cache with an empty API key
+- [x] Pydantic schema + exactly one bounded repair (never fed the oracle)
+- [x] Hallucination rate, per-field accuracy and cost measured across arms H1-H5 —
+      1,200 calls, $2.0528. **L1, B0 and B1 were not run**; the README says so.
+- [x] Hand-labelled recall set (40 sections) — mentioned != documented
+- [x] Every published number replays from the committed cache with an empty API key —
+      verified on a clean tree, diff against the published rows empty
 - [ ] Ship gate passes (`/ship`)
 
 ## Project-specific notes

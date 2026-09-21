@@ -326,6 +326,23 @@ class MissingAPIKey(RuntimeError):
     """Raised only when a live call is actually needed and no key is configured."""
 
 
+def _exhausted(error: str | None, unavailable: bool, latency_s: float, cached: bool) -> CallResult:
+    """A round trip that produced no response body at all."""
+    return CallResult(
+        content="",
+        finish_reason="",
+        answering_model="",
+        prompt_tokens=0,
+        completion_tokens=0,
+        reasoning_tokens=0,
+        cost_reported=0.0,
+        latency_s=round(latency_s, 3),
+        cached=cached,
+        error=error,
+        unavailable=unavailable,
+    )
+
+
 def cache_key(model_id: str, payload: dict) -> str:
     """Hash the exact request. A changed prompt is a different experiment."""
     blob = json.dumps({"model": model_id, "payload": payload}, sort_keys=True, ensure_ascii=False)
@@ -437,6 +454,24 @@ def call(
         body = json.loads(path.read_text(encoding="utf-8"))
         return _from_body(body, latency_s=body.get("_latency_s", 0.0), cached=True)
 
+    # A call that exhausted its retries produced no response body, so there is
+    # nothing to put in the cache -- and a clean clone would then abort on the
+    # first of them rather than replaying the run it exists to reproduce. The
+    # exhausted attempt is recorded beside the responses instead, in a
+    # deliberately *different* file: a `.failed.json` carries no content, is
+    # never scored as an answer, and says on its face that the provider never
+    # replied. Without it, "every published row replays with an empty key" is
+    # true of 1,180 rows out of 1,200 and the README would be overclaiming.
+    exhausted = path.with_name(f"{path.stem}.failed.json")
+    if exhausted.exists():
+        record = json.loads(exhausted.read_text(encoding="utf-8"))
+        return _exhausted(
+            error=record.get("error"),
+            unavailable=record.get("unavailable", False),
+            latency_s=record.get("latency_s", 0.0),
+            cached=True,
+        )
+
     if not allow_live:
         raise MissingAPIKey(
             f"{arm.key} {arm.model_id}: no cached response for this request and "
@@ -481,20 +516,24 @@ def call(
 
     if error is not None:
         error = f"{error} [gave up after {attempts} attempt(s) over {spent:.0f}s]"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        exhausted.write_text(
+            json.dumps(
+                {
+                    "_failure": True,
+                    "error": error,
+                    "unavailable": unavailable,
+                    "attempts": attempts,
+                    "latency_s": round(spent, 3),
+                },
+                ensure_ascii=False,
+                indent=1,
+            ),
+            encoding="utf-8",
+            newline="\n",
+        )
 
-    return CallResult(
-        content="",
-        finish_reason="",
-        answering_model="",
-        prompt_tokens=0,
-        completion_tokens=0,
-        reasoning_tokens=0,
-        cost_reported=0.0,
-        latency_s=round(spent, 3),
-        cached=False,
-        error=error,
-        unavailable=unavailable,
-    )
+    return _exhausted(error, unavailable, latency_s=spent, cached=False)
 
 
 def _from_body(body: dict, latency_s: float, cached: bool) -> CallResult:

@@ -419,3 +419,181 @@ failures that look identical in the outcome column**:
 Neither is being "fixed". Changing H1's token cap or H4's configuration on the
 evidence of one adversarial document each, before either arm's field-level
 accuracy has been scored, would be tuning the experiment to its hardest case.
+
+---
+
+## Session 4 — the full grid, and three bugs that only exist at 1,200 rows
+
+**1,200 calls, $2.0528, about ten hours.** 5 arms × 2 prompts × 120 documents,
+every response committed. The pilot had already de-risked the API, the schema
+and the repair ladder, so nothing about the *calls* went wrong. Everything that
+went wrong was in the code that reads the results, and all of it surfaced after
+the money was spent.
+
+### The scorer crashed on row ~800 because a default has three states, not two
+
+`score_default` raised `AttributeError: 'NoneType' has no attribute 'strip'` and
+the entire paid grid was unscorable until it was fixed.
+
+My first diagnosis was wrong and worth recording as wrong: I read it as an
+oracle bug — a reference row that had lost its default. It is not. The oracle
+encoding is deliberate and complete, and **I had assumed two states where the
+docs have three**:
+
+| documented as | `default_value` | `default_is_empty_cell` |
+|---|---|---|
+| a literal, e.g. `4` | `"4"` | `false` |
+| an empty table cell | `None` | `true` |
+| the literal word `NULL` | `None` | **`false`** |
+
+Eight of 169 reference rows are the third case. My scorer read
+"not an empty cell" as "therefore there is a literal" and called `.strip()` on
+`None`. The fix is to compute the *accepted set* of `default_kind` values per
+row rather than a single expected value, and to score the kind but not the
+value when the documented default is `NULL` or machine-dependent.
+
+The transferable version: when a field can mean "a value", "nothing was said"
+and "explicitly nothing", one variable cannot carry it. Collapsing three states
+into two is not a style question, it is the crash.
+
+Two smaller ones, same session, same cause — code paths that only the full grid
+exercised:
+
+- **`_group_errors` crashed on dicts.** `extract run` passes `ExtractionRow`
+  objects; `report` reads a results file and passes the dicts they serialise to.
+  The second path had never run.
+- **My own retry epilogue defeated the grouping it fed.** `[gave up after 4
+  attempt(s) over 97s]` makes every 429 textually unique, so 18 identical errors
+  printed as 16 separate lines. The epilogue is now stripped before grouping and
+  kept in the row. A feature added in session 3 broke a feature added in session 2
+  and nothing failed — it just printed worse.
+
+All three have regression tests now. The expensive lesson is not any of the
+three bugs: it is that **a crash on row 800 of 1,200 costs the whole run when
+results are written at the end**. The cache saved this one — every call replayed
+free — which is the only reason the fix cost minutes instead of $2.
+
+### The cost model was wrong by 1.85×, in both directions
+
+Two figures were recorded per call: `usage.cost` from the provider, and an
+estimate from the pinned per-token price. They were expected to agree, and
+keeping both was originally just belt-and-braces. It was the most useful
+decision of the session.
+
+| arm | billed | predicted | ratio |
+|---|---:|---:|---:|
+| H1 | $1.7545 | $0.6015 | 2.92× |
+| H2 | $0.1674 | $0.1677 | 1.00× |
+| H3 | $0.0378 | $0.0383 | 0.99× |
+| H4 | $0.0746 | $0.2814 | 0.27× |
+| H5 | $0.0186 | $0.0223 | 0.83× |
+
+Exact for the two non-reasoning arms, and wrong in *opposite directions* for the
+two reasoning arms, for two unrelated reasons:
+
+- **Reasoning tokens are billed and are not inside `completion_tokens`.** H1 on
+  `narrative-0002`: 1,430 completion, 1,475 reasoning. The second number cannot
+  be a subset of the first, so any cost model summing the documented fields
+  understates a reasoning arm.
+- **The catalogue price is a headline, not a quote.** H4 cost 0.27× its pinned
+  rate. Fallbacks are disabled, but the request still lands on *some* provider
+  and that provider's rate is what appears on the bill.
+
+`arms verify` pins prices to catch drift, and it does that correctly — the pin
+matched the catalogue the whole time. The catalogue simply is not the bill. Both
+numbers stay in the results, the published figure is `usage.cost`, and the
+report prints the divergence per arm so it can never quietly return.
+
+### The replay claim was false for 20 of 1,200 rows
+
+The acceptance criterion says every published number replays from the committed
+cache with an empty key. I tested it properly for the first time this session —
+copied the tracked tree to a clean directory, `uv sync`, `OPENROUTER_API_KEY=`
+— and it **aborted on the first call**.
+
+The cache stores response *bodies*. A call that exhausted its retries on a 429
+has no body, so 20 rows had nothing to cache, and `call()` treated a missing
+entry as "you changed the experiment" and refused to run. Both of those are
+correct in isolation and wrong together.
+
+Fix: when a call gives up, record the exhausted attempt beside the responses as
+`<key>.failed.json` — a deliberately different file, carrying no content, that
+can never be scored as an answer. Replay finds it and reproduces the row.
+
+The 20 rows that predate the fix were **backfilled from
+`data/results/extractions.jsonl`, not captured from the wire**, because the wire
+produced nothing to capture. Every backfilled record carries
+`"_backfilled": true` so a reader can tell a reconstructed failure from an
+observed one without taking a docstring on trust
+(`scripts/backfill_exhausted_cache.py`, idempotent).
+
+Verified afterwards: clean tree, no key, 1,200 rows replayed, and a field-by-field
+diff against the committed results is **empty** — outcome, settings, cost, tokens,
+error text, all identical. The two `report` outputs are byte-identical.
+
+### Two tests broke, for two different reasons, and only one was a real defect
+
+`test_a_broken_read_writes_nothing_to_the_cache` asserted
+`list(tmp_path.rglob("*.json")) == []`. Its *claim* — a partial response must
+never be replayable as an answer — is still true; it had been written against
+the implementation rather than the invariant. It now asserts no *response body*
+is written and that whatever is written is a `_failure` record. Same shape of
+mistake as session 3's `has_signal` test.
+
+`test_a_429_is_retried_but_a_402_is_not` broke for a genuinely interesting
+reason: it looped over two codes sharing one `tmp_path`, with doc ids `d429` and
+`d402`. **`doc_id` is not part of a request**, so both produce the same cache
+key — the 402 case replayed the 429's newly recorded failure and never called at
+all. Correct production behaviour (same document and prompt *is* the same
+request), wrong test fixture. Each code now gets its own cache directory.
+
+### What the experiment is allowed to claim
+
+Prithvi pushed back on the first draft of the results write-up, which said the
+project's thesis was "confirmed at scale". That was too loose, and the narrower
+statement is the one the data actually supports:
+
+> Models can produce perfectly grounded extraction records while still returning
+> incorrect settings and incorrect structured attributes. Stricter prompting can
+> substantially reduce hallucinated settings, but may reduce recall.
+
+Both halves are strongly supported. What is **not** supported is any claim that
+one model is best: the ten cells vary vendor, architecture, price and serving
+provider simultaneously, and the design held the *mechanism* constant rather
+than isolating any single model property. H5 looking excellent under v2 is an
+observation about one configuration on 45 hand-labelled documents at one seed,
+not a ranking. The README says exactly this, in those words, before the table.
+
+Worth keeping as a general rule: the temptation to overclaim is strongest right
+after the numbers come in and look good, which is also the moment nobody is
+checking.
+
+### Numbers worth remembering
+
+- **Grounding is 100.0% in all ten cells, across 1,891 records.** Not one record
+  quoted text its document does not contain. In the same table H2 scores 32–36%
+  on scope and H1 56–63% on type. Perfect provenance, wrong answers — which is
+  the whole point of the project, and it needed the oracle to be visible at all.
+- **88% valid on the first pass**; of the 126 repairs, 75% succeeded. H4 alone
+  used 81 of those 126.
+- **H1 was 85% of the bill** for recall H5 nearly matches at 1/90th the price.
+- **13 truncations are 8% of spend.** H1's three are genuine runaway reasoning;
+  H4's ten are a whitespace loop with 559–1,147 reasoning tokens. Same label in
+  the outcome column, completely different failures.
+- One H4 call ran **896 seconds**, because `REQUEST_TIMEOUT` is a socket
+  inactivity timeout and not a deadline. Recorded as a defect in the README.
+
+## Open questions for session 5
+
+- **Seed sensitivity is still unmeasured**, and now it is the largest single
+  threat to the arm ordering in the table. A three-seed redraw is ~$6 at this
+  mix, or ~$1 with H1 sampled rather than swept.
+- **40 prose documents are still on the proxy**, which can invert. Labelling
+  them is $0 and about a session.
+- **L1 (local Ollama), B0 (table parser) and B1 (null) were never built.** B0
+  is the cheapest remaining result in the project: it answers "do you even need
+  an LLM for this?" and the parser already exists.
+- **`REQUEST_TIMEOUT` is inactivity, not a deadline.** Decide before any re-run.
+- **The 429s were all in one hour on one arm.** Re-running H5 on another day
+  would say whether 91–93% availability is a property of the provider or of that
+  afternoon.

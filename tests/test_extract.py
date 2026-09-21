@@ -660,8 +660,12 @@ def test_a_truncated_response_that_never_recovers_is_a_provider_error(monkeypatc
     assert extraction is None
 
 
-def test_a_broken_read_writes_nothing_to_the_cache(monkeypatch, tmp_path):
-    """A partial response must never be replayable as if it were an answer."""
+def test_a_broken_read_writes_no_response_to_the_cache(monkeypatch, tmp_path):
+    """A partial response must never be replayable as if it were an answer.
+
+    It *is* replayable as the failure it was -- see the test below -- but the
+    two live in different files and only one of them can ever become a record.
+    """
     monkeypatch.setattr(E.time, "sleep", lambda _s: None)
     monkeypatch.setattr(
         E.urllib.request,
@@ -671,7 +675,62 @@ def test_a_broken_read_writes_nothing_to_the_cache(monkeypatch, tmp_path):
         ),
     )
     E.extract_document(ARM, "doc-1", DOCUMENT, cache_dir=tmp_path, api_key="key")
-    assert list(tmp_path.rglob("*.json")) == []
+
+    bodies = [p for p in tmp_path.rglob("*.json") if not p.name.endswith(".failed.json")]
+    assert bodies == []
+    for record in tmp_path.rglob("*.failed.json"):
+        assert json.loads(record.read_text(encoding="utf-8"))["_failure"] is True
+
+
+def test_a_call_the_provider_never_answered_still_replays_with_no_key(monkeypatch, tmp_path):
+    """The full grid's 20 dead rows had no response body, so a clean clone hit
+    them and aborted -- which made "every published row replays with an empty
+    key" false for 20 of 1,200. The exhausted attempt is recorded, so replay
+    reproduces the row instead of refusing to start."""
+    monkeypatch.setattr(E.time, "sleep", lambda _s: None)
+    monkeypatch.setattr(
+        E.urllib.request,
+        "urlopen",
+        urlopen_raising(
+            *[http.client.IncompleteRead(b"x") for _ in range(E.MAX_TRANSPORT_RETRIES)]
+        ),
+    )
+    live, _ = E.extract_document(ARM, "doc-1", DOCUMENT, cache_dir=tmp_path, api_key="key")
+
+    # No network available to the replay at all: urlopen would now raise.
+    monkeypatch.setattr(E.urllib.request, "urlopen", urlopen_raising(AssertionError("called")))
+    replayed, extraction = E.extract_document(
+        ARM, "doc-1", DOCUMENT, cache_dir=tmp_path, api_key="", allow_live=False
+    )
+    assert replayed.outcome == live.outcome == E.Outcome.PROVIDER_ERROR
+    assert replayed.error == live.error
+    assert replayed.n_settings == 0
+    assert extraction is None
+
+
+def test_an_unseen_request_still_refuses_to_replay(monkeypatch, tmp_path):
+    """The failure record must not soften the guard. A request that was never
+    issued -- a changed prompt, a changed schema -- is a different experiment
+    and has to say so rather than quietly scoring as a dead row."""
+    monkeypatch.setattr(E.time, "sleep", lambda _s: None)
+    monkeypatch.setattr(
+        E.urllib.request,
+        "urlopen",
+        urlopen_raising(
+            *[http.client.IncompleteRead(b"x") for _ in range(E.MAX_TRANSPORT_RETRIES)]
+        ),
+    )
+    E.extract_document(ARM, "doc-1", DOCUMENT, cache_dir=tmp_path, api_key="key")
+
+    with pytest.raises(E.MissingAPIKey, match="no cached response"):
+        E.extract_document(
+            ARM,
+            "doc-2",
+            DOCUMENT + " and one more sentence.",
+            cache_dir=tmp_path,
+            api_key="",
+            allow_live=False,
+        )
 
 
 def test_a_rate_limited_provider_is_given_time_to_recover(monkeypatch, tmp_path):
@@ -716,7 +775,10 @@ def test_a_429_is_retried_but_a_402_is_not(monkeypatch, tmp_path):
             raise E.urllib.error.HTTPError(E.COMPLETIONS_URL, _code, "no", {}, io.BytesIO(b"{}"))
 
         monkeypatch.setattr(E.urllib.request, "urlopen", fake)
-        E.extract_document(ARM, f"d{code}", DOCUMENT, cache_dir=tmp_path, api_key="key")
+        # A separate cache dir per code. The cache key is the *request*, and
+        # doc_id is not part of a request -- so with one shared dir the second
+        # code would replay the first one's recorded failure and never call.
+        E.extract_document(ARM, f"d{code}", DOCUMENT, cache_dir=tmp_path / str(code), api_key="key")
         assert calls["n"] == expected_calls, f"{code} was attempted {calls['n']} times"
 
 
