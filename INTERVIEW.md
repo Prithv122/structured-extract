@@ -102,7 +102,7 @@ instead of sweeping it.
 _A:_ 1,200 calls, $2.0528, and the headline is the one number I did **not**
 expect:
 
-**Grounding was 100.0% in all ten cells, across 1,891 records.** Every record
+**Grounding was 100.0% in all ten cells, across 1,519 records.** Every record
 has an `evidence` field that must be a verbatim span of its document, and not
 one record failed it. In the same table, Gemini 2.5 Flash scores **32–36% on
 scope** and DeepSeek V4 Pro **56–63% on type**.

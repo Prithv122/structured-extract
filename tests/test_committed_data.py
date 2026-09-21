@@ -15,7 +15,9 @@ import pytest
 
 from structured_extract import corpus as corpus_mod
 from structured_extract import jsonl, paths
+from structured_extract.arms import BY_KEY
 from structured_extract.cli import MAX_SECTION_CHARS, QUOTAS
+from structured_extract.extract import PROMPTS, build_payload, cache_key
 from structured_extract.oracle import CORE, EXTENSIONS
 
 EXPECTED_DUCKDB_VERSION = "v1.5.5"
@@ -280,3 +282,83 @@ def test_the_corpus_has_exactly_one_known_duplicate_pair(documents):
         f"the corpus duplicate set changed: {duplicates}"
     )
     assert len(by_hash) == EXPECTED_CORPUS_DOCS - 1, "119 distinct texts across 120 documents"
+
+
+# ------------------------------------------------- the numbers the README prints
+
+
+def readme() -> str:
+    return (paths.REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+
+def test_the_readme_headline_figures_match_the_committed_results():
+    """Every figure the README asserts about the grid, re-derived from the data.
+
+    This test exists because a draft of §5 said "1,891 records" -- a number I
+    had written down rather than computed. The real figure is 1,519. Nothing
+    caught it: it is prose, and prose is not executed.
+
+    So the load-bearing counts are asserted against the committed results here,
+    and a README that drifts from its own data now fails the suite rather than
+    misleading a reader who has no way to check.
+    """
+    results = jsonl.read_list(paths.RESULTS_JSONL)
+    summaries = jsonl.read_list(paths.SUMMARY_JSONL)
+    text = readme()
+
+    calls = len(results)
+    records = sum(s["records_returned"] for s in summaries)
+    grounded = sum(s["records_grounded"] for s in summaries)
+    billed = sum(r["cost_reported"] for r in results)
+
+    assert calls == 1200
+    assert f"{calls:,} calls" in text
+    assert f"{records:,} records" in text, f"the README's record count is not {records:,}"
+    assert f"${billed:.4f}" in text, f"the README's total is not ${billed:.4f}"
+
+    # The headline claim of the whole project. If this ever stops being exactly
+    # 100%, the README's central sentence is false and must be rewritten.
+    assert grounded == records, f"{records - grounded} records were not grounded"
+    assert all(s["grounding_rate"] == 1.0 for s in summaries)
+    assert "100.0%" in text
+
+
+def test_the_readme_does_not_claim_a_best_model():
+    """The ten cells vary vendor, architecture, price and serving provider at
+    once, so the grid cannot rank models -- and the README says so in as many
+    words. This pins the disclaimer against a future edit that trims it."""
+    text = readme()
+    assert "does **not** establish" in text
+    assert "not a leaderboard" in text
+
+
+def test_every_arm_and_prompt_pair_produced_a_row():
+    """A missing cell would silently narrow a table that reads as complete."""
+    results = jsonl.read_list(paths.RESULTS_JSONL)
+    keys = {(r["arm"], r["prompt"], r["doc_id"]) for r in results}
+    assert len(keys) == len(results) == 1200
+    assert len({r["arm"] for r in results}) == 5
+    assert len({r["prompt"] for r in results}) == 2
+    assert len({r["doc_id"] for r in results}) == EXPECTED_CORPUS_DOCS
+
+
+def test_every_result_row_replays_from_something_committed():
+    """The acceptance criterion, asserted rather than trusted: for all 1,200
+    rows there is either a cached response body or a recorded exhausted attempt.
+    Without this, `extract run` on a clean clone aborts partway -- which is
+    exactly what it did until the 20 dead rows were recorded."""
+    results = jsonl.read_list(paths.RESULTS_JSONL)
+    cached = {path.stem.removesuffix(".failed") for path in paths.CACHE_DIR.rglob("*.json")}
+
+    missing = []
+    for row in results:
+        arm = BY_KEY[row["arm"]]
+        document = (paths.CORPUS_DOCUMENTS / f"{row['doc_id']}.md").read_text(encoding="utf-8")
+        messages = [
+            {"role": "system", "content": PROMPTS[row["prompt"]]},
+            {"role": "user", "content": document},
+        ]
+        if cache_key(arm.model_id, build_payload(arm, messages)) not in cached:
+            missing.append((row["arm"], row["prompt"], row["doc_id"]))
+
+    assert not missing, f"{len(missing)} rows cannot replay offline: {missing[:5]}"

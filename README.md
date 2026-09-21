@@ -151,7 +151,7 @@ well on fields while finding almost nothing (H3 does exactly this). *ground* —
 
 ### Result 1 — grounding is free, and it does not buy correctness
 
-**1,891 records across 1,200 calls, and the grounding rate is 100.0% in every
+**1,519 records across 1,200 calls, and the grounding rate is 100.0% in every
 cell.** Not one record quoted text its document does not contain.
 
 The same table shows H2 at **36% and 32% scope accuracy** and H1 at **63% and

@@ -570,7 +570,7 @@ checking.
 
 ### Numbers worth remembering
 
-- **Grounding is 100.0% in all ten cells, across 1,891 records.** Not one record
+- **Grounding is 100.0% in all ten cells, across 1,519 records.** Not one record
   quoted text its document does not contain. In the same table H2 scores 32–36%
   on scope and H1 56–63% on type. Perfect provenance, wrong answers — which is
   the whole point of the project, and it needed the oracle to be visible at all.
