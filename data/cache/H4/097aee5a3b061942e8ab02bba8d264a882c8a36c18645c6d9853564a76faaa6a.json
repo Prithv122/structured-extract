@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919394-WJ5OBlyW9tIW1velUn4M",
+ "object": "chat.completion",
+ "created": 1789919394,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings (SET, RESET, PRAGMA) from the given section. The section is about options for read_parquet function or COPY statement. These are not configuration settings; they are function/statement options. According to instructions, if the section documents those, answer empty list.\n\nThus output JSON with empty list. Schema? Not provided explicitly but likely something like {\"settings\": []}. Need to follow \"Answer only with JSON matching the supplied schema.\" No schema given in prompt, but typical would be list of objects. Probably just [].\n\nI'll output [].\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings (SET, RESET, PRAGMA) from the given section. The section is about options for read_parquet function or COPY statement. These are not configuration settings; they are function/statement options. According to instructions, if the section documents those, answer empty list.\n\nThus output JSON with empty list. Schema? Not provided explicitly but likely something like {\"settings\": []}. Need to follow \"Answer only with JSON matching the supplied schema.\" No schema given in prompt, but typical would be list of objects. Probably just [].\n\nI'll output [].\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 940,
+  "completion_tokens": 135,
+  "total_tokens": 1075,
+  "cost": 5.115e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 5.115e-05,
+   "upstream_inference_prompt_cost": 2.82e-05,
+   "upstream_inference_completions_cost": 2.295e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 152,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 3.1559999999954016
+}

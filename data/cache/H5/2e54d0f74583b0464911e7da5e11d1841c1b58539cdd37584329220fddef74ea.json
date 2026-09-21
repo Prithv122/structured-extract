@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789909822-8XHKC1vX513c2tjccaOW",
+ "object": "chat.completion",
+ "created": 1789909822,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"deprecated_using_key_syntax\",\"input_type\":\"VARCHAR\",\"scope\":\"GLOBAL\",\"evidence\":\"DuckDB 1.5.0 also introduces a new setting to configure the `USING KEY` syntax.\",\"default_kind\":\"literal\",\"default_value\":\"'DEFAULT'\",\"default_evidence\":\"SET deprecated_using_key_syntax = 'DEFAULT';\"}]}",
+    "refusal": null,
+    "reasoning": "The default evidence: \"SET deprecated_using_key_syntax = 'DEFAULT';\" — that's the literal default. Use that span.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The default evidence: \"SET deprecated_using_key_syntax = 'DEFAULT';\" — that's the literal default. Use that span.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1418,
+  "completion_tokens": 100,
+  "total_tokens": 1518,
+  "cost": 0.00013135,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00013135,
+   "upstream_inference_prompt_cost": 0.00010635,
+   "upstream_inference_completions_cost": 2.5e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 26,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 13.40599999999904
+}

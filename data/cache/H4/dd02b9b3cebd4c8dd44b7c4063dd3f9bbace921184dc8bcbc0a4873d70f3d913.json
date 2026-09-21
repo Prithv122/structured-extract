@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789920652-S5Z5QlHNJbwdgaOOuXt8",
+ "object": "chat.completion",
+ "created": 1789920652,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"mysql_bit1_as_boolean\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`mysql_bit1_as_boolean` | Whether or not to convert `BIT(1)` columns to `BOOLEAN` | `true`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\"\n    ,\n    \"default_evidence\": \"`true`\"\n    },\n    {\n      \"name\": \"mysql_debug_show_queries\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`mysql_debug_show_queries` | DEBUG SETTING: print all queries sent to MySQL to stdout | `false`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\"\n    ,\n    \"default_evidence\": \"`false`\"\n    },\n    {\n      \"name\": \"mysql_enable_filter_pushdown\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`mysql_enable_filter_pushdown` | Whether or not to use filter pushdown (without predicate analyzer) | `true`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\"\n    ,\n    \"default_evidence\": \"`true`\"\n    },\n    {\n      \"name\": \"mysql_enable_transactions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`mysql_enable_transactions` | Whether to run `START TRANSACTION` / `COMMIT` / `ROLLBACK` on MySQL connections | `true`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\"\n    ,\n    \"default_evidence\": \"`true`\"\n    },\n    {\n      \"name\": \"mysql_incomplete_dates_as_nulls\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`mysql_incomplete_dates_as_nulls` | Whether to return `DATE`s with a zero month or day as `NULL`s | `false`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\"\n    ,\n    \"default_evidence\": \"`false`\"\n    },\n    {\n      \"name\": \"mysql_pool_acquire_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`mysql_pool_acquire_mode` | How to acquire connections from the pool: `force` (always connect, ignoring the pool limit), `wait` (block until one is available), or `try` (fail immediately if none is available) | `force`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"force\"\n    ,\n    \"default_evidence\": \"`force`\"\n    },\n    {\n      \"name\": \"mysql_pool_connection_idle_timeout_millis\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`mysql_pool_connection_idle_timeout_millis` | Maximum time in milliseconds a connection can sit idle in the cache before being closed | `60000`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"60000\"\n    ,\n    \"default_evidence\": \"`60000`\"\n    },\n    {\n      \"name\": \"mysql_pool_connection_max_lifetime_millis\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`mysql_pool_connection_max_lifetime_millis` | Maximum age in milliseconds of a pooled connection since it was first opened; when exceeded, the connection is closed instead of being returned to the cache (`0` disables it) | `0`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"0\"\n    ,\n    \"default_evidence\": \"`0`\"\n    },\n    {\n      \"name\": \"mysql_pool_enable_reaper_thread\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`mysql_pool_enable_reaper_thread` | Whether to run a dedicated thread that periodically scans the pool and removes expired connections | `true`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\"\n    ,\n    \"default_evidence\": \"`true`\"\n    },\n    {\n      \"name\": \"mysql_pool_enable_thread_local_cache\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`mysql_pool_enable_thread_local_cache` | Enable thread-local connection caching for faster same-thread connection reuse | `false`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\"\n    ,\n    \"default_evidence\": \"`false`\"\n    },\n    {\n      \"name\": \"mysql_pool_size\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`mysql_pool_size` | Maximum number of connections per MySQL catalog | automatic (based on the CPU count)\",\n      \"default_kind\": \"machine_dependent\",\n      \"default_value\": \"automatic (based on the CPU count)\"\n    ,\n    \"default_evidence\": \"automatic (based on the CPU count)\"\n    },\n    {\n      \"name\": \"mysql_pool_wait_timeout_millis\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`mysql_pool_wait_timeout_millis` | Timeout in milliseconds when waiting for a connection from the pool | `30000`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"30000\"\n    ,\n    \"default_evidence\": \"`30000`\"\n    },\n    {\n      \"name\": \"mysql_session_time_zone\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`mysql_session_time_zone` | Session time zone to set for newly opened connections to the MySQL server | `''`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"''\"\n    ,\n    \"default_evidence\": \"`''`\"\n    },\n    {\n      \"name\": \"mysql_time_as_time\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`mysql_time_as_time` | Whether or not to convert MySQL's `TIME` columns to DuckDB's `TIME` | `false`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\"\n    ,\n    \"default_evidence\": \"`false`\"\n    },\n    {\n      \"name\": \"mysql_tinyint1_as_boolean\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`mysql_tinyint1_as_boolean` | Whether or not to convert `TINYINT(1)` columns to `BOOLEAN` | `true`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\"\n    ,\n    \"default_evidence\": \"`true`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to output JSON matching supplied schema. The schema not given explicitly, but likely something like list of objects with name, default, evidence. We need to extract DuckDB configuration settings from the given section. The table lists many settings with names like `mysql_bit1_as_boolean`. Are these DuckDB configuration settings? They appear to be MySQL extension settings for DuckDB's MySQL connector. Likely they are configuration settings that can be set via SET or PRAGMA. The question: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" The provided section is a markdown table of Name, Description, Default. These are likely configuration settings. So we need to output each setting with its default and a verbatim quote as evidence (the row). Provide default if stated. So we need JSON array of objects: maybe fields: \"setting\", \"default\", \"evidence\". The schema not given, but we can infer typical: {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. However we need to match \"supplied schema\". Not provided. Could be something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"mysql_bit1_as_boolean\",\n      \"default\": \"true\",\n      \"evidence\": \"`mysql_bit1_as_boolean` | Whether or not to convert `BIT(1)` columns to `BOOLEAN` | `true`\"\n    },\n    ...\n  ]\n}\n\nBut we need to quote a span of the section verbatim as evidence. So we can quote the entire row line. Provide default as per the Default column.\n\nLet's produce JSON with array \"settings\". Use name without backticks? Probably include as appears. Use string.\n\nWe'll include each.\n\nLet's craft.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to output JSON matching supplied schema. The schema not given explicitly, but likely something like list of objects with name, default, evidence. We need to extract DuckDB configuration settings from the given section. The table lists many settings with names like `mysql_bit1_as_boolean`. Are these DuckDB configuration settings? They appear to be MySQL extension settings for DuckDB's MySQL connector. Likely they are configuration settings that can be set via SET or PRAGMA. The question: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" The provided section is a markdown table of Name, Description, Default. These are likely configuration settings. So we need to output each setting with its default and a verbatim quote as evidence (the row). Provide default if stated. So we need JSON array of objects: maybe fields: \"setting\", \"default\", \"evidence\". The schema not given, but we can infer typical: {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. However we need to match \"supplied schema\". Not provided. Could be something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"mysql_bit1_as_boolean\",\n      \"default\": \"true\",\n      \"evidence\": \"`mysql_bit1_as_boolean` | Whether or not to convert `BIT(1)` columns to `BOOLEAN` | `true`\"\n    },\n    ...\n  ]\n}\n\nBut we need to quote a span of the section verbatim as evidence. So we can quote the entire row line. Provide default as per the Default column.\n\nLet's produce JSON with array \"settings\". Use name without backticks? Probably include as appears. Use string.\n\nWe'll include each.\n\nLet's craft.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 989,
+  "completion_tokens": 1842,
+  "total_tokens": 2831,
+  "cost": 0.00034281,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00034281,
+   "upstream_inference_prompt_cost": 2.967e-05,
+   "upstream_inference_completions_cost": 0.00031314
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 413,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 21.79699999999866
+}

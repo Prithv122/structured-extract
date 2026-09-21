@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919609-3LYvjcZtqcK0BKx0XE7X",
+ "object": "chat.completion",
+ "created": 1789919609,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"scalar_subquery_error_on_multiple_rows\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"unless `scalar_subquery_error_on_multiple_rows` is set to `false`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). If default_kind is \"absent\", default_value must be null and default_evidence null. So we need to set default_value to null and remove stray commas.\n\nAlso evidence must be verbatim span from document. The original text: \"unless `scalar_subquery_error_on_multiple_rows` is set to `false`\". Need to include backticks exactly as in doc. The snippet includes backticks. That's verbatim.\n\nWe need proper JSON formatting: no stray commas, correct ordering maybe not required but fine.\n\nThus output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"scalar_subquery_error_on_multiple_rows\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"unless `scalar_subquery_error_on_multiple_rows` is set to `false`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nMake sure no extra spaces? It's fine.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). If default_kind is \"absent\", default_value must be null and default_evidence null. So we need to set default_value to null and remove stray commas.\n\nAlso evidence must be verbatim span from document. The original text: \"unless `scalar_subquery_error_on_multiple_rows` is set to `false`\". Need to include backticks exactly as in doc. The snippet includes backticks. That's verbatim.\n\nWe need proper JSON formatting: no stray commas, correct ordering maybe not required but fine.\n\nThus output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"scalar_subquery_error_on_multiple_rows\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"unless `scalar_subquery_error_on_multiple_rows` is set to `false`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nMake sure no extra spaces? It's fine.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1044,
+  "completion_tokens": 339,
+  "total_tokens": 1383,
+  "cost": 8.895e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 560,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.895e-05,
+   "upstream_inference_prompt_cost": 3.132e-05,
+   "upstream_inference_completions_cost": 5.763e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 267,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 6.359000000004016
+}

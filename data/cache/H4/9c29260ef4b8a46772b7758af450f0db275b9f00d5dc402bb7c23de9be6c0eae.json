@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789918464-j4R7rxX3Ot1MzWNVcOpx",
+ "object": "chat.completion",
+ "created": 1789918464,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"jdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": null\n    ,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"jdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"jdbc_stream_results\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"jdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The section describes JDBC URL options: threads, memory_limit, jdbc_stream_results. Are these configuration settings? In DuckDB, there are settings like SET threads=..., SET memory_limit=..., PRAGMA enable_profiling, etc. The JDBC URL options likely map to configuration settings. The question: \"A configuration setting is one you change with SET, RESET or PRAGMA, and it then applies to the whole database instance or to your connection.\" The options in JDBC URL are ways to set configuration settings at connection time. So they are configuration settings: threads, memory_limit, jdbc_stream_results. The section mentions them as options that can be appended to JDBC URL. So we should list these settings with evidence quotes and defaults if stated. The section does not state defaults for these settings. It only shows example values. So default is absent.\n\nThus JSON array of objects with name, default, evidence. Provide each.\n\nLet's craft JSON:\n\n[\n  {\n    \"name\": \"threads\",\n    \"default\": \"absent\",\n    \"evidence\": \"jdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\"\n  },\n  {\n    \"name\": \"memory_limit\",\n    \"default\": \"absent\",\n    \"evidence\": \"jdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\"\n  },\n  {\n    \"name\": \"jdbc_stream_results\",\n    \"default\": \"absent\",\n    \"evidence\": \"jdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\"\n  }\n]\n\nMake sure quoting exactly as appears. The evidence should be a span of the section verbatim. The line includes the code block. Provide the line exactly. Ensure JSON matches schema: array of objects with name, default, evidence.\n\nReturn only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The section describes JDBC URL options: threads, memory_limit, jdbc_stream_results. Are these configuration settings? In DuckDB, there are settings like SET threads=..., SET memory_limit=..., PRAGMA enable_profiling, etc. The JDBC URL options likely map to configuration settings. The question: \"A configuration setting is one you change with SET, RESET or PRAGMA, and it then applies to the whole database instance or to your connection.\" The options in JDBC URL are ways to set configuration settings at connection time. So they are configuration settings: threads, memory_limit, jdbc_stream_results. The section mentions them as options that can be appended to JDBC URL. So we should list these settings with evidence quotes and defaults if stated. The section does not state defaults for these settings. It only shows example values. So default is absent.\n\nThus JSON array of objects with name, default, evidence. Provide each.\n\nLet's craft JSON:\n\n[\n  {\n    \"name\": \"threads\",\n    \"default\": \"absent\",\n    \"evidence\": \"jdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\"\n  },\n  {\n    \"name\": \"memory_limit\",\n    \"default\": \"absent\",\n    \"evidence\": \"jdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\"\n  },\n  {\n    \"name\": \"jdbc_stream_results\",\n    \"default\": \"absent\",\n    \"evidence\": \"jdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\"\n  }\n]\n\nMake sure quoting exactly as appears. The evidence should be a span of the section verbatim. The line includes the code block. Provide the line exactly. Ensure JSON matches schema: array of objects with name, default, evidence.\n\nReturn only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 613,
+  "completion_tokens": 674,
+  "total_tokens": 1287,
+  "cost": 0.00013297,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00013297,
+   "upstream_inference_prompt_cost": 1.839e-05,
+   "upstream_inference_completions_cost": 0.00011458
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 447,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 20.281000000002678
+}

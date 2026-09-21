@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789900551-NBgvpbGugI0DaihFysM4",
+ "object": "chat.completion",
+ "created": 1789900551,
+ "model": "openai/gpt-4.1-nano",
+ "provider": "OpenAI",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "completed",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"unsafe_enable_version_guessing\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Enable globbing the filesystem (if possible) to find the latest metadata version. This may read an uncommitted version, so it is disabled by default.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"false\"\n    },\n    {\n      \"name\": \"iceberg_use_metadata_log\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Use a table's optional `metadata-log` to preserve atomicity guarantees, at the cost of an additional metadata `GET` in rare cases.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\",\n      \"default_evidence\": \"true\"\n    },\n    {\n      \"name\": \"ignore_target_file_size_for_partitioned_tables\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Ignore the unsupported `write.target-file-size-bytes` table property on partitioned tables instead of raising an error.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"false\"\n    },\n    {\n      \"name\": \"ignore_row_group_size_for_partitioned_tables\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Ignore the unsupported `write.parquet.row-group-size-bytes` table property on partitioned tables instead of raising an error.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"false\"\n    },\n    {\n      \"name\": \"iceberg_via_aws_sdk_for_catalog_interactions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Use the legacy AWS SDK code path to interact with AWS-based catalogs instead of DuckDB's HTTP client.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"false\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1040,
+  "completion_tokens": 457,
+  "total_tokens": 1497,
+  "cost": 0.0002868,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0002868,
+   "upstream_inference_prompt_cost": 0.000104,
+   "upstream_inference_completions_cost": 0.0001828
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 3.062999999998283
+}

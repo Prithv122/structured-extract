@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789921089-QrEeHMTWHiJ8IGB0ezbF",
+ "object": "chat.completion",
+ "created": 1789921089,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"geometry_minimum_shredding_size\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`geometry_minimum_shredding_size` | Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup | `BIGINT` | `30000`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"30000\"\n   \n    , \"default_evidence\": \"`30000`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The table shows a Name, Description, Type, Default value. The name is `geometry_minimum_shredding_size`. Is this a DuckDB configuration setting? It seems like a setting that can be changed with SET, RESET, PRAGMA. The description mentions \"Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup\". The default column shows `30000`. However the description says defaults to 1/4th of a rowgroup, but the default column says 30000. There's a conflict. The instruction: \"Also report the setting's default, but only if this section states it. If the section gives a concrete value, that is a literal default. If it describes the default as something that depends on the machine -- a share of RAM, the number of CPU cores, the system locale -- copy that description rather than guessing a number, and say it is machine-dependent. If the section does not state a default, say it is absent.\"\n\nHere the section's Default value column says `30000`. That's a concrete value. So we should report default as `30000`. Also we need to quote a span of the section verbatim as evidence for the setting name and default. Provide JSON matching schema. We need to know schema. Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut we need to infer from prior tasks. Usually schema: list of objects with fields: name, type, default, description, evidence. Let's assume that.\n\nWe need to include a quote for the setting name and default. Could include both in evidence field.\n\nLet's produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"geometry_minimum_shredding_size\",\n      \"type\": \"BIGINT\",\n      \"default\": \"30000\",\n      \"description\": \"Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup\",\n      \"evidence\": \"`geometry_minimum_shredding_size` | Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup | `BIGINT` | `30000`\"\n    }\n  ]\n}\n\nMake sure quotes are correct JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The table shows a Name, Description, Type, Default value. The name is `geometry_minimum_shredding_size`. Is this a DuckDB configuration setting? It seems like a setting that can be changed with SET, RESET, PRAGMA. The description mentions \"Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup\". The default column shows `30000`. However the description says defaults to 1/4th of a rowgroup, but the default column says 30000. There's a conflict. The instruction: \"Also report the setting's default, but only if this section states it. If the section gives a concrete value, that is a literal default. If it describes the default as something that depends on the machine -- a share of RAM, the number of CPU cores, the system locale -- copy that description rather than guessing a number, and say it is machine-dependent. If the section does not state a default, say it is absent.\"\n\nHere the section's Default value column says `30000`. That's a concrete value. So we should report default as `30000`. Also we need to quote a span of the section verbatim as evidence for the setting name and default. Provide JSON matching schema. We need to know schema. Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut we need to infer from prior tasks. Usually schema: list of objects with fields: name, type, default, description, evidence. Let's assume that.\n\nWe need to include a quote for the setting name and default. Could include both in evidence field.\n\nLet's produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"geometry_minimum_shredding_size\",\n      \"type\": \"BIGINT\",\n      \"default\": \"30000\",\n      \"description\": \"Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup\",\n      \"evidence\": \"`geometry_minimum_shredding_size` | Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup | `BIGINT` | `30000`\"\n    }\n  ]\n}\n\nMake sure quotes are correct JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 582,
+  "completion_tokens": 695,
+  "total_tokens": 1277,
+  "cost": 0.00013561,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 512,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00013561,
+   "upstream_inference_prompt_cost": 1.746e-05,
+   "upstream_inference_completions_cost": 0.00011815
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 582,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 16.281000000002678
+}

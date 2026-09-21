@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789914548-tLN2DpbiV5Aj1rvDsOjk",
+ "object": "chat.completion",
+ "created": 1789914548,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse task. We have a section from DuckDB documentation? User provided table with columns Column Description Type Example. Need extract configuration settings from single section. We need determine if these are DuckDB configuration settings? The table lists information_schema? Looks like columns of a table? \"character_set_catalog\" etc. These are columns in information_schema.character_sets? Not configuration settings. Need return empty list. Need JSON matching schema. We need know schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need infer maybe from previous? We need output JSON with settings list. Likely schema: {\"settings\": [{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\", \"default_type\": \"literal\"|\"machine_dependent\"|\"absent\"}]}? Need be careful.\n\nWe need answer only JSON. Since no settings, likely {\"settings\": []}. But maybe schema includes something else? Let's inspect prompt: \"Answer only with JSON matching the supplied schema.\" They didn't supply schema in this message. But likely expected format from prior? We need produce valid JSON. Could be {\"settings\": []}. Need ensure no extra text.\n\nBut let's think: The table is from DuckDB documentation section maybe \"Information Schema: character_sets\"? It documents columns of information_schema.character_sets view. These are not configuration settings. So empty list.\n\nNeed output JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse task. We have a section from DuckDB documentation? User provided table with columns Column Description Type Example. Need extract configuration settings from single section. We need determine if these are DuckDB configuration settings? The table lists information_schema? Looks like columns of a table? \"character_set_catalog\" etc. These are columns in information_schema.character_sets? Not configuration settings. Need return empty list. Need JSON matching schema. We need know schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need infer maybe from previous? We need output JSON with settings list. Likely schema: {\"settings\": [{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\", \"default_type\": \"literal\"|\"machine_dependent\"|\"absent\"}]}? Need be careful.\n\nWe need answer only JSON. Since no settings, likely {\"settings\": []}. But maybe schema includes something else? Let's inspect prompt: \"Answer only with JSON matching the supplied schema.\" They didn't supply schema in this message. But likely expected format from prior? We need produce valid JSON. Could be {\"settings\": []}. Need ensure no extra text.\n\nBut let's think: The table is from DuckDB documentation section maybe \"Information Schema: character_sets\"? It documents columns of information_schema.character_sets view. These are not configuration settings. So empty list.\n\nNeed output JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 784,
+  "completion_tokens": 312,
+  "total_tokens": 1096,
+  "cost": 0.001454,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.001454,
+   "upstream_inference_prompt_cost": 0.0006584,
+   "upstream_inference_completions_cost": 0.0007956
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 366,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.25
+}

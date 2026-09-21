@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789901287-7ZHaDPXQCGpClHhPUEsk",
+ "object": "chat.completion",
+ "created": 1789901287,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"TimeZone\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Next, use the `SET TimeZone` command:\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null\n   \n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The section mentions \"SET TimeZone\" command. That's a configuration setting: TimeZone. Need to see if the section documents it: It says \"Next, use the `SET TimeZone` command:\" and shows example. It also says \"To set the time zone to use\". So it documents the setting. Need to provide evidence quote. Also default? The section does not state default. So default is absent.\n\nAny other settings? Possibly \"icu\" extension? That's not a config setting, it's an extension. Not a setting. So only TimeZone.\n\nReturn JSON with list of objects each with name, evidence, default. Schema? Not given explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"TimeZone\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nBut need to match supplied schema. The prompt says \"Answer only with JSON matching the supplied schema.\" No schema provided in prompt, but typical would be an array of objects? Might be like:\n\n[\n  {\n    \"setting\": \"TimeZone\",\n    \"evidence\": \"...\",\n    \"default\": \"absent\"\n  }\n]\n\nWe need to guess. In previous similar tasks, schema often is:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\n\nI'll output that.\n\nEvidence must be verbatim span. Choose a span: \"Next, use the `SET TimeZone` command:\" or \"To set the time zone to use\". Better include both? One span is enough. Provide exactly as appears.\n\nThus JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The section mentions \"SET TimeZone\" command. That's a configuration setting: TimeZone. Need to see if the section documents it: It says \"Next, use the `SET TimeZone` command:\" and shows example. It also says \"To set the time zone to use\". So it documents the setting. Need to provide evidence quote. Also default? The section does not state default. So default is absent.\n\nAny other settings? Possibly \"icu\" extension? That's not a config setting, it's an extension. Not a setting. So only TimeZone.\n\nReturn JSON with list of objects each with name, evidence, default. Schema? Not given explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"TimeZone\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nBut need to match supplied schema. The prompt says \"Answer only with JSON matching the supplied schema.\" No schema provided in prompt, but typical would be an array of objects? Might be like:\n\n[\n  {\n    \"setting\": \"TimeZone\",\n    \"evidence\": \"...\",\n    \"default\": \"absent\"\n  }\n]\n\nWe need to guess. In previous similar tasks, schema often is:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\n\nI'll output that.\n\nEvidence must be verbatim span. Choose a span: \"Next, use the `SET TimeZone` command:\" or \"To set the time zone to use\". Better include both? One span is enough. Provide exactly as appears.\n\nThus JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 632,
+  "completion_tokens": 449,
+  "total_tokens": 1081,
+  "cost": 9.529e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.529e-05,
+   "upstream_inference_prompt_cost": 1.896e-05,
+   "upstream_inference_completions_cost": 7.633e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 382,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.5
+}

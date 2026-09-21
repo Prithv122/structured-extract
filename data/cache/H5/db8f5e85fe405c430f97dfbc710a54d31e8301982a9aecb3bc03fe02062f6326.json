@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789922807-Wa5tp5AWt7y5zXyKcouw",
+ "object": "chat.completion",
+ "created": 1789922807,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"custom_user_agent\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"The user-agent string can also be modified via the `custom_user_agent` setting\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "custom_user_agent is a setting mentioned; but is it documented here with type/default? The section mentions it via setting name. Evidence quote: \"The user-agent string can also be modified via the `custom_user_agent` setting\". Default absent.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "custom_user_agent is a setting mentioned; but is it documented here with type/default? The section mentions it via setting name. Evidence quote: \"The user-agent string can also be modified via the `custom_user_agent` setting\". Default absent.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 571,
+  "completion_tokens": 135,
+  "total_tokens": 706,
+  "cost": 7.6575e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.6575e-05,
+   "upstream_inference_prompt_cost": 4.2825e-05,
+   "upstream_inference_completions_cost": 3.375e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 49,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 3.922000000005937
+}

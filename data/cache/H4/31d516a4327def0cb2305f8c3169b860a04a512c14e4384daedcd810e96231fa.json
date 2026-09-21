@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789920207-YonzGLYZKaHUCnfeXZa3",
+ "object": "chat.completion",
+ "created": 1789920207,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"unsafe_enable_version_guessing\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`unsafe_enable_version_guessing` | `BOOLEAN` | `false` | Allows the extension to guess the latest metadata version when no version or hint file is given.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\"\n   ,\n      \"default_evidence\": \"`false`\"\n    },\n    {\n      \"name\": \"iceberg_default_format_version\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`iceberg_default_format_version` | `INTEGER` | `2` | Sets the default format_version to use when creating a new table.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"2\",\n      \"default_evidence\": \"`2`\"\n    },\n    {\n      \"name\": \"iceberg_unsafe_skip_puffin_verification\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`iceberg_unsafe_skip_puffin_verification` | `BOOLEAN` | `false` | When reading V3 Deletion Vectors, skip the Puffin file verification (for compatibility with files written by older versions).\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"`false`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to output JSON matching supplied schema. The schema not given explicitly, but likely expects list of objects with fields: setting, type, default, description, evidence (maybe). Need to infer from prior tasks. Usually schema: [{\"setting\": \"...\", \"type\": \"...\", \"default\": \"...\", \"description\": \"...\", \"evidence\": \"...\"}]. Let's assume that.\n\nWe have a table of settings. Need to verify they are actual DuckDB configuration settings (SET, PRAGMA). The table includes three settings: unsafe_enable_version_guessing, iceberg_default_format_version, iceberg_unsafe_skip_puffin_verification. These appear to be DuckDB settings for Iceberg extension. Likely they are configuration settings. So we should list them.\n\nWe must quote a span of the section verbatim as evidence for each setting. Provide default as per table.\n\nThus produce JSON array.\n\nLet's format:\n\n[\n  {\n    \"setting\": \"unsafe_enable_version_guessing\",\n    \"type\": \"BOOLEAN\",\n    \"default\": \"false\",\n    \"description\": \"Allows the extension to guess the latest metadata version when no version or hint file is given.\",\n    \"evidence\": \"`unsafe_enable_version_guessing` | `BOOLEAN` | `false` | Allows the extension to guess the latest metadata version when no version or hint file is given.\"\n  },\n  ...\n]\n\nMake sure quotes are proper.\n\nReturn only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to output JSON matching supplied schema. The schema not given explicitly, but likely expects list of objects with fields: setting, type, default, description, evidence (maybe). Need to infer from prior tasks. Usually schema: [{\"setting\": \"...\", \"type\": \"...\", \"default\": \"...\", \"description\": \"...\", \"evidence\": \"...\"}]. Let's assume that.\n\nWe have a table of settings. Need to verify they are actual DuckDB configuration settings (SET, PRAGMA). The table includes three settings: unsafe_enable_version_guessing, iceberg_default_format_version, iceberg_unsafe_skip_puffin_verification. These appear to be DuckDB settings for Iceberg extension. Likely they are configuration settings. So we should list them.\n\nWe must quote a span of the section verbatim as evidence for each setting. Provide default as per table.\n\nThus produce JSON array.\n\nLet's format:\n\n[\n  {\n    \"setting\": \"unsafe_enable_version_guessing\",\n    \"type\": \"BOOLEAN\",\n    \"default\": \"false\",\n    \"description\": \"Allows the extension to guess the latest metadata version when no version or hint file is given.\",\n    \"evidence\": \"`unsafe_enable_version_guessing` | `BOOLEAN` | `false` | Allows the extension to guess the latest metadata version when no version or hint file is given.\"\n  },\n  ...\n]\n\nMake sure quotes are proper.\n\nReturn only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 626,
+  "completion_tokens": 609,
+  "total_tokens": 1235,
+  "cost": 0.00012231,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00012231,
+   "upstream_inference_prompt_cost": 1.878e-05,
+   "upstream_inference_completions_cost": 0.00010353
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 336,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 14.218000000000757
+}

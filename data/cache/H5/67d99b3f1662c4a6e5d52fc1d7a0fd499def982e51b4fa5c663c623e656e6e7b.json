@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789923232-8z1mtQEh6bWiH5JVIj7W",
+ "object": "chat.completion",
+ "created": 1789923232,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"httpfs_connection_caching\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET httpfs_connection_caching = true;\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"By default, each Quack client request opens a fresh connection to the server\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "httpfs_connection_caching — is this a DuckDB setting? It's set via SET. Default stated: \"By default, each Quack client request opens a fresh connection\" — default false. But \"Quack client\" — this seems like a client library setting? It's set with SET, applies to connection. It's a configuration setting. Default: false (fresh connection each request).",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "httpfs_connection_caching — is this a DuckDB setting? It's set via SET. Default stated: \"By default, each Quack client request opens a fresh connection\" — default false. But \"Quack client\" — this seems like a client library setting? It's set with SET, applies to connection. It's a configuration setting. Default: false (fresh connection each request).",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 492,
+  "completion_tokens": 176,
+  "total_tokens": 668,
+  "cost": 8.09e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.09e-05,
+   "upstream_inference_prompt_cost": 3.69e-05,
+   "upstream_inference_completions_cost": 4.4e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 80,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 13.422000000005937
+}

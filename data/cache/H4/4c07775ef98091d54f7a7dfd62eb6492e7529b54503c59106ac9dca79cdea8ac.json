@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905559-ukiLUImu8B5JVKZWKVNz",
+ "object": "chat.completion",
+ "created": 1789905559,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"s3_session_token\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`s3_session_token`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"NULL\"\n   \n    , \"default_evidence\": \"NULL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with a single row: Name `s3_session_token`, description, type, default value NULL.\n\nWe need to return every configuration setting that this section documents. That's just `s3_session_token`. Provide a JSON with fields: setting name, evidence (quote), default (if stated). The default is \"NULL\". Provide as per schema. Need to know schema: Not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to output JSON matching supplied schema. The schema wasn't provided in the prompt, but typical would be an array of objects. Let's assume:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"s3_session_token\",\n      \"evidence\": \"`s3_session_token` ...\", // verbatim span\n      \"default\": \"NULL\"\n    }\n  ]\n}\n\nWe must quote a span verbatim. The table row includes \"`s3_session_token`\". The evidence could be the name cell: \"`s3_session_token`\". Or the description line. Provide a span that includes the setting name. Use exactly as appears: \"`s3_session_token`\". Provide default: \"NULL\". The default is stated as \"NULL\". So include that.\n\nReturn JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with a single row: Name `s3_session_token`, description, type, default value NULL.\n\nWe need to return every configuration setting that this section documents. That's just `s3_session_token`. Provide a JSON with fields: setting name, evidence (quote), default (if stated). The default is \"NULL\". Provide as per schema. Need to know schema: Not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to output JSON matching supplied schema. The schema wasn't provided in the prompt, but typical would be an array of objects. Let's assume:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"s3_session_token\",\n      \"evidence\": \"`s3_session_token` ...\", // verbatim span\n      \"default\": \"NULL\"\n    }\n  ]\n}\n\nWe must quote a span verbatim. The table row includes \"`s3_session_token`\". The evidence could be the name cell: \"`s3_session_token`\". Or the description line. Provide a span that includes the setting name. Use exactly as appears: \"`s3_session_token`\". Provide default: \"NULL\". The default is stated as \"NULL\". So include that.\n\nReturn JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 417,
+  "completion_tokens": 391,
+  "total_tokens": 808,
+  "cost": 7.898e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.898e-05,
+   "upstream_inference_prompt_cost": 1.251e-05,
+   "upstream_inference_completions_cost": 6.647e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 328,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 7.421999999998661
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789898202-AXAOICxr9vL65P1b1W0T",
+ "object": "chat.completion",
+ "created": 1789898202,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": \"`local_file`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"local_file\",\n      \"evidence\": \"Allows switching the default storage for secrets\",\n      \"input_type\": \"VARCHAR\",\n      \"name\": \"default_secret_storage\"\n    ,\"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. Need produce likely schema with settings, evidence, default? We need decide. We have section \"Global Configuration Options\" table with one row: default_secret_storage. Need return every configuration setting documented. It documents default_secret_storage. Need quote verbatim span. The table row includes name, description, type, default. Need quote evidence. Could quote description? Need setting documented: \"Allows switching the default storage for secrets\". Also default value `local_file` stated. Need report default literal. Need maybe include type? Schema unknown. We need craft JSON. Likely array of objects with setting, evidence, default, default_type? Need infer from instruction: \"For each setting, quote a span of the section verbatim as evidence... Also report the setting's default... If section gives concrete value, literal default... If machine-dependent... If absent...\" So JSON likely:\n{\n  \"settings\": [\n    {\n      \"name\": \"default_secret_storage\",\n      \"evidence\": \"Allows switching the default storage for secrets\",\n      \"default\": \"local_file\",\n      \"default_type\": \"literal\"\n    }\n  ]\n}\nNeed maybe include \"default_evidence\" quote? They said \"A stated default must be backed by a verbatim quote in the same way the setting itself is.\" So need quote default evidence too. Could include default_evidence: \"`local_file`\" or \"Default value | `local_file`\". Need exact characters. The table row has default value `local_file`. We can quote \"`local_file`\" from Default value column. But evidence for setting maybe quote description. Need maybe quote entire row? \"`default_secret_storage` | Allows switching the default storage for secrets | `VARCHAR` | `local_file`\" but table formatting not exact? We can quote description and default separately.\n\nNeed ensure no other settings. The section only has one row. Return only that.\n\nNeed maybe include type? Not requested. But schema maybe includes \"setting\", \"evidence\", \"default\", \"default_evidence\", \"default_kind\". We can include.\n\nNeed be careful: \"Do not return a setting merely because section contains a word that happens to be a setting name.\" Here table explicitly documents default_secret_storage. Good.\n\nNeed answer only JSON. No markdown. Let's produce valid JSON.\n\nPotential schema:\n{\n  \"settings\": [\n    {\n      \"setting\": \"default_secret_storage\",\n      \"evidence\": \"Allows switching the default storage for secrets\",\n      \"default\": \"local_file\",\n      \"default_evidence\": \"`local_file`\",\n      \"default_type\": \"literal\"\n    }\n  ]\n}\n\nNeed maybe \"default_type\": \"literal\" or \"concrete\"? The instruction says \"If the section gives a concrete value, that is a literal default.\" So use \"literal\". Could include \"default_is_machine_dependent\": false? Not necessary.\n\nNeed ensure quotes exact. The description in table: \"Allows switching the default storage for secrets\" no period? In prompt: `Allows switching the default storage for secrets` no period. Default value: `local_file`. We can quote exactly.\n\nNeed maybe include \"type\": \"VARCHAR\"? Not requested but maybe schema includes? The user says \"Return every configuration setting that this section documents.\" Could include type? Not asked. But maybe schema expects name, evidence, default. We'll include minimal plus default evidence.\n\nLet's final JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. Need produce likely schema with settings, evidence, default? We need decide. We have section \"Global Configuration Options\" table with one row: default_secret_storage. Need return every configuration setting documented. It documents default_secret_storage. Need quote verbatim span. The table row includes name, description, type, default. Need quote evidence. Could quote description? Need setting documented: \"Allows switching the default storage for secrets\". Also default value `local_file` stated. Need report default literal. Need maybe include type? Schema unknown. We need craft JSON. Likely array of objects with setting, evidence, default, default_type? Need infer from instruction: \"For each setting, quote a span of the section verbatim as evidence... Also report the setting's default... If section gives concrete value, literal default... If machine-dependent... If absent...\" So JSON likely:\n{\n  \"settings\": [\n    {\n      \"name\": \"default_secret_storage\",\n      \"evidence\": \"Allows switching the default storage for secrets\",\n      \"default\": \"local_file\",\n      \"default_type\": \"literal\"\n    }\n  ]\n}\nNeed maybe include \"default_evidence\" quote? They said \"A stated default must be backed by a verbatim quote in the same way the setting itself is.\" So need quote default evidence too. Could include default_evidence: \"`local_file`\" or \"Default value | `local_file`\". Need exact characters. The table row has default value `local_file`. We can quote \"`local_file`\" from Default value column. But evidence for setting maybe quote description. Need maybe quote entire row? \"`default_secret_storage` | Allows switching the default storage for secrets | `VARCHAR` | `local_file`\" but table formatting not exact? We can quote description and default separately.\n\nNeed ensure no other settings. The section only has one row. Return only that.\n\nNeed maybe include type? Not requested. But schema maybe includes \"setting\", \"evidence\", \"default\", \"default_evidence\", \"default_kind\". We can include.\n\nNeed be careful: \"Do not return a setting merely because section contains a word that happens to be a setting name.\" Here table explicitly documents default_secret_storage. Good.\n\nNeed answer only JSON. No markdown. Let's produce valid JSON.\n\nPotential schema:\n{\n  \"settings\": [\n    {\n      \"setting\": \"default_secret_storage\",\n      \"evidence\": \"Allows switching the default storage for secrets\",\n      \"default\": \"local_file\",\n      \"default_evidence\": \"`local_file`\",\n      \"default_type\": \"literal\"\n    }\n  ]\n}\n\nNeed maybe \"default_type\": \"literal\" or \"concrete\"? The instruction says \"If the section gives a concrete value, that is a literal default.\" So use \"literal\". Could include \"default_is_machine_dependent\": false? Not necessary.\n\nNeed ensure quotes exact. The description in table: \"Allows switching the default storage for secrets\" no period? In prompt: `Allows switching the default storage for secrets` no period. Default value: `local_file`. We can quote exactly.\n\nNeed maybe include \"type\": \"VARCHAR\"? Not requested but maybe schema includes? The user says \"Return every configuration setting that this section documents.\" Could include type? Not asked. But maybe schema expects name, evidence, default. We'll include minimal plus default evidence.\n\nLet's final JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 433,
+  "completion_tokens": 833,
+  "total_tokens": 1266,
+  "cost": 0.0023789,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0023789,
+   "upstream_inference_prompt_cost": 0.00025475,
+   "upstream_inference_completions_cost": 0.00212415
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 874,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 15.954000000001543
+}

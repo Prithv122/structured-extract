@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789922544-0N5xXcOeUWMVJPArgeXk",
+ "object": "chat.completion",
+ "created": 1789922544,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allowed_paths\",\n      \"input_type\": \"VARCHAR[]\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`allowed_paths`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"[]\",\n      \"default_evidence\": \"`[]`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section. The user provided a table with a single row: Name `allowed_paths`, description, type, default value `[]`. We need to determine if this is a configuration setting. The description: \"List of files that are ALWAYS allowed to be queried - even when enable_external_access is false\". This sounds like a configuration setting. In DuckDB, there is a setting `allowed_paths`? I'm not sure. I know DuckDB has `enable_external_access`, `allow_unsigned_extensions`, etc. I think `allowed_paths` is a setting introduced for external access. It likely is a PRAGMA or SET variable. So we should include it.\n\nWe need to output JSON matching the supplied schema. The schema wasn't explicitly given, but we can infer: likely an array of objects with fields: name, type, default, description, evidence (quote). The instruction: \"Answer only with JSON matching the supplied schema.\" We need to guess the schema. In previous similar tasks, the schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut not sure. Could be just a list of objects. Let's assume top-level is an array. However they said \"JSON matching the supplied schema\". Since we don't have the schema, we need to infer typical. In earlier tasks, they used:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe'll output that.\n\nWe need to quote a span of the section verbatim as evidence. So we can quote the row line: \"`allowed_paths`\". Or the whole row. Provide a quote: \"`allowed_paths`\". Or the description line. Provide a snippet: \"`allowed_paths`\". We'll include the default value as `[]`.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allowed_paths\",\n      \"type\": \"VARCHAR[]\",\n      \"default\": \"[]\",\n      \"description\": \"List of files that are ALWAYS allowed to be queried - even when enable_external_access is false\",\n      \"evidence\": \"`allowed_paths`\"\n    }\n  ]\n}\n\nMake sure quotes are proper.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section. The user provided a table with a single row: Name `allowed_paths`, description, type, default value `[]`. We need to determine if this is a configuration setting. The description: \"List of files that are ALWAYS allowed to be queried - even when enable_external_access is false\". This sounds like a configuration setting. In DuckDB, there is a setting `allowed_paths`? I'm not sure. I know DuckDB has `enable_external_access`, `allow_unsigned_extensions`, etc. I think `allowed_paths` is a setting introduced for external access. It likely is a PRAGMA or SET variable. So we should include it.\n\nWe need to output JSON matching the supplied schema. The schema wasn't explicitly given, but we can infer: likely an array of objects with fields: name, type, default, description, evidence (quote). The instruction: \"Answer only with JSON matching the supplied schema.\" We need to guess the schema. In previous similar tasks, the schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut not sure. Could be just a list of objects. Let's assume top-level is an array. However they said \"JSON matching the supplied schema\". Since we don't have the schema, we need to infer typical. In earlier tasks, they used:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe'll output that.\n\nWe need to quote a span of the section verbatim as evidence. So we can quote the row line: \"`allowed_paths`\". Or the whole row. Provide a quote: \"`allowed_paths`\". Or the description line. Provide a snippet: \"`allowed_paths`\". We'll include the default value as `[]`.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allowed_paths\",\n      \"type\": \"VARCHAR[]\",\n      \"default\": \"[]\",\n      \"description\": \"List of files that are ALWAYS allowed to be queried - even when enable_external_access is false\",\n      \"evidence\": \"`allowed_paths`\"\n    }\n  ]\n}\n\nMake sure quotes are proper.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 560,
+  "completion_tokens": 589,
+  "total_tokens": 1149,
+  "cost": 0.00011693,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00011693,
+   "upstream_inference_prompt_cost": 1.68e-05,
+   "upstream_inference_completions_cost": 0.00010013
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 556,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 54.671000000002095
+}

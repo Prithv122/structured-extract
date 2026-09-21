@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789907572-8cYEJSltO0VrPw0ekLi1",
+ "object": "chat.completion",
+ "created": 1789907572,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"custom_profiling_settings\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`custom_profiling_settings` | Accepts a `JSON` enabling custom metrics\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"{\\\"ATTACH_LOAD_STORAGE_LATENCY\\\": \\\"true\\\", \\\"ATTACH_REPLAY_WAL_LATENCY\\\": \\\"true\\\", \\\"BLOCKED_THREAD_TIME\\\": \\\"true\\\", \\\"CHECKPOINT_LATENCY\\\": \\\"true\\\", \\\"COMMIT_LOCAL_STORAGE_LATENCY\\\": \\\"true\\\", \\\"CPU_TIME\\\": \\\"true\\\", \\\"CUMULATIVE_CARDINALITY\\\": \\\"true\\\", \\\"CUMULATIVE_ROWS_SCANNED\\\": \\\"true\\\", \\\"EXTRA_INFO\\\": \\\"true\\\", \\\"LATENCY\\\": \\\"true\\\", \\\"OPERATOR_CARDINALITY\\\": \\\"true\\\", \\\"OPERATOR_NAME\\\": \\\"true\\\", \\\"OPERATOR_ROWS_SCANNED\\\": \\\"true\\\", \\\"OPERATOR_TIMING\\\": \\\"true\\\", \\\"OPERATOR_TYPE\\\": \\\"true\\\", \\\"QUERY_NAME\\\": \\\"true\\\", \\\"RESULT_SET_SIZE\\\": \\\"true\\\", \\\"ROWS_RETURNED\\\": \\\"true\\\", \\\"SYSTEM_PEAK_BUFFER_MEMORY\\\": \\\"true\\\", \\\"SYSTEM_PEAK_TEMP_DIR_SIZE\\\": \\\"true\\\", \\\"TOTAL_BYTES_READ\\\": \\\"true\\\", \\\"TOTAL_BYTES_WRITTEN\\\": \\\"true\\\", \\\"TOTAL_MEMORY_ALLOCATED\\\": \\\"true\\\", \\\"WAITING_TO_ATTACH_LATENCY\\\": \\\"true\\\", \\\"WAL_REPLAY_ENTRY_COUNT\\\": \\\"true\\\", \\\"WRITE_TO_WAL_LATENCY\\\": \\\"true\\\"}\"\n    \n  \t\t, \"default_evidence\": \"`custom_profiling_settings` ... default value ... as shown in the table\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to output JSON per schema. The schema not provided but likely expects list of objects with fields: setting, evidence, default. The user gave a table with one setting: custom_profiling_settings. We need to check if the section documents it. The description says \"Accepts a JSON enabling custom metrics\". That's documentation. Provide evidence quote exactly as appears. Provide default value as given in table. So default is the long JSON string. Provide that as default. Return JSON array.\n\nAssume schema: {\"settings\": [{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]}. But not sure. The instruction: \"Answer only with JSON matching the supplied schema.\" No schema shown. Possibly expects list of objects. Could be like:\n\n[\n  {\n    \"setting\": \"custom_profiling_settings\",\n    \"evidence\": \"`custom_profiling_settings` ...\",\n    \"default\": \"{\\\"ATTACH_LOAD_STORAGE_LATENCY\\\": \\\"true\\\", ...}\"\n  }\n]\n\nWe need to quote a span of the section verbatim as evidence. Could quote the description cell: \"`custom_profiling_settings` | Accepts a `JSON` enabling custom metrics\". Provide that.\n\nLet's output JSON array.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to output JSON per schema. The schema not provided but likely expects list of objects with fields: setting, evidence, default. The user gave a table with one setting: custom_profiling_settings. We need to check if the section documents it. The description says \"Accepts a JSON enabling custom metrics\". That's documentation. Provide evidence quote exactly as appears. Provide default value as given in table. So default is the long JSON string. Provide that as default. Return JSON array.\n\nAssume schema: {\"settings\": [{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]}. But not sure. The instruction: \"Answer only with JSON matching the supplied schema.\" No schema shown. Possibly expects list of objects. Could be like:\n\n[\n  {\n    \"setting\": \"custom_profiling_settings\",\n    \"evidence\": \"`custom_profiling_settings` ...\",\n    \"default\": \"{\\\"ATTACH_LOAD_STORAGE_LATENCY\\\": \\\"true\\\", ...}\"\n  }\n]\n\nWe need to quote a span of the section verbatim as evidence. Could quote the description cell: \"`custom_profiling_settings` | Accepts a `JSON` enabling custom metrics\". Provide that.\n\nLet's output JSON array.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 675,
+  "completion_tokens": 620,
+  "total_tokens": 1295,
+  "cost": 0.00012565,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00012565,
+   "upstream_inference_prompt_cost": 2.025e-05,
+   "upstream_inference_completions_cost": 0.0001054
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 284,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.531999999999243
+}

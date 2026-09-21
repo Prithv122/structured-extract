@@ -276,20 +276,40 @@ def score_default(record: dict, canonical: str | None, oracle: Oracle):
         return None, None, False
 
     machine_dependent = oracle.is_machine_dependent(canonical)
-    if machine_dependent:
-        expected_kind = "machine_dependent"
-    elif documented["default_is_empty_cell"]:
-        expected_kind = "absent"
-    else:
-        expected_kind = "literal"
+    documented_default = documented["default_value"]
 
-    kind_correct = record["default_kind"] == expected_kind
-    if machine_dependent or expected_kind == "absent":
+    # The reference table has **three** documented states, not two, and the
+    # third crashed this function on the full grid. `docs_table` encodes them
+    # deliberately: a value, an empty cell (the generator's way of writing
+    # "defaults to the empty string"), and the literal word NULL ("no
+    # default"). Both of the latter carry `default_value = None`, separated
+    # only by `default_is_empty_cell` -- so "not an empty cell" does NOT imply
+    # "there is a literal to compare", which is exactly what was assumed.
+    # 8 of the 169 rows are documented NULL: the six `s3_*` credentials,
+    # `enable_profiling` and `profiling_mode`.
+    if machine_dependent:
+        accepted = {"machine_dependent"}
+    elif documented["default_is_empty_cell"]:
+        # The schema cannot express "literal, and the literal is the empty
+        # string" -- `default_value` must be non-empty when the kind is
+        # literal. `absent` is therefore the only answer available, and
+        # scoring anything else wrong would be scoring a schema limitation.
+        accepted = {"absent"}
+    elif documented_default is None:
+        # Documented as NULL. Quoting the cell ("literal", value NULL) and
+        # reading its meaning ("absent") are both defensible readings of the
+        # same table, so both are accepted rather than picking a favourite.
+        accepted = {"literal", "absent"}
+    else:
+        accepted = {"literal"}
+
+    kind_correct = record["default_kind"] in accepted
+    if documented_default is None or machine_dependent:
         return kind_correct, None, machine_dependent
 
     got = record["default_value"]
     value_correct = got is not None and normalise_default(got) == normalise_default(
-        documented["default_value"]
+        documented_default
     )
     return kind_correct, value_correct, False
 

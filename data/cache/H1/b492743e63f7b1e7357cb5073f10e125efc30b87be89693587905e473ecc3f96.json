@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789913686-UqEhV5PpnvHMfNZsr9Fv",
+ "object": "chat.completion",
+ "created": 1789913686,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"SET memory_limit = '10GB';\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"memory_limit\",\n      \"scope\": \"GLOBAL\"\n    },\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"SET threads = 1;\",\n      \"input_type\": \"BIGINT\",\n      \"name\": \"threads\",\n      \"scope\": \"GLOBAL\"\n    },\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"SET SESSION default_collation = 'nocase';\",\n      \"input_type\": \"VARCHAR\",\n      \"name\": \"default_collation\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. User provided text from DuckDB docs likely \"Configuration\" maybe examples. Need extract configuration settings documented. We need identify settings: memory_limit, threads, default_collation? The text shows SQL examples updating config values. Need return list of settings with evidence quote and default if stated. Need schema? Not provided in prompt but likely expects JSON with settings array. Need infer. We need answer only JSON matching supplied schema. We don't have schema explicitly. Need produce likely {\"settings\":[{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]}. Need include default only if section states it. The section text does not state defaults. It only shows examples. So default absent for each. Need quote verbatim spans. Need decide which settings are documented. The text includes SET memory_limit, SET threads, RESET threads, current_setting('threads'), SET SESSION default_collation. Are these configuration settings? memory_limit, threads, default_collation are DuckDB settings. The section documents how to update them. Need include all three? The instruction: \"A configuration setting is one you change with SET, RESET or PRAGMA...\" The examples show SET memory_limit, SET threads, RESET threads, SET SESSION default_collation. So yes.\n\nNeed quote span verbatim. For memory_limit: \"SET memory_limit = '10GB';\" maybe evidence. For threads: \"SET threads = 1;\" or \"SET threads TO 1;\" maybe. For default_collation: \"SET SESSION default_collation = 'nocase';\". Need maybe include RESET threads? But setting name threads already. Need default absent.\n\nNeed ensure not include current_setting as setting? It's function. Not.\n\nNeed answer only JSON. Could include settings array with objects. Need maybe \"default\": null or \"absent\"? Prompt says \"say it is absent\". In JSON maybe \"default\": null? Need choose. \"default\": \"absent\" maybe. But schema unknown. We can use \"default\": null to represent absent? The instruction: \"If the section does not state a default, say it is absent\". In JSON, maybe field \"default\": \"absent\". Need likely expected. We can set \"default\": null? Hmm.\n\nNeed maybe include \"evidence\" exact quote. Need copy exactly. Let's craft:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"evidence\": \"SET memory_limit = '10GB';\",\n      \"default\": \"absent\"\n    },\n    {\n      \"name\": \"threads\",\n      \"evidence\": \"SET threads = 1;\",\n      \"default\": \"absent\"\n    },\n    {\n      \"name\": \"default_collation\",\n      \"evidence\": \"SET SESSION default_collation = 'nocase';\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nNeed consider if \"threads\" evidence should include both SET and RESET? The prompt says quote a span of the section verbatim as evidence. One span enough. Could use \"SET threads = 1;\" or \"SET threads TO 1;\". Fine.\n\nNeed maybe include \"default_collation\" is a setting? Yes. But is it \"configuration setting\" changed with SET SESSION? Yes.\n\nNeed ensure no extra text. Final JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. User provided text from DuckDB docs likely \"Configuration\" maybe examples. Need extract configuration settings documented. We need identify settings: memory_limit, threads, default_collation? The text shows SQL examples updating config values. Need return list of settings with evidence quote and default if stated. Need schema? Not provided in prompt but likely expects JSON with settings array. Need infer. We need answer only JSON matching supplied schema. We don't have schema explicitly. Need produce likely {\"settings\":[{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]}. Need include default only if section states it. The section text does not state defaults. It only shows examples. So default absent for each. Need quote verbatim spans. Need decide which settings are documented. The text includes SET memory_limit, SET threads, RESET threads, current_setting('threads'), SET SESSION default_collation. Are these configuration settings? memory_limit, threads, default_collation are DuckDB settings. The section documents how to update them. Need include all three? The instruction: \"A configuration setting is one you change with SET, RESET or PRAGMA...\" The examples show SET memory_limit, SET threads, RESET threads, SET SESSION default_collation. So yes.\n\nNeed quote span verbatim. For memory_limit: \"SET memory_limit = '10GB';\" maybe evidence. For threads: \"SET threads = 1;\" or \"SET threads TO 1;\" maybe. For default_collation: \"SET SESSION default_collation = 'nocase';\". Need maybe include RESET threads? But setting name threads already. Need default absent.\n\nNeed ensure not include current_setting as setting? It's function. Not.\n\nNeed answer only JSON. Could include settings array with objects. Need maybe \"default\": null or \"absent\"? Prompt says \"say it is absent\". In JSON maybe \"default\": null? Need choose. \"default\": \"absent\" maybe. But schema unknown. We can use \"default\": null to represent absent? The instruction: \"If the section does not state a default, say it is absent\". In JSON, maybe field \"default\": \"absent\". Need likely expected. We can set \"default\": null? Hmm.\n\nNeed maybe include \"evidence\" exact quote. Need copy exactly. Let's craft:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"evidence\": \"SET memory_limit = '10GB';\",\n      \"default\": \"absent\"\n    },\n    {\n      \"name\": \"threads\",\n      \"evidence\": \"SET threads = 1;\",\n      \"default\": \"absent\"\n    },\n    {\n      \"name\": \"default_collation\",\n      \"evidence\": \"SET SESSION default_collation = 'nocase';\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nNeed consider if \"threads\" evidence should include both SET and RESET? The prompt says quote a span of the section verbatim as evidence. One span enough. Could use \"SET threads = 1;\" or \"SET threads TO 1;\". Fine.\n\nNeed maybe include \"default_collation\" is a setting? Yes. But is it \"configuration setting\" changed with SET SESSION? Yes.\n\nNeed ensure no extra text. Final JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 616,
+  "completion_tokens": 918,
+  "total_tokens": 1534,
+  "cost": 0.0028061,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0028061,
+   "upstream_inference_prompt_cost": 0.0004652,
+   "upstream_inference_completions_cost": 0.0023409
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 757,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 21.889999999999418
+}

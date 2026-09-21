@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789900337-qZUCMa9dSZYeI7uGe67S",
+ "object": "chat.completion",
+ "created": 1789900337,
+ "model": "google/gemini-2.5-flash",
+ "provider": "Google",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "STOP",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"s3_version_id_pinning\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`s3_version_id_pinning` (`BOOLEAN`, default `false`)\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"default `false`\"\n    },\n    {\n      \"name\": \"enable_http_metadata_cache\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"This requires the HTTP metadata cache:\\n\\n```sql\\nSET enable_http_metadata_cache = true;\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 411,
+  "completion_tokens": 209,
+  "total_tokens": 620,
+  "cost": 0.0006458,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0006458,
+   "upstream_inference_prompt_cost": 0.0001233,
+   "upstream_inference_completions_cost": 0.0005225
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 3.2040000000015425
+}

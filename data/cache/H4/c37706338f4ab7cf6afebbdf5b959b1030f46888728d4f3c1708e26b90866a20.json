@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789902224-uFvGejosqwQX5htdz0Tf",
+ "object": "chat.completion",
+ "created": 1789902224,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"old_implicit_casting\",\n      \"input_type\": \"DOUBLE\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"The [`old_implicit_casting` configuration option]({% link docs/current/configuration/pragmas.md %}#implicit-casting-to-varchar) setting can be used to revert to the old behavior.\",\n      \"default_kind\": \"absent\"\n   \n    , \"default_value\": null\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The text mentions `old_implicit_casting` configuration option. It says: \"The [`old_implicit_casting` configuration option]... setting can be used to revert to the old behavior.\" That's a setting. Need to provide a quote that documents it. Also need default if stated. The section does not state default value. So default is absent.\n\nThus JSON with list containing one object: name \"old_implicit_casting\", evidence quote, default \"absent\". Schema? Not given but likely something like [{\"setting\":..., \"evidence\":..., \"default\":...}]. Need to follow \"Answer only with JSON matching the supplied schema.\" No schema provided explicitly, but typical would be array of objects with fields \"setting\", \"evidence\", \"default\". We'll output that.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The text mentions `old_implicit_casting` configuration option. It says: \"The [`old_implicit_casting` configuration option]... setting can be used to revert to the old behavior.\" That's a setting. Need to provide a quote that documents it. Also need default if stated. The section does not state default value. So default is absent.\n\nThus JSON with list containing one object: name \"old_implicit_casting\", evidence quote, default \"absent\". Schema? Not given but likely something like [{\"setting\":..., \"evidence\":..., \"default\":...}]. Need to follow \"Answer only with JSON matching the supplied schema.\" No schema provided explicitly, but typical would be array of objects with fields \"setting\", \"evidence\", \"default\". We'll output that.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 599,
+  "completion_tokens": 306,
+  "total_tokens": 905,
+  "cost": 6.999e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.999e-05,
+   "upstream_inference_prompt_cost": 1.797e-05,
+   "upstream_inference_completions_cost": 5.202e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 205,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 12.875
+}

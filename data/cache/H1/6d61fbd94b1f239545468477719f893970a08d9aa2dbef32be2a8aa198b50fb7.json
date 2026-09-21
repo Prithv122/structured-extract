@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789912067-tAJ3HFFBJ0QeJJd0itD1",
+ "object": "chat.completion",
+ "created": 1789912067,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"SET disabled_optimizers = 'join_order,build_side_probe_side';\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"disabled_optimizers\"\n    ,\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. User asks extract DuckDB configuration settings from single section. We need identify settings documented. The section text: \"To turn off the join order optimizer, set the following PRAGMAs: SET disabled_optimizers = 'join_order,build_side_probe_side'; ... SET disabled_optimizers = '';\"\n\nThis documents setting disabled_optimizers. Need quote verbatim span. Default? Section does not state default. It gives examples values but not default. Need output JSON matching schema. We need infer schema? Not provided explicitly. Need answer only JSON. Likely list of objects with setting name, evidence quote, default. Need maybe include default absent. We need be careful.\n\nThe setting is disabled_optimizers. Evidence quote: \"SET disabled_optimizers = 'join_order,build_side_probe_side';\" maybe also \"SET disabled_optimizers = '';\" But quote span verbatim. Need include enough. Default absent. Could include machine-dependent? No.\n\nNeed produce JSON. Since schema not supplied, but likely:\n{\n  \"settings\": [\n    {\n      \"name\": \"disabled_optimizers\",\n      \"evidence\": \"SET disabled_optimizers = 'join_order,build_side_probe_side';\",\n      \"default\": null\n    }\n  ]\n}\nMaybe default field \"absent\" or null. User says \"say it is absent\". So JSON value maybe \"absent\". Need decide. They said \"Answer only with JSON matching the supplied schema.\" We don't have schema. We can use likely fields: name, evidence, default. For default absent, maybe \"absent\". Let's craft.\n\nNeed ensure no extra text.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. User asks extract DuckDB configuration settings from single section. We need identify settings documented. The section text: \"To turn off the join order optimizer, set the following PRAGMAs: SET disabled_optimizers = 'join_order,build_side_probe_side'; ... SET disabled_optimizers = '';\"\n\nThis documents setting disabled_optimizers. Need quote verbatim span. Default? Section does not state default. It gives examples values but not default. Need output JSON matching schema. We need infer schema? Not provided explicitly. Need answer only JSON. Likely list of objects with setting name, evidence quote, default. Need maybe include default absent. We need be careful.\n\nThe setting is disabled_optimizers. Evidence quote: \"SET disabled_optimizers = 'join_order,build_side_probe_side';\" maybe also \"SET disabled_optimizers = '';\" But quote span verbatim. Need include enough. Default absent. Could include machine-dependent? No.\n\nNeed produce JSON. Since schema not supplied, but likely:\n{\n  \"settings\": [\n    {\n      \"name\": \"disabled_optimizers\",\n      \"evidence\": \"SET disabled_optimizers = 'join_order,build_side_probe_side';\",\n      \"default\": null\n    }\n  ]\n}\nMaybe default field \"absent\" or null. User says \"say it is absent\". So JSON value maybe \"absent\". Need decide. They said \"Answer only with JSON matching the supplied schema.\" We don't have schema. We can use likely fields: name, evidence, default. For default absent, maybe \"absent\". Let's craft.\n\nNeed ensure no extra text.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 651,
+  "completion_tokens": 452,
+  "total_tokens": 1103,
+  "cost": 0.00190125,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00190125,
+   "upstream_inference_prompt_cost": 0.00074865,
+   "upstream_inference_completions_cost": 0.0011526
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 388,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 11.1720000000023
+}

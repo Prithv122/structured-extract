@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789913350-ljvDKtaicqe0uiA8sf7I",
+ "object": "chat.completion",
+ "created": 1789913350,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need produce likely list of settings with evidence/default. Need determine from section. The section is about table functions glob and repeat_row. It documents table functions, not configuration settings. Correct answer empty list. Need output JSON maybe {\"settings\": []} or []? Need infer schema. They said \"For each setting, quote a span...\" likely schema has settings array. We need answer only JSON. Since no settings, empty list. Need maybe include no extra. Let's craft JSON: {\"settings\": []}. Ensure valid.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need produce likely list of settings with evidence/default. Need determine from section. The section is about table functions glob and repeat_row. It documents table functions, not configuration settings. Correct answer empty list. Need output JSON maybe {\"settings\": []} or []? Need infer schema. They said \"For each setting, quote a span...\" likely schema has settings array. We need answer only JSON. Since no settings, empty list. Need maybe include no extra. Let's craft JSON: {\"settings\": []}. Ensure valid.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 657,
+  "completion_tokens": 144,
+  "total_tokens": 801,
+  "cost": 0.00112275,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00112275,
+   "upstream_inference_prompt_cost": 0.00075555,
+   "upstream_inference_completions_cost": 0.0003672
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 169,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 6.40599999999904
+}

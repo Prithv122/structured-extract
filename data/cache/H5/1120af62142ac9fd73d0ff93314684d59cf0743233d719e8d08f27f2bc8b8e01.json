@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789909583-ISE6HxHyzPg0MowZ8fhV",
+ "object": "chat.completion",
+ "created": 1789909583,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"preserve_identifier_case\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"With the `preserve_identifier_case` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) set to `false`, all identifiers are turned into lowercase\",\"default_kind\":\"literal\",\"default_value\":\"true\",\"default_evidence\":\"With the `preserve_identifier_case` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) set to `false`, all identifiers are turned into lowercase\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 386,
+  "completion_tokens": 116,
+  "total_tokens": 502,
+  "cost": 5.795e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 5.795e-05,
+   "upstream_inference_prompt_cost": 2.895e-05,
+   "upstream_inference_completions_cost": 2.9e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 14.781000000002678
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789901141-WJcesiNPxMX9As4ikTfV",
+ "object": "chat.completion",
+ "created": 1789901141,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"secret_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET secret_directory = 'path/to/my_secrets_dir';\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"~/.duckdb/stored_secrets\",\n      \"default_evidence\": \"By default, this will write the secret (unencrypted) to the `~/.duckdb/stored_secrets` directory.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The section mentions `secret_directory` and also mentions `home_directory` but says setting it has no effect. It still mentions it as a configuration option, but does it document it? The section says \"Note that setting the value of the `home_directory` configuration option has no effect on the location of the secrets.\" That is a mention, but does it document the setting? It doesn't describe what it does, just says it has no effect. The instruction: \"A section documents a setting when it tells the reader what the setting does, what it accepts, or how to set it.\" For `home_directory`, it doesn't tell what it does, just says it has no effect on secrets. That's not documenting the setting itself. So we only include `secret_directory`. Provide evidence quote: \"SET secret_directory = 'path/to/my_secrets_dir';\" also earlier: \"To change the secrets directory, issue:\" and \"By default, this will write the secret (unencrypted) to the `~/.duckdb/stored_secrets` directory.\" That indicates default location. The default is that it writes to `~/.duckdb/stored_secrets`. So default is that directory. Provide default quote: \"By default, this will write the secret (unencrypted) to the `~/.duckdb/stored_secrets` directory.\" So default is `~/.duckdb/stored_secrets`. Provide JSON schema. Need to know schema: Not provided explicitly, but likely something like list of objects with name, default, evidence. Let's assume schema: [{\"setting\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. But need to match \"supplied schema\". Not given. We need to infer typical format: maybe {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. Could be just array of objects. The instruction: \"Answer only with JSON matching the supplied schema.\" Since we don't have schema, we guess. In prior tasks, schema often is like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"secret_directory\",\n      \"default\": \"~/.duckdb/stored_secrets\",\n      \"evidence\": \"By default, this will write the secret (unencrypted) to the `~/.duckdb/stored_secrets` directory.\"\n    }\n  ]\n}\n\nBut need to include quote exactly as appears. So evidence for setting: maybe the SET command line. Provide both? Could include one evidence for setting description. Provide default evidence separate? Might need separate fields: \"description_evidence\" and \"default_evidence\". Not sure.\n\nGiven typical tasks, they want each setting with fields: \"setting\", \"default\", \"evidence\". We'll include one evidence that covers both description and default? Could include two separate? I'll include \"evidence\" as the quote that mentions setting usage: \"SET secret_directory = 'path/to/my_secrets_dir';\". And \"default\" as \"~/.duckdb/stored_secrets\". Provide default evidence maybe not needed.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"secret_directory\",\n      \"default\": \"~/.duckdb/stored_secrets\",\n      \"evidence\": \"SET secret_directory = 'path/to/my_secrets_dir';\"\n    }\n  ]\n}\n\nBut also include default evidence? Might be okay.\n\nI'll output that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The section mentions `secret_directory` and also mentions `home_directory` but says setting it has no effect. It still mentions it as a configuration option, but does it document it? The section says \"Note that setting the value of the `home_directory` configuration option has no effect on the location of the secrets.\" That is a mention, but does it document the setting? It doesn't describe what it does, just says it has no effect. The instruction: \"A section documents a setting when it tells the reader what the setting does, what it accepts, or how to set it.\" For `home_directory`, it doesn't tell what it does, just says it has no effect on secrets. That's not documenting the setting itself. So we only include `secret_directory`. Provide evidence quote: \"SET secret_directory = 'path/to/my_secrets_dir';\" also earlier: \"To change the secrets directory, issue:\" and \"By default, this will write the secret (unencrypted) to the `~/.duckdb/stored_secrets` directory.\" That indicates default location. The default is that it writes to `~/.duckdb/stored_secrets`. So default is that directory. Provide default quote: \"By default, this will write the secret (unencrypted) to the `~/.duckdb/stored_secrets` directory.\" So default is `~/.duckdb/stored_secrets`. Provide JSON schema. Need to know schema: Not provided explicitly, but likely something like list of objects with name, default, evidence. Let's assume schema: [{\"setting\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. But need to match \"supplied schema\". Not given. We need to infer typical format: maybe {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. Could be just array of objects. The instruction: \"Answer only with JSON matching the supplied schema.\" Since we don't have schema, we guess. In prior tasks, schema often is like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"secret_directory\",\n      \"default\": \"~/.duckdb/stored_secrets\",\n      \"evidence\": \"By default, this will write the secret (unencrypted) to the `~/.duckdb/stored_secrets` directory.\"\n    }\n  ]\n}\n\nBut need to include quote exactly as appears. So evidence for setting: maybe the SET command line. Provide both? Could include one evidence for setting description. Provide default evidence separate? Might need separate fields: \"description_evidence\" and \"default_evidence\". Not sure.\n\nGiven typical tasks, they want each setting with fields: \"setting\", \"default\", \"evidence\". We'll include one evidence that covers both description and default? Could include two separate? I'll include \"evidence\" as the quote that mentions setting usage: \"SET secret_directory = 'path/to/my_secrets_dir';\". And \"default\" as \"~/.duckdb/stored_secrets\". Provide default evidence maybe not needed.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"secret_directory\",\n      \"default\": \"~/.duckdb/stored_secrets\",\n      \"evidence\": \"SET secret_directory = 'path/to/my_secrets_dir';\"\n    }\n  ]\n}\n\nBut also include default evidence? Might be okay.\n\nI'll output that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 550,
+  "completion_tokens": 826,
+  "total_tokens": 1376,
+  "cost": 0.00015692,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00015692,
+   "upstream_inference_prompt_cost": 1.65e-05,
+   "upstream_inference_completions_cost": 0.00014042
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 777,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 19.67199999999866
+}

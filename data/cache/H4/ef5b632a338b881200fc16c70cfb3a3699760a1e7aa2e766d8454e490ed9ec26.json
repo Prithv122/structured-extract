@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789903999-6bwwxTcWooSn9Qo9eCWq",
+ "object": "chat.completion",
+ "created": 1789903999,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"unsafe_enable_version_guessing\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"| `unsafe_enable_version_guessing` | `BOOLEAN` | `false` | Enable globbing the filesystem (if possible) to find the latest metadata version. This may read an uncommitted version, so it is disabled by default.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\"\n    ,\n    \"default_evidence\": \"`false`\"\n    },\n    {\n      \"name\": \"iceberg_use_metadata_log\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"| `iceberg_use_metadata_log` | `BOOLEAN` | `true` | Use a table's optional `metadata-log` to preserve atomicity guarantees, at the cost of an additional metadata `GET` in rare cases.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\",\n      \"default_evidence\": \"`true`\"\n    },\n    {\n      \"name\": \"ignore_target_file_size_for_partitioned_tables\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"| `ignore_target_file_size_for_partitioned_tables` | `BOOLEAN` | `false` | Ignore the unsupported `write.target-file-size-bytes` table property on partitioned tables instead of raising an error.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"`false`\"\n    },\n    {\n      \"name\": \"ignore_row_group_size_for_partitioned_tables\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"| `ignore_row_group_size_for_partitioned_tables` | `BOOLEAN` | `false` | Ignore the unsupported `write.parquet.row-group-size-bytes` table property on partitioned tables instead of raising an error.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"`false`\"\n    },\n    {\n      \"name\": \"iceberg_via_aws_sdk_for_catalog_interactions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"| `iceberg_via_aws_sdk_for_catalog_interactions` | `BOOLEAN` | `false` | Use the legacy AWS SDK code path to interact with AWS-based catalogs instead of DuckDB's HTTP client.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"`false`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a markdown table with settings, types, defaults, description. We need to return every configuration setting that this section documents. For each setting, we need to quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it. The table includes defaults. So we can use those.\n\nWe need to output JSON matching the supplied schema. The schema is not explicitly given, but we can infer: likely an array of objects with fields: setting, type, default, description, evidence (maybe). The instruction: \"Return every configuration setting that this section documents.\" Provide quote as evidence. Also report default if section states it. So each entry should include setting name, default (as string), and evidence (the quoted span). Possibly also type and description? Not required but could include. The schema unknown; we need to guess typical format: maybe {\"settings\": [ { \"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\" } ] }. But we need to follow \"supplied schema\". Not provided in prompt. Could be something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"unsafe_enable_version_guessing\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"false\",\n      \"description\": \"Enable globbing the filesystem (if possible) to find the latest metadata version. This may read an uncommitted version, so it is disabled by default.\",\n      \"evidence\": \"`unsafe_enable_version_guessing` ... (quote)\"\n    },\n    ...\n  ]\n}\n\nBut we need to include a verbatim quote for each setting. Could quote the row line.\n\nLet's produce JSON with array \"settings\". Each object: \"setting\", \"type\", \"default\", \"description\", \"evidence\". Use the exact text from the table row as evidence.\n\nWe'll quote the row line exactly as appears, including the pipe separators? The instruction: \"quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" So we can quote the row line: \"`unsafe_enable_version_guessing` | `BOOLEAN` | `false` | Enable globbing the filesystem (if possible) to find the latest metadata version. This may read an uncommitted version, so it is disabled by default.\"\n\nBut the row includes leading and trailing spaces and pipes. We'll include the row content without the outer table formatting? The row line includes leading \"| `unsafe_enable_version_guessing` | `BOOLEAN` | `false` | Enable globbing ...\". We'll quote that.\n\nLet's craft JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a markdown table with settings, types, defaults, description. We need to return every configuration setting that this section documents. For each setting, we need to quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it. The table includes defaults. So we can use those.\n\nWe need to output JSON matching the supplied schema. The schema is not explicitly given, but we can infer: likely an array of objects with fields: setting, type, default, description, evidence (maybe). The instruction: \"Return every configuration setting that this section documents.\" Provide quote as evidence. Also report default if section states it. So each entry should include setting name, default (as string), and evidence (the quoted span). Possibly also type and description? Not required but could include. The schema unknown; we need to guess typical format: maybe {\"settings\": [ { \"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\" } ] }. But we need to follow \"supplied schema\". Not provided in prompt. Could be something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"unsafe_enable_version_guessing\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"false\",\n      \"description\": \"Enable globbing the filesystem (if possible) to find the latest metadata version. This may read an uncommitted version, so it is disabled by default.\",\n      \"evidence\": \"`unsafe_enable_version_guessing` ... (quote)\"\n    },\n    ...\n  ]\n}\n\nBut we need to include a verbatim quote for each setting. Could quote the row line.\n\nLet's produce JSON with array \"settings\". Each object: \"setting\", \"type\", \"default\", \"description\", \"evidence\". Use the exact text from the table row as evidence.\n\nWe'll quote the row line exactly as appears, including the pipe separators? The instruction: \"quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" So we can quote the row line: \"`unsafe_enable_version_guessing` | `BOOLEAN` | `false` | Enable globbing the filesystem (if possible) to find the latest metadata version. This may read an uncommitted version, so it is disabled by default.\"\n\nBut the row includes leading and trailing spaces and pipes. We'll include the row content without the outer table formatting? The row line includes leading \"| `unsafe_enable_version_guessing` | `BOOLEAN` | `false` | Enable globbing ...\". We'll quote that.\n\nLet's craft JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 609,
+  "completion_tokens": 1113,
+  "total_tokens": 1722,
+  "cost": 0.00020748,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00020748,
+   "upstream_inference_prompt_cost": 1.827e-05,
+   "upstream_inference_completions_cost": 0.00018921
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 640,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 19.73400000000038
+}

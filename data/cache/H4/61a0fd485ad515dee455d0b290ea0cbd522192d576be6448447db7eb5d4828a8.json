@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905023-DLB2G6xOwoc5wHroov5W",
+ "object": "chat.completion",
+ "created": 1789905023,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"ignore_target_file_size_for_partitioned_tables\",\n      \"input_type\": \"DOUBLE\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": \"absent\"\n    ,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"ignore_row_group_size_for_partitioned_tables\",\n      \"input_type\": \"DOUBLE\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": \"absent\",\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The text mentions settings: `ignore_target_file_size_for_partitioned_tables` and `ignore_row_group_size_for_partitioned_tables`. Also mentions `write.target-file-size-bytes` and `write.parquet.row-group-size-bytes` as table properties, but those are not DuckDB configuration settings? They are table properties, not config settings. The instruction: \"Return every configuration setting that this section documents.\" It says a setting is documented when it tells the reader what the setting does, what it accepts, or how to set it. The section includes a sentence: \"Set [`ignore_target_file_size_for_partitioned_tables`]... or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\" That mentions the settings and how to set them. So they are documented. The other two are table properties, not config settings. So we include the two.\n\nWe need to provide for each setting: name, evidence (quote), default (if stated). The section does not state defaults for these settings. So default is absent.\n\nThus JSON array with two objects.\n\nSchema? Not given explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    },\n    ...\n  ]\n}\n\nBut we need to match \"supplied schema\". Not provided in prompt. Usually they expect an array of objects. Could be just list. Let's assume format:\n\n[\n  {\n    \"setting\": \"ignore_target_file_size_for_partitioned_tables\",\n    \"evidence\": \"...\",\n    \"default\": \"absent\"\n  },\n  {\n    \"setting\": \"ignore_row_group_size_for_partitioned_tables\",\n    \"evidence\": \"...\",\n    \"default\": \"absent\"\n  }\n]\n\nBut need to be safe. The instruction: \"Answer only with JSON matching the supplied schema.\" We don't have schema, but typical earlier tasks: {\"settings\": [{\"name\":..., \"evidence\":..., \"default\":...}, ...]}. Let's output that.\n\nWe'll quote the exact span: \"Set [`ignore_target_file_size_for_partitioned_tables`]... or `ignore_row_group_size_for_partitioned_tables` to `true`\". Provide the exact text.\n\nExact quote: \"Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\"\n\nWe need separate evidence for each setting. Could use same quote but include each.\n\nWe'll produce JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The text mentions settings: `ignore_target_file_size_for_partitioned_tables` and `ignore_row_group_size_for_partitioned_tables`. Also mentions `write.target-file-size-bytes` and `write.parquet.row-group-size-bytes` as table properties, but those are not DuckDB configuration settings? They are table properties, not config settings. The instruction: \"Return every configuration setting that this section documents.\" It says a setting is documented when it tells the reader what the setting does, what it accepts, or how to set it. The section includes a sentence: \"Set [`ignore_target_file_size_for_partitioned_tables`]... or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\" That mentions the settings and how to set them. So they are documented. The other two are table properties, not config settings. So we include the two.\n\nWe need to provide for each setting: name, evidence (quote), default (if stated). The section does not state defaults for these settings. So default is absent.\n\nThus JSON array with two objects.\n\nSchema? Not given explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    },\n    ...\n  ]\n}\n\nBut we need to match \"supplied schema\". Not provided in prompt. Usually they expect an array of objects. Could be just list. Let's assume format:\n\n[\n  {\n    \"setting\": \"ignore_target_file_size_for_partitioned_tables\",\n    \"evidence\": \"...\",\n    \"default\": \"absent\"\n  },\n  {\n    \"setting\": \"ignore_row_group_size_for_partitioned_tables\",\n    \"evidence\": \"...\",\n    \"default\": \"absent\"\n  }\n]\n\nBut need to be safe. The instruction: \"Answer only with JSON matching the supplied schema.\" We don't have schema, but typical earlier tasks: {\"settings\": [{\"name\":..., \"evidence\":..., \"default\":...}, ...]}. Let's output that.\n\nWe'll quote the exact span: \"Set [`ignore_target_file_size_for_partitioned_tables`]... or `ignore_row_group_size_for_partitioned_tables` to `true`\". Provide the exact text.\n\nExact quote: \"Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\"\n\nWe need separate evidence for each setting. Could use same quote but include each.\n\nWe'll produce JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 767,
+  "completion_tokens": 800,
+  "total_tokens": 1567,
+  "cost": 0.00015901,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00015901,
+   "upstream_inference_prompt_cost": 2.301e-05,
+   "upstream_inference_completions_cost": 0.000136
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 618,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 17.735000000000582
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789909038-xonSfX3Y4DWOGRWh3V7k",
+ "object": "chat.completion",
+ "created": 1789909038,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allowed_paths\",\n      \"input_type\": \"VARCHAR[]\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"List of files that are ALWAYS allowed to be queried - even when enable_external_access is false\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"[]\",\n      \"default_evidence\": \"`allowed_paths`                               | List of files that are ALWAYS allowed to be queried - even when enable_external_access is false                                                                                                               | `VARCHAR[]` | `[]`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to fix evidence to be at least 12 characters of text copied from the document. The document snippet is a table row: \"`allowed_paths` | List of files ... | `VARCHAR[]` | `[]`\". The evidence should be a span that includes description of setting, maybe the description column. Must be at least 12 characters. Provide a verbatim span from the section. For example: \"List of files that are ALWAYS allowed to be queried - even when enable_external_access is false\". That's >12 characters. Also need default_evidence also at least 12 characters. Provide same or another span: \"`[]`\" is too short. Could use \"Default value: `[]`\" but need verbatim from doc. The table shows default value column with \"`[]`\". That's short. We need a longer span that includes that. Maybe include the whole cell: \"`[]`\". That's still short. Could include surrounding characters: \"Default value`[]`\"? Not in doc. The doc only shows \"`[]`\". The requirement: evidence must be at least 12 characters of text copied from the document. So we need a longer span that includes at least 12 characters. Could include the whole row: \"`allowed_paths`                               | List of files that are ALWAYS allowed to be queried - even when enable_external_access is false                                                                                                               | `VARCHAR[]` | `[]`\". That's >12. Use that as evidence for setting and default_evidence maybe same. But default_evidence should be a span that shows default value. Could use the same row but it's okay. Provide a span that includes the default value and other text, as long as it's verbatim. So set evidence to the description part maybe: \"List of files that are ALWAYS allowed to be queried - even when enable_external_access is false\". That's >12. For default_evidence, we need a span that includes \"`[]`\". Could use the whole row again, but maybe just include the default column with surrounding spaces: \"`[]`\". That's too short. So include something like \"Default value `[]`\". Not in doc. Must be verbatim. The doc shows a table cell with \"`[]`\". That's only 4 characters plus backticks. Not enough. Could include the entire default column cell plus surrounding pipe separators: \"| `[]` |\". That's 7 characters plus spaces maybe. Still less than 12. Need at least 12 characters. Could include the entire line: \"`allowed_paths`                               | List of files that are ALWAYS allowed to be queried - even when enable_external_access is false                                                                                                               | `VARCHAR[]` | `[]`\". That's >12 and includes default. Use that for default_evidence.\n\nThus final JSON: settings array with name, input_type, scope, evidence (description), default_kind, default_value, default_evidence (the row). Ensure proper commas.\n\nCheck schema: fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence? The schema likely expects these fields. The previous answer had extra newline and stray comma. Need proper JSON.\n\nConstruct:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allowed_paths\",\n      \"input_type\": \"VARCHAR[]\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"List of files that are ALWAYS allowed to be queried - even when enable_external_access is false\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"[]\",\n      \"default_evidence\": \"`allowed_paths`                               | List of files that are ALWAYS allowed to be queried - even when enable_external_access is false                                                                                                               | `VARCHAR[]` | `[]`\"\n    }\n  ]\n}\n\nMake sure evidence is verbatim from doc: the description exactly as in table. It includes spaces? The description text is exactly: \"List of files that are ALWAYS allowed to be queried - even when enable_external_access is false\". That matches. Good.\n\nNow output.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to fix evidence to be at least 12 characters of text copied from the document. The document snippet is a table row: \"`allowed_paths` | List of files ... | `VARCHAR[]` | `[]`\". The evidence should be a span that includes description of setting, maybe the description column. Must be at least 12 characters. Provide a verbatim span from the section. For example: \"List of files that are ALWAYS allowed to be queried - even when enable_external_access is false\". That's >12 characters. Also need default_evidence also at least 12 characters. Provide same or another span: \"`[]`\" is too short. Could use \"Default value: `[]`\" but need verbatim from doc. The table shows default value column with \"`[]`\". That's short. We need a longer span that includes that. Maybe include the whole cell: \"`[]`\". That's still short. Could include surrounding characters: \"Default value`[]`\"? Not in doc. The doc only shows \"`[]`\". The requirement: evidence must be at least 12 characters of text copied from the document. So we need a longer span that includes at least 12 characters. Could include the whole row: \"`allowed_paths`                               | List of files that are ALWAYS allowed to be queried - even when enable_external_access is false                                                                                                               | `VARCHAR[]` | `[]`\". That's >12. Use that as evidence for setting and default_evidence maybe same. But default_evidence should be a span that shows default value. Could use the same row but it's okay. Provide a span that includes the default value and other text, as long as it's verbatim. So set evidence to the description part maybe: \"List of files that are ALWAYS allowed to be queried - even when enable_external_access is false\". That's >12. For default_evidence, we need a span that includes \"`[]`\". Could use the whole row again, but maybe just include the default column with surrounding spaces: \"`[]`\". That's too short. So include something like \"Default value `[]`\". Not in doc. Must be verbatim. The doc shows a table cell with \"`[]`\". That's only 4 characters plus backticks. Not enough. Could include the entire default column cell plus surrounding pipe separators: \"| `[]` |\". That's 7 characters plus spaces maybe. Still less than 12. Need at least 12 characters. Could include the entire line: \"`allowed_paths`                               | List of files that are ALWAYS allowed to be queried - even when enable_external_access is false                                                                                                               | `VARCHAR[]` | `[]`\". That's >12 and includes default. Use that for default_evidence.\n\nThus final JSON: settings array with name, input_type, scope, evidence (description), default_kind, default_value, default_evidence (the row). Ensure proper commas.\n\nCheck schema: fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence? The schema likely expects these fields. The previous answer had extra newline and stray comma. Need proper JSON.\n\nConstruct:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allowed_paths\",\n      \"input_type\": \"VARCHAR[]\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"List of files that are ALWAYS allowed to be queried - even when enable_external_access is false\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"[]\",\n      \"default_evidence\": \"`allowed_paths`                               | List of files that are ALWAYS allowed to be queried - even when enable_external_access is false                                                                                                               | `VARCHAR[]` | `[]`\"\n    }\n  ]\n}\n\nMake sure evidence is verbatim from doc: the description exactly as in table. It includes spaces? The description text is exactly: \"List of files that are ALWAYS allowed to be queried - even when enable_external_access is false\". That matches. Good.\n\nNow output.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 801,
+  "completion_tokens": 942,
+  "total_tokens": 1743,
+  "cost": 0.00018417,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 384,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00018417,
+   "upstream_inference_prompt_cost": 2.403e-05,
+   "upstream_inference_completions_cost": 0.00016014
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 1002,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 15.157000000002881
+}

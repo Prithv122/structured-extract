@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789913715-qx2SzL3Ww6ZVGvwLrALm",
+ "object": "chat.completion",
+ "created": 1789913715,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse task. User asks extract DuckDB configuration settings from a single section of DuckDB documentation. But they provided only a list of links? Actually message contains bullet list with links to docs, not a section? Need infer maybe they want from \"Configuration\" section? The prompt says \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" Then provides text: \"* [Handle Results](...)\" etc. This is likely a section? It is a \"See also\" list? Need identify configuration settings documented in this section. The section includes links to other pages, mentions `preserve_insertion_order` option. Need decide if this section documents a DuckDB configuration setting? It says \"Configuration — the `preserve_insertion_order` option that parallel table functions may require.\" That is a mention of a setting name, but not documenting it? The instruction: \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting.\" Here `preserve_insertion_order` is a DuckDB setting? It is a configuration option. But the section is just a bullet link to Configuration overview, saying \"the `preserve_insertion_order` option that parallel table functions may require.\" Is that documenting the setting? It doesn't give type, description, default. It just mentions it in a link description. The task: \"For each setting, quote a span of the section verbatim as evidence. Copy the characters exactly as they appear. ... Also report the setting's default, but only if this section states it.\" This section does not state default. It only mentions the option. Is that enough to include? The instruction says \"Do not return a setting merely because the section contains a word that happens to be a setting name.\" But here it's not merely a word; it's explicitly named as an option. However, is it \"documenting\" the setting? The section is a list of related links, not a configuration settings table. It says \"Configuration — the `preserve_insertion_order` option that parallel table functions may require.\" That is a reference to a setting, not documentation of the setting itself. The correct answer likely empty list because this section does not document configuration settings; it's a \"See also\" list. Need output JSON with empty list? Need know schema. User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need infer likely schema: maybe {\"settings\": [{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]}. Need produce empty list. But need be careful: The prompt says \"If the section documents those, the correct answer is an empty list, even when the section is long and every row looks like a setting.\" Here section is short and not a table. It mentions `preserve_insertion_order` but not documenting. So empty list.\n\nNeed output JSON only. Could be {\"settings\": []}. But maybe schema includes \"settings\" array. We'll output that.\n\nNeed ensure no extra text.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse task. User asks extract DuckDB configuration settings from a single section of DuckDB documentation. But they provided only a list of links? Actually message contains bullet list with links to docs, not a section? Need infer maybe they want from \"Configuration\" section? The prompt says \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" Then provides text: \"* [Handle Results](...)\" etc. This is likely a section? It is a \"See also\" list? Need identify configuration settings documented in this section. The section includes links to other pages, mentions `preserve_insertion_order` option. Need decide if this section documents a DuckDB configuration setting? It says \"Configuration — the `preserve_insertion_order` option that parallel table functions may require.\" That is a mention of a setting name, but not documenting it? The instruction: \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting.\" Here `preserve_insertion_order` is a DuckDB setting? It is a configuration option. But the section is just a bullet link to Configuration overview, saying \"the `preserve_insertion_order` option that parallel table functions may require.\" Is that documenting the setting? It doesn't give type, description, default. It just mentions it in a link description. The task: \"For each setting, quote a span of the section verbatim as evidence. Copy the characters exactly as they appear. ... Also report the setting's default, but only if this section states it.\" This section does not state default. It only mentions the option. Is that enough to include? The instruction says \"Do not return a setting merely because the section contains a word that happens to be a setting name.\" But here it's not merely a word; it's explicitly named as an option. However, is it \"documenting\" the setting? The section is a list of related links, not a configuration settings table. It says \"Configuration — the `preserve_insertion_order` option that parallel table functions may require.\" That is a reference to a setting, not documentation of the setting itself. The correct answer likely empty list because this section does not document configuration settings; it's a \"See also\" list. Need output JSON with empty list? Need know schema. User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need infer likely schema: maybe {\"settings\": [{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]}. Need produce empty list. But need be careful: The prompt says \"If the section documents those, the correct answer is an empty list, even when the section is long and every row looks like a setting.\" Here section is short and not a table. It mentions `preserve_insertion_order` but not documenting. So empty list.\n\nNeed output JSON only. Could be {\"settings\": []}. But maybe schema includes \"settings\" array. We'll output that.\n\nNeed ensure no extra text.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 640,
+  "completion_tokens": 671,
+  "total_tokens": 1311,
+  "cost": 0.00244705,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00244705,
+   "upstream_inference_prompt_cost": 0.000736,
+   "upstream_inference_completions_cost": 0.00171105
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 803,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 16.20300000000134
+}

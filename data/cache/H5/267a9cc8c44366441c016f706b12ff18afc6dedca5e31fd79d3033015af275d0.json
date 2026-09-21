@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789911295-GIAzGtZeNonGoPRClTpv",
+ "object": "chat.completion",
+ "created": 1789911295,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"delta_kernel_logging\",\"input_type\":\"BOOLEAN\",\"scope\": \"GLOBAL\", \"evidence\":\"Forward the internal logging of the [Delta Kernel](https://github.com/delta-incubator/delta-kernel-rs) to the DuckDB logger.\",\"default_kind\":\"literal\",\"default_value\":\"false\",\"default_evidence\":\"`false`\"},{\"name\":\"delta_scan_explain_files_filtered\",\"input_type\":\"BOOLEAN\",\"scope\": \"GLOBAL\", \"evidence\":\"Add the filtered files to the `EXPLAIN` output.\",\"default_kind\":\"literal\",\"default_value\":\"true\",\"default_evidence\":\"`true`\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 435,
+  "completion_tokens": 129,
+  "total_tokens": 564,
+  "cost": 6.4875e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.4875e-05,
+   "upstream_inference_prompt_cost": 3.2625e-05,
+   "upstream_inference_completions_cost": 3.225e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 15.8279999999977
+}

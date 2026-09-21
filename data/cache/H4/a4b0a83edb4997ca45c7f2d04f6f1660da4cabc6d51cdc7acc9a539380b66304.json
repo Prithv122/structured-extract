@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905288-4zyqpKaHPMXH8dH4fnAq",
+ "object": "chat.completion",
+ "created": 1789905288,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"default_secret_storage\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`default_secret_storage`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"local_file\"\n   \n    , \"default_evidence\": \"`local_file`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with one setting: `default_secret_storage`. We need to output JSON with each setting, evidence quote, and default (if stated). The table includes description, type, default value. So we have one setting.\n\nWe need to follow schema. The schema is not explicitly given, but we can infer: likely an array of objects with fields: \"setting\", \"evidence\", \"default\". Possibly also \"type\". But instructions: \"Return every configuration setting that this section documents. For each setting, quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it.\" So JSON likely like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"default_secret_storage\",\n      \"evidence\": \"`default_secret_storage` ...\",\n      \"default\": \"local_file\"\n    }\n  ]\n}\n\nBut need to match supplied schema. Not provided. We need to guess typical schema used in previous tasks: maybe:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"default_secret_storage\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"local_file\",\n      \"description\": \"Allows switching the default storage for secrets\",\n      \"evidence\": \"`default_secret_storage`\"\n    }\n  ]\n}\n\nBut instructions only require name, evidence, default. Let's assume schema:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\n\nWe'll include default as string. Provide evidence as verbatim span. The evidence could be the row entry: \"`default_secret_storage`\". Or the description line. Provide a quote: \"`default_secret_storage`\". That is a span. Or the whole row: \"`default_secret_storage` | Allows switching the default storage for secrets\". Use a short span.\n\nThus output JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with one setting: `default_secret_storage`. We need to output JSON with each setting, evidence quote, and default (if stated). The table includes description, type, default value. So we have one setting.\n\nWe need to follow schema. The schema is not explicitly given, but we can infer: likely an array of objects with fields: \"setting\", \"evidence\", \"default\". Possibly also \"type\". But instructions: \"Return every configuration setting that this section documents. For each setting, quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it.\" So JSON likely like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"default_secret_storage\",\n      \"evidence\": \"`default_secret_storage` ...\",\n      \"default\": \"local_file\"\n    }\n  ]\n}\n\nBut need to match supplied schema. Not provided. We need to guess typical schema used in previous tasks: maybe:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"default_secret_storage\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"local_file\",\n      \"description\": \"Allows switching the default storage for secrets\",\n      \"evidence\": \"`default_secret_storage`\"\n    }\n  ]\n}\n\nBut instructions only require name, evidence, default. Let's assume schema:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\n\nWe'll include default as string. Provide evidence as verbatim span. The evidence could be the row entry: \"`default_secret_storage`\". Or the description line. Provide a quote: \"`default_secret_storage`\". That is a span. Or the whole row: \"`default_secret_storage` | Allows switching the default storage for secrets\". Use a short span.\n\nThus output JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 422,
+  "completion_tokens": 498,
+  "total_tokens": 920,
+  "cost": 9.732e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.732e-05,
+   "upstream_inference_prompt_cost": 1.266e-05,
+   "upstream_inference_completions_cost": 8.466e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 464,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 13.217999999997119
+}

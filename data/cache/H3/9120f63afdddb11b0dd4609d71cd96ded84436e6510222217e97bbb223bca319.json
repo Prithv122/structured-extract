@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789918227-uab9y92OIwjuflx5UQHK",
+ "object": "chat.completion",
+ "created": 1789918227,
+ "model": "openai/gpt-4.1-nano",
+ "provider": "OpenAI",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "completed",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"threads\",\"input_type\":\"INTEGER\",\"scope\":\"GLOBAL\",\"evidence\":\"SET threads = ⟨lower_than_the_number_of_available_threads⟩;\",\"default_kind\":\"absent\",\"default_value\":null,\"default_evidence\":null},{\"name\":\"memory_limit\",\"input_type\":\"VARCHAR\",\"scope\":\"GLOBAL\",\"evidence\":\"SET memory_limit = ⟨lower_than_80%_of_system_memory⟩;\",\"default_kind\":\"absent\",\"default_value\":null,\"default_evidence\":null},{\"name\":\"preserve_insertion_order\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"SET preserve_insertion_order = false;\",\"default_kind\":\"absent\",\"default_value\":null,\"default_evidence\":null}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1180,
+  "completion_tokens": 158,
+  "total_tokens": 1338,
+  "cost": 0.0001812,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0001812,
+   "upstream_inference_prompt_cost": 0.000118,
+   "upstream_inference_completions_cost": 6.32e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 1.9689999999973224
+}

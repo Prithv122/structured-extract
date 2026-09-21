@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789894475-G3eM8TcmhH6CYnybtCOc",
+ "object": "chat.completion",
+ "created": 1789894475,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": \"By default, jemalloc's background threads are disabled.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"evidence\": \"SET allocator_background_threads = true;\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"allocator_background_threads\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. It documents setting allocator_background_threads. Need quote verbatim. Default? It says \"By default, jemalloc's background threads are disabled.\" That states default disabled? For setting allocator_background_threads default false? It says by default jemalloc's background threads are disabled. To enable them use SET allocator_background_threads=true. So default is disabled/false. Need quote for default: \"By default, jemalloc's background threads are disabled.\" Is that concrete? It says disabled. We can report default \"disabled\" or false? The setting is boolean. Section states default disabled. Need quote. Also setting quote maybe \"allocator_background_threads\" from SQL. Need include evidence. JSON schema? Not provided but likely list of objects with setting, evidence, default, default_evidence? Need infer. User says \"Answer only with JSON matching supplied schema.\" But no schema in prompt. We need produce JSON with fields. Need maybe include setting, evidence, default, default_evidence, default_machine_dependent? Let's craft sensible.\n\nNeed only one setting. Ensure no other settings? The section mentions \"background threads\" but not setting. Only allocator_background_threads. Need quote exact: \"SET allocator_background_threads = true;\" maybe includes setting. Evidence quote can be \"To enable them, use the following configuration option:\\n\\n```sql\\nSET allocator_background_threads = true;\\n```\" But quote span verbatim. Need maybe include just \"allocator_background_threads\" from code. But evidence should quote a span of section verbatim. We can quote the sentence: \"To enable them, use the following configuration option: SET allocator_background_threads = true;\" But code block has newline. Need exact characters. We can quote \"SET allocator_background_threads = true;\" as evidence. That's verbatim. Default evidence: \"By default, jemalloc's background threads are disabled.\" Need report default: false/disabled. Since setting is boolean, default false. But section says disabled. We can say default: \"false\" maybe with quote. But if schema expects string? Need decide.\n\nLet's produce JSON:\n{\n  \"settings\": [\n    {\n      \"setting\": \"allocator_background_threads\",\n      \"evidence\": \"SET allocator_background_threads = true;\",\n      \"default\": \"false\",\n      \"default_evidence\": \"By default, jemalloc's background threads are disabled.\",\n      \"default_machine_dependent\": false\n    }\n  ]\n}\n\nNeed maybe \"default\" as \"disabled\" not false? The setting accepts boolean, default false. But quote says disabled. The instruction: \"If the section gives a concrete value, that is a literal default.\" Disabled is concrete? It is a state. Could report \"disabled\" or false. Since setting is boolean, false is literal. But to avoid guessing? It says \"By default ... disabled\" clearly means false. I'll report default: false. But maybe \"disabled\" is more verbatim. Hmm.\n\nNeed ensure no extra text. Final only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. It documents setting allocator_background_threads. Need quote verbatim. Default? It says \"By default, jemalloc's background threads are disabled.\" That states default disabled? For setting allocator_background_threads default false? It says by default jemalloc's background threads are disabled. To enable them use SET allocator_background_threads=true. So default is disabled/false. Need quote for default: \"By default, jemalloc's background threads are disabled.\" Is that concrete? It says disabled. We can report default \"disabled\" or false? The setting is boolean. Section states default disabled. Need quote. Also setting quote maybe \"allocator_background_threads\" from SQL. Need include evidence. JSON schema? Not provided but likely list of objects with setting, evidence, default, default_evidence? Need infer. User says \"Answer only with JSON matching supplied schema.\" But no schema in prompt. We need produce JSON with fields. Need maybe include setting, evidence, default, default_evidence, default_machine_dependent? Let's craft sensible.\n\nNeed only one setting. Ensure no other settings? The section mentions \"background threads\" but not setting. Only allocator_background_threads. Need quote exact: \"SET allocator_background_threads = true;\" maybe includes setting. Evidence quote can be \"To enable them, use the following configuration option:\\n\\n```sql\\nSET allocator_background_threads = true;\\n```\" But quote span verbatim. Need maybe include just \"allocator_background_threads\" from code. But evidence should quote a span of section verbatim. We can quote the sentence: \"To enable them, use the following configuration option: SET allocator_background_threads = true;\" But code block has newline. Need exact characters. We can quote \"SET allocator_background_threads = true;\" as evidence. That's verbatim. Default evidence: \"By default, jemalloc's background threads are disabled.\" Need report default: false/disabled. Since setting is boolean, default false. But section says disabled. We can say default: \"false\" maybe with quote. But if schema expects string? Need decide.\n\nLet's produce JSON:\n{\n  \"settings\": [\n    {\n      \"setting\": \"allocator_background_threads\",\n      \"evidence\": \"SET allocator_background_threads = true;\",\n      \"default\": \"false\",\n      \"default_evidence\": \"By default, jemalloc's background threads are disabled.\",\n      \"default_machine_dependent\": false\n    }\n  ]\n}\n\nNeed maybe \"default\" as \"disabled\" not false? The setting accepts boolean, default false. But quote says disabled. The instruction: \"If the section gives a concrete value, that is a literal default.\" Disabled is concrete? It is a state. Could report \"disabled\" or false. Since setting is boolean, false is literal. But to avoid guessing? It says \"By default ... disabled\" clearly means false. I'll report default: false. But maybe \"disabled\" is more verbatim. Hmm.\n\nNeed ensure no extra text. Final only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 465,
+  "completion_tokens": 761,
+  "total_tokens": 1226,
+  "cost": 0.0024753,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0024753,
+   "upstream_inference_prompt_cost": 0.00053475,
+   "upstream_inference_completions_cost": 0.00194055
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 749,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 17.110000000000582
+}

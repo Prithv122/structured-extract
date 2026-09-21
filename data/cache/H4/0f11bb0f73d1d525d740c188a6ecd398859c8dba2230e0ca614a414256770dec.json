@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789922361-6dwLCioHsmuUC56HQpur",
+ "object": "chat.completion",
+ "created": 1789922361,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"s3_allow_recursive_globbing\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`s3_allow_recursive_globbing`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\",\n      \"default_evidence\": \"`true`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section. The user provided a table with one row: Name `s3_allow_recursive_globbing`, description, type BOOLEAN, default true.\n\nWe need to determine if this is a DuckDB configuration setting. The description mentions S3-like storage. Is this a DuckDB setting? I think DuckDB has a setting `s3_allow_recursive_globbing` maybe part of S3 configuration. It seems plausible it's a configuration setting (set via SET). The user gave a table of \"Global Configuration Options\". So likely it's a config setting.\n\nThus we need to output JSON with list of settings. Schema? Not provided explicitly but we can infer: probably something like [{\"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"description\": \"...\", \"evidence\": \"...\"}] but need to check. The instruction: \"Answer only with JSON matching the supplied schema.\" But no schema given in prompt. Possibly earlier context? Not provided. We need to guess typical schema: maybe {\"settings\": [{\"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"description\": \"...\", \"evidence\": \"...\"}]}. However we must be careful.\n\nGiven typical tasks, they expect something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"s3_allow_recursive_globbing\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"true\",\n      \"description\": \"Whether globs on S3-like storage are optimized with recursive strategy (alterative is listing)\",\n      \"evidence\": \"`s3_allow_recursive_globbing`\"\n    }\n  ]\n}\n\nBut they require quoting a span of the section verbatim as evidence for each setting. So we need a \"evidence\" field containing the quoted span. Could be the name cell or the whole row. Provide a quote exactly as appears: \"`s3_allow_recursive_globbing`\". Or maybe the whole row: \"`s3_allow_recursive_globbing`\". We'll include that.\n\nWe also need to include default only if section states it. It does: `true`. So default is \"true\". Provide as string.\n\nThus produce JSON.\n\nI'll output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"s3_allow_recursive_globbing\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"true\",\n      \"description\": \"Whether globs on S3-like storage are optimized with recursive strategy (alterative is listing)\",\n      \"evidence\": \"`s3_allow_recursive_globbing`\"\n    }\n  ]\n}\n\nMake sure JSON is valid.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section. The user provided a table with one row: Name `s3_allow_recursive_globbing`, description, type BOOLEAN, default true.\n\nWe need to determine if this is a DuckDB configuration setting. The description mentions S3-like storage. Is this a DuckDB setting? I think DuckDB has a setting `s3_allow_recursive_globbing` maybe part of S3 configuration. It seems plausible it's a configuration setting (set via SET). The user gave a table of \"Global Configuration Options\". So likely it's a config setting.\n\nThus we need to output JSON with list of settings. Schema? Not provided explicitly but we can infer: probably something like [{\"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"description\": \"...\", \"evidence\": \"...\"}] but need to check. The instruction: \"Answer only with JSON matching the supplied schema.\" But no schema given in prompt. Possibly earlier context? Not provided. We need to guess typical schema: maybe {\"settings\": [{\"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"description\": \"...\", \"evidence\": \"...\"}]}. However we must be careful.\n\nGiven typical tasks, they expect something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"s3_allow_recursive_globbing\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"true\",\n      \"description\": \"Whether globs on S3-like storage are optimized with recursive strategy (alterative is listing)\",\n      \"evidence\": \"`s3_allow_recursive_globbing`\"\n    }\n  ]\n}\n\nBut they require quoting a span of the section verbatim as evidence for each setting. So we need a \"evidence\" field containing the quoted span. Could be the name cell or the whole row. Provide a quote exactly as appears: \"`s3_allow_recursive_globbing`\". Or maybe the whole row: \"`s3_allow_recursive_globbing`\". We'll include that.\n\nWe also need to include default only if section states it. It does: `true`. So default is \"true\". Provide as string.\n\nThus produce JSON.\n\nI'll output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"s3_allow_recursive_globbing\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"true\",\n      \"description\": \"Whether globs on S3-like storage are optimized with recursive strategy (alterative is listing)\",\n      \"evidence\": \"`s3_allow_recursive_globbing`\"\n    }\n  ]\n}\n\nMake sure JSON is valid.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 566,
+  "completion_tokens": 632,
+  "total_tokens": 1198,
+  "cost": 0.00012442,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00012442,
+   "upstream_inference_prompt_cost": 1.698e-05,
+   "upstream_inference_completions_cost": 0.00010744
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 580,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 58.42199999999866
+}

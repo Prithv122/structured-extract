@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789914432-qHwgUNjXOCZXVFzmiiAY",
+ "object": "chat.completion",
+ "created": 1789914432,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need produce likely list of settings with name, evidence, default. Need parse section. The section is \"The following configuration options are available:\" table. But these are options for test runner? It includes `--settings` set DuckDB configuration. The question: extract DuckDB configuration settings from single section. A configuration setting is one you change with SET, RESET or PRAGMA, applies to database instance/connection. The table documents command-line options for sqllogictest runner? Not DuckDB config settings. Need return empty list. Need be careful: The section includes `--settings <list[struct]>` Set DuckDB configuration, but that's an option of test runner, not a DuckDB setting. None are DuckDB configuration settings. So answer empty list.\n\nNeed output JSON matching schema. Since no schema, likely something like {\"settings\": []} or maybe array. Need infer from instruction \"For each setting, quote...\" \"Answer only with JSON matching supplied schema.\" Could be expected schema with properties. We need maybe output `[]`? Hmm.\n\nWe need decide. The prompt says \"Answer only with JSON matching the supplied schema.\" But no schema in visible. In these tasks, likely expected JSON object with \"settings\": [ ... ]. Need maybe include empty list. We can output `{\"settings\": []}`. But if schema is array? Let's examine wording: \"For each setting, quote a span...\" \"Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" The supplied schema not shown. Could be from benchmark: maybe schema is:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nNeed produce that. Since no settings, `{\"settings\": []}`.\n\nNeed ensure no extra text. Final only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need produce likely list of settings with name, evidence, default. Need parse section. The section is \"The following configuration options are available:\" table. But these are options for test runner? It includes `--settings` set DuckDB configuration. The question: extract DuckDB configuration settings from single section. A configuration setting is one you change with SET, RESET or PRAGMA, applies to database instance/connection. The table documents command-line options for sqllogictest runner? Not DuckDB config settings. Need return empty list. Need be careful: The section includes `--settings <list[struct]>` Set DuckDB configuration, but that's an option of test runner, not a DuckDB setting. None are DuckDB configuration settings. So answer empty list.\n\nNeed output JSON matching schema. Since no schema, likely something like {\"settings\": []} or maybe array. Need infer from instruction \"For each setting, quote...\" \"Answer only with JSON matching supplied schema.\" Could be expected schema with properties. We need maybe output `[]`? Hmm.\n\nWe need decide. The prompt says \"Answer only with JSON matching the supplied schema.\" But no schema in visible. In these tasks, likely expected JSON object with \"settings\": [ ... ]. Need maybe include empty list. We can output `{\"settings\": []}`. But if schema is array? Let's examine wording: \"For each setting, quote a span...\" \"Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" The supplied schema not shown. Could be from benchmark: maybe schema is:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nNeed produce that. Since no settings, `{\"settings\": []}`.\n\nNeed ensure no extra text. Final only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1773,
+  "completion_tokens": 420,
+  "total_tokens": 2193,
+  "cost": 0.00286675,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00286675,
+   "upstream_inference_prompt_cost": 0.00179575,
+   "upstream_inference_completions_cost": 0.001071
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 484,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 12.764999999999418
+}

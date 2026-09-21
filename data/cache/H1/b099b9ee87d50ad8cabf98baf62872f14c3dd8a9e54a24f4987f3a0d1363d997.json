@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789893863-kPilsDaMUWaeredB2LSs",
+ "object": "chat.completion",
+ "created": 1789893863,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": \"default: 100\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"100\",\n      \"evidence\": \"To limit the maximum number of files the system can keep open before flushing to disk when writing using `PARTITION_BY`, use the `partitioned_write_max_open_files` configuration option (default: 100):\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"partitioned_write_max_open_files\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need extract settings documented in section. Need identify configuration settings. Section text: about COPY PARTITION_BY, mentions `partitioned_write_max_open_files` configuration option default 100, SET example. That is documented setting. Need quote verbatim span. Also default stated: 100. Need output schema? User says answer only JSON matching supplied schema. We don't have schema in prompt? Need infer likely: list of settings with name, evidence, default? Need produce JSON. Need be careful: \"Return every configuration setting that this section documents.\" Only one: partitioned_write_max_open_files. Need quote exact: \"use the `partitioned_write_max_open_files` configuration option (default: 100)\" maybe include. Default: \"100\" literal. Need maybe setting name. JSON maybe array of objects. Need include default quote? They ask \"Also report the setting's default, but only if this section states it. ... A stated default must be backed by a verbatim quote in the same way the setting itself is.\" So include default_evidence maybe. Need schema unknown. We can output:\n{\n  \"settings\": [\n    {\n      \"name\": \"partitioned_write_max_open_files\",\n      \"evidence\": \"To limit the maximum number of files the system can keep open before flushing to disk when writing using `PARTITION_BY`, use the `partitioned_write_max_open_files` configuration option (default: 100):\",\n      \"default\": \"100\",\n      \"default_evidence\": \"default: 100\"\n    }\n  ]\n}\nNeed ensure quote exact. The text: \"To limit the maximum number of files the system can keep open before flushing to disk when writing using `PARTITION_BY`, use the `partitioned_write_max_open_files` configuration option (default: 100):\" Yes. Default quote maybe \"(default: 100)\" or \"default: 100\". Need exact characters. Could include \"default: 100\" from parenthetical. The default is literal 100. Need maybe \"default\": \"100\" as string. If schema expects default maybe string or number? They said \"If section gives a concrete value, that is a literal default.\" Could be number 100. But JSON can have number. Need maybe include \"default_value\": 100? Hmm.\n\nNeed think about possible other settings? The section mentions `PARTITION_BY` clause, `COPY` statement, Hive partitioned, `partitioned_write_max_open_files`. Only config option. \"Bestpractice\" no setting. So one.\n\nNeed answer only JSON. Ensure no markdown. Use valid JSON. Could include exactly:\n{\n  \"settings\": [\n    {\n      \"name\": \"partitioned_write_max_open_files\",\n      \"evidence\": \"To limit the maximum number of files the system can keep open before flushing to disk when writing using `PARTITION_BY`, use the `partitioned_write_max_open_files` configuration option (default: 100):\",\n      \"default\": \"100\",\n      \"default_evidence\": \"default: 100\"\n    }\n  ]\n}\nNeed maybe \"default\" as string \"100\" because quote. But if schema says default maybe string? We don't know. Could use number 100? They said \"If the section gives a concrete value, that is a literal default.\" Literal default could be numeric. But \"default: 100\" is concrete. I'd use string to preserve? Hmm.\n\nNeed maybe include \"default_evidence\" not requested? They asked \"A stated default must be backed by a verbatim quote in the same way the setting itself is.\" So include evidence for default. Could be \"default_evidence\". If schema unknown, maybe they expect fields: setting, evidence, default, default_evidence. We can include.\n\nNeed ensure no extra text. Final only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need extract settings documented in section. Need identify configuration settings. Section text: about COPY PARTITION_BY, mentions `partitioned_write_max_open_files` configuration option default 100, SET example. That is documented setting. Need quote verbatim span. Also default stated: 100. Need output schema? User says answer only JSON matching supplied schema. We don't have schema in prompt? Need infer likely: list of settings with name, evidence, default? Need produce JSON. Need be careful: \"Return every configuration setting that this section documents.\" Only one: partitioned_write_max_open_files. Need quote exact: \"use the `partitioned_write_max_open_files` configuration option (default: 100)\" maybe include. Default: \"100\" literal. Need maybe setting name. JSON maybe array of objects. Need include default quote? They ask \"Also report the setting's default, but only if this section states it. ... A stated default must be backed by a verbatim quote in the same way the setting itself is.\" So include default_evidence maybe. Need schema unknown. We can output:\n{\n  \"settings\": [\n    {\n      \"name\": \"partitioned_write_max_open_files\",\n      \"evidence\": \"To limit the maximum number of files the system can keep open before flushing to disk when writing using `PARTITION_BY`, use the `partitioned_write_max_open_files` configuration option (default: 100):\",\n      \"default\": \"100\",\n      \"default_evidence\": \"default: 100\"\n    }\n  ]\n}\nNeed ensure quote exact. The text: \"To limit the maximum number of files the system can keep open before flushing to disk when writing using `PARTITION_BY`, use the `partitioned_write_max_open_files` configuration option (default: 100):\" Yes. Default quote maybe \"(default: 100)\" or \"default: 100\". Need exact characters. Could include \"default: 100\" from parenthetical. The default is literal 100. Need maybe \"default\": \"100\" as string. If schema expects default maybe string or number? They said \"If section gives a concrete value, that is a literal default.\" Could be number 100. But JSON can have number. Need maybe include \"default_value\": 100? Hmm.\n\nNeed think about possible other settings? The section mentions `PARTITION_BY` clause, `COPY` statement, Hive partitioned, `partitioned_write_max_open_files`. Only config option. \"Bestpractice\" no setting. So one.\n\nNeed answer only JSON. Ensure no markdown. Use valid JSON. Could include exactly:\n{\n  \"settings\": [\n    {\n      \"name\": \"partitioned_write_max_open_files\",\n      \"evidence\": \"To limit the maximum number of files the system can keep open before flushing to disk when writing using `PARTITION_BY`, use the `partitioned_write_max_open_files` configuration option (default: 100):\",\n      \"default\": \"100\",\n      \"default_evidence\": \"default: 100\"\n    }\n  ]\n}\nNeed maybe \"default\" as string \"100\" because quote. But if schema says default maybe string? We don't know. Could use number 100? They said \"If the section gives a concrete value, that is a literal default.\" Literal default could be numeric. But \"default: 100\" is concrete. I'd use string to preserve? Hmm.\n\nNeed maybe include \"default_evidence\" not requested? They asked \"A stated default must be backed by a verbatim quote in the same way the setting itself is.\" So include evidence for default. Could be \"default_evidence\". If schema unknown, maybe they expect fields: setting, evidence, default, default_evidence. We can include.\n\nNeed ensure no extra text. Final only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 733,
+  "completion_tokens": 922,
+  "total_tokens": 1655,
+  "cost": 0.00319405,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00319405,
+   "upstream_inference_prompt_cost": 0.00084295,
+   "upstream_inference_completions_cost": 0.0023511
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 878,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 23.45299999999952
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789896300-iu66uiavswV0wjdiYPL2",
+ "object": "chat.completion",
+ "created": 1789896300,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"When using the SQLAlchemy connection, make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.\",\n      \"input_type\": \"BOOLEAN\",\n      \"name\": \"python_scan_all_frames\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. The user provided a section from DuckDB documentation? It seems about Jupyter notebooks querying dataframes. Need extract configuration settings documented. The section mentions `%sql SET python_scan_all_frames=true` in warning. Is that a DuckDB configuration setting? Need determine. The instruction: Return every configuration setting that this section documents. A section documents a setting when it tells reader what setting does, what it accepts, or how to set it. Here it says \"make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.\" That tells how to set it and what it does (makes Pandas dataframes queryable). So setting name `python_scan_all_frames`. Need quote verbatim. Default? Section does not state default. So absent.\n\nNeed output JSON matching schema. We need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need produce likely schema with settings array? Need decide. We can output something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"python_scan_all_frames\",\n      \"evidence\": \"When using the SQLAlchemy connection, make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.\",\n      \"default\": null\n    }\n  ]\n}\nBut need ensure default absent maybe \"absent\" string? The instruction says \"If the section does not state a default, say it is absent\". In JSON maybe \"default\": \"absent\" or null? Need match schema. Since no schema, we can use \"default\": null? But \"say it is absent\" suggests string \"absent\". Need maybe include \"default\": \"absent\". Let's think.\n\nThe user says \"Also report the setting's default, but only if this section states it. ... If the section does not state a default, say it is absent; do not fill it in...\" So in JSON, we can use \"default\": \"absent\" or null. The phrase \"say it is absent\" means value should be \"absent\". I'll use \"default\": \"absent\". But maybe schema expects null? Hmm.\n\nNeed maybe include only one setting. Let's ensure no other settings. The section includes `%sql SET python_scan_all_frames=true`. That's a SET command. It is a DuckDB configuration setting? Yes, `python_scan_all_frames` is a setting. The section documents it by telling to set it. So include.\n\nNeed quote exactly: \"When using the SQLAlchemy connection, make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.\" Note the original has \"> Warning When using...\" The quote should be from section verbatim. We can quote the sentence without the blockquote marker? The instruction says quote a span of the section verbatim. Copy characters exactly as they appear. The section text includes \"> Warning When using the SQLAlchemy connection, make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.\" The \">\" is markdown blockquote, but it's part of text? We can include from \"When using...\" to \"queryable.\" That is verbatim span. It excludes \"> Warning \" but that's okay. Need maybe include the whole warning line? The setting is documented in that sentence. I'll quote: \"When using the SQLAlchemy connection, make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.\" That's exact.\n\nNeed output only JSON. No markdown. Ensure valid JSON.\n\nPotential issue: The setting name might be `python_scan_all_frames` but the command is `SET python_scan_all_frames=true`. We should report setting name as `python_scan_all_frames`. Evidence includes the command.\n\nLet's craft final JSON:\n{\n  \"settings\": [\n    {\n      \"name\": \"python_scan_all_frames\",\n      \"evidence\": \"When using the SQLAlchemy connection, make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nNeed maybe include \"default\": null? The instruction says \"say it is absent\". I'll use string \"absent\". If schema expects null, maybe not. But no schema. Could use \"default\": null and maybe \"default_stated\": false? But user specifically says \"say it is absent\". So \"absent\" is clear.\n\nLet's final.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. The user provided a section from DuckDB documentation? It seems about Jupyter notebooks querying dataframes. Need extract configuration settings documented. The section mentions `%sql SET python_scan_all_frames=true` in warning. Is that a DuckDB configuration setting? Need determine. The instruction: Return every configuration setting that this section documents. A section documents a setting when it tells reader what setting does, what it accepts, or how to set it. Here it says \"make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.\" That tells how to set it and what it does (makes Pandas dataframes queryable). So setting name `python_scan_all_frames`. Need quote verbatim. Default? Section does not state default. So absent.\n\nNeed output JSON matching schema. We need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need produce likely schema with settings array? Need decide. We can output something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"python_scan_all_frames\",\n      \"evidence\": \"When using the SQLAlchemy connection, make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.\",\n      \"default\": null\n    }\n  ]\n}\nBut need ensure default absent maybe \"absent\" string? The instruction says \"If the section does not state a default, say it is absent\". In JSON maybe \"default\": \"absent\" or null? Need match schema. Since no schema, we can use \"default\": null? But \"say it is absent\" suggests string \"absent\". Need maybe include \"default\": \"absent\". Let's think.\n\nThe user says \"Also report the setting's default, but only if this section states it. ... If the section does not state a default, say it is absent; do not fill it in...\" So in JSON, we can use \"default\": \"absent\" or null. The phrase \"say it is absent\" means value should be \"absent\". I'll use \"default\": \"absent\". But maybe schema expects null? Hmm.\n\nNeed maybe include only one setting. Let's ensure no other settings. The section includes `%sql SET python_scan_all_frames=true`. That's a SET command. It is a DuckDB configuration setting? Yes, `python_scan_all_frames` is a setting. The section documents it by telling to set it. So include.\n\nNeed quote exactly: \"When using the SQLAlchemy connection, make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.\" Note the original has \"> Warning When using...\" The quote should be from section verbatim. We can quote the sentence without the blockquote marker? The instruction says quote a span of the section verbatim. Copy characters exactly as they appear. The section text includes \"> Warning When using the SQLAlchemy connection, make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.\" The \">\" is markdown blockquote, but it's part of text? We can include from \"When using...\" to \"queryable.\" That is verbatim span. It excludes \"> Warning \" but that's okay. Need maybe include the whole warning line? The setting is documented in that sentence. I'll quote: \"When using the SQLAlchemy connection, make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.\" That's exact.\n\nNeed output only JSON. No markdown. Ensure valid JSON.\n\nPotential issue: The setting name might be `python_scan_all_frames` but the command is `SET python_scan_all_frames=true`. We should report setting name as `python_scan_all_frames`. Evidence includes the command.\n\nLet's craft final JSON:\n{\n  \"settings\": [\n    {\n      \"name\": \"python_scan_all_frames\",\n      \"evidence\": \"When using the SQLAlchemy connection, make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nNeed maybe include \"default\": null? The instruction says \"say it is absent\". I'll use string \"absent\". If schema expects null, maybe not. But no schema. Could use \"default\": null and maybe \"default_stated\": false? But user specifically says \"say it is absent\". So \"absent\" is clear.\n\nLet's final.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 501,
+  "completion_tokens": 1086,
+  "total_tokens": 1587,
+  "cost": 0.00334545,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00334545,
+   "upstream_inference_prompt_cost": 0.00057615,
+   "upstream_inference_completions_cost": 0.0027693
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 1047,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 22.01599999999962
+}

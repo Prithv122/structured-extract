@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789923253-jnBmMg49J0p3FZgCuvdE",
+ "object": "chat.completion",
+ "created": 1789923253,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"preserve_insertion_order\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"Preservation of insertion order is controlled by the `preserve_insertion_order` [configuration option]({% link docs/current/configuration/overview.md %}).\\nThis setting is `true` by default, indicating that the order should be preserved.\",\"default_kind\":\"literal\",\"default_value\":\"true\",\"default_evidence\":\"This setting is `true` by default, indicating that the order should be preserved.\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 593,
+  "completion_tokens": 107,
+  "total_tokens": 700,
+  "cost": 7.1225e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.1225e-05,
+   "upstream_inference_prompt_cost": 4.4475e-05,
+   "upstream_inference_completions_cost": 2.675e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 3.014999999999418
+}

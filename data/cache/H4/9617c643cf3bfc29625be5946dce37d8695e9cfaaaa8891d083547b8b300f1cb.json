@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789900939-p2xC8fb1PpKYEaHCAnqr",
+ "object": "chat.completion",
+ "created": 1789900939,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"profiling_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"When the `profiling_mode` is set to `detailed`, an extra set of metrics are enabled, which are only available in the `QUERY_ROOT` node.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null\n    \n\n  \n\n  , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. The text mentions `profiling_mode`. It describes when set to `detailed`. So setting is `profiling_mode`. Does it document it? It says \"When the `profiling_mode` is set to `detailed`, an extra set of metrics are enabled...\". That is describing what the setting does. So we should include it. Need to provide a quote span verbatim. Also need default if stated. The section does not state default. So default is absent.\n\nAny other settings? It mentions \"QUERY_ROOT\" node, \"Phase timing\". Those are not settings. So only profiling_mode.\n\nReturn JSON matching schema. Need to know schema: likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut not given. We need to infer. Usually tasks like this expect:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"profiling_mode\",\n      \"evidence\": \"When the `profiling_mode` is set to `detailed`, an extra set of metrics are enabled, which are only available in the `QUERY_ROOT` node.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nMake sure quoting exactly as appears. The evidence should be a span of the section verbatim. Could include the whole sentence. Provide default as \"absent\". Return JSON only.\n\nLet's craft.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. The text mentions `profiling_mode`. It describes when set to `detailed`. So setting is `profiling_mode`. Does it document it? It says \"When the `profiling_mode` is set to `detailed`, an extra set of metrics are enabled...\". That is describing what the setting does. So we should include it. Need to provide a quote span verbatim. Also need default if stated. The section does not state default. So default is absent.\n\nAny other settings? It mentions \"QUERY_ROOT\" node, \"Phase timing\". Those are not settings. So only profiling_mode.\n\nReturn JSON matching schema. Need to know schema: likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut not given. We need to infer. Usually tasks like this expect:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"profiling_mode\",\n      \"evidence\": \"When the `profiling_mode` is set to `detailed`, an extra set of metrics are enabled, which are only available in the `QUERY_ROOT` node.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nMake sure quoting exactly as appears. The evidence should be a span of the section verbatim. Could include the whole sentence. Provide default as \"absent\". Return JSON only.\n\nLet's craft.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 436,
+  "completion_tokens": 430,
+  "total_tokens": 866,
+  "cost": 8.618e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.618e-05,
+   "upstream_inference_prompt_cost": 1.308e-05,
+   "upstream_inference_completions_cost": 7.31e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 333,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 42.01600000000326
+}

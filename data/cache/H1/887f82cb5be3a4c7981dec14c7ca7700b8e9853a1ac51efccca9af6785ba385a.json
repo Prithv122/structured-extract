@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789896024-Yb6WEu5NdjdcNegaYfrY",
+ "object": "chat.completion",
+ "created": 1789896024,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need produce likely list of settings with evidence and default. Need determine if section documents any DuckDB configuration settings. The provided section is about AT TIME ZONE syntax, timezone function, numeric timezones not allowed. It does not document any configuration setting. It mentions timezone function but not a setting. So empty list. Need output JSON maybe {\"settings\": []} or array? Need infer schema. They said \"Return every configuration setting...\" and \"Answer only with JSON matching the supplied schema.\" No schema included. We need maybe output an array of objects? Since no schema, maybe use common: {\"settings\":[]}. But need be careful. The instruction: \"For each setting, quote a span... Also report the setting's default...\" So likely schema has fields: setting, evidence, default, default_type? We don't know. But empty list is correct. Could output []? The phrase \"matching the supplied schema\" but no schema. In previous tasks maybe expected JSON array of objects. Since no settings, empty array is valid. But they might expect object with settings key? Hmm.\n\nWe need answer only JSON. I'll output empty array? Let's think.\n\nThe user says: \"Return every configuration setting that this section documents.\" Then \"Answer only with JSON matching the supplied schema.\" They didn't supply schema in message. Could be hidden? In this interface, maybe schema is implicit from previous? We don't have. We need produce something. If no settings, empty list is safe. But if schema expects object, empty array might be wrong. However \"Return every configuration setting\" could be a list. I'd output `[]`. But maybe they want `{\"settings\": []}`. Which is more likely? The instruction \"For each setting, quote a span...\" suggests each item has fields. If no items, empty array is natural. I'll output `[]`.\n\nBut let's ensure no setting documented. The section includes \"timezone function\" but not a configuration setting. It mentions \"numeric timezones are not allowed\" and error. No config. So empty.\n\nFinal JSON: `[]`.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need produce likely list of settings with evidence and default. Need determine if section documents any DuckDB configuration settings. The provided section is about AT TIME ZONE syntax, timezone function, numeric timezones not allowed. It does not document any configuration setting. It mentions timezone function but not a setting. So empty list. Need output JSON maybe {\"settings\": []} or array? Need infer schema. They said \"Return every configuration setting...\" and \"Answer only with JSON matching the supplied schema.\" No schema included. We need maybe output an array of objects? Since no schema, maybe use common: {\"settings\":[]}. But need be careful. The instruction: \"For each setting, quote a span... Also report the setting's default...\" So likely schema has fields: setting, evidence, default, default_type? We don't know. But empty list is correct. Could output []? The phrase \"matching the supplied schema\" but no schema. In previous tasks maybe expected JSON array of objects. Since no settings, empty array is valid. But they might expect object with settings key? Hmm.\n\nWe need answer only JSON. I'll output empty array? Let's think.\n\nThe user says: \"Return every configuration setting that this section documents.\" Then \"Answer only with JSON matching the supplied schema.\" They didn't supply schema in message. Could be hidden? In this interface, maybe schema is implicit from previous? We don't have. We need produce something. If no settings, empty list is safe. But if schema expects object, empty array might be wrong. However \"Return every configuration setting\" could be a list. I'd output `[]`. But maybe they want `{\"settings\": []}`. Which is more likely? The instruction \"For each setting, quote a span...\" suggests each item has fields. If no items, empty array is natural. I'll output `[]`.\n\nBut let's ensure no setting documented. The section includes \"timezone function\" but not a configuration setting. It mentions \"numeric timezones are not allowed\" and error. No config. So empty.\n\nFinal JSON: `[]`.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 562,
+  "completion_tokens": 473,
+  "total_tokens": 1035,
+  "cost": 0.00185245,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00185245,
+   "upstream_inference_prompt_cost": 0.0006463,
+   "upstream_inference_completions_cost": 0.00120615
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 552,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 12.375
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789918399-tiHgvXpqHYA6xei5Jd78",
+ "object": "chat.completion",
+ "created": 1789918399,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"default_collation\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA default_collation\",\n      \"default_kind\": \"absent\"\n    \n   \n    \n  ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. The section mentions PRAGMA default_collation, and also SET default_collation = NOCASE. So default_collation is a configuration setting. We need to provide its name, a verbatim quote, and default if stated. The section does not state a default value for default_collation. It just says you can set it. No default mentioned. So default is absent.\n\nThus JSON array with one object.\n\nSchema? Not given explicitly but likely something like [{\"setting\":\"default_collation\",\"evidence\":\"...\",\"default\":\"absent\"}]. Need to follow \"Answer only with JSON matching the supplied schema.\" We don't have schema but typical: list of objects with fields \"setting\", \"evidence\", \"default\". We'll output that.\n\nProvide verbatim quote: maybe \"PRAGMA default_collation\" or \"SET default_collation = NOCASE;\". Use a span that includes the setting name. Provide evidence: \"PRAGMA default_collation\". Or \"SET default_collation = NOCASE;\". Use one.\n\nWe'll output:\n\n[\n  {\n    \"setting\": \"default_collation\",\n    \"evidence\": \"PRAGMA default_collation\",\n    \"default\": \"absent\"\n  }\n]\n\nMake sure JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. The section mentions PRAGMA default_collation, and also SET default_collation = NOCASE. So default_collation is a configuration setting. We need to provide its name, a verbatim quote, and default if stated. The section does not state a default value for default_collation. It just says you can set it. No default mentioned. So default is absent.\n\nThus JSON array with one object.\n\nSchema? Not given explicitly but likely something like [{\"setting\":\"default_collation\",\"evidence\":\"...\",\"default\":\"absent\"}]. Need to follow \"Answer only with JSON matching the supplied schema.\" We don't have schema but typical: list of objects with fields \"setting\", \"evidence\", \"default\". We'll output that.\n\nProvide verbatim quote: maybe \"PRAGMA default_collation\" or \"SET default_collation = NOCASE;\". Use a span that includes the setting name. Provide evidence: \"PRAGMA default_collation\". Or \"SET default_collation = NOCASE;\". Use one.\n\nWe'll output:\n\n[\n  {\n    \"setting\": \"default_collation\",\n    \"evidence\": \"PRAGMA default_collation\",\n    \"default\": \"absent\"\n  }\n]\n\nMake sure JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 906,
+  "completion_tokens": 358,
+  "total_tokens": 1264,
+  "cost": 8.804e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.804e-05,
+   "upstream_inference_prompt_cost": 2.718e-05,
+   "upstream_inference_completions_cost": 6.086e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 290,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 15.218000000000757
+}

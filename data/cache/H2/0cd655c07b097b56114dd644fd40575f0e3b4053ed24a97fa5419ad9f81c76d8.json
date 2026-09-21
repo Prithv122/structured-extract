@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789900345-s94nmdS3yeXrZO8veaXr",
+ "object": "chat.completion",
+ "created": 1789900345,
+ "model": "google/gemini-2.5-flash",
+ "provider": "Google",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "STOP",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allow_unsigned_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"If you wish to load your own extensions or extensions from third-parties you will need to enable the `allow_unsigned_extensions` flag.\\nTo load unsigned extensions using the [CLI client]({% link docs/current/clients/cli/overview.md %}), pass the `-unsigned` flag to it on startup:\\n\\n```batch\\nduckdb -unsigned\\n```\\n\\nNow any extension can be loaded, signed or not:\\n\\n```sql\\nLOAD './some/local/ext.duckdb_extension';\\n```\\n\\nFor client APIs, the `allow_unsigned_extensions` database configuration options needs to be set, see the respective [Client API docs]({% link docs/current/clients/overview.md %}).\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 559,
+  "completion_tokens": 249,
+  "total_tokens": 808,
+  "cost": 0.0007902,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0007902,
+   "upstream_inference_prompt_cost": 0.0001677,
+   "upstream_inference_completions_cost": 0.0006225
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 2.188000000001921
+}

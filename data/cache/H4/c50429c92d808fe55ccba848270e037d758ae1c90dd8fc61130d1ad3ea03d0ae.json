@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919789-8nYjaa2clHnQzpR82DJ4",
+ "object": "chat.completion",
+ "created": 1789919789,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`access_mode()`\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": \"absent\"\n    ,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"max_memory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`max_memory()`\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": \"absent\"\n    ,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`threads()`\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": \"absent\"\n    ,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"default_order\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`default_order()`\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": \"absent\"\n    ,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"default_null_order\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`default_null_order()`\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": \"absent\"\n    ,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"enable_external_access\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`enable_external_access()`\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": \"absent\"\n    ,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"enable_object_cache\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`enable_object_cache()`\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": \"absent\"\n    ,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"custom_user_agent\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`custom_user_agent()`\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": \"absent\"\n    ,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"allow_unsigned_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`allow_unsigned_extensions()`\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": \"absent\"\n    ,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"temp_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`with(\\\"temp_directory\\\", \\\"/path/to/temp/dir/\\\")?;`\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": \"absent\"\n    ,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"preserve_insertion_order\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`with(\\\"preserve_insertion_order\\\", \\\"false\\\")?;`\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": \"absent\"\n    ,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. The user provided a snippet about Config builder methods and with() method. The question: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" So we need to list settings documented in this section. The section mentions methods: access_mode(), max_memory(), threads(), default_order(), default_null_order(), enable_external_access(), enable_object_cache(), custom_user_agent(), allow_unsigned_extensions(). Also mentions with(\"temp_directory\", ...) and with(\"preserve_insertion_order\", ...). Those are settings names.\n\nWe need to provide for each setting: name, default (if stated), and evidence (quote). The section does not state defaults for these settings. It just mentions methods. No default values given. So default is absent.\n\nWe need to output JSON matching supplied schema. Schema not given explicitly, but likely something like list of objects with fields name, default, evidence. We'll assume format: {\"settings\": [ { \"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\" }, ... ] }. But need to infer from prior tasks. Usually schema: { \"settings\": [ { \"name\": string, \"default\": string, \"evidence\": string } ] }. We'll output that.\n\nWe need verbatim quotes for each setting. For example: \"`access_mode()`\". The quote should be exactly as appears. Provide evidence span.\n\nLet's extract each:\n\n- access_mode()\n- max_memory()\n- threads()\n- default_order()\n- default_null_order()\n- enable_external_access()\n- enable_object_cache()\n- custom_user_agent()\n- allow_unsigned_extensions()\n- temp_directory (used in with)\n- preserve_insertion_order (used in with)\n\nWe need to quote the lines where they appear.\n\nFrom text:\n\n\"`Config` exposes typed methods for the most common options, including `access_mode()`, `max_memory()`, `threads()`, `default_order()`, `default_null_order()`, `enable_external_access()`, `enable_object_cache()`, `custom_user_agent()`, and `allow_unsigned_extensions()`.\"\n\nAnd later:\n\n\"`with(\\\"temp_directory\\\", \\\"/path/to/temp/dir/\\\")?;`\" and \"`with(\\\"preserve_insertion_order\\\", \\\"false\\\")?;`\"\n\nThus evidence quotes.\n\nDefaults: not stated, so \"absent\".\n\nReturn JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. The user provided a snippet about Config builder methods and with() method. The question: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" So we need to list settings documented in this section. The section mentions methods: access_mode(), max_memory(), threads(), default_order(), default_null_order(), enable_external_access(), enable_object_cache(), custom_user_agent(), allow_unsigned_extensions(). Also mentions with(\"temp_directory\", ...) and with(\"preserve_insertion_order\", ...). Those are settings names.\n\nWe need to provide for each setting: name, default (if stated), and evidence (quote). The section does not state defaults for these settings. It just mentions methods. No default values given. So default is absent.\n\nWe need to output JSON matching supplied schema. Schema not given explicitly, but likely something like list of objects with fields name, default, evidence. We'll assume format: {\"settings\": [ { \"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\" }, ... ] }. But need to infer from prior tasks. Usually schema: { \"settings\": [ { \"name\": string, \"default\": string, \"evidence\": string } ] }. We'll output that.\n\nWe need verbatim quotes for each setting. For example: \"`access_mode()`\". The quote should be exactly as appears. Provide evidence span.\n\nLet's extract each:\n\n- access_mode()\n- max_memory()\n- threads()\n- default_order()\n- default_null_order()\n- enable_external_access()\n- enable_object_cache()\n- custom_user_agent()\n- allow_unsigned_extensions()\n- temp_directory (used in with)\n- preserve_insertion_order (used in with)\n\nWe need to quote the lines where they appear.\n\nFrom text:\n\n\"`Config` exposes typed methods for the most common options, including `access_mode()`, `max_memory()`, `threads()`, `default_order()`, `default_null_order()`, `enable_external_access()`, `enable_object_cache()`, `custom_user_agent()`, and `allow_unsigned_extensions()`.\"\n\nAnd later:\n\n\"`with(\\\"temp_directory\\\", \\\"/path/to/temp/dir/\\\")?;`\" and \"`with(\\\"preserve_insertion_order\\\", \\\"false\\\")?;`\"\n\nThus evidence quotes.\n\nDefaults: not stated, so \"absent\".\n\nReturn JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 806,
+  "completion_tokens": 1283,
+  "total_tokens": 2089,
+  "cost": 0.00024229,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00024229,
+   "upstream_inference_prompt_cost": 2.418e-05,
+   "upstream_inference_completions_cost": 0.00021811
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 561,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 112.67199999999866
+}

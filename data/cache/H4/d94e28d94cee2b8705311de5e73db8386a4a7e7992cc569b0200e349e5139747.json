@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789900847-ZWmG6S7IHoHXdxkqmwNJ",
+ "object": "chat.completion",
+ "created": 1789900847,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"disabled_optimizers\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET disabled_optimizers = 'join_order,build_side_probe_side';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON: default_kind \"absent\" means default_value and default_evidence must be null. So set default_value: null, default_evidence: null. Also ensure JSON syntax correct: no stray commas. Also need to include required fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. The schema likely expects those fields. Provide corrected JSON.\n\nAlso ensure evidence is verbatim span: The text \"SET disabled_optimizers = 'join_order,build_side_probe_side';\" appears exactly in the document. Yes.\n\nThus output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"disabled_optimizers\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET disabled_optimizers = 'join_order,build_side_probe_side';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nReturn that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON: default_kind \"absent\" means default_value and default_evidence must be null. So set default_value: null, default_evidence: null. Also ensure JSON syntax correct: no stray commas. Also need to include required fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. The schema likely expects those fields. Provide corrected JSON.\n\nAlso ensure evidence is verbatim span: The text \"SET disabled_optimizers = 'join_order,build_side_probe_side';\" appears exactly in the document. Yes.\n\nThus output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"disabled_optimizers\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET disabled_optimizers = 'join_order,build_side_probe_side';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nReturn that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 966,
+  "completion_tokens": 302,
+  "total_tokens": 1268,
+  "cost": 8.032e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.032e-05,
+   "upstream_inference_prompt_cost": 2.898e-05,
+   "upstream_inference_completions_cost": 5.134e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 223,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 5.577999999997701
+}

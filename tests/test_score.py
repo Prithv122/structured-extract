@@ -569,3 +569,61 @@ def test_the_observed_values_file_is_never_consulted_when_scoring(oracle):
     )
     assert scored.default_value_correct is None
     assert scored.default_kind_correct is False, "the docs call it a rule, not a number"
+
+
+# ------------------------------------- the third documented state: NULL
+
+
+def _documented_null(oracle) -> str:
+    """A setting the reference table documents as the literal word NULL."""
+    return next(
+        name
+        for name, row in oracle.documented.items()
+        if row["default_value"] is None
+        and not row["default_is_empty_cell"]
+        and name not in SC.MACHINE_DEPENDENT
+    )
+
+
+def test_a_default_documented_as_null_does_not_crash_the_scorer(oracle):
+    """The full grid died here.
+
+    `docs_table` encodes three documented states -- a value, an empty cell,
+    and the literal word NULL -- and the last two both carry
+    `default_value = None`. The scorer assumed "not an empty cell" implied
+    "there is a literal to compare", then called .strip() on None. 8 of the
+    169 rows are documented NULL, so 1,200 paid calls could not be scored.
+    """
+    name = _documented_null(oracle)
+    scored = SC.score_record(
+        record(name, default_kind="literal", default_value="NULL"), DOCUMENT, oracle
+    )
+    assert scored.default_kind_correct is True
+    assert scored.default_value_correct is None, "NULL is not a literal to compare"
+
+
+def test_both_readings_of_a_documented_null_are_accepted(oracle):
+    """Quoting the cell and reading its meaning are both defensible."""
+    name = _documented_null(oracle)
+    for kind, value in (("literal", "NULL"), ("absent", None)):
+        scored = SC.score_record(
+            record(name, default_kind=kind, default_value=value), DOCUMENT, oracle
+        )
+        assert scored.default_kind_correct is True, f"{kind} should be accepted"
+
+
+def test_calling_a_documented_null_machine_dependent_is_still_wrong(oracle):
+    name = _documented_null(oracle)
+    scored = SC.score_record(
+        record(name, default_kind="machine_dependent", default_value="depends"),
+        DOCUMENT,
+        oracle,
+    )
+    assert scored.default_kind_correct is False
+
+
+def test_every_reference_row_can_be_scored_without_raising(oracle):
+    """Guards the whole table, not just the row that happened to crash."""
+    for name in oracle.documented:
+        for kind, value in (("literal", "x"), ("absent", None), ("machine_dependent", "r")):
+            SC.score_record(record(name, default_kind=kind, default_value=value), DOCUMENT, oracle)

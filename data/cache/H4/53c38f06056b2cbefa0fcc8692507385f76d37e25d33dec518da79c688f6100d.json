@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789903428-O9Aq0kTGSPMdx4v6j48n",
+ "object": "chat.completion",
+ "created": 1789903428,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The text is about insertCSVFromPath options: schema, name, detect, header, delimiter, columns. Are these DuckDB configuration settings? Likely not; they are parameters to insertCSVFromPath, not global config settings. The question: \"extract DuckDB configuration settings from a single section of the DuckDB documentation.\" Settings are things like \"enable_progress_bar\", \"max_memory\", etc. The given section describes options for insertCSVFromPath, not config settings. So likely none. So answer empty list.\n\nWe must output JSON matching supplied schema. Schema not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to infer. Usually previous tasks: output list of objects with name, evidence, default. Might be like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"detect\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    },\n    ...\n  ]\n}\n\nBut are these considered configuration settings? The instruction: \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting.\" So these are not DuckDB config settings. So empty list.\n\nThus JSON: {\"settings\": []} or maybe just []? The schema likely expects an array of objects. Let's output {\"settings\": []}.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The text is about insertCSVFromPath options: schema, name, detect, header, delimiter, columns. Are these DuckDB configuration settings? Likely not; they are parameters to insertCSVFromPath, not global config settings. The question: \"extract DuckDB configuration settings from a single section of the DuckDB documentation.\" Settings are things like \"enable_progress_bar\", \"max_memory\", etc. The given section describes options for insertCSVFromPath, not config settings. So likely none. So answer empty list.\n\nWe must output JSON matching supplied schema. Schema not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to infer. Usually previous tasks: output list of objects with name, evidence, default. Might be like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"detect\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    },\n    ...\n  ]\n}\n\nBut are these considered configuration settings? The instruction: \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting.\" So these are not DuckDB config settings. So empty list.\n\nThus JSON: {\"settings\": []} or maybe just []? The schema likely expects an array of objects. Let's output {\"settings\": []}.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 506,
+  "completion_tokens": 360,
+  "total_tokens": 866,
+  "cost": 7.638e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.638e-05,
+   "upstream_inference_prompt_cost": 1.518e-05,
+   "upstream_inference_completions_cost": 6.12e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 404,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.139999999999418
+}

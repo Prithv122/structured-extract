@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789903021-cqiLyVKrewwofE43Id2y",
+ "object": "chat.completion",
+ "created": 1789903021,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`access_mode()`\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"max_memory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`max_memory()`\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`threads()`\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"default_order\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`default_order()`\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"default_null_order\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`default_null_order()`\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"enable_external_access\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`enable_external_access()`\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"enable_object_cache\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`enable_object_cache()`\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"custom_user_agent\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`custom_user_agent()`\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"allow_unsigned_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`allow_unsigned_extensions()`\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"temp_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \".with(\\\"temp_directory\\\", \\\"/path/to/temp/dir/\\\")?\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"preserve_insertion_order\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \".with(\\\"preserve_insertion_order\\\", \\\"false\\\")?\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The section describes methods: access_mode(), max_memory(), threads(), default_order(), default_null_order(), enable_external_access(), enable_object_cache(), custom_user_agent(), allow_unsigned_extensions(). Also mentions \"temp_directory\" and \"preserve_insertion_order\" as examples of other settings.\n\nWe need to list each setting that the section documents. Does the section document each? It mentions each method, but does it describe what the setting does? It says \"Config exposes typed methods for the most common options, including ...\" That's a mention. That qualifies as documenting? The instruction: \"A section documents a setting when it tells the reader what the setting does, what it accepts, or how to set it.\" Here it tells how to set it via Config methods, but not detailed description of what each does. However it does list them as options. Likely considered documenting because it tells how to set them. So we include those.\n\nAlso \"temp_directory\" and \"preserve_insertion_order\" are given as examples of other settings that can be supplied by name with with(). That also documents them (shows how to set). So include those.\n\nWe need to provide for each setting: name, evidence (quote), default (if stated). The section does not state defaults for any of them. So default is \"absent\". Provide JSON array of objects.\n\nSchema? Not given explicitly but likely something like [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]. We'll assume that.\n\nWe need to quote verbatim spans. Provide each.\n\nLet's extract quotes:\n\n- access_mode(): appears in list: \"`access_mode()`\". Quote: \"`access_mode()`\". Could include surrounding text: \"including `access_mode()`, `max_memory()`, `threads()`, `default_order()`, `default_null_order()`, `enable_external_access()`, `enable_object_cache()`, `custom_user_agent()`, and `allow_unsigned_extensions()`.\"\n\n- max_memory(): same.\n\n- threads(): same.\n\n- default_order(): same.\n\n- default_null_order(): same.\n\n- enable_external_access(): same.\n\n- enable_object_cache(): same.\n\n- custom_user_agent(): same.\n\n- allow_unsigned_extensions(): same.\n\n- temp_directory: appears in with example: `.with(\"temp_directory\", \"/path/to/temp/dir/\")?`. Quote that.\n\n- preserve_insertion_order: same.\n\nNow produce JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The section describes methods: access_mode(), max_memory(), threads(), default_order(), default_null_order(), enable_external_access(), enable_object_cache(), custom_user_agent(), allow_unsigned_extensions(). Also mentions \"temp_directory\" and \"preserve_insertion_order\" as examples of other settings.\n\nWe need to list each setting that the section documents. Does the section document each? It mentions each method, but does it describe what the setting does? It says \"Config exposes typed methods for the most common options, including ...\" That's a mention. That qualifies as documenting? The instruction: \"A section documents a setting when it tells the reader what the setting does, what it accepts, or how to set it.\" Here it tells how to set it via Config methods, but not detailed description of what each does. However it does list them as options. Likely considered documenting because it tells how to set them. So we include those.\n\nAlso \"temp_directory\" and \"preserve_insertion_order\" are given as examples of other settings that can be supplied by name with with(). That also documents them (shows how to set). So include those.\n\nWe need to provide for each setting: name, evidence (quote), default (if stated). The section does not state defaults for any of them. So default is \"absent\". Provide JSON array of objects.\n\nSchema? Not given explicitly but likely something like [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]. We'll assume that.\n\nWe need to quote verbatim spans. Provide each.\n\nLet's extract quotes:\n\n- access_mode(): appears in list: \"`access_mode()`\". Quote: \"`access_mode()`\". Could include surrounding text: \"including `access_mode()`, `max_memory()`, `threads()`, `default_order()`, `default_null_order()`, `enable_external_access()`, `enable_object_cache()`, `custom_user_agent()`, and `allow_unsigned_extensions()`.\"\n\n- max_memory(): same.\n\n- threads(): same.\n\n- default_order(): same.\n\n- default_null_order(): same.\n\n- enable_external_access(): same.\n\n- enable_object_cache(): same.\n\n- custom_user_agent(): same.\n\n- allow_unsigned_extensions(): same.\n\n- temp_directory: appears in with example: `.with(\"temp_directory\", \"/path/to/temp/dir/\")?`. Quote that.\n\n- preserve_insertion_order: same.\n\nNow produce JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 677,
+  "completion_tokens": 1323,
+  "total_tokens": 2000,
+  "cost": 0.00024522,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00024522,
+   "upstream_inference_prompt_cost": 2.031e-05,
+   "upstream_inference_completions_cost": 0.00022491
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 594,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 26.9220000000023
+}

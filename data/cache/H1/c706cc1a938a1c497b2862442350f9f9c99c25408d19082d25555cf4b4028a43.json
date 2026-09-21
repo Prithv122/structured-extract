@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789894870-vAwtrse49LVi5HIGGWLy",
+ "object": "chat.completion",
+ "created": 1789894870,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"Read-only mode: multiple processes can read from the database, but no processes can write ([`access_mode = 'READ_ONLY'`]({% link docs/current/configuration/overview.md %}#configuration-reference)).\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"access_mode\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. User asks extract DuckDB configuration settings from single section. We have section text about in-process mode concurrency. It mentions access_mode = 'READ_ONLY' with link. Need determine if documents setting. It says \"Read-only mode: multiple processes can read from the database, but no processes can write ([`access_mode = 'READ_ONLY'`](...)).\" This tells what setting does? It tells access_mode READ_ONLY for read-only mode. It documents setting access_mode? It mentions setting name and value. Need quote verbatim. Default? Section does not state default. Need output JSON matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe produce list of settings with evidence and default. Need decide structure. Likely expected:\n{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"evidence\": \"Read-only mode: multiple processes can read from the database, but no processes can write ([`access_mode = 'READ_ONLY'`]({% link docs/current/configuration/overview.md %}#configuration-reference)).\",\n      \"default\": null\n    }\n  ]\n}\nBut need be careful: \"Do not return a setting merely because the section contains a word that happens to be a setting name.\" Here it explicitly uses access_mode = 'READ_ONLY' as configuration. It documents what it does: read-only mode. So yes.\n\nNeed quote exactly as appears. The text includes markdown link. Need copy characters exactly. The evidence should be span verbatim. Could include entire sentence. Need maybe include only the parenthetical? \"Read-only mode: multiple processes can read from the database, but no processes can write ([`access_mode = 'READ_ONLY'`]({% link docs/current/configuration/overview.md %}#configuration-reference)).\" That's verbatim. Need ensure no escaping issues in JSON. Use backticks and quotes. Need output JSON only.\n\nBut let's think if there are other settings? \"two configurable options for concurrency\" but only access_mode mentioned. \"Read-write mode\" and \"Read-only mode\" are modes, not settings. No other setting names. So one setting.\n\nNeed default: absent. In JSON maybe \"default\": null or \"default\": \"absent\"? User says \"If the section does not state a default, say it is absent\". So maybe string \"absent\". Need schema? Could be:\n{\n  \"settings\": [\n    {\n      \"setting\": \"access_mode\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\nNeed choose keys. The prompt: \"For each setting, quote a span ... Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" No schema shown. We need infer from common. Maybe they expect:\n[\n  {\n    \"setting\": \"access_mode\",\n    \"evidence\": \"...\",\n    \"default\": null\n  }\n]\nBut \"say it is absent\" suggests string \"absent\". Need maybe include \"default\": \"absent\" if not stated. Let's examine wording: \"If the section does not state a default, say it is absent; do not fill it in...\" So in JSON, value could be \"absent\". I'll use \"default\": \"absent\" to be explicit. But if schema expects null? Hmm.\n\nNeed maybe include \"default\": null? The instruction says \"say it is absent\" not \"null\". So string \"absent\" is safer.\n\nNeed ensure evidence quote exactly. The text includes `{% link docs/current/configuration/overview.md %}#configuration-reference` inside link. Need copy exactly. In JSON, backslashes? No. Need escape double quotes if any. The evidence has no double quotes except maybe none. It has backticks and single quotes. Fine.\n\nLet's produce JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. User asks extract DuckDB configuration settings from single section. We have section text about in-process mode concurrency. It mentions access_mode = 'READ_ONLY' with link. Need determine if documents setting. It says \"Read-only mode: multiple processes can read from the database, but no processes can write ([`access_mode = 'READ_ONLY'`](...)).\" This tells what setting does? It tells access_mode READ_ONLY for read-only mode. It documents setting access_mode? It mentions setting name and value. Need quote verbatim. Default? Section does not state default. Need output JSON matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe produce list of settings with evidence and default. Need decide structure. Likely expected:\n{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"evidence\": \"Read-only mode: multiple processes can read from the database, but no processes can write ([`access_mode = 'READ_ONLY'`]({% link docs/current/configuration/overview.md %}#configuration-reference)).\",\n      \"default\": null\n    }\n  ]\n}\nBut need be careful: \"Do not return a setting merely because the section contains a word that happens to be a setting name.\" Here it explicitly uses access_mode = 'READ_ONLY' as configuration. It documents what it does: read-only mode. So yes.\n\nNeed quote exactly as appears. The text includes markdown link. Need copy characters exactly. The evidence should be span verbatim. Could include entire sentence. Need maybe include only the parenthetical? \"Read-only mode: multiple processes can read from the database, but no processes can write ([`access_mode = 'READ_ONLY'`]({% link docs/current/configuration/overview.md %}#configuration-reference)).\" That's verbatim. Need ensure no escaping issues in JSON. Use backticks and quotes. Need output JSON only.\n\nBut let's think if there are other settings? \"two configurable options for concurrency\" but only access_mode mentioned. \"Read-write mode\" and \"Read-only mode\" are modes, not settings. No other setting names. So one setting.\n\nNeed default: absent. In JSON maybe \"default\": null or \"default\": \"absent\"? User says \"If the section does not state a default, say it is absent\". So maybe string \"absent\". Need schema? Could be:\n{\n  \"settings\": [\n    {\n      \"setting\": \"access_mode\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\nNeed choose keys. The prompt: \"For each setting, quote a span ... Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" No schema shown. We need infer from common. Maybe they expect:\n[\n  {\n    \"setting\": \"access_mode\",\n    \"evidence\": \"...\",\n    \"default\": null\n  }\n]\nBut \"say it is absent\" suggests string \"absent\". Need maybe include \"default\": \"absent\" if not stated. Let's examine wording: \"If the section does not state a default, say it is absent; do not fill it in...\" So in JSON, value could be \"absent\". I'll use \"default\": \"absent\" to be explicit. But if schema expects null? Hmm.\n\nNeed maybe include \"default\": null? The instruction says \"say it is absent\" not \"null\". So string \"absent\" is safer.\n\nNeed ensure evidence quote exactly. The text includes `{% link docs/current/configuration/overview.md %}#configuration-reference` inside link. Need copy exactly. In JSON, backslashes? No. Need escape double quotes if any. The evidence has no double quotes except maybe none. It has backticks and single quotes. Fine.\n\nLet's produce JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 588,
+  "completion_tokens": 938,
+  "total_tokens": 1526,
+  "cost": 0.0030681,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0030681,
+   "upstream_inference_prompt_cost": 0.0006762,
+   "upstream_inference_completions_cost": 0.0023919
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 900,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 23.531999999999243
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789918484-rjFMAZMr80mWvlqxL6Zx",
+ "object": "chat.completion",
+ "created": 1789918484,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"vacuum_rebuild_indexes\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Set to `0` to disable (the default).\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"0\"\n   \n    ,\n      \"default_evidence\": \"Set to `0` to disable (the default).\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The section mentions \"vacuum_rebuild_indexes\" setting. It says: \"The vacuum_rebuild_indexes setting enables vacuum to compact row groups on tables with indexes by rebuilding the indexes afterward. The setting specifies a row count threshold: tables exceeding the threshold are skipped. Set to 0 to disable (the default).\"\n\nThus we have a setting: vacuum_rebuild_indexes. Provide evidence quote. Provide default: \"0\". The quote says \"Set to `0` to disable (the default).\" So default is 0.\n\nWe need JSON matching supplied schema. The schema not given explicitly, but likely something like list of objects with name, default, evidence. We'll assume format: [{\"setting\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. Provide that.\n\nThus answer JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The section mentions \"vacuum_rebuild_indexes\" setting. It says: \"The vacuum_rebuild_indexes setting enables vacuum to compact row groups on tables with indexes by rebuilding the indexes afterward. The setting specifies a row count threshold: tables exceeding the threshold are skipped. Set to 0 to disable (the default).\"\n\nThus we have a setting: vacuum_rebuild_indexes. Provide evidence quote. Provide default: \"0\". The quote says \"Set to `0` to disable (the default).\" So default is 0.\n\nWe need JSON matching supplied schema. The schema not given explicitly, but likely something like list of objects with name, default, evidence. We'll assume format: [{\"setting\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. Provide that.\n\nThus answer JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 577,
+  "completion_tokens": 288,
+  "total_tokens": 865,
+  "cost": 6.627e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.627e-05,
+   "upstream_inference_prompt_cost": 1.731e-05,
+   "upstream_inference_completions_cost": 4.896e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 206,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 4.296999999998661
+}

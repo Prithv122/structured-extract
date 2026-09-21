@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789921258-MhB5Dk9zle03p2FsAE7x",
+ "object": "chat.completion",
+ "created": 1789921258,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"immediate_transaction_mode\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`immediate_transaction_mode`                  | Whether transactions should be started lazily when needed, or immediately when BEGIN TRANSACTION is called\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"`immediate_transaction_mode`                  | Whether transactions should be started lazily when needed, or immediately when BEGIN TRANSACTION is called\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to output JSON matching supplied schema. The schema not given explicitly, but likely expects list of objects with fields: name, type, default, description, evidence (quote). We need to infer. Usually these tasks require output like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut we need to check typical schema from similar tasks. Might be:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe'll assume that.\n\nWe have one row: immediate_transaction_mode, description, type BOOLEAN, default false.\n\nWe need to quote a span of the section verbatim as evidence. Could quote the whole row line. Provide default as \"false\". Provide description as given.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"immediate_transaction_mode\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"false\",\n      \"description\": \"Whether transactions should be started lazily when needed, or immediately when BEGIN TRANSACTION is called\",\n      \"evidence\": \"`immediate_transaction_mode`                  | Whether transactions should be started lazily when needed, or immediately when BEGIN TRANSACTION is called\"\n    }\n  ]\n}\n\nMake sure quoting matches exactly. The table row includes spaces and pipes. Provide a verbatim span: maybe the line from the table: \"`immediate_transaction_mode`                  | Whether transactions should be started lazily when needed, or immediately when BEGIN TRANSACTION is called\". That is fine.\n\nReturn only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to output JSON matching supplied schema. The schema not given explicitly, but likely expects list of objects with fields: name, type, default, description, evidence (quote). We need to infer. Usually these tasks require output like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut we need to check typical schema from similar tasks. Might be:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe'll assume that.\n\nWe have one row: immediate_transaction_mode, description, type BOOLEAN, default false.\n\nWe need to quote a span of the section verbatim as evidence. Could quote the whole row line. Provide default as \"false\". Provide description as given.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"immediate_transaction_mode\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"false\",\n      \"description\": \"Whether transactions should be started lazily when needed, or immediately when BEGIN TRANSACTION is called\",\n      \"evidence\": \"`immediate_transaction_mode`                  | Whether transactions should be started lazily when needed, or immediately when BEGIN TRANSACTION is called\"\n    }\n  ]\n}\n\nMake sure quoting matches exactly. The table row includes spaces and pipes. Provide a verbatim span: maybe the line from the table: \"`immediate_transaction_mode`                  | Whether transactions should be started lazily when needed, or immediately when BEGIN TRANSACTION is called\". That is fine.\n\nReturn only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 562,
+  "completion_tokens": 495,
+  "total_tokens": 1057,
+  "cost": 0.00010101,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 512,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00010101,
+   "upstream_inference_prompt_cost": 1.686e-05,
+   "upstream_inference_completions_cost": 8.415e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 426,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 11.889999999999418
+}

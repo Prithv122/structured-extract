@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789909807-GY6AZjzbxonSKF1tJ1Tu",
+ "object": "chat.completion",
+ "created": 1789909807,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"enable_external_access\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"The [`enable_external_access` option]({% link docs/current/configuration/overview.md %}#configuration-reference) is set to `false`.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "enable_external_access is mentioned but only as being set to false by safe mode — is that documenting the setting? It says \"The enable_external_access option is set to false\" — that tells what it does/how set? It documents its effect. I'd include it with default absent.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "enable_external_access is mentioned but only as being set to false by safe mode — is that documenting the setting? It says \"The enable_external_access option is set to false\" — that tells what it does/how set? It documents its effect. I'd include it with default absent.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 619,
+  "completion_tokens": 157,
+  "total_tokens": 776,
+  "cost": 8.5675e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.5675e-05,
+   "upstream_inference_prompt_cost": 4.6425e-05,
+   "upstream_inference_completions_cost": 3.925e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 57,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.610000000000582
+}

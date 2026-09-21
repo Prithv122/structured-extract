@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789902206-CZMthlQ2IUwqqrXZLe8L",
+ "object": "chat.completion",
+ "created": 1789902206,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`access_mode = 'READ_ONLY'`\",\n      \"default_kind\": \"absent\"\n   \n    , \"default_value\": \"absent\"\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The text mentions `access_mode = 'READ_ONLY'`. That's a setting. It also mentions \"read-write mode\" but not a setting name. So we have one setting: access_mode. Need to provide evidence quote: the part that mentions it. Quote: \"`access_mode = 'READ_ONLY'`\". Also need default if stated. The section does not state default. It just mentions read-write mode as default? Not explicitly. It says \"In in-process mode, DuckDB has two configurable options for concurrency: 1. Read-write mode: one process can both read and write... 2. Read-only mode: multiple processes can read...\". It doesn't state default. So default is absent.\n\nReturn JSON matching schema. Need to know schema: likely something like list of objects with name, default, evidence. Since not provided, infer typical: maybe {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. But we need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't given in prompt, but we can guess. In previous similar tasks, schema is like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"default\": \"absent\",\n      \"evidence\": \"`access_mode = 'READ_ONLY'`\"\n    }\n  ]\n}\n\nWe'll output that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The text mentions `access_mode = 'READ_ONLY'`. That's a setting. It also mentions \"read-write mode\" but not a setting name. So we have one setting: access_mode. Need to provide evidence quote: the part that mentions it. Quote: \"`access_mode = 'READ_ONLY'`\". Also need default if stated. The section does not state default. It just mentions read-write mode as default? Not explicitly. It says \"In in-process mode, DuckDB has two configurable options for concurrency: 1. Read-write mode: one process can both read and write... 2. Read-only mode: multiple processes can read...\". It doesn't state default. So default is absent.\n\nReturn JSON matching schema. Need to know schema: likely something like list of objects with name, default, evidence. Since not provided, infer typical: maybe {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. But we need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't given in prompt, but we can guess. In previous similar tasks, schema is like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"default\": \"absent\",\n      \"evidence\": \"`access_mode = 'READ_ONLY'`\"\n    }\n  ]\n}\n\nWe'll output that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 570,
+  "completion_tokens": 388,
+  "total_tokens": 958,
+  "cost": 8.306e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.306e-05,
+   "upstream_inference_prompt_cost": 1.71e-05,
+   "upstream_inference_completions_cost": 6.596e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 320,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 6.812000000001717
+}

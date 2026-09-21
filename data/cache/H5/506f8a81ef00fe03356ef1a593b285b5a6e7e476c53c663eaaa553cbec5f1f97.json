@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789924254-l4jTG4OrPSzhOrqDMdmH",
+ "object": "chat.completion",
+ "created": 1789924254,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"temp_directory\",\"input_type\":\"VARCHAR\",\"scope\":\"GLOBAL\",\"evidence\":\"Set the directory to which to write temp files\",\"default_kind\":\"literal\",\"default_value\":\"`⟨database_name⟩.tmp` or `.tmp` (in in-memory mode)\",\"default_evidence\":\"`⟨database_name⟩.tmp` or `.tmp` (in in-memory mode)\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 504,
+  "completion_tokens": 85,
+  "total_tokens": 589,
+  "cost": 5.905e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 5.905e-05,
+   "upstream_inference_prompt_cost": 3.78e-05,
+   "upstream_inference_completions_cost": 2.125e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 4.35899999999674
+}

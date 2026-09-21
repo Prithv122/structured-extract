@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789921118-WwCNeeWejaYLGPren6bz",
+ "object": "chat.completion",
+ "created": 1789921118,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"Calendar\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`Calendar` | The current calendar | `VARCHAR` | System (locale) calendar\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"System (locale) calendar\"\n   \n    , \"default_evidence\": \"System (locale) calendar\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with a single row: Name `Calendar`, Description \"The current calendar\", Type `VARCHAR`, Default value \"System (locale) calendar\". We need to determine if this is a configuration setting. The description says \"The current calendar\". It seems like a configuration setting that can be set with SET, RESET, or PRAGMA. The name \"Calendar\" could be a setting. In DuckDB, there is a setting \"calendar\" that determines the calendar used for date calculations. I think it's a configuration setting. So we should output JSON with a list of settings, each with name, type, default, and evidence (quote). The evidence should be a span of the section verbatim. The default is \"System (locale) calendar\". We need to note if it's machine-dependent. The default is described as \"System (locale) calendar\". That's a description, not a concrete value, but it's a default description. So we can include that as default value. The schema? Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to output only JSON matching the supplied schema. The schema wasn't given, but typical tasks: maybe top-level array? The instruction: \"Answer only with JSON matching the supplied schema.\" The schema likely expects an array of objects with fields name, type, default, evidence. We'll assume that.\n\nThus output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"Calendar\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"System (locale) calendar\",\n      \"evidence\": \"`Calendar` | The current calendar | `VARCHAR` | System (locale) calendar\"\n    }\n  ]\n}\n\nBut evidence should be a verbatim span. Could quote the row: \"`Calendar` | The current calendar | `VARCHAR` | System (locale) calendar\". Or maybe just the cell: \"`Calendar`\". Better to include the whole row. Provide as a string.\n\nThus final.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with a single row: Name `Calendar`, Description \"The current calendar\", Type `VARCHAR`, Default value \"System (locale) calendar\". We need to determine if this is a configuration setting. The description says \"The current calendar\". It seems like a configuration setting that can be set with SET, RESET, or PRAGMA. The name \"Calendar\" could be a setting. In DuckDB, there is a setting \"calendar\" that determines the calendar used for date calculations. I think it's a configuration setting. So we should output JSON with a list of settings, each with name, type, default, and evidence (quote). The evidence should be a span of the section verbatim. The default is \"System (locale) calendar\". We need to note if it's machine-dependent. The default is described as \"System (locale) calendar\". That's a description, not a concrete value, but it's a default description. So we can include that as default value. The schema? Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to output only JSON matching the supplied schema. The schema wasn't given, but typical tasks: maybe top-level array? The instruction: \"Answer only with JSON matching the supplied schema.\" The schema likely expects an array of objects with fields name, type, default, evidence. We'll assume that.\n\nThus output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"Calendar\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"System (locale) calendar\",\n      \"evidence\": \"`Calendar` | The current calendar | `VARCHAR` | System (locale) calendar\"\n    }\n  ]\n}\n\nBut evidence should be a verbatim span. Could quote the row: \"`Calendar` | The current calendar | `VARCHAR` | System (locale) calendar\". Or maybe just the cell: \"`Calendar`\". Better to include the whole row. Provide as a string.\n\nThus final.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 546,
+  "completion_tokens": 557,
+  "total_tokens": 1103,
+  "cost": 0.00011107,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 512,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00011107,
+   "upstream_inference_prompt_cost": 1.638e-05,
+   "upstream_inference_completions_cost": 9.469e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 514,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 16.85899999999674
+}

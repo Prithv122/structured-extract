@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789911761-9Y7XJaxk7JheZ1ps41oF",
+ "object": "chat.completion",
+ "created": 1789911761,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"index_scan_max_count\",\"input_type\":\"UBIGINT\",\"scope\": \"GLOBAL\",\"evidence\":\"The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan.\",\"default_kind\":\"literal\",\"default_value\":\"2048\",\"default_evidence\":\"`2048`\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 397,
+  "completion_tokens": 92,
+  "total_tokens": 489,
+  "cost": 5.2775e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 5.2775e-05,
+   "upstream_inference_prompt_cost": 2.9775e-05,
+   "upstream_inference_completions_cost": 2.3e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 6.312999999998283
+}

@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789911368-PkUWvo8ASE6yQZ7TuX6Z",
+ "object": "chat.completion",
+ "created": 1789911368,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"s3_region\",\"input_type\":\"VARCHAR\",\"scope\":\"GLOBAL\",\"evidence\":\"To be able to read or write from S3, the correct region should be set:\\n\\n```sql\\nSET s3_region = 'us-east-1';\\n```\",\"default_kind\":\"absent\",\"default_value\":null,\"default_evidence\":null},{\"name\":\"s3_endpoint\",\"input_type\":\"VARCHAR\",\"scope\":\"GLOBAL\",\"evidence\":\"Optionally, the endpoint can be configured in case a non-AWS object storage server is used:\\n\\n```sql\\nSET s3_endpoint = '⟨domain⟩.⟨tld⟩:⟨port⟩';\\n```\",\"default_kind\":\"absent\",\"default_value\":null,\"default_evidence\":null},{\"name\":\"s3_use_ssl\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"If the endpoint is not SSL-enabled then run:\\n\\n```sql\\nSET s3_use_ssl = false;\\n```\",\"default_kind\":\"absent\",\"default_value\":null,\"default_evidence\":null},{\"name\":\"s3_url_style\",\"input_type\":\"VARCHAR\",\"scope\":\"GLOBAL\",\"evidence\":\"Switching between [path-style](https://docs.aws.amazon.com/AmazonS3/latest/userguide/VirtualHosting.html#path-style-access) and [vhost-style](https://docs.aws.amazon.com/AmazonS3/latest/userguide/VirtualHosting.html#virtual-hosted-style-access) URLs is possible using:\\n\\n```sql\\nSET s3_url_style = 'path';\\n```\",\"default_kind\":\"absent\",\"default_value\":null,\"default_evidence\":null},{\"name\":\"s3_access_key_id\",\"input_type\":\"VARCHAR\",\"scope\":\"GLOBAL\",\"evidence\":\"To also read private files, authentication credentials can be added:\\n\\n```sql\\nSET s3_access_key_id = '⟨aws_access_key_id⟩';\\n```\",\"default_kind\":\"absent\",\"default_value\":null,\"default_evidence\":null},{\"name\":\"s3_secret_access_key\",\"input_type\":\"VARCHAR\",\"scope\":\"GLOBAL\",\"evidence\":\"To also read private files, authentication credentials can be added:\\n\\n```sql\\nSET s3_secret_access_key = '⟨aws_secret_access_key⟩';\\n```\",\"default_kind\":\"absent\",\"default_value\":null,\"default_evidence\":null},{\"name\":\"s3_session_token\",\"input_type\":\"VARCHAR\",\"scope\":\"GLOBAL\",\"evidence\":\"Alternatively, temporary S3 credentials are also supported. They require setting an additional session token:\\n\\n```sql\\nSET s3_session_token = '⟨aws_session_token⟩';\\n```\",\"default_kind\":\"absent\",\"default_value\":null,\"default_evidence\":null}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 651,
+  "completion_tokens": 573,
+  "total_tokens": 1224,
+  "cost": 0.000192075,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000192075,
+   "upstream_inference_prompt_cost": 4.8825e-05,
+   "upstream_inference_completions_cost": 0.00014325
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 22.389999999999418
+}

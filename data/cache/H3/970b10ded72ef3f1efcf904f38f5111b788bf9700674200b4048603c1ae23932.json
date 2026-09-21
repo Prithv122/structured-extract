@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789918239-JiqbMlZtUthqMsHgydMI",
+ "object": "chat.completion",
+ "created": 1789918239,
+ "model": "openai/gpt-4.1-nano",
+ "provider": "OpenAI",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "completed",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"preserve_insertion_order\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"This setting is `true` by default, indicating that the order should be preserved.\",\"default_kind\":\"literal\",\"default_value\":\"true\",\"default_evidence\":\"This setting is `true` by default, indicating that the order should be preserved.\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1087,
+  "completion_tokens": 75,
+  "total_tokens": 1162,
+  "cost": 0.0001387,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0001387,
+   "upstream_inference_prompt_cost": 0.0001087,
+   "upstream_inference_completions_cost": 3e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 1.6409999999959837
+}

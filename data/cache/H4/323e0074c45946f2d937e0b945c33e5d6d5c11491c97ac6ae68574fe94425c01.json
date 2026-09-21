@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789908945-zF12FuRlwzikpUe5cQNS",
+ "object": "chat.completion",
+ "created": 1789908945,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"s3_version_id_pinning\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"| `s3_version_id_pinning`                       | Pin S3 reads to a specific object version for consistency                                                                                                                                                     | `BOOLEAN`   | `false`                                             |\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\"\n   \n    , \"default_evidence\": \"`false`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a table with one setting: `s3_version_id_pinning`. We need to return JSON with each setting, quoting a span of the section verbatim as evidence, and also report default if the section states it. The table includes description, type, default value. So we have one setting.\n\nWe need to follow the schema. The schema is not explicitly given, but we can infer likely structure: maybe an array of objects with fields: name, description, type, default, evidence (quote). The instruction: \"Answer only with JSON matching the supplied schema.\" But we don't have the schema. We need to guess typical format used in previous tasks. Possibly something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"s3_version_id_pinning\",\n      \"description\": \"Pin S3 reads to a specific object version for consistency\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"false\",\n      \"evidence\": \"`s3_version_id_pinning` ... (the quote)\"\n    }\n  ]\n}\n\nBut we need to include a verbatim quote as evidence. Could be a field \"evidence\" containing the quoted span. Or maybe \"quote\". Not sure.\n\nWe could look at prior similar tasks. Usually they expect JSON like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"s3_version_id_pinning\",\n      \"description\": \"Pin S3 reads to a specific object version for consistency\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"false\",\n      \"evidence\": \"`s3_version_id_pinning` | Pin S3 reads to a specific object version for consistency\"\n    }\n  ]\n}\n\nBut we need to quote a span of the section verbatim. The table row includes the name and description. So we can quote the row line: \"`s3_version_id_pinning` | Pin S3 reads to a specific object version for consistency\". Or maybe the entire row.\n\nBetter to quote exactly as appears: \"`s3_version_id_pinning`                       | Pin S3 reads to a specific object version for consistency\". But we need to include the characters exactly as they appear. The table row includes spaces and pipes. The row is:\n\n| `s3_version_id_pinning`                       | Pin S3 reads to a specific object version for consistency                                                                                                                                                     | `BOOLEAN`   | `false`                                             |\n\nWe can quote that entire row.\n\nThus evidence: \"`s3_version_id_pinning`                       | Pin S3 reads to a specific object version for consistency\". But we need to include the pipe separators? The instruction: \"quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" So we can quote the whole row line as appears, including pipes and spaces.\n\nThus evidence: \"`s3_version_id_pinning`                       | Pin S3 reads to a specific object version for consistency\". But the row includes leading and trailing pipes and spaces. Let's copy exactly:\n\n\"| `s3_version_id_pinning`                       | Pin S3 reads to a specific object version for consistency                                                                                                                                                     | `BOOLEAN`   | `false`                                             |\"\n\nBut the row includes line breaks? It's a single line. We'll include the whole line.\n\nNow default: \"false\". The section states default value as `false`. So default is \"false\". Provide as string.\n\nNow produce JSON. Schema unknown, but likely expects list of objects. We'll output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"s3_version_id_pinning\",\n      \"description\": \"Pin S3 reads to a specific object version for consistency\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"false\",\n      \"evidence\": \"| `s3_version_id_pinning`                       | Pin S3 reads to a specific object version for consistency                                                                                                                                                     | `BOOLEAN`   | `false`                                             |\"\n    }\n  ]\n}\n\nThat should satisfy.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a table with one setting: `s3_version_id_pinning`. We need to return JSON with each setting, quoting a span of the section verbatim as evidence, and also report default if the section states it. The table includes description, type, default value. So we have one setting.\n\nWe need to follow the schema. The schema is not explicitly given, but we can infer likely structure: maybe an array of objects with fields: name, description, type, default, evidence (quote). The instruction: \"Answer only with JSON matching the supplied schema.\" But we don't have the schema. We need to guess typical format used in previous tasks. Possibly something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"s3_version_id_pinning\",\n      \"description\": \"Pin S3 reads to a specific object version for consistency\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"false\",\n      \"evidence\": \"`s3_version_id_pinning` ... (the quote)\"\n    }\n  ]\n}\n\nBut we need to include a verbatim quote as evidence. Could be a field \"evidence\" containing the quoted span. Or maybe \"quote\". Not sure.\n\nWe could look at prior similar tasks. Usually they expect JSON like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"s3_version_id_pinning\",\n      \"description\": \"Pin S3 reads to a specific object version for consistency\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"false\",\n      \"evidence\": \"`s3_version_id_pinning` | Pin S3 reads to a specific object version for consistency\"\n    }\n  ]\n}\n\nBut we need to quote a span of the section verbatim. The table row includes the name and description. So we can quote the row line: \"`s3_version_id_pinning` | Pin S3 reads to a specific object version for consistency\". Or maybe the entire row.\n\nBetter to quote exactly as appears: \"`s3_version_id_pinning`                       | Pin S3 reads to a specific object version for consistency\". But we need to include the characters exactly as they appear. The table row includes spaces and pipes. The row is:\n\n| `s3_version_id_pinning`                       | Pin S3 reads to a specific object version for consistency                                                                                                                                                     | `BOOLEAN`   | `false`                                             |\n\nWe can quote that entire row.\n\nThus evidence: \"`s3_version_id_pinning`                       | Pin S3 reads to a specific object version for consistency\". But we need to include the pipe separators? The instruction: \"quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" So we can quote the whole row line as appears, including pipes and spaces.\n\nThus evidence: \"`s3_version_id_pinning`                       | Pin S3 reads to a specific object version for consistency\". But the row includes leading and trailing pipes and spaces. Let's copy exactly:\n\n\"| `s3_version_id_pinning`                       | Pin S3 reads to a specific object version for consistency                                                                                                                                                     | `BOOLEAN`   | `false`                                             |\"\n\nBut the row includes line breaks? It's a single line. We'll include the whole line.\n\nNow default: \"false\". The section states default value as `false`. So default is \"false\". Provide as string.\n\nNow produce JSON. Schema unknown, but likely expects list of objects. We'll output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"s3_version_id_pinning\",\n      \"description\": \"Pin S3 reads to a specific object version for consistency\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"false\",\n      \"evidence\": \"| `s3_version_id_pinning`                       | Pin S3 reads to a specific object version for consistency                                                                                                                                                     | `BOOLEAN`   | `false`                                             |\"\n    }\n  ]\n}\n\nThat should satisfy.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 428,
+  "completion_tokens": 945,
+  "total_tokens": 1373,
+  "cost": 0.00017349,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00017349,
+   "upstream_inference_prompt_cost": 1.284e-05,
+   "upstream_inference_completions_cost": 0.00016065
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 1056,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 78.68799999999828
+}

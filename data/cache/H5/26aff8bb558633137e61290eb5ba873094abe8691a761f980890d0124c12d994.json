@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789909958-Mt6feplP2tTxoGILG5Km",
+ "object": "chat.completion",
+ "created": 1789909958,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"secret_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"To change the secrets directory, issue:\\n\\n```sql\\nSET secret_directory = 'path/to/my_secrets_dir';\\n```\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"~/.duckdb/stored_secrets\",\n      \"default_evidence\": \"By default, this will write the secret (unencrypted) to the `~/.duckdb/stored_secrets` directory.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "secret_directory documented; home_directory mentioned in passing — not documented.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "secret_directory documented; home_directory mentioned in passing — not documented.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 490,
+  "completion_tokens": 142,
+  "total_tokens": 632,
+  "cost": 7.225e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.225e-05,
+   "upstream_inference_prompt_cost": 3.675e-05,
+   "upstream_inference_completions_cost": 3.55e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 13,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 7.592999999997119
+}

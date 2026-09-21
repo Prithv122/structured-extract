@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789918060-XT5Il5E8iUiluVzEBk1o",
+ "object": "chat.completion",
+ "created": 1789918060,
+ "model": "google/gemini-2.5-flash",
+ "provider": "Google",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "STOP",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"Reduce the number of threads using the `SET threads = ...` command.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"Setting the memory limit lower than the [default 80%]({% link docs/current/operations_manual/limits.md %}) can help prevent out of memory errors. While this configuration sounds counter-intuitive, it helps because some of DuckDB's operations circumvent the database's buffer manager and thus they can reserve more memory than allowed by the memory limit. If this happens (e.g., DuckDB is killed by the operating system or an OOM reaper process), set the memory limit to just 50-60% of the total system memory by using the `SET memory_limit = '...'` statement.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"80%\",\n      \"default_evidence\": \"Setting the memory limit lower than the [default 80%]({% link docs/current/operations_manual/limits.md %})\"\n    },\n    {\n      \"name\": \"preserve_insertion_order\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"If your query reads a large amount of data from a file or writes a large amount of data, try setting the `preserve_insertion_order` option to `false`: `SET preserve_insertion_order = false`.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"try setting the `preserve_insertion_order` option to `false`: `SET preserve_insertion_order = false`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 710,
+  "completion_tokens": 466,
+  "total_tokens": 1176,
+  "cost": 0.001378,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.001378,
+   "upstream_inference_prompt_cost": 0.000213,
+   "upstream_inference_completions_cost": 0.001165
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 2.514999999999418
+}

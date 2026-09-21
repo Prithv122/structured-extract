@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789922811-UU01gKh1BRvheLGixW9E",
+ "object": "chat.completion",
+ "created": 1789922811,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": [{\"name\": \"enable_external_access\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"The [`enable_external_access` option]({% link docs/current/configuration/overview.md %}#configuration-reference) is set to `false`.\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null}]}",
+    "refusal": null,
+    "reasoning": "Safe mode is a CLI flag, not a SET setting. enable_external_access is mentioned but documented elsewhere. The section mentions \"enable_external_access option\" — is it a setting documented here? It's referenced, with effect \"set to false\". Hmm, it's a configuration setting mentioned. But the section isn't documenting it as a setting table; it's describing safe mode effects. Likely empty list. But enable_external_access is a real DuckDB setting and the section states its value false. I'd include it? The instruction: settings are things you change with SET. enable_external_access qualifies, and the section states it's set to false. I'll include it with default false? That's not a default, it's the safe-mode value. Default absent. Safer: empty list, since section documents safe mode, not settings. But enable_external_access is explicitly named as an option being set... I'll include it with default absent.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "Safe mode is a CLI flag, not a SET setting. enable_external_access is mentioned but documented elsewhere. The section mentions \"enable_external_access option\" — is it a setting documented here? It's referenced, with effect \"set to false\". Hmm, it's a configuration setting mentioned. But the section isn't documenting it as a setting table; it's describing safe mode effects. Likely empty list. But enable_external_access is a real DuckDB setting and the section states its value false. I'd include it? The instruction: settings are things you change with SET. enable_external_access qualifies, and the section states it's set to false. I'll include it with default false? That's not a default, it's the safe-mode value. Default absent. Safer: empty list, since section documents safe mode, not settings. But enable_external_access is explicitly named as an option being set... I'll include it with default absent.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 748,
+  "completion_tokens": 276,
+  "total_tokens": 1024,
+  "cost": 0.0001251,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0001251,
+   "upstream_inference_prompt_cost": 5.61e-05,
+   "upstream_inference_completions_cost": 6.9e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 190,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.875
+}

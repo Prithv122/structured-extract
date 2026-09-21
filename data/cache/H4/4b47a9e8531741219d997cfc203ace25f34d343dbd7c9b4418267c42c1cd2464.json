@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789920182-7GyUBsUymHD32oEWBFsq",
+ "object": "chat.completion",
+ "created": 1789920182,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"s3_version_id_pinning\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Set `s3_version_id_pinning` (`BOOLEAN`, default `false`) to pin reads to the object version captured on the first `HEAD` request, so a query sees a consistent version even if the object is overwritten mid-query.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\"\n    ,\n      \"default_evidence\": \"default `false`\"\n    },\n    {\n      \"name\": \"enable_http_metadata_cache\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET enable_http_metadata_cache = true;\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null\n    ,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The user provided a snippet about s3_version_id_pinning and enable_http_metadata_cache. Both are settings (they can be set with SET). So we need to output JSON list of settings with name, type, default (if stated), and evidence (quote). The snippet includes default for s3_version_id_pinning: default `false`. For enable_http_metadata_cache, not given default in snippet. It just mentions setting it to true. No default provided. So we list two settings.\n\nWe need to follow schema. Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to quote a span of the section verbatim as evidence for each setting. For s3_version_id_pinning: \"Set `s3_version_id_pinning` (`BOOLEAN`, default `false`) to pin reads...\" That's a good quote. For enable_http_metadata_cache: maybe \"SET enable_http_metadata_cache = true;\" but that doesn't show type or default. The snippet doesn't give type or default. We can still include setting with default absent. Evidence could be \"SET enable_http_metadata_cache = true;\". Provide default as \"absent\". The schema expects default maybe null or \"absent\". The instruction: \"If the section does not state a default, say it is absent\". So we can set default: \"absent\". Provide evidence quote.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"s3_version_id_pinning\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"false\",\n      \"evidence\": \"Set `s3_version_id_pinning` (`BOOLEAN`, default `false`) to pin reads to the object version captured on the first `HEAD` request, so a query sees a consistent version even if the object is overwritten mid-query.\"\n    },\n    {\n      \"name\": \"enable_http_metadata_cache\",\n      \"type\": null,\n      \"default\": \"absent\",\n      \"evidence\": \"SET enable_http_metadata_cache = true;\"\n    }\n  ]\n}\n\nBut type for enable_http_metadata_cache not given. Could be omitted or null. Schema maybe expects type string. If unknown, maybe \"unknown\". But instruction: we only report if section states type. It doesn't. So we could omit type field? But schema likely requires it. Could set type as \"absent\". But better to set null. We'll include null.\n\nReturn only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The user provided a snippet about s3_version_id_pinning and enable_http_metadata_cache. Both are settings (they can be set with SET). So we need to output JSON list of settings with name, type, default (if stated), and evidence (quote). The snippet includes default for s3_version_id_pinning: default `false`. For enable_http_metadata_cache, not given default in snippet. It just mentions setting it to true. No default provided. So we list two settings.\n\nWe need to follow schema. Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to quote a span of the section verbatim as evidence for each setting. For s3_version_id_pinning: \"Set `s3_version_id_pinning` (`BOOLEAN`, default `false`) to pin reads...\" That's a good quote. For enable_http_metadata_cache: maybe \"SET enable_http_metadata_cache = true;\" but that doesn't show type or default. The snippet doesn't give type or default. We can still include setting with default absent. Evidence could be \"SET enable_http_metadata_cache = true;\". Provide default as \"absent\". The schema expects default maybe null or \"absent\". The instruction: \"If the section does not state a default, say it is absent\". So we can set default: \"absent\". Provide evidence quote.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"s3_version_id_pinning\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"false\",\n      \"evidence\": \"Set `s3_version_id_pinning` (`BOOLEAN`, default `false`) to pin reads to the object version captured on the first `HEAD` request, so a query sees a consistent version even if the object is overwritten mid-query.\"\n    },\n    {\n      \"name\": \"enable_http_metadata_cache\",\n      \"type\": null,\n      \"default\": \"absent\",\n      \"evidence\": \"SET enable_http_metadata_cache = true;\"\n    }\n  ]\n}\n\nBut type for enable_http_metadata_cache not given. Could be omitted or null. Schema maybe expects type string. If unknown, maybe \"unknown\". But instruction: we only report if section states type. It doesn't. So we could omit type field? But schema likely requires it. Could set type as \"absent\". But better to set null. We'll include null.\n\nReturn only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 596,
+  "completion_tokens": 744,
+  "total_tokens": 1340,
+  "cost": 0.00014436,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00014436,
+   "upstream_inference_prompt_cost": 1.788e-05,
+   "upstream_inference_completions_cost": 0.00012648
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 591,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 13.453999999997905
+}

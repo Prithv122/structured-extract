@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905365-IDLaAIVyBTC7JegUw0ph",
+ "object": "chat.completion",
+ "created": 1789905365,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"geometry_minimum_shredding_size\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"30000\",\n      \"default_evidence\": \"Defaults to 1/4th of a rowgroup\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to fix evidence to be at least 12 characters of text copied from the document. The document snippet is a table row. The description column includes text. We need a span that includes at least 12 characters. Could use the description text: \"Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup\". That's longer than 12. So evidence should be that span. Also default_evidence also needs at least 12 characters? The schema likely requires same. It didn't error for default_evidence but maybe also needs length. Safer to provide longer span for both evidence and default_evidence. For default_evidence we can use the same description part that mentions default: \"Defaults to 1/4th of a rowgroup\". That's >12. Provide that.\n\nAlso need to include scope? The schema likely expects scope maybe optional. But we included. Should be fine.\n\nNow produce JSON with evidence longer. Provide evidence as the description cell content exactly as appears in the table. The table row: \"`geometry_minimum_shredding_size` | Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup | `BIGINT` | `30000`\". The evidence could be the description part. Let's copy exactly: \"Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup\". That's verbatim.\n\nDefault_evidence: \"Defaults to 1/4th of a rowgroup\". That's verbatim.\n\nNow produce JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to fix evidence to be at least 12 characters of text copied from the document. The document snippet is a table row. The description column includes text. We need a span that includes at least 12 characters. Could use the description text: \"Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup\". That's longer than 12. So evidence should be that span. Also default_evidence also needs at least 12 characters? The schema likely requires same. It didn't error for default_evidence but maybe also needs length. Safer to provide longer span for both evidence and default_evidence. For default_evidence we can use the same description part that mentions default: \"Defaults to 1/4th of a rowgroup\". That's >12. Provide that.\n\nAlso need to include scope? The schema likely expects scope maybe optional. But we included. Should be fine.\n\nNow produce JSON with evidence longer. Provide evidence as the description cell content exactly as appears in the table. The table row: \"`geometry_minimum_shredding_size` | Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup | `BIGINT` | `30000`\". The evidence could be the description part. Let's copy exactly: \"Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup\". That's verbatim.\n\nDefault_evidence: \"Defaults to 1/4th of a rowgroup\". That's verbatim.\n\nNow produce JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 834,
+  "completion_tokens": 488,
+  "total_tokens": 1322,
+  "cost": 0.00010798,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00010798,
+   "upstream_inference_prompt_cost": 2.502e-05,
+   "upstream_inference_completions_cost": 8.296e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 383,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 43.64100000000326
+}

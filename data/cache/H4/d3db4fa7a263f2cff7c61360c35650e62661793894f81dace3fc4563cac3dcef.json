@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919442-wwY1KEUH8V0vfvTm4hJt",
+ "object": "chat.completion",
+ "created": 1789919442,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET memory_limit = '2GB';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). If default_kind is \"absent\", default_value and default_evidence must be null. In previous answer we set default_value to \"absent\" string, which is wrong. Should set default_value: null, default_evidence: null. Also need to ensure input_type maybe string? The evidence must be verbatim span from document. The provided text: \"SET memory_limit = '2GB';\" is verbatim. Good.\n\nThus produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET memory_limit = '2GB';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck schema: maybe default_kind values: \"literal\", \"machine-dependent\", \"absent\". So okay.\n\nReturn only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). If default_kind is \"absent\", default_value and default_evidence must be null. In previous answer we set default_value to \"absent\" string, which is wrong. Should set default_value: null, default_evidence: null. Also need to ensure input_type maybe string? The evidence must be verbatim span from document. The provided text: \"SET memory_limit = '2GB';\" is verbatim. Good.\n\nThus produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET memory_limit = '2GB';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck schema: maybe default_kind values: \"literal\", \"machine-dependent\", \"absent\". So okay.\n\nReturn only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1026,
+  "completion_tokens": 316,
+  "total_tokens": 1342,
+  "cost": 8.45e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.45e-05,
+   "upstream_inference_prompt_cost": 3.078e-05,
+   "upstream_inference_completions_cost": 5.372e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 242,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 28.29699999999866
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919162-V1S5jf9iBzY9KHB0oeq2",
+ "object": "chat.completion",
+ "created": 1789919162,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"\\\"DSN=DuckDB;access_mode=READ_ONLY\\\"\",\n      \"default_kind\": \"absent\"\n   \n    , \"default_value\": \"absent\"\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The user provided a snippet about ODBC driver and mentions \"any of the available DuckDB configuration options\". But the snippet does not list any settings; it just shows a connection string with \"access_mode=READ_ONLY\". Is \"access_mode\" a DuckDB configuration option? Likely yes, it's a setting you can set via PRAGMA or SET. But is it documented here? The snippet only includes \"access_mode=READ_ONLY\". The question: we need to extract settings documented in this section. The section is about ODBC connection string. It mentions \"access_mode=READ_ONLY\". That appears to be a configuration option. The section does not provide default. It just shows usage. So we should output a JSON list with one setting: name \"access_mode\". Provide evidence quote: `\"access_mode=READ_ONLY\"` from the snippet. Default is absent (since not stated). So JSON schema? Not provided but likely something like [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. Need to infer schema. The instruction: \"Answer only with JSON matching the supplied schema.\" But no schema given in prompt. Possibly earlier context? We have to guess typical schema: maybe list of objects with \"setting\", \"default\", \"evidence\". Let's assume schema: [{\"setting\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. Or \"name\". Use \"name\". I'll output with keys \"name\", \"default\", \"evidence\". Use default \"absent\". Provide evidence exactly as appears. The snippet line: `std::string dsn = \"DSN=DuckDB;access_mode=READ_ONLY\"` includes the setting. Quote that span. Provide default absent.\n\nReturn JSON array.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The user provided a snippet about ODBC driver and mentions \"any of the available DuckDB configuration options\". But the snippet does not list any settings; it just shows a connection string with \"access_mode=READ_ONLY\". Is \"access_mode\" a DuckDB configuration option? Likely yes, it's a setting you can set via PRAGMA or SET. But is it documented here? The snippet only includes \"access_mode=READ_ONLY\". The question: we need to extract settings documented in this section. The section is about ODBC connection string. It mentions \"access_mode=READ_ONLY\". That appears to be a configuration option. The section does not provide default. It just shows usage. So we should output a JSON list with one setting: name \"access_mode\". Provide evidence quote: `\"access_mode=READ_ONLY\"` from the snippet. Default is absent (since not stated). So JSON schema? Not provided but likely something like [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. Need to infer schema. The instruction: \"Answer only with JSON matching the supplied schema.\" But no schema given in prompt. Possibly earlier context? We have to guess typical schema: maybe list of objects with \"setting\", \"default\", \"evidence\". Let's assume schema: [{\"setting\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. Or \"name\". Use \"name\". I'll output with keys \"name\", \"default\", \"evidence\". Use default \"absent\". Provide evidence exactly as appears. The snippet line: `std::string dsn = \"DSN=DuckDB;access_mode=READ_ONLY\"` includes the setting. Quote that span. Provide default absent.\n\nReturn JSON array.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 714,
+  "completion_tokens": 464,
+  "total_tokens": 1178,
+  "cost": 0.0001003,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0001003,
+   "upstream_inference_prompt_cost": 2.142e-05,
+   "upstream_inference_completions_cost": 7.888e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 409,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 6.968000000000757
+}

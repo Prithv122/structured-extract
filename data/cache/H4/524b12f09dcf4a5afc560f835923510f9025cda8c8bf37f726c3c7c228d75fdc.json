@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789921078-teKAS0cC5PeSDQTMD1Jo",
+ "object": "chat.completion",
+ "created": 1789921078,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"enable_external_access\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`enable_external_access`                      | Allow the database to access external state (through e.g., loading/installing modules, COPY TO/FROM, CSV readers, pandas replacement scans, etc)                                                              | `BOOLEAN`   | `true`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\"\n   \n    ,      \"default_evidence\": \"`true`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section. The user provided a table with one row: Name `enable_external_access`, description, type BOOLEAN, default value true.\n\nWe need to output JSON matching the supplied schema. The schema not provided explicitly, but we can infer: likely an array of objects with fields: name, type, default, description, evidence (quote). The instruction: \"Answer only with JSON matching the supplied schema.\" We need to guess schema. In similar tasks, schema is like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut could be different. Let's assume schema: list of objects. Might be top-level array. Could be {\"settings\": [...]}.\n\nBetter to output array directly? The instruction: \"Answer only with JSON matching the supplied schema.\" Since we don't have schema, we guess typical: an array of objects.\n\nI'll output:\n\n[\n  {\n    \"name\": \"enable_external_access\",\n    \"type\": \"BOOLEAN\",\n    \"default\": \"true\",\n    \"description\": \"Allow the database to access external state (through e.g., loading/installing modules, COPY TO/FROM, CSV readers, pandas replacement scans, etc)\",\n    \"evidence\": \"`enable_external_access` | Allow the database to access external state (through e.g., loading/installing modules, COPY TO/FROM, CSV readers, pandas replacement scans, etc) | `BOOLEAN` | `true`\"\n  }\n]\n\nBut need to quote a span of the section verbatim as evidence. Provide a direct quote: \"`enable_external_access`                      | Allow the database to access external state (through e.g., loading/installing modules, COPY TO/FROM, CSV readers, pandas replacement scans, etc)                                                              | `BOOLEAN`   | `true`\". That is a line.\n\nLet's include that.\n\nReturn JSON array.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section. The user provided a table with one row: Name `enable_external_access`, description, type BOOLEAN, default value true.\n\nWe need to output JSON matching the supplied schema. The schema not provided explicitly, but we can infer: likely an array of objects with fields: name, type, default, description, evidence (quote). The instruction: \"Answer only with JSON matching the supplied schema.\" We need to guess schema. In similar tasks, schema is like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut could be different. Let's assume schema: list of objects. Might be top-level array. Could be {\"settings\": [...]}.\n\nBetter to output array directly? The instruction: \"Answer only with JSON matching the supplied schema.\" Since we don't have schema, we guess typical: an array of objects.\n\nI'll output:\n\n[\n  {\n    \"name\": \"enable_external_access\",\n    \"type\": \"BOOLEAN\",\n    \"default\": \"true\",\n    \"description\": \"Allow the database to access external state (through e.g., loading/installing modules, COPY TO/FROM, CSV readers, pandas replacement scans, etc)\",\n    \"evidence\": \"`enable_external_access` | Allow the database to access external state (through e.g., loading/installing modules, COPY TO/FROM, CSV readers, pandas replacement scans, etc) | `BOOLEAN` | `true`\"\n  }\n]\n\nBut need to quote a span of the section verbatim as evidence. Provide a direct quote: \"`enable_external_access`                      | Allow the database to access external state (through e.g., loading/installing modules, COPY TO/FROM, CSV readers, pandas replacement scans, etc)                                                              | `BOOLEAN`   | `true`\". That is a line.\n\nLet's include that.\n\nReturn JSON array.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 573,
+  "completion_tokens": 545,
+  "total_tokens": 1118,
+  "cost": 0.00010984,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00010984,
+   "upstream_inference_prompt_cost": 1.719e-05,
+   "upstream_inference_completions_cost": 9.265e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 482,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 11.421000000002095
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789913228-FO35UoDLHEB97z1KiUA3",
+ "object": "chat.completion",
+ "created": 1789913228,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"set the `old_implicit_casting` variable to `true`\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"old_implicit_casting\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need produce likely list of settings with evidence and default. Need extract from given section. The section is about old_implicit_casting. It documents a DuckDB configuration setting? Yes: \"set the old_implicit_casting variable to true\". It is a setting changed with SET. Need quote verbatim span. Default? Section says prior to 0.10.0 automatic, for v0.10.0 and later explicit cast needed. Does it state default? It implies default is false? It says \"To revert to old behavior ... set variable to true\". It doesn't explicitly state default value. It says for version v0.10.0 and later an explicit cast is needed instead. That implies old_implicit_casting default false, but not stated as default. Need only if section states it. It does not state \"default is false\". So default absent. Need quote setting name. Evidence: \"set the `old_implicit_casting` variable to `true`\" maybe enough. Need include setting name. JSON maybe array of objects with setting, evidence, default? Need decide schema. Since no schema, likely expected:\n{\n  \"settings\": [\n    {\n      \"name\": \"old_implicit_casting\",\n      \"evidence\": \"set the `old_implicit_casting` variable to `true`\",\n      \"default\": null\n    }\n  ]\n}\nBut need maybe \"default\": \"absent\" or \"machine-dependent\"? User says \"If section does not state a default, say it is absent\". So default: \"absent\". Need answer only JSON. Could include \"default\": \"absent\". Need ensure quote exact. The evidence span: \"set the `old_implicit_casting` variable to `true`\" includes backticks. Copy exactly. Could also quote \"To revert to the old behavior that performs implicit casting, set the `old_implicit_casting` variable to `true`:\" but shorter okay. Need maybe include setting name as \"old_implicit_casting\". Let's produce JSON.\n\nBut let's consider if there are any other settings in section? Only old_implicit_casting. No other. Need not include non-settings. Good.\n\nNeed final only JSON. Ensure valid.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need produce likely list of settings with evidence and default. Need extract from given section. The section is about old_implicit_casting. It documents a DuckDB configuration setting? Yes: \"set the old_implicit_casting variable to true\". It is a setting changed with SET. Need quote verbatim span. Default? Section says prior to 0.10.0 automatic, for v0.10.0 and later explicit cast needed. Does it state default? It implies default is false? It says \"To revert to old behavior ... set variable to true\". It doesn't explicitly state default value. It says for version v0.10.0 and later an explicit cast is needed instead. That implies old_implicit_casting default false, but not stated as default. Need only if section states it. It does not state \"default is false\". So default absent. Need quote setting name. Evidence: \"set the `old_implicit_casting` variable to `true`\" maybe enough. Need include setting name. JSON maybe array of objects with setting, evidence, default? Need decide schema. Since no schema, likely expected:\n{\n  \"settings\": [\n    {\n      \"name\": \"old_implicit_casting\",\n      \"evidence\": \"set the `old_implicit_casting` variable to `true`\",\n      \"default\": null\n    }\n  ]\n}\nBut need maybe \"default\": \"absent\" or \"machine-dependent\"? User says \"If section does not state a default, say it is absent\". So default: \"absent\". Need answer only JSON. Could include \"default\": \"absent\". Need ensure quote exact. The evidence span: \"set the `old_implicit_casting` variable to `true`\" includes backticks. Copy exactly. Could also quote \"To revert to the old behavior that performs implicit casting, set the `old_implicit_casting` variable to `true`:\" but shorter okay. Need maybe include setting name as \"old_implicit_casting\". Let's produce JSON.\n\nBut let's consider if there are any other settings in section? Only old_implicit_casting. No other. Need not include non-settings. Good.\n\nNeed final only JSON. Ensure valid.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 610,
+  "completion_tokens": 591,
+  "total_tokens": 1201,
+  "cost": 0.00196535,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00196535,
+   "upstream_inference_prompt_cost": 0.0004583,
+   "upstream_inference_completions_cost": 0.00150705
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 529,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 15.4529999999977
+}

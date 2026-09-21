@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789921352-tIs0XmzYkmBkE7eu5anI",
+ "object": "chat.completion",
+ "created": 1789921352,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allow_parser_override_extension\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`allow_parser_override_extension` | Allow extensions to override the current parser | `VARCHAR` | `DEFAULT`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"DEFAULT\",\n      \"default_evidence\": \"`DEFAULT`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a table with a single row: Name `allow_parser_override_extension`, Description, Type `VARCHAR`, Default value `DEFAULT`. We need to determine if this is a configuration setting. The description: \"Allow extensions to override the current parser\". It seems like a setting that can be changed with SET, RESET, or PRAGMA. The name suggests a configuration option. The table is titled \"Global Configuration Options\". So likely it's a config setting.\n\nWe need to output JSON matching the supplied schema. The schema not provided explicitly, but we can infer: likely an array of objects with fields: name, type, default, description, evidence (quote). The instruction: \"Answer only with JSON matching the supplied schema.\" We need to guess schema. In previous similar tasks, schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut not sure. Could be just list of objects. Let's assume top-level is an array. However they said \"JSON matching the supplied schema\". We don't have schema. We need to infer typical format from prior tasks. Usually they want something like:\n\n[\n  {\n    \"name\": \"...\",\n    \"type\": \"...\",\n    \"default\": \"...\",\n    \"description\": \"...\",\n    \"evidence\": \"...\"\n  }\n]\n\nI'll output that.\n\nWe need to quote a span of the section verbatim as evidence for each setting. So we can quote the row line: \"`allow_parser_override_extension`\". Maybe include the whole row.\n\nEvidence: \"`allow_parser_override_extension`\". Or the whole line: \"`allow_parser_override_extension` | Allow extensions to override the current parser | `VARCHAR` | `DEFAULT`\". Provide that.\n\nDefault: The table says Default value `DEFAULT`. That's literal default? It says `DEFAULT`. That seems like placeholder meaning default is default? Might be ambiguous. But we must report default as given: \"`DEFAULT`\". So default is \"`DEFAULT`\". Provide as string.\n\nThus JSON:\n\n[\n  {\n    \"name\": \"allow_parser_override_extension\",\n    \"type\": \"VARCHAR\",\n    \"default\": \"DEFAULT\",\n    \"description\": \"Allow extensions to override the current parser\",\n    \"evidence\": \"`allow_parser_override_extension` | Allow extensions to override the current parser | `VARCHAR` | `DEFAULT`\"\n  }\n]\n\nReturn that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a table with a single row: Name `allow_parser_override_extension`, Description, Type `VARCHAR`, Default value `DEFAULT`. We need to determine if this is a configuration setting. The description: \"Allow extensions to override the current parser\". It seems like a setting that can be changed with SET, RESET, or PRAGMA. The name suggests a configuration option. The table is titled \"Global Configuration Options\". So likely it's a config setting.\n\nWe need to output JSON matching the supplied schema. The schema not provided explicitly, but we can infer: likely an array of objects with fields: name, type, default, description, evidence (quote). The instruction: \"Answer only with JSON matching the supplied schema.\" We need to guess schema. In previous similar tasks, schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut not sure. Could be just list of objects. Let's assume top-level is an array. However they said \"JSON matching the supplied schema\". We don't have schema. We need to infer typical format from prior tasks. Usually they want something like:\n\n[\n  {\n    \"name\": \"...\",\n    \"type\": \"...\",\n    \"default\": \"...\",\n    \"description\": \"...\",\n    \"evidence\": \"...\"\n  }\n]\n\nI'll output that.\n\nWe need to quote a span of the section verbatim as evidence for each setting. So we can quote the row line: \"`allow_parser_override_extension`\". Maybe include the whole row.\n\nEvidence: \"`allow_parser_override_extension`\". Or the whole line: \"`allow_parser_override_extension` | Allow extensions to override the current parser | `VARCHAR` | `DEFAULT`\". Provide that.\n\nDefault: The table says Default value `DEFAULT`. That's literal default? It says `DEFAULT`. That seems like placeholder meaning default is default? Might be ambiguous. But we must report default as given: \"`DEFAULT`\". So default is \"`DEFAULT`\". Provide as string.\n\nThus JSON:\n\n[\n  {\n    \"name\": \"allow_parser_override_extension\",\n    \"type\": \"VARCHAR\",\n    \"default\": \"DEFAULT\",\n    \"description\": \"Allow extensions to override the current parser\",\n    \"evidence\": \"`allow_parser_override_extension` | Allow extensions to override the current parser | `VARCHAR` | `DEFAULT`\"\n  }\n]\n\nReturn that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 551,
+  "completion_tokens": 630,
+  "total_tokens": 1181,
+  "cost": 0.00012363,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 512,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00012363,
+   "upstream_inference_prompt_cost": 1.653e-05,
+   "upstream_inference_completions_cost": 0.0001071
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 617,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 12.93699999999808
+}

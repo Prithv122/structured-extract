@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919507-obxxDd6EJiIBdrPeKy2U",
+ "object": "chat.completion",
+ "created": 1789919507,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a snippet about duckdb_optimizers() function, which provides metadata about optimization rules, and mentions they can be turned off using PRAGMA disabled_optimizers. The table lists columns: name, description, type. This is not a configuration setting list; it's a function metadata. The only setting mentioned is PRAGMA disabled_optimizers, but that's not documented here; it's just referenced. The section does not list settings; it's about a function. So answer should be empty list.\n\nWe must output JSON matching supplied schema. The schema not given explicitly, but likely something like {\"settings\": [ ... ]}. We need to infer. Usually tasks like this expect output like:\n\n{\n  \"settings\": []\n}\n\nOr maybe just []? The instruction: \"Answer only with JSON matching the supplied schema.\" The schema not shown, but typical is an array of objects with fields name, default, evidence. Could be like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nThus for empty list: {\"settings\": []}. We'll output that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a snippet about duckdb_optimizers() function, which provides metadata about optimization rules, and mentions they can be turned off using PRAGMA disabled_optimizers. The table lists columns: name, description, type. This is not a configuration setting list; it's a function metadata. The only setting mentioned is PRAGMA disabled_optimizers, but that's not documented here; it's just referenced. The section does not list settings; it's about a function. So answer should be empty list.\n\nWe must output JSON matching supplied schema. The schema not given explicitly, but likely something like {\"settings\": [ ... ]}. We need to infer. Usually tasks like this expect output like:\n\n{\n  \"settings\": []\n}\n\nOr maybe just []? The instruction: \"Answer only with JSON matching the supplied schema.\" The schema not shown, but typical is an array of objects with fields name, default, evidence. Could be like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nThus for empty list: {\"settings\": []}. We'll output that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 593,
+  "completion_tokens": 270,
+  "total_tokens": 863,
+  "cost": 6.369e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.369e-05,
+   "upstream_inference_prompt_cost": 1.779e-05,
+   "upstream_inference_completions_cost": 4.59e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 299,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 5.9689999999973224
+}

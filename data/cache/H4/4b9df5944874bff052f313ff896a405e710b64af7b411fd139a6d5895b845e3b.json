@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789918611-KAK8hwGpnyLMsh6str7J",
+ "object": "chat.completion",
+ "created": 1789918611,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"preserve_identifier_case\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET preserve_identifier_case = false;\",\n      \"default_kind\": \"absent\"\n   \n    , \"default_value\": \"absent\"\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a snippet about preserve_identifier_case configuration option. We need to output JSON with list of settings, each with name, default (if stated), and evidence (quote). The snippet includes \"preserve_identifier_case\" and shows setting to false. Does it state default? Not in snippet. It just says \"With the preserve_identifier_case configuration option set to false...\". No default given. So default is absent. Provide evidence quote for setting name: maybe \"preserve_identifier_case\" appears. Provide quote: \"preserve_identifier_case\". Could include the line \"SET preserve_identifier_case = false;\". That includes the name. Provide default: absent.\n\nSchema? Not given explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to match supplied schema. Not provided, but typical. We'll assume top-level array? The instruction: \"Answer only with JSON matching the supplied schema.\" Since we don't have schema, we guess. Possibly:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"preserve_identifier_case\",\n      \"default\": \"absent\",\n      \"evidence\": \"SET preserve_identifier_case = false;\"\n    }\n  ]\n}\n\nMake sure default is string \"absent\". Provide evidence verbatim. Use the exact characters. Provide quote exactly as appears: \"SET preserve_identifier_case = false;\". That includes trailing semicolon. Provide name exactly.\n\nReturn JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a snippet about preserve_identifier_case configuration option. We need to output JSON with list of settings, each with name, default (if stated), and evidence (quote). The snippet includes \"preserve_identifier_case\" and shows setting to false. Does it state default? Not in snippet. It just says \"With the preserve_identifier_case configuration option set to false...\". No default given. So default is absent. Provide evidence quote for setting name: maybe \"preserve_identifier_case\" appears. Provide quote: \"preserve_identifier_case\". Could include the line \"SET preserve_identifier_case = false;\". That includes the name. Provide default: absent.\n\nSchema? Not given explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to match supplied schema. Not provided, but typical. We'll assume top-level array? The instruction: \"Answer only with JSON matching the supplied schema.\" Since we don't have schema, we guess. Possibly:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"preserve_identifier_case\",\n      \"default\": \"absent\",\n      \"evidence\": \"SET preserve_identifier_case = false;\"\n    }\n  ]\n}\n\nMake sure default is string \"absent\". Provide evidence verbatim. Use the exact characters. Provide quote exactly as appears: \"SET preserve_identifier_case = false;\". That includes trailing semicolon. Provide name exactly.\n\nReturn JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 578,
+  "completion_tokens": 423,
+  "total_tokens": 1001,
+  "cost": 8.925e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.925e-05,
+   "upstream_inference_prompt_cost": 1.734e-05,
+   "upstream_inference_completions_cost": 7.191e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 394,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.468000000000757
+}

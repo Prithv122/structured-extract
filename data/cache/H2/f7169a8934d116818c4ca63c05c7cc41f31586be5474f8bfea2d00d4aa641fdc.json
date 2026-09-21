@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789900417-TxqRaQO0Fgo2JFj3r7Bk",
+ "object": "chat.completion",
+ "created": 1789900417,
+ "model": "google/gemini-2.5-flash",
+ "provider": "Google",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "STOP",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"write_buffer_row_group_memory_limit\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`write_buffer_row_group_memory_limit`         | The maximum data to buffer in row groups (in bytes) prior to flushing them together. When either this limit or `write_buffer_row_group_count` is reached, the data is flushed to disk. Defaults to 20% of the memory limit divided by the thread count.\",\n      \"default_kind\": \"machine_dependent\",\n      \"default_value\": \"20% of the memory limit divided by the thread count\",\n      \"default_evidence\": \"Defaults to 20% of the memory limit divided by the thread count\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 413,
+  "completion_tokens": 191,
+  "total_tokens": 604,
+  "cost": 0.0006014,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0006014,
+   "upstream_inference_prompt_cost": 0.0001239,
+   "upstream_inference_completions_cost": 0.0004775
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 1.9069999999992433
+}

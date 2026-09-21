@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789913325-cCpWgl2cbzzNmO7SEBJy",
+ "object": "chat.completion",
+ "created": 1789913325,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use.\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"storage_compatibility_version\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need produce likely list of settings with name, evidence, default. Need inspect section? We don't have actual documentation section content except user quoted a snippet? The prompt describes task, then at end includes a snippet:\n\n\"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use. It can be specified in various ways.\n\nIn the Python client, you have to specify it when connecting to a new database:\n\n```python\nduckdb.connect(\"file.db\", config={'storage_compatibility_version': 'latest'})\n```\"\n\nThis is likely the section? Need extract settings. It mentions storage_compatibility_version as configuration option. Need quote verbatim evidence. Default? The snippet does not state default. It says can be used to specify storage version, specified in various ways, Python client specify when connecting. No default. So answer list with one setting: storage_compatibility_version, evidence quote maybe \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use.\" Need include exact characters. Default absent.\n\nBut need be careful: The prompt says \"If the section documents those, correct answer empty list...\" Here section documents storage_compatibility_version as configuration option. So include it. Need JSON schema likely something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"storage_compatibility_version\",\n      \"evidence\": \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use.\",\n      \"default\": null\n    }\n  ]\n}\nBut default absent maybe \"absent\" string? User says \"If the section does not state a default, say it is absent\". So default field should be \"absent\" maybe. Need decide schema. They said \"Also report the setting's default, but only if this section states it. ... If the section does not state a default, say it is absent\". So JSON value could be string \"absent\" or null? \"say it is absent\" likely string \"absent\". Need include.\n\nNeed ensure evidence quote exactly as appears. The snippet includes markdown link with {% link ... %} maybe exact. We can quote from \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use.\" That's verbatim. Could include more? Need quote span. We can include the first sentence. It contains setting name and indicates configuration option. Good.\n\nNeed answer only JSON. No markdown. Ensure valid JSON.\n\nBut let's think if there are any other settings in snippet? It mentions \"storage_compatibility_version\" only. No default. So one setting.\n\nPotential issue: The prompt says \"A configuration setting is one you change with SET, RESET or PRAGMA...\" storage_compatibility_version is indeed a configuration option. The snippet explicitly calls it configuration option. So include.\n\nNeed maybe include \"latest\" as default? No, that's an example value in Python client, not default. The section does not state default. So absent.\n\nFinal JSON:\n{\n  \"settings\": [\n    {\n      \"name\": \"storage_compatibility_version\",\n      \"evidence\": \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nNeed ensure no extra text.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need produce likely list of settings with name, evidence, default. Need inspect section? We don't have actual documentation section content except user quoted a snippet? The prompt describes task, then at end includes a snippet:\n\n\"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use. It can be specified in various ways.\n\nIn the Python client, you have to specify it when connecting to a new database:\n\n```python\nduckdb.connect(\"file.db\", config={'storage_compatibility_version': 'latest'})\n```\"\n\nThis is likely the section? Need extract settings. It mentions storage_compatibility_version as configuration option. Need quote verbatim evidence. Default? The snippet does not state default. It says can be used to specify storage version, specified in various ways, Python client specify when connecting. No default. So answer list with one setting: storage_compatibility_version, evidence quote maybe \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use.\" Need include exact characters. Default absent.\n\nBut need be careful: The prompt says \"If the section documents those, correct answer empty list...\" Here section documents storage_compatibility_version as configuration option. So include it. Need JSON schema likely something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"storage_compatibility_version\",\n      \"evidence\": \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use.\",\n      \"default\": null\n    }\n  ]\n}\nBut default absent maybe \"absent\" string? User says \"If the section does not state a default, say it is absent\". So default field should be \"absent\" maybe. Need decide schema. They said \"Also report the setting's default, but only if this section states it. ... If the section does not state a default, say it is absent\". So JSON value could be string \"absent\" or null? \"say it is absent\" likely string \"absent\". Need include.\n\nNeed ensure evidence quote exactly as appears. The snippet includes markdown link with {% link ... %} maybe exact. We can quote from \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use.\" That's verbatim. Could include more? Need quote span. We can include the first sentence. It contains setting name and indicates configuration option. Good.\n\nNeed answer only JSON. No markdown. Ensure valid JSON.\n\nBut let's think if there are any other settings in snippet? It mentions \"storage_compatibility_version\" only. No default. So one setting.\n\nPotential issue: The prompt says \"A configuration setting is one you change with SET, RESET or PRAGMA...\" storage_compatibility_version is indeed a configuration option. The snippet explicitly calls it configuration option. So include.\n\nNeed maybe include \"latest\" as default? No, that's an example value in Python client, not default. The section does not state default. So absent.\n\nFinal JSON:\n{\n  \"settings\": [\n    {\n      \"name\": \"storage_compatibility_version\",\n      \"evidence\": \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nNeed ensure no extra text.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 586,
+  "completion_tokens": 914,
+  "total_tokens": 1500,
+  "cost": 0.0030046,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0030046,
+   "upstream_inference_prompt_cost": 0.0006739,
+   "upstream_inference_completions_cost": 0.0023307
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 971,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 25.67199999999866
+}

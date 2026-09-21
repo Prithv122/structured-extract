@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789895570-OQi6JQDlheyETQlT0NzH",
+ "object": "chat.completion",
+ "created": 1789895570,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe from context? We have only text. Need produce JSON likely array of settings with evidence and default. Need determine if section documents any configuration settings. The provided section is about DuckDB versioning/releases. It contains no configuration settings. Need return empty list? Need know schema. Maybe something like {\"settings\": []}? We need infer. The instruction: \"Return every configuration setting that this section documents... Answer only with JSON matching the supplied schema.\" Since no schema visible, maybe expected format from previous? We need decide. Could be list of objects with setting, evidence, default. Need output JSON only. Since no settings documented, empty list. But schema maybe object with settings array? Need think.\n\nThe user asks: \"Return every configuration setting that this section documents.\" Then \"For each setting, quote a span... Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" There is no supplied schema in message. Maybe hidden? We need produce likely:\n{\n  \"settings\": []\n}\nor just []? Need infer from \"schema\" maybe they expect array of objects. The phrase \"matching the supplied schema\" but no schema. Could be from benchmark where schema is known: maybe list of {\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}? Need produce valid JSON. Since no settings, empty array is safe? But if schema is object with settings property, empty array might not match. Need examine wording: \"Return every configuration setting that this section documents.\" \"Answer only with JSON matching the supplied schema.\" They didn't include schema. Could be they expect JSON array of settings. In many such tasks, answer is JSON array. We can output [].\n\nNeed ensure no settings. The section: \"DuckDB follows Semantic Versioning... Minor versions... Patch releases... All releases...\" No configuration settings. So empty list.\n\nNeed maybe include no evidence. So final: [] or {\"settings\": []}. Which is more likely? The instruction says \"Return every configuration setting...\" not \"Return an object\". \"For each setting...\" If none, empty list. I'd output [].\n\nBut let's consider if \"configuration settings\" could include \"version\"? No, versioning policy not a setting. \"Release Calendar\" link not setting. No.\n\nNeed final only JSON. Use [].\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe from context? We have only text. Need produce JSON likely array of settings with evidence and default. Need determine if section documents any configuration settings. The provided section is about DuckDB versioning/releases. It contains no configuration settings. Need return empty list? Need know schema. Maybe something like {\"settings\": []}? We need infer. The instruction: \"Return every configuration setting that this section documents... Answer only with JSON matching the supplied schema.\" Since no schema visible, maybe expected format from previous? We need decide. Could be list of objects with setting, evidence, default. Need output JSON only. Since no settings documented, empty list. But schema maybe object with settings array? Need think.\n\nThe user asks: \"Return every configuration setting that this section documents.\" Then \"For each setting, quote a span... Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" There is no supplied schema in message. Maybe hidden? We need produce likely:\n{\n  \"settings\": []\n}\nor just []? Need infer from \"schema\" maybe they expect array of objects. The phrase \"matching the supplied schema\" but no schema. Could be from benchmark where schema is known: maybe list of {\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}? Need produce valid JSON. Since no settings, empty array is safe? But if schema is object with settings property, empty array might not match. Need examine wording: \"Return every configuration setting that this section documents.\" \"Answer only with JSON matching the supplied schema.\" They didn't include schema. Could be they expect JSON array of settings. In many such tasks, answer is JSON array. We can output [].\n\nNeed ensure no settings. The section: \"DuckDB follows Semantic Versioning... Minor versions... Patch releases... All releases...\" No configuration settings. So empty list.\n\nNeed maybe include no evidence. So final: [] or {\"settings\": []}. Which is more likely? The instruction says \"Return every configuration setting...\" not \"Return an object\". \"For each setting...\" If none, empty list. I'd output [].\n\nBut let's consider if \"configuration settings\" could include \"version\"? No, versioning policy not a setting. \"Release Calendar\" link not setting. No.\n\nNeed final only JSON. Use [].\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 460,
+  "completion_tokens": 516,
+  "total_tokens": 976,
+  "cost": 0.0018448,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0018448,
+   "upstream_inference_prompt_cost": 0.000529,
+   "upstream_inference_completions_cost": 0.0013158
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 628,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 11.561999999999898
+}

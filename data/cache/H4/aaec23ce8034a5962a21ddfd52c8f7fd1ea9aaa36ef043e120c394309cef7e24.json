@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919100-wYdtv6D6o2QneOiukl9e",
+ "object": "chat.completion",
+ "created": 1789919100,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allocator_background_threads\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET allocator_background_threads = true;\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"By default, jemalloc's background threads are disabled.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct evidence to be a verbatim span from the document that includes the setting name. The document snippet:\n\n\"By default, jemalloc's [background threads](https://jemalloc.net/jemalloc.3.html#background_thread) are disabled. To enable them, use the following configuration option:\n\n```sql\nSET allocator_background_threads = true;\n```\"\n\nWe need a verbatim span that includes the setting name. Could be \"SET allocator_background_threads = true;\" exactly as appears, including the semicolon. The evidence must be a span of the section verbatim. So we can set evidence to \"SET allocator_background_threads = true;\". That is verbatim.\n\nAlso we have default evidence field? The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence maybe optional. The previous answer had a stray comma before \"default_evidence\". Also default_evidence field may be required? The schema not given but likely includes default_evidence optional. The error only about evidence. We'll adjust.\n\nWe need to ensure JSON is valid: no stray commas, proper quoting.\n\nWe need to include default_evidence as a verbatim span: \"By default, jemalloc's background threads are disabled.\" That's verbatim.\n\nAlso default_value: \"false\" maybe. The default_kind: \"literal\". default_value: \"false\". The default_evidence: \"By default, jemalloc's background threads are disabled.\"\n\nMake sure no extra spaces.\n\nThus final JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allocator_background_threads\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET allocator_background_threads = true;\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"By default, jemalloc's background threads are disabled.\"\n    }\n  ]\n}\n\nCheck that evidence is verbatim: yes.\n\nReturn only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct evidence to be a verbatim span from the document that includes the setting name. The document snippet:\n\n\"By default, jemalloc's [background threads](https://jemalloc.net/jemalloc.3.html#background_thread) are disabled. To enable them, use the following configuration option:\n\n```sql\nSET allocator_background_threads = true;\n```\"\n\nWe need a verbatim span that includes the setting name. Could be \"SET allocator_background_threads = true;\" exactly as appears, including the semicolon. The evidence must be a span of the section verbatim. So we can set evidence to \"SET allocator_background_threads = true;\". That is verbatim.\n\nAlso we have default evidence field? The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence maybe optional. The previous answer had a stray comma before \"default_evidence\". Also default_evidence field may be required? The schema not given but likely includes default_evidence optional. The error only about evidence. We'll adjust.\n\nWe need to ensure JSON is valid: no stray commas, proper quoting.\n\nWe need to include default_evidence as a verbatim span: \"By default, jemalloc's background threads are disabled.\" That's verbatim.\n\nAlso default_value: \"false\" maybe. The default_kind: \"literal\". default_value: \"false\". The default_evidence: \"By default, jemalloc's background threads are disabled.\"\n\nMake sure no extra spaces.\n\nThus final JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allocator_background_threads\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET allocator_background_threads = true;\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"By default, jemalloc's background threads are disabled.\"\n    }\n  ]\n}\n\nCheck that evidence is verbatim: yes.\n\nReturn only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1021,
+  "completion_tokens": 499,
+  "total_tokens": 1520,
+  "cost": 0.00011546,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00011546,
+   "upstream_inference_prompt_cost": 3.063e-05,
+   "upstream_inference_completions_cost": 8.483e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 474,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 42.0940000000046
+}

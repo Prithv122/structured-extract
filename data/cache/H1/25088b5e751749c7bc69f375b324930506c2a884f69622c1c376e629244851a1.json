@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789914493-310p5wAKrG83KuwVqWhA",
+ "object": "chat.completion",
+ "created": 1789914493,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe from task context? We have only user message. Need produce JSON likely list of settings with evidence and default. Need inspect section? The user provided a table snippet? Actually message includes:\n\n| **Description** | Returns the value of the environment variable `var`. Only available in the [command line client]({% link docs/current/clients/cli/overview.md %}). |\n| **Example** | `getenv('HOME')` |\n| **Result** | `/path/to/user/home` |\n\nThis seems from DuckDB documentation section maybe about getenv function? Need determine if it documents configuration settings. The section is about getenv scalar function? It returns env var. Not a configuration setting. So answer empty list. Need JSON maybe {\"settings\":[]} or maybe schema expects list? Need infer. The instruction: \"Answer only with JSON matching the supplied schema.\" No schema. We need likely output an array of objects? Let's think.\n\nThe user asks: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" Then provides a section snippet. We need answer JSON. Since no settings, likely empty list. Need decide structure.\n\nMaybe schema from previous tasks? Could be:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nOr maybe just array. The prompt says \"For each setting, quote a span...\" and \"Also report the setting's default...\" It doesn't specify JSON keys. \"Answer only with JSON matching the supplied schema.\" But schema not included. We need maybe infer from common. Could be:\n[\n  {\n    \"setting\": \"...\",\n    \"evidence\": \"...\",\n    \"default\": \"...\"\n  }\n]\nNeed be safe. Since no settings, empty list [] is valid for any array schema. If schema is object with settings, maybe {\"settings\": []}. Which is more likely? The phrase \"supplied schema\" but not supplied in user message. Could be hidden? We only see user. We need answer only JSON. If no settings, maybe empty list is acceptable? Hmm.\n\nLet's examine the provided section. It is a table row for getenv function. It says \"Returns the value of the environment variable `var`. Only available in the command line client.\" This is a scalar function description, not a configuration setting. So correct answer is empty list.\n\nNeed output JSON. I'd output [].\n\nBut let's ensure no hidden schema. The user says \"Answer only with JSON matching the supplied schema.\" Maybe in this environment, schema is known from system? We don't have it. Could be \"settings\": [{\"name\": string, \"evidence\": string, \"default\": string|null}]. If no settings, {\"settings\": []}. Which one to choose?\n\nLet's reason from wording: \"For each setting, quote a span...\" \"Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" If schema were an array, they'd say \"JSON array\". If schema were object, maybe \"settings\". The phrase \"supplied schema\" implies there is a JSON Schema maybe with top-level object. But not shown. In many extraction tasks, expected output is:\n{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nBut could be just list.\n\nGiven no settings, both [] and {\"settings\":[]} are plausible. Need maximize chance. The user says \"If the section documents those, the correct answer is an empty list\" — \"empty list\" suggests JSON array [] rather than object. They explicitly say \"empty list\". So output [].\n\nLet's final with []. Ensure no markdown.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe from task context? We have only user message. Need produce JSON likely list of settings with evidence and default. Need inspect section? The user provided a table snippet? Actually message includes:\n\n| **Description** | Returns the value of the environment variable `var`. Only available in the [command line client]({% link docs/current/clients/cli/overview.md %}). |\n| **Example** | `getenv('HOME')` |\n| **Result** | `/path/to/user/home` |\n\nThis seems from DuckDB documentation section maybe about getenv function? Need determine if it documents configuration settings. The section is about getenv scalar function? It returns env var. Not a configuration setting. So answer empty list. Need JSON maybe {\"settings\":[]} or maybe schema expects list? Need infer. The instruction: \"Answer only with JSON matching the supplied schema.\" No schema. We need likely output an array of objects? Let's think.\n\nThe user asks: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" Then provides a section snippet. We need answer JSON. Since no settings, likely empty list. Need decide structure.\n\nMaybe schema from previous tasks? Could be:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nOr maybe just array. The prompt says \"For each setting, quote a span...\" and \"Also report the setting's default...\" It doesn't specify JSON keys. \"Answer only with JSON matching the supplied schema.\" But schema not included. We need maybe infer from common. Could be:\n[\n  {\n    \"setting\": \"...\",\n    \"evidence\": \"...\",\n    \"default\": \"...\"\n  }\n]\nNeed be safe. Since no settings, empty list [] is valid for any array schema. If schema is object with settings, maybe {\"settings\": []}. Which is more likely? The phrase \"supplied schema\" but not supplied in user message. Could be hidden? We only see user. We need answer only JSON. If no settings, maybe empty list is acceptable? Hmm.\n\nLet's examine the provided section. It is a table row for getenv function. It says \"Returns the value of the environment variable `var`. Only available in the command line client.\" This is a scalar function description, not a configuration setting. So correct answer is empty list.\n\nNeed output JSON. I'd output [].\n\nBut let's ensure no hidden schema. The user says \"Answer only with JSON matching the supplied schema.\" Maybe in this environment, schema is known from system? We don't have it. Could be \"settings\": [{\"name\": string, \"evidence\": string, \"default\": string|null}]. If no settings, {\"settings\": []}. Which one to choose?\n\nLet's reason from wording: \"For each setting, quote a span...\" \"Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" If schema were an array, they'd say \"JSON array\". If schema were object, maybe \"settings\". The phrase \"supplied schema\" implies there is a JSON Schema maybe with top-level object. But not shown. In many extraction tasks, expected output is:\n{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nBut could be just list.\n\nGiven no settings, both [] and {\"settings\":[]} are plausible. Need maximize chance. The user says \"If the section documents those, the correct answer is an empty list\" — \"empty list\" suggests JSON array [] rather than object. They explicitly say \"empty list\". So output [].\n\nLet's final with []. Ensure no markdown.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 565,
+  "completion_tokens": 817,
+  "total_tokens": 1382,
+  "cost": 0.0027331,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0027331,
+   "upstream_inference_prompt_cost": 0.00064975,
+   "upstream_inference_completions_cost": 0.00208335
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 918,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 20.51600000000326
+}

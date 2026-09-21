@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789900816-gwOmg1vGaTqt0Kro6qbW",
+ "object": "chat.completion",
+ "created": 1789900816,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"disabled_optimizers\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET disabled_optimizers = 'join_order,build_side_probe_side';\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The text mentions \"disabled_optimizers\". That's a setting. It describes what it does: turn off join order optimizer, etc. It also shows default? Not stated. So default is absent. Provide evidence quote.\n\nWe need JSON matching supplied schema. Not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"disabled_optimizers\",\n      \"description\": \"...\", maybe not needed? The schema likely expects fields: name, evidence, default. The instruction: \"Return every configuration setting that this section documents. For each setting, quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it.\" So JSON likely: [{\"setting\": \"disabled_optimizers\", \"evidence\": \"...\", \"default\": \"absent\"}] Or similar.\n\nWe need to guess schema. Could be:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"disabled_optimizers\",\n      \"evidence\": \"SET disabled_optimizers = 'join_order,build_side_probe_side';\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nI'll output that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The text mentions \"disabled_optimizers\". That's a setting. It describes what it does: turn off join order optimizer, etc. It also shows default? Not stated. So default is absent. Provide evidence quote.\n\nWe need JSON matching supplied schema. Not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"disabled_optimizers\",\n      \"description\": \"...\", maybe not needed? The schema likely expects fields: name, evidence, default. The instruction: \"Return every configuration setting that this section documents. For each setting, quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it.\" So JSON likely: [{\"setting\": \"disabled_optimizers\", \"evidence\": \"...\", \"default\": \"absent\"}] Or similar.\n\nWe need to guess schema. Could be:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"disabled_optimizers\",\n      \"evidence\": \"SET disabled_optimizers = 'join_order,build_side_probe_side';\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nI'll output that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 504,
+  "completion_tokens": 357,
+  "total_tokens": 861,
+  "cost": 7.581e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.581e-05,
+   "upstream_inference_prompt_cost": 1.512e-05,
+   "upstream_inference_completions_cost": 6.069e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 281,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 31.139999999999418
+}

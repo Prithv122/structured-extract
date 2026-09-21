@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789911311-4PYFn5lv7JmzEB7U3UUu",
+ "object": "chat.completion",
+ "created": 1789911311,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"ui_remote_url\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"An alternate remote URL can be configured with a SQL command like:\\n\\n```sql\\nSET ui_remote_url = 'https://ui.duckdb.org';\\n```\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"https://ui.duckdb.org\",\n      \"default_evidence\": \"The default URL for the remote server is <https://ui.duckdb.org>.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "ui_remote_url documented; ui_remote_port is an environment variable, not a setting? It says \"environment variable ui_remote_port\" — not a DuckDB setting documented. allow_unsigned_extensions mentioned in passing? It says \"only respected if allow_unsigned_extensions is enabled\" — that's a condition, not documenting the setting. So only ui_remote_url. Default: \"The default URL for the remote server is https://ui.duckdb.org\" — stated.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "ui_remote_url documented; ui_remote_port is an environment variable, not a setting? It says \"environment variable ui_remote_port\" — not a DuckDB setting documented. allow_unsigned_extensions mentioned in passing? It says \"only respected if allow_unsigned_extensions is enabled\" — that's a condition, not documenting the setting. So only ui_remote_url. Default: \"The default URL for the remote server is https://ui.duckdb.org\" — stated.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 438,
+  "completion_tokens": 220,
+  "total_tokens": 658,
+  "cost": 8.785e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.785e-05,
+   "upstream_inference_prompt_cost": 3.285e-05,
+   "upstream_inference_completions_cost": 5.5e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 92,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 21.32800000000134
+}

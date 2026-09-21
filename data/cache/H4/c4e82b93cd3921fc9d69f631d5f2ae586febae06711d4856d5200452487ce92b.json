@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905531-nG7fCZUyCMjFd926x1T3",
+ "object": "chat.completion",
+ "created": 1789905531,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"write_buffer_row_group_memory_limit\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"The maximum data to buffer in row groups (in bytes) prior to flushing them together. When either this limit or `write_buffer_row_group_count` is reached, the data is flushed to disk. Defaults to 20% of the memory limit divided by the thread count.\",\n      \"default_kind\": \"machine_dependent\",\n      \"default_value\": \"Defaults to 20% of the memory limit divided by the thread count.\"\n   \n    , \"default_evidence\": \"Defaults to 20% of the memory limit divided by the thread count.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract settings documented in the given section. The table shows one setting: `write_buffer_row_group_memory_limit`. The description includes default info: \"Defaults to 20% of the memory limit divided by the thread count.\" The type is VARCHAR. The default column is empty, but description gives default. So we need to output JSON with setting name, evidence (quote), default (the description). The schema? Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't given in the prompt, but typical tasks: maybe an array of objects with fields name, evidence, default. We'll assume that.\n\nThus produce JSON with one entry.\n\nEvidence: need to quote a span verbatim. Could quote the description line: \"`The maximum data to buffer in row groups (in bytes) prior to flushing them together. When either this limit or `write_buffer_row_group_count` is reached, the data is flushed to disk. Defaults to 20% of the memory limit divided by the thread count.`\"\n\nInclude backticks? The original includes backticks around setting name inside description. We need to copy exactly as appears. The description cell includes backticks around write_buffer_row_group_count. So include that.\n\nDefault: \"Defaults to 20% of the memory limit divided by the thread count.\" That's the default description.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"write_buffer_row_group_memory_limit\",\n      \"evidence\": \"The maximum data to buffer in row groups (in bytes) prior to flushing them together. When either this limit or `write_buffer_row_group_count` is reached, the data is flushed to disk. Defaults to 20% of the memory limit divided by the thread count.\",\n      \"default\": \"Defaults to 20% of the memory limit divided by the thread count.\"\n    }\n  ]\n}\n\nMake sure quotes are proper.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract settings documented in the given section. The table shows one setting: `write_buffer_row_group_memory_limit`. The description includes default info: \"Defaults to 20% of the memory limit divided by the thread count.\" The type is VARCHAR. The default column is empty, but description gives default. So we need to output JSON with setting name, evidence (quote), default (the description). The schema? Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't given in the prompt, but typical tasks: maybe an array of objects with fields name, evidence, default. We'll assume that.\n\nThus produce JSON with one entry.\n\nEvidence: need to quote a span verbatim. Could quote the description line: \"`The maximum data to buffer in row groups (in bytes) prior to flushing them together. When either this limit or `write_buffer_row_group_count` is reached, the data is flushed to disk. Defaults to 20% of the memory limit divided by the thread count.`\"\n\nInclude backticks? The original includes backticks around setting name inside description. We need to copy exactly as appears. The description cell includes backticks around write_buffer_row_group_count. So include that.\n\nDefault: \"Defaults to 20% of the memory limit divided by the thread count.\" That's the default description.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"write_buffer_row_group_memory_limit\",\n      \"evidence\": \"The maximum data to buffer in row groups (in bytes) prior to flushing them together. When either this limit or `write_buffer_row_group_count` is reached, the data is flushed to disk. Defaults to 20% of the memory limit divided by the thread count.\",\n      \"default\": \"Defaults to 20% of the memory limit divided by the thread count.\"\n    }\n  ]\n}\n\nMake sure quotes are proper.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 467,
+  "completion_tokens": 601,
+  "total_tokens": 1068,
+  "cost": 0.00011618,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 384,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00011618,
+   "upstream_inference_prompt_cost": 1.401e-05,
+   "upstream_inference_completions_cost": 0.00010217
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 504,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 12.610000000000582
+}

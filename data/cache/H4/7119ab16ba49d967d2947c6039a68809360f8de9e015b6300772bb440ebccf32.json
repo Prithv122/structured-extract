@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919281-XOULmVAnhMz9f3yGAgXq",
+ "object": "chat.completion",
+ "created": 1789919281,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"TimeZone\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET TimeZone = 'America/Los_Angeles';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to fix evidence to be exact characters from the document. The document snippet shows:\n\n```sql\nSET TimeZone = 'America/Los_Angeles';\n```\n\nThe verbatim span should be exactly that line, without backticks or code fences. The evidence should be the exact characters as they appear, including newline? Probably just the line: `SET TimeZone = 'America/Los_Angeles';`. So evidence should be that string.\n\nAlso JSON formatting: need proper commas. The previous JSON had stray comma before \"default_evidence\". Also schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. We need to include default_evidence even if null? Probably include null.\n\nLet's produce corrected JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"TimeZone\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET TimeZone = 'America/Los_Angeles';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck commas. Yes.\n\nReturn only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to fix evidence to be exact characters from the document. The document snippet shows:\n\n```sql\nSET TimeZone = 'America/Los_Angeles';\n```\n\nThe verbatim span should be exactly that line, without backticks or code fences. The evidence should be the exact characters as they appear, including newline? Probably just the line: `SET TimeZone = 'America/Los_Angeles';`. So evidence should be that string.\n\nAlso JSON formatting: need proper commas. The previous JSON had stray comma before \"default_evidence\". Also schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. We need to include default_evidence even if null? Probably include null.\n\nLet's produce corrected JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"TimeZone\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET TimeZone = 'America/Los_Angeles';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck commas. Yes.\n\nReturn only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1157,
+  "completion_tokens": 330,
+  "total_tokens": 1487,
+  "cost": 9.081e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.081e-05,
+   "upstream_inference_prompt_cost": 3.471e-05,
+   "upstream_inference_completions_cost": 5.61e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 267,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 64.36000000000058
+}

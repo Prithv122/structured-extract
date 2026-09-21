@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789921135-D2HfXGEIxZAIaqcN2WCr",
+ "object": "chat.completion",
+ "created": 1789921135,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"zstd_min_string_length\",\n      \"input_type\": \"UBIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"The (average) length at which to enable ZSTD compression, defaults to 4096\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"4096\"\n    \n  \t\t,\n    \"default_evidence\": \"defaults to 4096\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with a single row: Name `zstd_min_string_length`, description, type, default value 4096.\n\nWe need to output JSON matching the supplied schema. The schema is not explicitly given, but we can infer: likely an array of objects each with fields: \"setting\", \"type\", \"default\", \"description\", \"evidence\". The instruction: \"For each setting, quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" Also \"Also report the setting's default, but only if this section states it.\"\n\nWe need to produce JSON with list of settings. Probably format: [{\"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"description\": \"...\", \"evidence\": \"...\"}] but need to guess schema. The instruction: \"Answer only with JSON matching the supplied schema.\" The schema wasn't provided in the prompt. Might be known from previous tasks: Usually they expect something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nOr maybe just an array. Could be:\n\n[\n  {\n    \"setting\": \"zstd_min_string_length\",\n    \"type\": \"UBIGINT\",\n    \"default\": \"4096\",\n    \"description\": \"The (average) length at which to enable ZSTD compression, defaults to 4096\",\n    \"evidence\": \"`zstd_min_string_length`\"\n  }\n]\n\nBut need to include verbatim quote as evidence. Could quote the row line: \"`zstd_min_string_length`\". Or the description line. Probably evidence should be a span that includes the setting name and default. Use the row content: \"`zstd_min_string_length`\". Or the description: \"The (average) length at which to enable ZSTD compression, defaults to 4096\". That includes default.\n\nLet's produce JSON with key \"settings\". Each object with \"name\", \"type\", \"default\", \"description\", \"evidence\". Provide default as \"4096\". Evidence: the description line.\n\nThus output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"zstd_min_string_length\",\n      \"type\": \"UBIGINT\",\n      \"default\": \"4096\",\n      \"description\": \"The (average) length at which to enable ZSTD compression, defaults to 4096\",\n      \"evidence\": \"The (average) length at which to enable ZSTD compression, defaults to 4096\"\n    }\n  ]\n}\n\nMake sure quotes are correct.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with a single row: Name `zstd_min_string_length`, description, type, default value 4096.\n\nWe need to output JSON matching the supplied schema. The schema is not explicitly given, but we can infer: likely an array of objects each with fields: \"setting\", \"type\", \"default\", \"description\", \"evidence\". The instruction: \"For each setting, quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" Also \"Also report the setting's default, but only if this section states it.\"\n\nWe need to produce JSON with list of settings. Probably format: [{\"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"description\": \"...\", \"evidence\": \"...\"}] but need to guess schema. The instruction: \"Answer only with JSON matching the supplied schema.\" The schema wasn't provided in the prompt. Might be known from previous tasks: Usually they expect something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nOr maybe just an array. Could be:\n\n[\n  {\n    \"setting\": \"zstd_min_string_length\",\n    \"type\": \"UBIGINT\",\n    \"default\": \"4096\",\n    \"description\": \"The (average) length at which to enable ZSTD compression, defaults to 4096\",\n    \"evidence\": \"`zstd_min_string_length`\"\n  }\n]\n\nBut need to include verbatim quote as evidence. Could quote the row line: \"`zstd_min_string_length`\". Or the description line. Probably evidence should be a span that includes the setting name and default. Use the row content: \"`zstd_min_string_length`\". Or the description: \"The (average) length at which to enable ZSTD compression, defaults to 4096\". That includes default.\n\nLet's produce JSON with key \"settings\". Each object with \"name\", \"type\", \"default\", \"description\", \"evidence\". Provide default as \"4096\". Evidence: the description line.\n\nThus output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"zstd_min_string_length\",\n      \"type\": \"UBIGINT\",\n      \"default\": \"4096\",\n      \"description\": \"The (average) length at which to enable ZSTD compression, defaults to 4096\",\n      \"evidence\": \"The (average) length at which to enable ZSTD compression, defaults to 4096\"\n    }\n  ]\n}\n\nMake sure quotes are correct.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 566,
+  "completion_tokens": 681,
+  "total_tokens": 1247,
+  "cost": 0.00013275,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00013275,
+   "upstream_inference_prompt_cost": 1.698e-05,
+   "upstream_inference_completions_cost": 0.00011577
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 599,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 12.968999999997322
+}

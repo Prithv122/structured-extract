@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789895280-IQUvMtmwhq25una8TF5j",
+ "object": "chat.completion",
+ "created": 1789895280,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"the `preserve_insertion_order` option that parallel table functions may require.\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"preserve_insertion_order\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse task. User provides a section? They pasted bullet list from docs? Need extract DuckDB configuration settings documented. The section contains links and text. It mentions \"Configuration — the `preserve_insertion_order` option that parallel table functions may require.\" Does this document a setting? It names preserve_insertion_order and says parallel table functions may require it. It tells what setting does? It says option that parallel table functions may require. Is that documenting? Need decide. The instruction: Return every configuration setting that this section documents. A section documents a setting when it tells reader what setting does, what it accepts, or how to set it. Do not return merely because contains word. Here it says \"the `preserve_insertion_order` option that parallel table functions may require.\" This tells something about setting: parallel table functions may require it. It doesn't state default. Need quote verbatim. Setting name preserve_insertion_order. Evidence: \"the `preserve_insertion_order` option that parallel table functions may require.\" Need include maybe exact. Default absent.\n\nNeed output JSON matching schema. But schema not supplied in prompt? It says \"Answer only with JSON matching the supplied schema.\" We don't have schema. Need infer likely array of objects with setting, evidence, default? Need produce valid JSON. Could be:\n{\n  \"settings\": [\n    {\n      \"setting\": \"preserve_insertion_order\",\n      \"evidence\": \"the `preserve_insertion_order` option that parallel table functions may require.\",\n      \"default\": null\n    }\n  ]\n}\nBut schema unknown. Need maybe include \"default\": \"absent\" or null? User says \"Also report the setting's default, but only if this section states it... If section does not state a default, say it is absent\". So field default should be string \"absent\" maybe. Need include evidence quote. Need maybe setting name exactly. Let's craft JSON only.\n\nNeed ensure quote exact: from text: \"the `preserve_insertion_order` option that parallel table functions may require.\" The bullet: \"* [Configuration]({% link docs/current/configuration/overview.md %}) — the `preserve_insertion_order` option that parallel table functions may require.\" The quote span can be \"the `preserve_insertion_order` option that parallel table functions may require.\" That's exact. Need maybe include backticks? They are characters. We can include.\n\nNeed decide if this is documenting a setting. It says \"option that parallel table functions may require\" - tells what it does? It indicates requirement for parallel table functions. I'd include.\n\nNeed maybe no other settings. The section mentions \"DuckDBDataChunkReader API\", \"table function interface\", \"registered functions\", \"preserve_insertion_order\". Only preserve_insertion_order is a configuration setting. So one.\n\nNeed output JSON. Could be:\n{\n  \"settings\": [\n    {\n      \"setting\": \"preserve_insertion_order\",\n      \"evidence\": \"the `preserve_insertion_order` option that parallel table functions may require.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\nNeed maybe \"default\" absent as string. The instruction: \"If the section does not state a default, say it is absent\". So \"absent\". Good.\n\nNeed ensure no markdown. Final only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse task. User provides a section? They pasted bullet list from docs? Need extract DuckDB configuration settings documented. The section contains links and text. It mentions \"Configuration — the `preserve_insertion_order` option that parallel table functions may require.\" Does this document a setting? It names preserve_insertion_order and says parallel table functions may require it. It tells what setting does? It says option that parallel table functions may require. Is that documenting? Need decide. The instruction: Return every configuration setting that this section documents. A section documents a setting when it tells reader what setting does, what it accepts, or how to set it. Do not return merely because contains word. Here it says \"the `preserve_insertion_order` option that parallel table functions may require.\" This tells something about setting: parallel table functions may require it. It doesn't state default. Need quote verbatim. Setting name preserve_insertion_order. Evidence: \"the `preserve_insertion_order` option that parallel table functions may require.\" Need include maybe exact. Default absent.\n\nNeed output JSON matching schema. But schema not supplied in prompt? It says \"Answer only with JSON matching the supplied schema.\" We don't have schema. Need infer likely array of objects with setting, evidence, default? Need produce valid JSON. Could be:\n{\n  \"settings\": [\n    {\n      \"setting\": \"preserve_insertion_order\",\n      \"evidence\": \"the `preserve_insertion_order` option that parallel table functions may require.\",\n      \"default\": null\n    }\n  ]\n}\nBut schema unknown. Need maybe include \"default\": \"absent\" or null? User says \"Also report the setting's default, but only if this section states it... If section does not state a default, say it is absent\". So field default should be string \"absent\" maybe. Need include evidence quote. Need maybe setting name exactly. Let's craft JSON only.\n\nNeed ensure quote exact: from text: \"the `preserve_insertion_order` option that parallel table functions may require.\" The bullet: \"* [Configuration]({% link docs/current/configuration/overview.md %}) — the `preserve_insertion_order` option that parallel table functions may require.\" The quote span can be \"the `preserve_insertion_order` option that parallel table functions may require.\" That's exact. Need maybe include backticks? They are characters. We can include.\n\nNeed decide if this is documenting a setting. It says \"option that parallel table functions may require\" - tells what it does? It indicates requirement for parallel table functions. I'd include.\n\nNeed maybe no other settings. The section mentions \"DuckDBDataChunkReader API\", \"table function interface\", \"registered functions\", \"preserve_insertion_order\". Only preserve_insertion_order is a configuration setting. So one.\n\nNeed output JSON. Could be:\n{\n  \"settings\": [\n    {\n      \"setting\": \"preserve_insertion_order\",\n      \"evidence\": \"the `preserve_insertion_order` option that parallel table functions may require.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\nNeed maybe \"default\" absent as string. The instruction: \"If the section does not state a default, say it is absent\". So \"absent\". Good.\n\nNeed ensure no markdown. Final only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 508,
+  "completion_tokens": 785,
+  "total_tokens": 1293,
+  "cost": 0.00258595,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00258595,
+   "upstream_inference_prompt_cost": 0.0005842,
+   "upstream_inference_completions_cost": 0.00200175
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 830,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 20.375
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789915767-0DCL8nfw4GzRi5Ju5Ugp",
+ "object": "chat.completion",
+ "created": 1789915767,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need likely output list of settings with evidence/default. Need determine if section documents DuckDB configuration settings. The section is about \"Returns the snapshots stored in the DuckLake catalog name `catalog`.\" It has parameter table and output schema. This is a table function? It documents parameters of a function, not configuration settings. So correct answer empty list. Need output JSON maybe {\"settings\": []} or maybe schema expects array? We need infer. The instruction: \"For each setting, quote a span...\" \"Answer only with JSON matching the supplied schema.\" No schema included. We need produce likely empty list. Could be {\"settings\":[]}. Need ensure no extra text. Since no settings, empty list. We'll output JSON object with settings empty.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need likely output list of settings with evidence/default. Need determine if section documents DuckDB configuration settings. The section is about \"Returns the snapshots stored in the DuckLake catalog name `catalog`.\" It has parameter table and output schema. This is a table function? It documents parameters of a function, not configuration settings. So correct answer empty list. Need output JSON maybe {\"settings\": []} or maybe schema expects array? We need infer. The instruction: \"For each setting, quote a span...\" \"Answer only with JSON matching the supplied schema.\" No schema included. We need produce likely empty list. Could be {\"settings\":[]}. Need ensure no extra text. Since no settings, empty list. We'll output JSON object with settings empty.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 647,
+  "completion_tokens": 192,
+  "total_tokens": 839,
+  "cost": 0.00099045,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00099045,
+   "upstream_inference_prompt_cost": 0.00050085,
+   "upstream_inference_completions_cost": 0.0004896
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 231,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 5.9689999999973224
+}

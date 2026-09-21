@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789924196-zoAAhFdjHae9ODNXBbyG",
+ "object": "chat.completion",
+ "created": 1789924196,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"ignore_target_file_size_for_partitioned_tables\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"ignore_row_group_size_for_partitioned_tables\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "The settings mentioned: ignore_target_file_size_for_partitioned_tables, ignore_row_group_size_for_partitioned_tables — mentioned in passing with a link to settings reference. Are they documented here? They're mentioned as settings to set. The section doesn't document them as a table with defaults. Borderline: they are DuckDB settings referenced. The instruction: don't return merely because a word appears in passing. These are referenced but not documented here. I'd say empty list? They are named settings with instruction to set to true. Hmm. The section does say \"Set ignore_target_file_size_for_partitioned_tables ... to true\". That's arguably documenting. But no default stated. I'll include them with default absent.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The settings mentioned: ignore_target_file_size_for_partitioned_tables, ignore_row_group_size_for_partitioned_tables — mentioned in passing with a link to settings reference. Are they documented here? They're mentioned as settings to set. The section doesn't document them as a table with defaults. Borderline: they are DuckDB settings referenced. The instruction: don't return merely because a word appears in passing. These are referenced but not documented here. I'd say empty list? They are named settings with instruction to set to true. Hmm. The section does say \"Set ignore_target_file_size_for_partitioned_tables ... to true\". That's arguably documenting. But no default stated. I'll include them with default absent.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 805,
+  "completion_tokens": 380,
+  "total_tokens": 1185,
+  "cost": 0.000155375,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000155375,
+   "upstream_inference_prompt_cost": 6.0375e-05,
+   "upstream_inference_completions_cost": 9.5e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 144,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 14.43699999999808
+}

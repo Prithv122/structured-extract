@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789901178-uvGTTDrKxCBYn5fXlnGg",
+ "object": "chat.completion",
+ "created": 1789901178,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allocator_background_threads\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET allocator_background_threads = true;\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"By default, jemalloc's background threads are disabled.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct evidence to be a verbatim span from the provided document. The document text:\n\n\"By default, jemalloc's [background threads](https://jemalloc.net/jemalloc.3.html#background_thread) are disabled. To enable them, use the following configuration option:\n\n```sql\nSET allocator_background_threads = true;\n```\"\n\nWe need a verbatim span that mentions the setting. The evidence should be a span that documents the setting. The setting is documented by the line \"To enable them, use the following configuration option:\"? Actually the setting name appears in the SET statement. The evidence should be a verbatim span that includes the setting name and describes it. For example: \"SET allocator_background_threads = true;\" is a verbatim span. But that is the default evidence? Actually default evidence is for default value. The evidence for the setting should be a span that tells what the setting does, accepts, or how to set it. The line \"To enable them, use the following configuration option:\" does not mention the setting name. The SET line includes the setting name. So evidence could be \"SET allocator_background_threads = true;\" but that is about setting it to true, not describing. However it does show how to set it. That qualifies. So evidence = \"SET allocator_background_threads = true;\". Then default evidence should be a span that indicates default is disabled. The document says \"By default, jemalloc's background threads are disabled.\" That's a verbatim span. So default_evidence = \"By default, jemalloc's background threads are disabled.\" That matches. The default value is false. So default_kind literal, default_value \"false\". The JSON must be valid: no stray commas. Also need to include default_evidence field? The schema likely includes default_evidence optional. In previous answer they had default_evidence separate. We'll include it.\n\nConstruct JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allocator_background_threads\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET allocator_background_threads = true;\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"By default, jemalloc's background threads are disabled.\"\n    }\n  ]\n}\n\nCheck syntax: commas correct.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct evidence to be a verbatim span from the provided document. The document text:\n\n\"By default, jemalloc's [background threads](https://jemalloc.net/jemalloc.3.html#background_thread) are disabled. To enable them, use the following configuration option:\n\n```sql\nSET allocator_background_threads = true;\n```\"\n\nWe need a verbatim span that mentions the setting. The evidence should be a span that documents the setting. The setting is documented by the line \"To enable them, use the following configuration option:\"? Actually the setting name appears in the SET statement. The evidence should be a verbatim span that includes the setting name and describes it. For example: \"SET allocator_background_threads = true;\" is a verbatim span. But that is the default evidence? Actually default evidence is for default value. The evidence for the setting should be a span that tells what the setting does, accepts, or how to set it. The line \"To enable them, use the following configuration option:\" does not mention the setting name. The SET line includes the setting name. So evidence could be \"SET allocator_background_threads = true;\" but that is about setting it to true, not describing. However it does show how to set it. That qualifies. So evidence = \"SET allocator_background_threads = true;\". Then default evidence should be a span that indicates default is disabled. The document says \"By default, jemalloc's background threads are disabled.\" That's a verbatim span. So default_evidence = \"By default, jemalloc's background threads are disabled.\" That matches. The default value is false. So default_kind literal, default_value \"false\". The JSON must be valid: no stray commas. Also need to include default_evidence field? The schema likely includes default_evidence optional. In previous answer they had default_evidence separate. We'll include it.\n\nConstruct JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allocator_background_threads\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET allocator_background_threads = true;\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"By default, jemalloc's background threads are disabled.\"\n    }\n  ]\n}\n\nCheck syntax: commas correct.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 856,
+  "completion_tokens": 570,
+  "total_tokens": 1426,
+  "cost": 0.00012258,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00012258,
+   "upstream_inference_prompt_cost": 2.568e-05,
+   "upstream_inference_completions_cost": 9.69e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 573,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 51.48400000000038
+}

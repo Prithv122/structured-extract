@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789918168-M21bY8rXef8Di5erShPM",
+ "object": "chat.completion",
+ "created": 1789918168,
+ "model": "google/gemini-2.5-flash",
+ "provider": "Google",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "STOP",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"s3_allow_recursive_globbing\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`s3_allow_recursive_globbing`                 | Whether globs on S3-like storage are optimized with recursive strategy (alterative is listing)                                                                                                                | `BOOLEAN`   | `true`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\",\n      \"default_evidence\": \"`true`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 515,
+  "completion_tokens": 137,
+  "total_tokens": 652,
+  "cost": 0.000497,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000497,
+   "upstream_inference_prompt_cost": 0.0001545,
+   "upstream_inference_completions_cost": 0.0003425
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 1.7180000000007567
+}

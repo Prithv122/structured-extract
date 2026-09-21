@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789910493-dCTRbIDVKsZ9QIZlimr1",
+ "object": "chat.completion",
+ "created": 1789910493,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"default_null_order\",\"input_type\":\"VARCHAR\",\"scope\":\"GLOBAL\",\"evidence\":\"Use the `default_null_order` option to change the default `NULL` sorting order to either `NULLS_FIRST`, `NULLS_LAST`, `NULLS_FIRST_ON_ASC_LAST_ON_DESC` or `NULLS_LAST_ON_ASC_FIRST_ON_DESC`\",\"default_kind\":\"literal\",\"default_value\":\"'NULLS_LAST'\",\"default_evidence\":\"By default, DuckDB sorts `ASC` and `NULLS LAST`\"},{\"name\":\"default_order\",\"input_type\":\"VARCHAR\",\"scope\":\"GLOBAL\",\"evidence\":\"Use the `default_order` option to change the direction of the default sorting order to either `DESC` or `ASC`\",\"default_kind\":\"literal\",\"default_value\":\"'ASC'\",\"default_evidence\":\"By default, DuckDB sorts `ASC` and `NULLS LAST`\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 526,
+  "completion_tokens": 186,
+  "total_tokens": 712,
+  "cost": 8.595e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.595e-05,
+   "upstream_inference_prompt_cost": 3.945e-05,
+   "upstream_inference_completions_cost": 4.65e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 13.765999999999622
+}

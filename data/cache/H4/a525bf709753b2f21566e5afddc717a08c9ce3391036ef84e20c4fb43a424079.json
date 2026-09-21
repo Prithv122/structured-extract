@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789904018-mqqNfgRdngPYXgabd2gm",
+ "object": "chat.completion",
+ "created": 1789904018,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"s3_region\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET s3_region = 'us-east-1';\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": null\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"s3_endpoint\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET s3_endpoint = '⟨domain⟩.⟨tld⟩:⟨port⟩';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"s3_use_ssl\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET s3_use_ssl = false;\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"s3_url_style\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET s3_url_style = 'path';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"s3_access_key_id\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET s3_access_key_id = '⟨aws_access_key_id⟩';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"s3_secret_access_key\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET s3_secret_access_key = '⟨aws_secret_access_key⟩';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"s3_session_token\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET s3_session_token = '⟨aws_session_token⟩';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. Settings mentioned: s3_region, s3_endpoint, s3_use_ssl, s3_url_style, s3_access_key_id, s3_secret_access_key, s3_session_token. For each, we need a verbatim quote from the section that documents the setting (i.e., tells what it does, accepts, or how to set). The code snippets are examples of setting them, which count as documentation? The snippet shows \"SET s3_region = 'us-east-1';\". That is a statement of how to set it, so qualifies. Provide quote exactly as appears.\n\nAlso need default if stated. The section does not mention defaults for any of these. So default is absent.\n\nThus JSON array of objects with fields: setting, evidence, default. Provide evidence as a string (the quoted span). Use the snippet lines.\n\nMake sure to escape quotes properly in JSON.\n\nLet's collect evidence strings:\n\nFor s3_region: \"SET s3_region = 'us-east-1';\"\n\nFor s3_endpoint: \"SET s3_endpoint = '⟨domain⟩.⟨tld⟩:⟨port⟩';\"\n\nFor s3_use_ssl: \"SET s3_use_ssl = false;\"\n\nFor s3_url_style: \"SET s3_url_style = 'path';\"\n\nFor s3_access_key_id: \"SET s3_access_key_id = '⟨aws_access_key_id⟩';\"\n\nFor s3_secret_access_key: \"SET s3_secret_access_key = '⟨aws_secret_access_key⟩';\"\n\nFor s3_session_token: \"SET s3_session_token = '⟨aws_session_token⟩';\"\n\nMake sure to include the exact characters, including semicolons and spaces.\n\nNow JSON schema? Not provided but likely list of objects with keys: setting, evidence, default. We'll output array.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. Settings mentioned: s3_region, s3_endpoint, s3_use_ssl, s3_url_style, s3_access_key_id, s3_secret_access_key, s3_session_token. For each, we need a verbatim quote from the section that documents the setting (i.e., tells what it does, accepts, or how to set). The code snippets are examples of setting them, which count as documentation? The snippet shows \"SET s3_region = 'us-east-1';\". That is a statement of how to set it, so qualifies. Provide quote exactly as appears.\n\nAlso need default if stated. The section does not mention defaults for any of these. So default is absent.\n\nThus JSON array of objects with fields: setting, evidence, default. Provide evidence as a string (the quoted span). Use the snippet lines.\n\nMake sure to escape quotes properly in JSON.\n\nLet's collect evidence strings:\n\nFor s3_region: \"SET s3_region = 'us-east-1';\"\n\nFor s3_endpoint: \"SET s3_endpoint = '⟨domain⟩.⟨tld⟩:⟨port⟩';\"\n\nFor s3_use_ssl: \"SET s3_use_ssl = false;\"\n\nFor s3_url_style: \"SET s3_url_style = 'path';\"\n\nFor s3_access_key_id: \"SET s3_access_key_id = '⟨aws_access_key_id⟩';\"\n\nFor s3_secret_access_key: \"SET s3_secret_access_key = '⟨aws_secret_access_key⟩';\"\n\nFor s3_session_token: \"SET s3_session_token = '⟨aws_session_token⟩';\"\n\nMake sure to include the exact characters, including semicolons and spaces.\n\nNow JSON schema? Not provided but likely list of objects with keys: setting, evidence, default. We'll output array.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 733,
+  "completion_tokens": 969,
+  "total_tokens": 1702,
+  "cost": 0.00018672,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00018672,
+   "upstream_inference_prompt_cost": 2.199e-05,
+   "upstream_inference_completions_cost": 0.00016473
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 391,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 18.687999999998283
+}

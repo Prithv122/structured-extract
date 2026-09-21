@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789910479-VmzGiFXI3syEpqhHyPi7",
+ "object": "chat.completion",
+ "created": 1789910479,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": [{\"name\": \"scalar_subquery_error_on_multiple_rows\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"unless `scalar_subquery_error_on_multiple_rows` is set to `false`, in which case a row is selected randomly\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 379,
+  "completion_tokens": 85,
+  "total_tokens": 464,
+  "cost": 4.9675e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 4.9675e-05,
+   "upstream_inference_prompt_cost": 2.8425e-05,
+   "upstream_inference_completions_cost": 2.125e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.21900000000096
+}

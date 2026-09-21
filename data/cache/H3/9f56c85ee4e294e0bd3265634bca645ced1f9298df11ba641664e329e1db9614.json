@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789918279-gDoTuTmYp6XzVqn2z5z8",
+ "object": "chat.completion",
+ "created": 1789918279,
+ "model": "openai/gpt-4.1-nano",
+ "provider": "OpenAI",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "completed",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": [{\"name\": \"mysql_bit1_as_boolean\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"| `mysql_bit1_as_boolean` | Whether or not to convert `BIT(1)` columns to `BOOLEAN` | `true` |\", \"default_kind\": \"literal\", \"default_value\": \"true\", \"default_evidence\": \" | `mysql_bit1_as_boolean` | Whether or not to convert `BIT(1)` columns to `BOOLEAN` | `true` |\"}, {\"name\": \"mysql_debug_show_queries\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \" | `mysql_debug_show_queries` | DEBUG SETTING: print all queries sent to MySQL to stdout | `false` |\", \"default_kind\": \"literal\", \"default_value\": \"false\", \"default_evidence\": \" | `mysql_debug_show_queries` | DEBUG SETTING: print all queries sent to MySQL to stdout | `false` |\"}, {\"name\": \"mysql_enable_filter_pushdown\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \" | `mysql_enable_filter_pushdown` | Whether or not to use filter pushdown (without predicate analyzer) | `true` |\", \"default_kind\": \"literal\", \"default_value\": \"true\", \"default_evidence\": \" | `mysql_enable_filter_pushdown` | Whether or not to use filter pushdown (without predicate analyzer) | `true` |\"}, {\"name\": \"mysql_enable_transactions\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \" | `mysql_enable_transactions` | Whether to run `START TRANSACTION` / `COMMIT` / `ROLLBACK` on MySQL connections | `true` |\", \"default_kind\": \"literal\", \"default_value\": \"true\", \"default_evidence\": \" | `mysql_enable_transactions` | Whether to run `START TRANSACTION` / `COMMIT` / `ROLLBACK` on MySQL connections | `true` |\"}, {\"name\": \"mysql_incomplete_dates_as_nulls\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \" | `mysql_incomplete_dates_as_nulls` | Whether to return `DATE`s with a zero month or day as `NULL`s | `false` |\", \"default_kind\": \"literal\", \"default_value\": \"false\", \"default_evidence\": \" | `mysql_incomplete_dates_as_nulls` | Whether to return `DATE`s with a zero month or day as `NULL`s | `false` |\"}, {\"name\": \"mysql_pool_acquire_mode\", \"input_type\": \"VARCHAR\", \"scope\": \"GLOBAL\", \"evidence\": \" | `mysql_pool_acquire_mode` | How to acquire connections from the pool: `force` (always connect, ignoring the pool limit), `wait` (block until one is available), or `try` (fail immediately if none is available) | `force` |\", \"default_kind\": \"literal\", \"default_value\": \"force\", \"default_evidence\": \" | `mysql_pool_acquire_mode` | How to acquire connections from the pool: `force` (always connect, ignoring the pool limit), `wait` (block until one is available), or `try` (fail immediately if none is available) | `force` |\"}, {\"name\": \"mysql_pool_connection_idle_timeout_millis\", \"input_type\": \"BIGINT\", \"scope\": \"GLOBAL\", \"evidence\": \" | `mysql_pool_connection_idle_timeout_millis` | Maximum time in milliseconds a connection can sit idle in the cache before being closed | `60000` |\", \"default_kind\": \"literal\", \"default_value\": \"60000\", \"default_evidence\": \" | `mysql_pool_connection_idle_timeout_millis` | Maximum time in milliseconds a connection can sit idle in the cache before being closed | `60000` |\"}, {\"name\": \"mysql_pool_connection_max_lifetime_millis\", \"input_type\": \"BIGINT\", \"scope\": \"GLOBAL\", \"evidence\": \" | `mysql_pool_connection_max_lifetime_millis` | Maximum age in milliseconds of a pooled connection since it was first opened; when exceeded, the connection is closed instead of being returned to the cache (`0` disables it) | `0` |\", \"default_kind\": \"literal\", \"default_value\": \"0\", \"default_evidence\": \" | `mysql_pool_connection_max_lifetime_millis` | Maximum age in milliseconds of a pooled connection since it was first opened; when exceeded, the connection is closed instead of being returned to the cache (`0` disables it) | `0` |\"}, {\"name\": \"mysql_pool_enable_reaper_thread\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \" | `mysql_pool_enable_reaper_thread` | Whether to run a dedicated thread that periodically scans the pool and removes expired connections | `true` |\", \"default_kind\": \"literal\", \"default_value\": \"true\", \"default_evidence\": \" | `mysql_pool_enable_reaper_thread` | Whether to run a dedicated thread that periodically scans the pool and removes expired connections | `true` |\"}, {\"name\": \"mysql_pool_enable_thread_local_cache\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \" | `mysql_pool_enable_thread_local_cache` | Enable thread-local connection caching for faster same-thread connection reuse | `false` |\", \"default_kind\": \"literal\", \"default_value\": \"false\", \"default_evidence\": \" | `mysql_pool_enable_thread_local_cache` | Enable thread-local connection caching for faster same-thread connection reuse | `false` |\"}, {\"name\": \"mysql_pool_size\", \"input_type\": \"UINTEGER\", \"scope\": \"GLOBAL\", \"evidence\": \" | `mysql_pool_size` | Maximum number of connections per MySQL catalog | automatic (based on the CPU count) |\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null}, {\"name\": \"mysql_pool_wait_timeout_millis\", \"input_type\": \"BIGINT\", \"scope\": \"GLOBAL\", \"evidence\": \" | `mysql_pool_wait_timeout_millis` | Timeout in milliseconds when waiting for a connection from the pool | `30000` |\", \"default_kind\": \"literal\", \"default_value\": \"30000\", \"default_evidence\": \" | `mysql_pool_wait_timeout_millis` | Timeout in milliseconds when waiting for a connection from the pool | `30000` |\"}, {\"name\": \"mysql_session_time_zone\", \"input_type\": \"VARCHAR\", \"scope\": \"GLOBAL\", \"evidence\": \" | `mysql_session_time_zone` | Session time zone to set for newly opened connections to the MySQL server | `''` |\", \"default_kind\": \"literal\", \"default_value\": \"''\", \"default_evidence\": \" | `mysql_session_time_zone` | Session time zone to set for newly opened connections to the MySQL server | `''` |\"}, {\"name\": \"mysql_time_as_time\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \" | `mysql_time_as_time` | Whether or not to convert MySQL's `TIME` columns to DuckDB's `TIME` | `false` |\", \"default_kind\": \"literal\", \"default_value\": \"false\", \"default_evidence\": \" | `mysql_time_as_time` | Whether or not to convert MySQL's `TIME` columns to DuckDB's `TIME` | `false` |\"}, {\"name\": \"mysql_tinyint1_as_boolean\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \" | `mysql_tinyint1_as_boolean` | Whether or not to convert `TINYINT(1)` columns to `BOOLEAN` | `true` |\", \"default_kind\": \"literal\", \"default_value\": \"true\", \"default_evidence\": \" | `mysql_tinyint1_as_boolean` | Whether or not to convert `TINYINT(1)` columns to `BOOLEAN` | `true` |\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1420,
+  "completion_tokens": 1715,
+  "total_tokens": 3135,
+  "cost": 0.000828,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000828,
+   "upstream_inference_prompt_cost": 0.000142,
+   "upstream_inference_completions_cost": 0.000686
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 15.735000000000582
+}

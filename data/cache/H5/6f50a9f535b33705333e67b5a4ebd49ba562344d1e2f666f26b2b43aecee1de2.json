@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789911600-6YJWkNCb9OPR2S1A7uuj",
+ "object": "chat.completion",
+ "created": 1789911600,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"enable_external_access\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"Allow the database to access external state (through e.g., loading/installing modules, COPY TO/FROM, CSV readers, pandas replacement scans, etc)\",\"default_kind\":\"literal\",\"default_value\":\"true\",\"default_evidence\":\"`true`\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 382,
+  "completion_tokens": 73,
+  "total_tokens": 455,
+  "cost": 4.69e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 4.69e-05,
+   "upstream_inference_prompt_cost": 2.865e-05,
+   "upstream_inference_completions_cost": 1.825e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 5.265999999999622
+}

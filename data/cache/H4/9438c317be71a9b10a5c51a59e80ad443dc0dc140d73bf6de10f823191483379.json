@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789901026-pi4z30Y3ashS6j3Z7upk",
+ "object": "chat.completion",
+ "created": 1789901026,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"custom_user_agent\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`custom_user_agent` setting\",\n      \"default_kind\": \"absent\"\n   \n    , \"default_value\": \"absent\"\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The text mentions `custom_user_agent` setting. Also mentions `PRAGMA user_agent;` but that's a pragma, not a setting. The question: \"Return every configuration setting that this section documents.\" It documents `custom_user_agent` setting. Does it give default? The text does not state default value. It just says can be modified via the setting. No default mentioned. So default is absent.\n\nWe need to output JSON matching supplied schema. We need to infer schema: likely an array of objects with fields: setting, default, evidence. But not given. We need to guess typical schema: maybe {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. However we need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't provided in the prompt. Possibly earlier context? Not given. We need to assume a simple schema: list of objects each with \"setting\", \"default\", \"evidence\". Let's produce:\n\n[\n  {\n    \"setting\": \"custom_user_agent\",\n    \"default\": \"absent\",\n    \"evidence\": \"`custom_user_agent` setting\"\n  }\n]\n\nBut need verbatim quote. The quote: \"`custom_user_agent` setting\". Include backticks? The quote should be verbatim as appears: \"`custom_user_agent` setting\". Provide that.\n\nThus JSON array.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The text mentions `custom_user_agent` setting. Also mentions `PRAGMA user_agent;` but that's a pragma, not a setting. The question: \"Return every configuration setting that this section documents.\" It documents `custom_user_agent` setting. Does it give default? The text does not state default value. It just says can be modified via the setting. No default mentioned. So default is absent.\n\nWe need to output JSON matching supplied schema. We need to infer schema: likely an array of objects with fields: setting, default, evidence. But not given. We need to guess typical schema: maybe {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. However we need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't provided in the prompt. Possibly earlier context? Not given. We need to assume a simple schema: list of objects each with \"setting\", \"default\", \"evidence\". Let's produce:\n\n[\n  {\n    \"setting\": \"custom_user_agent\",\n    \"default\": \"absent\",\n    \"evidence\": \"`custom_user_agent` setting\"\n  }\n]\n\nBut need verbatim quote. The quote: \"`custom_user_agent` setting\". Include backticks? The quote should be verbatim as appears: \"`custom_user_agent` setting\". Provide that.\n\nThus JSON array.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 504,
+  "completion_tokens": 384,
+  "total_tokens": 888,
+  "cost": 8.04e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.04e-05,
+   "upstream_inference_prompt_cost": 1.512e-05,
+   "upstream_inference_completions_cost": 6.528e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 332,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 5.109000000000378
+}

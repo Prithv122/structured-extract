@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789911410-M6kbI6vIdZCEL5NW8Qxh",
+ "object": "chat.completion",
+ "created": 1789911410,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"mysql_bit1_as_boolean\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"Whether or not to convert `BIT(1)` columns to `BOOLEAN`\",\"default_kind\":\"literal\",\"default_value\":\"true\",\"default_evidence\":\"`true`\"},{\"name\":\"mysql_debug_show_queries\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"DEBUG SETTING: print all queries sent to MySQL to stdout\",\"default_kind\":\"literal\",\"default_value\":\"false\",\"default_evidence\":\"`false`\"},{\"name\":\"mysql_enable_filter_pushdown\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"Whether or not to use filter pushdown (without predicate analyzer)\",\"default_kind\":\"literal\",\"default_value\":\"true\",\"default_evidence\":\"`true`\"},{\"name\":\"mysql_enable_transactions\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"Whether to run `START TRANSACTION` / `COMMIT` / `ROLLBACK` on MySQL connections\",\"default_kind\":\"literal\",\"default_value\":\"true\",\"default_evidence\":\"`true`\"},{\"name\":\"mysql_incomplete_dates_as_nulls\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"Whether to return `DATE`s with a zero month or day as `NULL`s\",\"default_kind\":\"literal\",\"default_value\":\"false\",\"default_evidence\":\"`false`\"},{\"name\":\"mysql_pool_acquire_mode\",\"input_type\":\"VARCHAR\",\"scope\":\"GLOBAL\",\"evidence\":\"How to acquire connections from the pool: `force` (always connect, ignoring the pool limit), `wait` (block until one is available), or `try` (fail immediately if none is available)\",\"default_kind\":\"literal\",\"default_value\":\"force\",\"default_evidence\":\"`force`\"},{\"name\":\"mysql_pool_connection_idle_timeout_millis\",\"input_type\":\"BIGINT\",\"scope\":\"GLOBAL\",\"evidence\":\"Maximum time in milliseconds a connection can sit idle in the cache before being closed\",\"default_kind\":\"literal\",\"default_value\":\"60000\",\"default_evidence\":\"`60000`\"},{\"name\":\"mysql_pool_connection_max_lifetime_millis\",\"input_type\":\"BIGINT\",\"scope\":\"GLOBAL\",\"evidence\":\"Maximum age in milliseconds of a pooled connection since it was first opened; when exceeded, the connection is closed instead of being returned to the cache (`0` disables it)\",\"default_kind\":\"literal\",\"default_value\":\"0\",\"default_evidence\":\"`0`\"},{\"name\":\"mysql_pool_enable_reaper_thread\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"Whether to run a dedicated thread that periodically scans the pool and removes expired connections\",\"default_kind\":\"literal\",\"default_value\":\"true\",\"default_evidence\":\"`true`\"},{\"name\":\"mysql_pool_enable_thread_local_cache\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"Enable thread-local connection caching for faster same-thread connection reuse\",\"default_kind\":\"literal\",\"default_value\":\"false\",\"default_evidence\":\"`false`\"},{\"name\":\"mysql_pool_size\",\"input_type\":\"BIGINT\",\"scope\":\"GLOBAL\",\"evidence\":\"Maximum number of connections per MySQL catalog\",\"default_kind\":\"machine_dependent\",\"default_value\":\"automatic (based on the CPU count)\",\"default_evidence\":\"automatic (based on the CPU count)\"},{\"name\":\"mysql_pool_wait_timeout_millis\",\"input_type\":\"BIGINT\",\"scope\":\"GLOBAL\",\"evidence\":\"Timeout in milliseconds when waiting for a connection from the pool\",\"default_kind\":\"literal\",\"default_value\":\"30000\",\"default_evidence\":\"`30000`\"},{\"name\":\"mysql_session_time_zone\",\"input_type\":\"VARCHAR\",\"scope\":\"GLOBAL\",\"evidence\":\"Session time zone to set for newly opened connections to the MySQL server\",\"default_kind\":\"literal\",\"default_value\":\"''\",\"default_evidence\":\"`''`\"},{\"name\":\"mysql_time_as_time\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"Whether or not to convert MySQL's `TIME` columns to DuckDB's `TIME`\",\"default_kind\":\"literal\",\"default_value\":\"false\",\"default_evidence\":\"`false`\"},{\"name\":\"mysql_tinyint1_as_boolean\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"Whether or not to convert `TINYINT(1)` columns to `BOOLEAN`\",\"default_kind\":\"literal\",\"default_value\":\"true\",\"default_evidence\":\"`true`\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 791,
+  "completion_tokens": 873,
+  "total_tokens": 1664,
+  "cost": 0.000277575,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000277575,
+   "upstream_inference_prompt_cost": 5.9325e-05,
+   "upstream_inference_completions_cost": 0.00021825
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 37.67099999999846
+}

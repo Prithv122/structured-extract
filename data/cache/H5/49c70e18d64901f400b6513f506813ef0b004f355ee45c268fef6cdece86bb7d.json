@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789923355-xgeTymESRuUtPaus6wmG",
+ "object": "chat.completion",
+ "created": 1789923355,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\"name\": \"max_memory\", \"input_type\": \"VARCHAR\", \"scope\": \"GLOBAL\", \"evidence\": \"`.max_memory(\\\"4GB\\\")?`\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null},\n    {\"name\": \"threads\", \"input_type\": \"BIGINT\", \"scope\": \"GLOBAL\", \"evidence\": \"`.threads(4)?`\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null},\n    {\"name\": \"access_mode\", \"input_type\": \"VARCHAR\", \"scope\": \"GLOBAL\", \"evidence\": \"`access_mode()`\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null},\n    {\"name\": \"default_order\", \"input_type\": \"VARCHAR\", \"scope\": \"GLOBAL\", \"evidence\": \"`default_order()`\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null},\n    {\"name\": \"default_null_order\", \"input_type\": \"VARCHAR\", \"scope\": \"GLOBAL\", \"evidence\": \"`default_null_order()`\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null},\n    {\"name\": \"enable_external_access\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"`enable_external_access()`\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null},\n    {\"name\": \"enable_object_cache\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"`enable_object_cache()`\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null},\n    {\"name\": \"custom_user_agent\", \"input_type\": \"VARCHAR\", \"scope\": \"GLOBAL\", \"evidence\": \"`custom_user_agent()`\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null},\n    {\"name\": \"allow_unsigned_extensions\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"`allow_unsigned_extensions()`\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null},\n    {\"name\": \"temp_directory\", \"input_type\": \"VARCHAR\", \"scope\": \"GLOBAL\", \"evidence\": \"`.with(\\\"temp_directory\\\", \\\"/path/to/temp/dir/\\\")?`\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null},\n    {\"name\": \"preserve_insertion_order\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"`.with(\\\"preserve_insertion_order\\\", \\\"false\\\")?`\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null}\n  ]\n}",
+    "refusal": null,
+    "reasoning": "The section documents Rust Config methods — these are API methods, not settings themselves? They correspond to settings but the section is about the Rust API. The settings named: max_memory, threads, temp_directory, preserve_insertion_order, etc. Are these documented as configuration settings? The section documents how to set options; the settings themselves are named. I think the settings are: max_memory, threads, access_mode, default_order, default_null_order, enable_external_access, enable_object_cache, custom_user_agent, allow_unsigned_extensions, temp_directory, preserve_insertion_order. Defaults absent. Evidence quotes needed.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The section documents Rust Config methods — these are API methods, not settings themselves? They correspond to settings but the section is about the Rust API. The settings named: max_memory, threads, temp_directory, preserve_insertion_order, etc. Are these documented as configuration settings? The section documents how to set options; the settings themselves are named. I think the settings are: max_memory, threads, access_mode, default_order, default_null_order, enable_external_access, enable_object_cache, custom_user_agent, allow_unsigned_extensions, temp_directory, preserve_insertion_order. Defaults absent. Evidence quotes needed.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 740,
+  "completion_tokens": 738,
+  "total_tokens": 1478,
+  "cost": 0.00024,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00024,
+   "upstream_inference_prompt_cost": 5.55e-05,
+   "upstream_inference_completions_cost": 0.0001845
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 121,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 14.562000000005355
+}

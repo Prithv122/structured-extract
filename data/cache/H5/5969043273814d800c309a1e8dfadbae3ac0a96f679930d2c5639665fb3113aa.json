@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789922862-nzXEGD1TeqvzwfYHoSm4",
+ "object": "chat.completion",
+ "created": 1789922862,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"secret_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"SET secret_directory = 'path/to/my_secrets_dir';\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"~/.duckdb/stored_secrets\",\n      \"default_evidence\": \"By default, this will write the secret (unencrypted) to the `~/.duckdb/stored_secrets` directory.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "secret_directory is a setting; default absent (path described but not as default of setting... \"By default, this will write the secret ... to ~/.duckdb/stored_secrets\" — that's the default of the secret storage, arguably default of secret_directory). home_directory is mentioned but not documented as a setting here. I'll include secret_directory with default \"~/.duckdb/stored_secrets\"? The default stated is where secrets are written by default, which corresponds to secret_directory default. Include it.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "secret_directory is a setting; default absent (path described but not as default of setting... \"By default, this will write the secret ... to ~/.duckdb/stored_secrets\" — that's the default of the secret storage, arguably default of secret_directory). home_directory is mentioned but not documented as a setting here. I'll include secret_directory with default \"~/.duckdb/stored_secrets\"? The default stated is where secrets are written by default, which corresponds to secret_directory default. Include it.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 619,
+  "completion_tokens": 215,
+  "total_tokens": 834,
+  "cost": 0.000100175,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000100175,
+   "upstream_inference_prompt_cost": 4.6425e-05,
+   "upstream_inference_completions_cost": 5.375e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 102,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 10.953000000001339
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789897795-Ck0Ia3cNIAScFndVBHVe",
+ "object": "chat.completion",
+ "created": 1789897795,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need produce likely list of settings with evidence and default. Need parse section. The provided text is about shared installation location extensions. Does it document any configuration settings? Need identify DuckDB configuration settings documented. The section text: \"The shared installation location allows extensions to be shared between the client APIs _of the same DuckDB version_, as long as they share the same `platform` or ABI. For example, if an extension is installed with version 1.2.1 of the CLI client on macOS, it is available from the Python, R, etc. client libraries provided that they have access to the user's home directory and use DuckDB version 1.2.1.\"\n\nThis seems from docs about extension installation location. Does it document a setting? It mentions \"shared installation location\" maybe setting? DuckDB has setting \"extension_directory\" perhaps? But this section doesn't name a setting explicitly. It describes behavior. The instruction: \"Return every configuration setting that this section documents. A section documents a setting when it tells the reader what the setting does, what it accepts, or how to set it. Do not return a setting merely because the section contains a word that happens to be a setting name.\" Here no setting names. \"platform\" is not a setting? \"shared installation location\" maybe not a setting. So empty list likely.\n\nNeed output JSON. Schema maybe something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nNeed know exact schema. Since not supplied, maybe from prior tasks? We need infer. The user says \"Answer only with JSON matching the supplied schema.\" But no schema in current prompt. Could be expected:\n{\"settings\": [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]}\nNeed decide. We can output empty list. Need include only JSON. Could be:\n{\"settings\": []}\nBut maybe schema includes \"documented_settings\"? Hmm.\n\nLet's examine wording: \"Return every configuration setting that this section documents.\" \"For each setting, quote a span ... Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" The supplied schema likely from system? Not visible. We need produce valid JSON with fields. Since no settings, empty array. Could be:\n{\n  \"settings\": []\n}\nThat likely matches.\n\nNeed ensure no markdown. Final only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need produce likely list of settings with evidence and default. Need parse section. The provided text is about shared installation location extensions. Does it document any configuration settings? Need identify DuckDB configuration settings documented. The section text: \"The shared installation location allows extensions to be shared between the client APIs _of the same DuckDB version_, as long as they share the same `platform` or ABI. For example, if an extension is installed with version 1.2.1 of the CLI client on macOS, it is available from the Python, R, etc. client libraries provided that they have access to the user's home directory and use DuckDB version 1.2.1.\"\n\nThis seems from docs about extension installation location. Does it document a setting? It mentions \"shared installation location\" maybe setting? DuckDB has setting \"extension_directory\" perhaps? But this section doesn't name a setting explicitly. It describes behavior. The instruction: \"Return every configuration setting that this section documents. A section documents a setting when it tells the reader what the setting does, what it accepts, or how to set it. Do not return a setting merely because the section contains a word that happens to be a setting name.\" Here no setting names. \"platform\" is not a setting? \"shared installation location\" maybe not a setting. So empty list likely.\n\nNeed output JSON. Schema maybe something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nNeed know exact schema. Since not supplied, maybe from prior tasks? We need infer. The user says \"Answer only with JSON matching the supplied schema.\" But no schema in current prompt. Could be expected:\n{\"settings\": [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]}\nNeed decide. We can output empty list. Need include only JSON. Could be:\n{\"settings\": []}\nBut maybe schema includes \"documented_settings\"? Hmm.\n\nLet's examine wording: \"Return every configuration setting that this section documents.\" \"For each setting, quote a span ... Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" The supplied schema likely from system? Not visible. We need produce valid JSON with fields. Since no settings, empty array. Could be:\n{\n  \"settings\": []\n}\nThat likely matches.\n\nNeed ensure no markdown. Final only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 462,
+  "completion_tokens": 540,
+  "total_tokens": 1002,
+  "cost": 0.0019083,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0019083,
+   "upstream_inference_prompt_cost": 0.0005313,
+   "upstream_inference_completions_cost": 0.001377
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 643,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 12.390999999999622
+}

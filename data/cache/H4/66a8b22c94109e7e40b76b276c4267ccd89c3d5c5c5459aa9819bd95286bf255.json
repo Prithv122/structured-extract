@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789908935-g0iDcUC9Iz12IXh35bfT",
+ "object": "chat.completion",
+ "created": 1789908935,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allow_extensions_metadata_mismatch\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`allow_extensions_metadata_mismatch`          | Allow to load extensions with not compatible metadata                                                                                                                                                         | `BOOLEAN`   | `false`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\"\n   \n    ,      \"default_evidence\": \"`false`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract settings documented in the given section. The section is a table with one row: Name `allow_extensions_metadata_mismatch`, description, type, default value `false`. So we need to output JSON with list of settings, each with name, description, type, default (if stated). Provide evidence quote for each setting: a span of the section verbatim. Must quote a span exactly as appears. So we can quote the row line maybe: \"`allow_extensions_metadata_mismatch`\". Also description line. Provide default value quote: \"`false`\". The schema? Not given explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut need to infer schema from prior tasks. Usually they want:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nLet's assume that. Provide evidence as a string quoting the relevant part. Could include the whole row. Provide default as \"false\". Since default is stated. Provide default as string \"false\". Provide type \"BOOLEAN\". Provide description as \"Allow to load extensions with not compatible metadata\". Provide name as \"allow_extensions_metadata_mismatch\". Provide evidence maybe the whole row: \"`allow_extensions_metadata_mismatch` | Allow to load extensions with not compatible metadata | `BOOLEAN` | `false`\". Must be verbatim. The table uses markdown. Provide exactly as appears: \"`allow_extensions_metadata_mismatch`          | Allow to load extensions with not compatible metadata                                                                                                                                                         | `BOOLEAN`   | `false`\". Might include spaces. Provide a snippet.\n\nReturn JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract settings documented in the given section. The section is a table with one row: Name `allow_extensions_metadata_mismatch`, description, type, default value `false`. So we need to output JSON with list of settings, each with name, description, type, default (if stated). Provide evidence quote for each setting: a span of the section verbatim. Must quote a span exactly as appears. So we can quote the row line maybe: \"`allow_extensions_metadata_mismatch`\". Also description line. Provide default value quote: \"`false`\". The schema? Not given explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut need to infer schema from prior tasks. Usually they want:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nLet's assume that. Provide evidence as a string quoting the relevant part. Could include the whole row. Provide default as \"false\". Since default is stated. Provide default as string \"false\". Provide type \"BOOLEAN\". Provide description as \"Allow to load extensions with not compatible metadata\". Provide name as \"allow_extensions_metadata_mismatch\". Provide evidence maybe the whole row: \"`allow_extensions_metadata_mismatch` | Allow to load extensions with not compatible metadata | `BOOLEAN` | `false`\". Must be verbatim. The table uses markdown. Provide exactly as appears: \"`allow_extensions_metadata_mismatch`          | Allow to load extensions with not compatible metadata                                                                                                                                                         | `BOOLEAN`   | `false`\". Might include spaces. Provide a snippet.\n\nReturn JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 424,
+  "completion_tokens": 498,
+  "total_tokens": 922,
+  "cost": 9.738e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.738e-05,
+   "upstream_inference_prompt_cost": 1.272e-05,
+   "upstream_inference_completions_cost": 8.466e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 480,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 10.21900000000096
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789911448-4NcuNkEqN5zhMy8uxoqI",
+ "object": "chat.completion",
+ "created": 1789911448,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"custom_extension_repository\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Alternatively, the `custom_extension_repository` setting can be used to change the default repository used by DuckDB:\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "custom_extension_repository is documented. Default not stated.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "custom_extension_repository is documented. Default not stated.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 647,
+  "completion_tokens": 101,
+  "total_tokens": 748,
+  "cost": 7.3775e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.3775e-05,
+   "upstream_inference_prompt_cost": 4.8525e-05,
+   "upstream_inference_completions_cost": 2.525e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 10,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 7.625
+}

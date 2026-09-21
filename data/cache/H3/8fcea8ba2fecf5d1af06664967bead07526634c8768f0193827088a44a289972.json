@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789918340-CipWlbKobbgycvZ5Ucru",
+ "object": "chat.completion",
+ "created": 1789918340,
+ "model": "openai/gpt-4.1-nano",
+ "provider": "OpenAI",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "completed",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": [{\"name\": \"temp_directory\", \"input_type\": \"VARCHAR\", \"scope\": \"GLOBAL\", \"evidence\": \"Set the directory to which to write temp files\", \"default_kind\": \"literal\", \"default_value\": \"⟨database_name⟩.tmp\", \"default_evidence\": \"⟨database_name⟩.tmp\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1000,
+  "completion_tokens": 80,
+  "total_tokens": 1080,
+  "cost": 0.000132,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000132,
+   "upstream_inference_prompt_cost": 0.0001,
+   "upstream_inference_completions_cost": 3.2e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 2.1719999999986612
+}

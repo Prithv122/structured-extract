@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789902936-9IrhdOWU8x5Mzl11gpIb",
+ "object": "chat.completion",
+ "created": 1789902936,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"httpfs_connection_caching\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Connection caching reuses connections across requests, reducing per-query latency on repeated requests:\",\n      \"default_kind\": \"absent\"\n    \t, \n   \t\"default_value\": \"absent\"\n   \t, \n   \t\"default_evidence\": null\n   \t}\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. The text mentions \"httpfs_connection_caching\". It shows a SET statement. We need to see if the section documents the setting: It says \"Connection caching reuses connections across requests, reducing per-query latency on repeated requests:\" then shows SET httpfs_connection_caching = true;. That is documentation of the setting: it tells what it does (connection caching reuses connections...). So we should include setting \"httpfs_connection_caching\". Need to provide a quote span that documents it. The quote could be \"Connection caching reuses connections across requests, reducing per-query latency on repeated requests:\" or the SET line. The setting name appears there. Provide default if stated. The section does not state default. It only shows example setting to true. No default mentioned. So default is absent.\n\nReturn JSON with list of objects each with name, evidence, default. Schema? Not given explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't provided in the prompt, but typical tasks: maybe top-level array? Let's assume format:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"httpfs_connection_caching\",\n      \"evidence\": \"Connection caching reuses connections across requests, reducing per-query latency on repeated requests:\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nMake sure quotes are proper.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. The text mentions \"httpfs_connection_caching\". It shows a SET statement. We need to see if the section documents the setting: It says \"Connection caching reuses connections across requests, reducing per-query latency on repeated requests:\" then shows SET httpfs_connection_caching = true;. That is documentation of the setting: it tells what it does (connection caching reuses connections...). So we should include setting \"httpfs_connection_caching\". Need to provide a quote span that documents it. The quote could be \"Connection caching reuses connections across requests, reducing per-query latency on repeated requests:\" or the SET line. The setting name appears there. Provide default if stated. The section does not state default. It only shows example setting to true. No default mentioned. So default is absent.\n\nReturn JSON with list of objects each with name, evidence, default. Schema? Not given explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't provided in the prompt, but typical tasks: maybe top-level array? Let's assume format:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"httpfs_connection_caching\",\n      \"evidence\": \"Connection caching reuses connections across requests, reducing per-query latency on repeated requests:\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nMake sure quotes are proper.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 424,
+  "completion_tokens": 440,
+  "total_tokens": 864,
+  "cost": 8.752e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.752e-05,
+   "upstream_inference_prompt_cost": 1.272e-05,
+   "upstream_inference_completions_cost": 7.48e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 397,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.625
+}

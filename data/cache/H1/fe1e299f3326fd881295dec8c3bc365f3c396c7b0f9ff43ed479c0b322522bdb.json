@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789897480-kNFzBWuK5J8z48aPH0h9",
+ "object": "chat.completion",
+ "created": 1789897480,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"Alternatively, the `custom_extension_repository` setting can be used to change the default repository used by DuckDB:\\n\\n```sql\\nSET custom_extension_repository = 'http://nightly-extensions.duckdb.org';\\n```\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"custom_extension_repository\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. Need produce likely array of objects with setting, evidence, default? Need infer from instruction. We need extract DuckDB configuration settings documented in section. Section is about installing extensions, mentions custom_extension_repository setting. Need return every configuration setting documented. It documents custom_extension_repository: tells what it does (change default repository used by DuckDB) and how to set it (SET custom_extension_repository = '...'). Does it state default? It says \"Alternatively, the custom_extension_repository setting can be used to change the default repository used by DuckDB\". It doesn't state default value. It mentions predefined repositories but not default for setting. So default absent. Need quote verbatim span. Need maybe include setting name and evidence. Need decide JSON structure. Since no schema, likely:\n[\n  {\n    \"setting\": \"custom_extension_repository\",\n    \"evidence\": \"Alternatively, the `custom_extension_repository` setting can be used to change the default repository used by DuckDB:\\n\\n```sql\\nSET custom_extension_repository = 'http://nightly-extensions.duckdb.org';\\n```\",\n    \"default\": \"absent\"\n  }\n]\nBut need maybe \"default\" value or null. The instruction says \"Also report the setting's default, but only if this section states it... If section does not state a default, say it is absent\". So include \"default\": \"absent\". Need maybe \"default_quote\"? They said \"A stated default must be backed by a verbatim quote in the same way the setting itself is.\" If absent no quote. Could include \"default_evidence\": null? Need match schema unknown. We can produce minimal.\n\nNeed ensure only documented setting. The section also mentions INSTALL, FROM, core, core_nightly, spatial, httpfs, community, local_build_debug, local_build_release. These are not settings? \"custom_extension_repository\" is a setting. Are any others settings? \"core\" etc are repository aliases, not settings. \"INSTALL\" SQL command. No.\n\nNeed quote exactly. The evidence span should include the sentence and SQL. Need copy characters exactly. Let's quote from text:\n\n\"Alternatively, the `custom_extension_repository` setting can be used to change the default repository used by DuckDB:\n\n```sql\nSET custom_extension_repository = 'http://nightly-extensions.duckdb.org';\n```\"\n\nNeed include backticks? The text has backticks around custom_extension_repository. We can include exactly. Need maybe include only the sentence? The instruction says quote a span of section verbatim as evidence. We can include the whole paragraph. Good.\n\nNeed answer only JSON. Ensure valid JSON. Use double quotes. Need escape newlines? In JSON, newline can be \\n. We can include as string with \\n. Need maybe no markdown. Let's craft.\n\nBut let's think if there are any other settings documented? The section says \"custom_extension_repository setting can be used to change the default repository used by DuckDB\". That's one. It doesn't document default. So list one.\n\nNeed maybe include \"default\": \"absent\" as string. Could also include \"default_quote\": null? The schema maybe expects \"default\" field. We'll include \"default\": \"absent\". If schema expects object with \"default\": {\"value\": ..., \"evidence\": ...}? Unknown. But user says \"report the setting's default... If section does not state a default, say it is absent\". So likely string \"absent\". We'll do that.\n\nNeed maybe include \"evidence\" exactly. Let's ensure no typo. The text:\n\nAlternatively, the `custom_extension_repository` setting can be used to change the default repository used by DuckDB:\n\n```sql\nSET custom_extension_repository = 'http://nightly-extensions.duckdb.org';\n```\n\nNeed include the code fence? The quote can include the code block markers? \"quote a span of the section verbatim\" - yes include as in text. But JSON string with triple backticks and newline. We can include the sentence and code block. Need escape backticks? In JSON, backticks are fine. Newline as \\n. Let's produce.\n\nPotential issue: The prompt says \"Return every configuration setting that this section documents.\" It might expect only setting names, not evidence? But instruction says \"For each setting, quote a span...\" So include evidence.\n\nNeed maybe include \"setting\": \"custom_extension_repository\". Good.\n\nLet's final JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. Need produce likely array of objects with setting, evidence, default? Need infer from instruction. We need extract DuckDB configuration settings documented in section. Section is about installing extensions, mentions custom_extension_repository setting. Need return every configuration setting documented. It documents custom_extension_repository: tells what it does (change default repository used by DuckDB) and how to set it (SET custom_extension_repository = '...'). Does it state default? It says \"Alternatively, the custom_extension_repository setting can be used to change the default repository used by DuckDB\". It doesn't state default value. It mentions predefined repositories but not default for setting. So default absent. Need quote verbatim span. Need maybe include setting name and evidence. Need decide JSON structure. Since no schema, likely:\n[\n  {\n    \"setting\": \"custom_extension_repository\",\n    \"evidence\": \"Alternatively, the `custom_extension_repository` setting can be used to change the default repository used by DuckDB:\\n\\n```sql\\nSET custom_extension_repository = 'http://nightly-extensions.duckdb.org';\\n```\",\n    \"default\": \"absent\"\n  }\n]\nBut need maybe \"default\" value or null. The instruction says \"Also report the setting's default, but only if this section states it... If section does not state a default, say it is absent\". So include \"default\": \"absent\". Need maybe \"default_quote\"? They said \"A stated default must be backed by a verbatim quote in the same way the setting itself is.\" If absent no quote. Could include \"default_evidence\": null? Need match schema unknown. We can produce minimal.\n\nNeed ensure only documented setting. The section also mentions INSTALL, FROM, core, core_nightly, spatial, httpfs, community, local_build_debug, local_build_release. These are not settings? \"custom_extension_repository\" is a setting. Are any others settings? \"core\" etc are repository aliases, not settings. \"INSTALL\" SQL command. No.\n\nNeed quote exactly. The evidence span should include the sentence and SQL. Need copy characters exactly. Let's quote from text:\n\n\"Alternatively, the `custom_extension_repository` setting can be used to change the default repository used by DuckDB:\n\n```sql\nSET custom_extension_repository = 'http://nightly-extensions.duckdb.org';\n```\"\n\nNeed include backticks? The text has backticks around custom_extension_repository. We can include exactly. Need maybe include only the sentence? The instruction says quote a span of section verbatim as evidence. We can include the whole paragraph. Good.\n\nNeed answer only JSON. Ensure valid JSON. Use double quotes. Need escape newlines? In JSON, newline can be \\n. We can include as string with \\n. Need maybe no markdown. Let's craft.\n\nBut let's think if there are any other settings documented? The section says \"custom_extension_repository setting can be used to change the default repository used by DuckDB\". That's one. It doesn't document default. So list one.\n\nNeed maybe include \"default\": \"absent\" as string. Could also include \"default_quote\": null? The schema maybe expects \"default\" field. We'll include \"default\": \"absent\". If schema expects object with \"default\": {\"value\": ..., \"evidence\": ...}? Unknown. But user says \"report the setting's default... If section does not state a default, say it is absent\". So likely string \"absent\". We'll do that.\n\nNeed maybe include \"evidence\" exactly. Let's ensure no typo. The text:\n\nAlternatively, the `custom_extension_repository` setting can be used to change the default repository used by DuckDB:\n\n```sql\nSET custom_extension_repository = 'http://nightly-extensions.duckdb.org';\n```\n\nNeed include the code fence? The quote can include the code block markers? \"quote a span of the section verbatim\" - yes include as in text. But JSON string with triple backticks and newline. We can include the sentence and code block. Need escape backticks? In JSON, backticks are fine. Newline as \\n. Let's produce.\n\nPotential issue: The prompt says \"Return every configuration setting that this section documents.\" It might expect only setting names, not evidence? But instruction says \"For each setting, quote a span...\" So include evidence.\n\nNeed maybe include \"setting\": \"custom_extension_repository\". Good.\n\nLet's final JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 745,
+  "completion_tokens": 1119,
+  "total_tokens": 1864,
+  "cost": 0.0037102,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0037102,
+   "upstream_inference_prompt_cost": 0.00085675,
+   "upstream_inference_completions_cost": 0.00285345
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 1121,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 26.889999999999418
+}

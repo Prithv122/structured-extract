@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789911732-DhRLzp4HMRNHHVQ9tKjM",
+ "object": "chat.completion",
+ "created": 1789911732,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"profile_output\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"The file to which profile output should be saved, or empty to print to the terminal\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"empty\",\n      \"default_evidence\": \"or empty to print to the terminal\"\n    },\n    {\n      \"name\": \"profiling_output\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"The file to which profile output should be saved, or empty to print to the terminal\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"empty\",\n      \"default_evidence\": \"or empty to print to the terminal\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "Extract settings: profile_output, profiling_output. Default empty (blank cell).",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "Extract settings: profile_output, profiling_output. Default empty (blank cell).",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 371,
+  "completion_tokens": 193,
+  "total_tokens": 564,
+  "cost": 7.6075e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.6075e-05,
+   "upstream_inference_prompt_cost": 2.7825e-05,
+   "upstream_inference_completions_cost": 4.825e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 15,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 11.65599999999904
+}

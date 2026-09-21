@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789901269-Fz5XRltJEl5G3uQj01dL",
+ "object": "chat.completion",
+ "created": 1789901269,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"enable_profiling\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA enable_profiling = 'json';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"profiling_output\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA profiling_output = '/path/to/file.json';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"configure_profiling\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA configure_profiling = '{\\\"CPU_TIME\\\": \\\"false\\\", \\\"EXTRA_INFO\\\": \\\"true\\\", \\\"OPERATOR_CARDINALITY\\\": \\\"true\\\", \\\"OPERATOR_TIMING\\\": \\\"true\\\"}';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"profiling_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA profiling_mode = 'detailed';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to fix JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (optional?), default_evidence (optional?). The error says when default_kind is 'absent', default_value and default_evidence must both be null. In our output we set default_value to \"absent\" string, which is wrong. Should be null. Also default_evidence is null already, fine. So we need to set default_value: null for each setting. Also ensure JSON syntax correct (commas). Also ensure evidence is verbatim span. The evidence strings we used are verbatim? The text includes backticks? The original doc shows:\n\nPRAGMA enable_profiling = 'json';\nPRAGMA profiling_output = '/path/to/file.json';\nPRAGMA configure_profiling = '{\"CPU_TIME\": \"false\", \"EXTRA_INFO\": \"true\", \"OPERATOR_CARDINALITY\": \"true\", \"OPERATOR_TIMING\": \"true\"}';\nPRAGMA profiling_mode = 'detailed';\n\nThese are verbatim. Ensure we include exactly as appears, including spaces. The evidence strings should match exactly. Let's copy them exactly as in the document.\n\nFirst: \"PRAGMA enable_profiling = 'json';\" (there is a space before = and after). Yes.\n\nSecond: \"PRAGMA profiling_output = '/path/to/file.json';\"\n\nThird: \"PRAGMA configure_profiling = '{\\\"CPU_TIME\\\": \\\"false\\\", \\\"EXTRA_INFO\\\": \\\"true\\\", \\\"OPERATOR_CARDINALITY\\\": \\\"true\\\", \\\"OPERATOR_TIMING\\\": \\\"true\\\"}';\"\n\nNote: In JSON we need to escape backslashes and quotes. The evidence string includes double quotes inside JSON string, need to escape them. Already done.\n\nFourth: \"PRAGMA profiling_mode = 'detailed';\"\n\nNow produce JSON with default_kind: \"absent\", default_value: null, default_evidence: null.\n\nAlso ensure each object has fields in order maybe not required.\n\nLet's construct final JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to fix JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (optional?), default_evidence (optional?). The error says when default_kind is 'absent', default_value and default_evidence must both be null. In our output we set default_value to \"absent\" string, which is wrong. Should be null. Also default_evidence is null already, fine. So we need to set default_value: null for each setting. Also ensure JSON syntax correct (commas). Also ensure evidence is verbatim span. The evidence strings we used are verbatim? The text includes backticks? The original doc shows:\n\nPRAGMA enable_profiling = 'json';\nPRAGMA profiling_output = '/path/to/file.json';\nPRAGMA configure_profiling = '{\"CPU_TIME\": \"false\", \"EXTRA_INFO\": \"true\", \"OPERATOR_CARDINALITY\": \"true\", \"OPERATOR_TIMING\": \"true\"}';\nPRAGMA profiling_mode = 'detailed';\n\nThese are verbatim. Ensure we include exactly as appears, including spaces. The evidence strings should match exactly. Let's copy them exactly as in the document.\n\nFirst: \"PRAGMA enable_profiling = 'json';\" (there is a space before = and after). Yes.\n\nSecond: \"PRAGMA profiling_output = '/path/to/file.json';\"\n\nThird: \"PRAGMA configure_profiling = '{\\\"CPU_TIME\\\": \\\"false\\\", \\\"EXTRA_INFO\\\": \\\"true\\\", \\\"OPERATOR_CARDINALITY\\\": \\\"true\\\", \\\"OPERATOR_TIMING\\\": \\\"true\\\"}';\"\n\nNote: In JSON we need to escape backslashes and quotes. The evidence string includes double quotes inside JSON string, need to escape them. Already done.\n\nFourth: \"PRAGMA profiling_mode = 'detailed';\"\n\nNow produce JSON with default_kind: \"absent\", default_value: null, default_evidence: null.\n\nAlso ensure each object has fields in order maybe not required.\n\nLet's construct final JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 2782,
+  "completion_tokens": 748,
+  "total_tokens": 3530,
+  "cost": 0.00021062,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00021062,
+   "upstream_inference_prompt_cost": 8.346e-05,
+   "upstream_inference_completions_cost": 0.00012716
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 446,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 17.843999999997322
+}

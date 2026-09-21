@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789922420-yWeVwpfaiyvQamdny3xM",
+ "object": "chat.completion",
+ "created": 1789922420,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"file_search_path\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`file_search_path`\",\n      \"default_kind\": \"absent\"\n   \n    , \"default_value\": \"absent\"\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with a single row: Name `file_search_path`, description, type VARCHAR, default value column empty.\n\nWe need to determine if this is a configuration setting. The table is titled \"Global Configuration Options\". That suggests it's a configuration setting. The row includes Name, Description, Type, Default value. So we should output JSON with setting name, type, default (if present). The default value column is empty, meaning default is absent. We need to quote a span of the section verbatim as evidence for the setting. So we need to quote the row maybe the name line. Provide a quote like \"`file_search_path`\". Or the whole row? Must be verbatim as appears. Provide a quote that includes the name. For example: \"`file_search_path`\". Also maybe include description. But at least the name.\n\nThe JSON schema? Not provided explicitly, but we can infer: likely an array of objects with fields: name, type, default, evidence. The instruction: \"Answer only with JSON matching the supplied schema.\" But we don't have the schema. We need to guess typical schema: maybe like [{\"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. Could be \"settings\": []? Not sure. We need to infer from prior tasks. Usually they want something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"file_search_path\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"absent\",\n      \"evidence\": \"`file_search_path`\"\n    }\n  ]\n}\n\nBut not sure. Could be just a list. The instruction: \"For each setting, quote a span of the section verbatim as evidence.\" So we need to include evidence. The schema likely includes fields: name, type, default, evidence. We'll output that.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"file_search_path\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"absent\",\n      \"evidence\": \"`file_search_path`\"\n    }\n  ]\n}\n\nMake sure it's valid JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with a single row: Name `file_search_path`, description, type VARCHAR, default value column empty.\n\nWe need to determine if this is a configuration setting. The table is titled \"Global Configuration Options\". That suggests it's a configuration setting. The row includes Name, Description, Type, Default value. So we should output JSON with setting name, type, default (if present). The default value column is empty, meaning default is absent. We need to quote a span of the section verbatim as evidence for the setting. So we need to quote the row maybe the name line. Provide a quote like \"`file_search_path`\". Or the whole row? Must be verbatim as appears. Provide a quote that includes the name. For example: \"`file_search_path`\". Also maybe include description. But at least the name.\n\nThe JSON schema? Not provided explicitly, but we can infer: likely an array of objects with fields: name, type, default, evidence. The instruction: \"Answer only with JSON matching the supplied schema.\" But we don't have the schema. We need to guess typical schema: maybe like [{\"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. Could be \"settings\": []? Not sure. We need to infer from prior tasks. Usually they want something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"file_search_path\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"absent\",\n      \"evidence\": \"`file_search_path`\"\n    }\n  ]\n}\n\nBut not sure. Could be just a list. The instruction: \"For each setting, quote a span of the section verbatim as evidence.\" So we need to include evidence. The schema likely includes fields: name, type, default, evidence. We'll output that.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"file_search_path\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"absent\",\n      \"evidence\": \"`file_search_path`\"\n    }\n  ]\n}\n\nMake sure it's valid JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 551,
+  "completion_tokens": 544,
+  "total_tokens": 1095,
+  "cost": 0.00010901,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00010901,
+   "upstream_inference_prompt_cost": 1.653e-05,
+   "upstream_inference_completions_cost": 9.248e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 501,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 20.625
+}

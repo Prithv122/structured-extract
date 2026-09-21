@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919668-M915Ie1jRNuij0jcrL21",
+ "object": "chat.completion",
+ "created": 1789919668,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"search_path\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"The catalog search path can be adjusted by setting the `search_path` configuration option, which uses a comma-separated list of values that will be on the search path.\",\n      \"default_kind\": \"absent\"\n    \n  \n\n  , \"default_value\": \"absent\"\n  , \"default_evidence\": null\n  }\n] }",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The text mentions \"search_path\" configuration option. That's a setting. Provide JSON with list of settings, each with name, default (if stated), and evidence (quote). The section says: \"The catalog search path can be adjusted by setting the `search_path` configuration option, which uses a comma-separated list of values that will be on the search path.\" It does not state a default value. So default is absent. Provide evidence quote for setting name. Provide default: \"absent\". Schema? Not given but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"search_path\",\n      \"default\": \"absent\",\n      \"evidence\": \"The catalog search path can be adjusted by setting the `search_path` configuration option, which uses a comma-separated list of values that will be on the search path.\"\n    }\n  ]\n}\n\nMake sure JSON matches supplied schema. We don't have schema but typical: list of objects with name, default, evidence. We'll output accordingly.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The text mentions \"search_path\" configuration option. That's a setting. Provide JSON with list of settings, each with name, default (if stated), and evidence (quote). The section says: \"The catalog search path can be adjusted by setting the `search_path` configuration option, which uses a comma-separated list of values that will be on the search path.\" It does not state a default value. So default is absent. Provide evidence quote for setting name. Provide default: \"absent\". Schema? Not given but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"search_path\",\n      \"default\": \"absent\",\n      \"evidence\": \"The catalog search path can be adjusted by setting the `search_path` configuration option, which uses a comma-separated list of values that will be on the search path.\"\n    }\n  ]\n}\n\nMake sure JSON matches supplied schema. We don't have schema but typical: list of objects with name, default, evidence. We'll output accordingly.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 644,
+  "completion_tokens": 341,
+  "total_tokens": 985,
+  "cost": 7.729e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.729e-05,
+   "upstream_inference_prompt_cost": 1.932e-05,
+   "upstream_inference_completions_cost": 5.797e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 260,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 31.375
+}

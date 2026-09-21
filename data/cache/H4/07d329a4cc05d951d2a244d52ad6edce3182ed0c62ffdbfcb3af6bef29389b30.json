@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789921003-fPDUM7UMnzba9m3uW1aX",
+ "object": "chat.completion",
+ "created": 1789921003,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`temp_directory` | Set the directory to which to write temp files | `VARCHAR` | `⟨database_name⟩.tmp` or `.tmp` (in in-memory mode)\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"⟨database_name⟩.tmp or .tmp (in in-memory mode)\",\n      \"default_evidence\": \"`⟨database_name⟩.tmp` or `.tmp` (in in-memory mode)\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to output JSON per schema. The schema not provided but likely expects list of objects with name, description, type, default, evidence. We need to infer. Probably schema: [{\"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"description\": \"...\", \"evidence\": \"...\"}]. We have only one setting: temp_directory. Provide evidence quote: the row. Provide default as given. Provide description as given. Provide type. Provide name. Provide evidence maybe the row line. Let's output JSON array.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to output JSON per schema. The schema not provided but likely expects list of objects with name, description, type, default, evidence. We need to infer. Probably schema: [{\"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"description\": \"...\", \"evidence\": \"...\"}]. We have only one setting: temp_directory. Provide evidence quote: the row. Provide default as given. Provide description as given. Provide type. Provide name. Provide evidence maybe the row line. Let's output JSON array.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 569,
+  "completion_tokens": 265,
+  "total_tokens": 834,
+  "cost": 6.212e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.212e-05,
+   "upstream_inference_prompt_cost": 1.707e-05,
+   "upstream_inference_completions_cost": 4.505e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 124,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 3.9069999999992433
+}

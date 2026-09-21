@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789900571-0oh9VpTH7PBQKjURKztj",
+ "object": "chat.completion",
+ "created": 1789900571,
+ "model": "openai/gpt-4.1-nano",
+ "provider": "OpenAI",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "completed",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"azure_http_stats\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Include HTTP info from Azure Storage in the [`EXPLAIN ANALYZE` statement]({% link docs/current/dev/profiling.md %}).\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \" | `BOOLEAN` | `false` |\"\n    },\n    {\n      \"name\": \"azure_read_transfer_concurrency\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Maximum number of threads the Azure client can use for a single parallel read. If `azure_read_transfer_chunk_size` is less than `azure_read_buffer_size` then setting this > 1 will allow the Azure client to do concurrent requests to fill the buffer.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"5\",\n      \"default_evidence\": \" | `BIGINT` | `5` |\"\n    },\n    {\n      \"name\": \"azure_read_transfer_chunk_size\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Maximum size in bytes that the Azure client will read in a single request. It is recommended that this is a factor of `azure_read_buffer_size`.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"1024*1024\",\n      \"default_evidence\": \" | `BIGINT` | `1024*1024` |\"\n    },\n    {\n      \"name\": \"azure_read_buffer_size\",\n      \"input_type\": \"UBIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Size of the read buffer. It is recommended that this is evenly divisible by `azure_read_transfer_chunk_size`.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"1024*1024\",\n      \"default_evidence\": \" | `UBIGINT` | `1024*1024` |\"\n    },\n    {\n      \"name\": \"azure_transport_option_type\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Underlying [adapter](https://github.com/Azure/azure-sdk-for-cpp/blob/main/doc/HttpTransportAdapter.md) to use in the Azure SDK. Valid values are: `default` or `curl`.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"default\",\n      \"default_evidence\": \" | `VARCHAR` | `default` |\"\n    },\n    {\n      \"name\": \"azure_context_caching\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Enable/disable the caching of the underlying Azure SDK HTTP connection in the DuckDB connection context when performing queries. If you suspect that this is causing some side effect, you can try to disable it by setting it to false (not recommended).\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\",\n      \"default_evidence\": \" | `BOOLEAN` | `true` |\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 4965,
+  "completion_tokens": 673,
+  "total_tokens": 5638,
+  "cost": 0.0007657,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0007657,
+   "upstream_inference_prompt_cost": 0.0004965,
+   "upstream_inference_completions_cost": 0.0002692
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 4.437999999998283
+}

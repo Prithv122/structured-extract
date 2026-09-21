@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789894774-h3uirS0wuVQb80g6dX3Z",
+ "object": "chat.completion",
+ "created": 1789894774,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"Next, use the `SET TimeZone` command:\\n\\n```sql\\nSET TimeZone = 'America/Los_Angeles';\\n```\\n\\nTime binning operations for `TIMESTAMPTZ` will then be implemented using the given time zone.\",\n      \"input_type\": \"VARCHAR\",\n      \"name\": \"TimeZone\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need extract DuckDB configuration settings documented in section. The section is about TIMESTAMPTZ binning with ICU, setting time zone. It documents `TimeZone` setting? It says use `SET TimeZone = 'America/Los_Angeles';` and describes what it does: time binning operations for TIMESTAMPTZ will then be implemented using given time zone. Need return every configuration setting documented. Likely only TimeZone. Need quote verbatim. Default? Section does not state default. Need report absent. Need schema? User says answer only with JSON matching supplied schema. But schema not explicitly supplied in prompt? We need infer maybe list of objects with setting, evidence, default? Need produce JSON. We need include setting name, evidence quote, default info. The prompt: \"For each setting, quote a span ... Also report the setting's default... Answer only with JSON matching the supplied schema.\" No schema shown. We need likely format: {\"settings\":[{\"name\":\"TimeZone\",\"evidence\":\"...\",\"default\":\"absent\"}]} or maybe default object. Need be careful.\n\nWe need quote exact characters. Evidence can be \"Next, use the `SET TimeZone` command:\\n\\n```sql\\nSET TimeZone = 'America/Los_Angeles';\\n```\\n\\nTime binning operations for `TIMESTAMPTZ` will then be implemented using the given time zone.\" That documents setting. Could include just the sentence. Need quote span verbatim. We can include multiple spans? The instruction says quote a span. One span enough. Need include exact. We can quote from \"Next, use the `SET TimeZone` command:\" through \"given time zone.\" But includes code block. Need copy exactly as appears. Let's ensure exact text:\n\n\"Next, use the `SET TimeZone` command:\n\n```sql\nSET TimeZone = 'America/Los_Angeles';\n```\n\nTime binning operations for `TIMESTAMPTZ` will then be implemented using the given time zone.\"\n\nNeed include newlines? JSON string can include \\n. We can include as single string with newline escapes. Need exact characters. The code fence triple backticks. We can include.\n\nDefault: section does not state default. So default absent. Need maybe \"default\": null or \"absent\"? Prompt says \"say it is absent\". So JSON value maybe \"absent\". Need schema? Could be:\n{\n  \"settings\": [\n    {\n      \"setting\": \"TimeZone\",\n      \"evidence\": \"Next, use the `SET TimeZone` command:\\n\\n```sql\\nSET TimeZone = 'America/Los_Angeles';\\n```\\n\\nTime binning operations for `TIMESTAMPTZ` will then be implemented using the given time zone.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nNeed ensure no other settings. The section mentions `pg_timezone_names()` table function, not setting. `INSTALL icu; LOAD icu;` not config setting? It is extension loading, not setting. `SET TimeZone` is setting. Could also `TimeZone` is a configuration parameter. Yes.\n\nNeed maybe include \"TimeZone\" as setting name. The section uses `SET TimeZone` not `SET TimeZone =`? It documents. Good.\n\nNeed answer only JSON. No markdown. Ensure valid JSON. Use double quotes. Need escape backticks? Backticks don't need escaping in JSON. Newlines as \\n. Need include exact code fence. Let's craft.\n\nPotential issue: The prompt says \"Return every configuration setting that this section documents.\" The section documents `TimeZone`. It also maybe documents `ICU`? No, extension. `pg_timezone_names` is table function. No.\n\nNeed maybe include default as object with \"value\": \"absent\"? The prompt: \"Also report the setting's default, but only if this section states it... If the section does not state a default, say it is absent\". So we can use string \"absent\". Good.\n\nLet's produce JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need extract DuckDB configuration settings documented in section. The section is about TIMESTAMPTZ binning with ICU, setting time zone. It documents `TimeZone` setting? It says use `SET TimeZone = 'America/Los_Angeles';` and describes what it does: time binning operations for TIMESTAMPTZ will then be implemented using given time zone. Need return every configuration setting documented. Likely only TimeZone. Need quote verbatim. Default? Section does not state default. Need report absent. Need schema? User says answer only with JSON matching supplied schema. But schema not explicitly supplied in prompt? We need infer maybe list of objects with setting, evidence, default? Need produce JSON. We need include setting name, evidence quote, default info. The prompt: \"For each setting, quote a span ... Also report the setting's default... Answer only with JSON matching the supplied schema.\" No schema shown. We need likely format: {\"settings\":[{\"name\":\"TimeZone\",\"evidence\":\"...\",\"default\":\"absent\"}]} or maybe default object. Need be careful.\n\nWe need quote exact characters. Evidence can be \"Next, use the `SET TimeZone` command:\\n\\n```sql\\nSET TimeZone = 'America/Los_Angeles';\\n```\\n\\nTime binning operations for `TIMESTAMPTZ` will then be implemented using the given time zone.\" That documents setting. Could include just the sentence. Need quote span verbatim. We can include multiple spans? The instruction says quote a span. One span enough. Need include exact. We can quote from \"Next, use the `SET TimeZone` command:\" through \"given time zone.\" But includes code block. Need copy exactly as appears. Let's ensure exact text:\n\n\"Next, use the `SET TimeZone` command:\n\n```sql\nSET TimeZone = 'America/Los_Angeles';\n```\n\nTime binning operations for `TIMESTAMPTZ` will then be implemented using the given time zone.\"\n\nNeed include newlines? JSON string can include \\n. We can include as single string with newline escapes. Need exact characters. The code fence triple backticks. We can include.\n\nDefault: section does not state default. So default absent. Need maybe \"default\": null or \"absent\"? Prompt says \"say it is absent\". So JSON value maybe \"absent\". Need schema? Could be:\n{\n  \"settings\": [\n    {\n      \"setting\": \"TimeZone\",\n      \"evidence\": \"Next, use the `SET TimeZone` command:\\n\\n```sql\\nSET TimeZone = 'America/Los_Angeles';\\n```\\n\\nTime binning operations for `TIMESTAMPTZ` will then be implemented using the given time zone.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nNeed ensure no other settings. The section mentions `pg_timezone_names()` table function, not setting. `INSTALL icu; LOAD icu;` not config setting? It is extension loading, not setting. `SET TimeZone` is setting. Could also `TimeZone` is a configuration parameter. Yes.\n\nNeed maybe include \"TimeZone\" as setting name. The section uses `SET TimeZone` not `SET TimeZone =`? It documents. Good.\n\nNeed answer only JSON. No markdown. Ensure valid JSON. Use double quotes. Need escape backticks? Backticks don't need escaping in JSON. Newlines as \\n. Need include exact code fence. Let's craft.\n\nPotential issue: The prompt says \"Return every configuration setting that this section documents.\" The section documents `TimeZone`. It also maybe documents `ICU`? No, extension. `pg_timezone_names` is table function. No.\n\nNeed maybe include default as object with \"value\": \"absent\"? The prompt: \"Also report the setting's default, but only if this section states it... If the section does not state a default, say it is absent\". So we can use string \"absent\". Good.\n\nLet's produce JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 645,
+  "completion_tokens": 975,
+  "total_tokens": 1620,
+  "cost": 0.003228,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.003228,
+   "upstream_inference_prompt_cost": 0.00074175,
+   "upstream_inference_completions_cost": 0.00248625
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 910,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 24.35899999999856
+}

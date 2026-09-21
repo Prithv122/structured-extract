@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789910224-8daXSaDedweAnvgzpRBB",
+ "object": "chat.completion",
+ "created": 1789910224,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[]}",
+    "refusal": null,
+    "reasoning": "These are odbc.ini DSN parameters, not DuckDB settings? access_mode corresponds to access_mode setting... The section documents odbc.ini knobs, not DuckDB configuration settings. Likely empty list.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "These are odbc.ini DSN parameters, not DuckDB settings? access_mode corresponds to access_mode setting... The section documents odbc.ini knobs, not DuckDB configuration settings. Likely empty list.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 456,
+  "completion_tokens": 46,
+  "total_tokens": 502,
+  "cost": 4.57e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 4.57e-05,
+   "upstream_inference_prompt_cost": 3.42e-05,
+   "upstream_inference_completions_cost": 1.15e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 40,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 4.452999999997701
+}

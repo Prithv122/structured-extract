@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905238-fgtyaW2mGiOScqFXUYZs",
+ "object": "chat.completion",
+ "created": 1789905238,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"extension_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`extension_directory`                         | Set the directory to store extensions in\",\n      \"default_kind\": \"absent\"\n   \n    , \"default_value\": \"absent\"\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a snippet: a table with a header \"Global Configuration Options\" and a row for `extension_directory`. The table columns: Name, Description, Type, Default value. The row shows Name `extension_directory`, Description \"Set the directory to store extensions in\", Type `VARCHAR`, Default value column is empty.\n\nWe need to return every configuration setting that this section documents. It documents `extension_directory`. Provide a quote of a span of the section verbatim as evidence. The quote should be exactly as appears. So we can quote the description line: \"`extension_directory`\" appears in the table. We need a span that includes the setting name and description. For example: \"`extension_directory`                         | Set the directory to store extensions in\". Or maybe just the row line.\n\nWe also need to report the setting's default, but only if this section states it. The default column is empty, so default is absent. So we should say default is absent.\n\nReturn JSON matching supplied schema. The schema likely expects something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"extension_directory\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nBut we need to infer exact schema. The prompt says \"Answer only with JSON matching the supplied schema.\" However no schema is explicitly given in the prompt. Usually for these tasks, the schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": string,\n      \"evidence\": string,\n      \"default\": string\n    },\n    ...\n  ]\n}\n\nWe'll assume that.\n\nThus output JSON with an array of settings.\n\nEvidence: we need a verbatim span. Could be \"`extension_directory`                         | Set the directory to store extensions in\". That includes the pipe separators. Provide exactly as appears.\n\nThus final answer:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"extension_directory\",\n      \"evidence\": \"`extension_directory`                         | Set the directory to store extensions in\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nMake sure JSON is valid.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a snippet: a table with a header \"Global Configuration Options\" and a row for `extension_directory`. The table columns: Name, Description, Type, Default value. The row shows Name `extension_directory`, Description \"Set the directory to store extensions in\", Type `VARCHAR`, Default value column is empty.\n\nWe need to return every configuration setting that this section documents. It documents `extension_directory`. Provide a quote of a span of the section verbatim as evidence. The quote should be exactly as appears. So we can quote the description line: \"`extension_directory`\" appears in the table. We need a span that includes the setting name and description. For example: \"`extension_directory`                         | Set the directory to store extensions in\". Or maybe just the row line.\n\nWe also need to report the setting's default, but only if this section states it. The default column is empty, so default is absent. So we should say default is absent.\n\nReturn JSON matching supplied schema. The schema likely expects something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"extension_directory\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nBut we need to infer exact schema. The prompt says \"Answer only with JSON matching the supplied schema.\" However no schema is explicitly given in the prompt. Usually for these tasks, the schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": string,\n      \"evidence\": string,\n      \"default\": string\n    },\n    ...\n  ]\n}\n\nWe'll assume that.\n\nThus output JSON with an array of settings.\n\nEvidence: we need a verbatim span. Could be \"`extension_directory`                         | Set the directory to store extensions in\". That includes the pipe separators. Provide exactly as appears.\n\nThus final answer:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"extension_directory\",\n      \"evidence\": \"`extension_directory`                         | Set the directory to store extensions in\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nMake sure JSON is valid.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 417,
+  "completion_tokens": 546,
+  "total_tokens": 963,
+  "cost": 0.00010533,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00010533,
+   "upstream_inference_prompt_cost": 1.251e-05,
+   "upstream_inference_completions_cost": 9.282e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 550,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 12.390999999999622
+}

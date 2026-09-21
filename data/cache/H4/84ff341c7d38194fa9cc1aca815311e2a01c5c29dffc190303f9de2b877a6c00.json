@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789901246-6NTJ2LGTgZvKRGTnAHqq",
+ "object": "chat.completion",
+ "created": 1789901246,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"access_mode=READ_ONLY\",\n      \"default_kind\": \"absent\"\n   \n    , \"default_value\": null\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The section is about ODBC driver connection string. It mentions \"access_mode=READ_ONLY\". That's a DuckDB configuration option. Also maybe other options? The text says \"any of the available DuckDB configuration options\". But only \"access_mode=READ_ONLY\" appears explicitly. So we need to document setting \"access_mode\". Provide a verbatim quote: maybe \"access_mode=READ_ONLY\". Also need default if stated. The section does not state default for access_mode. So default is absent.\n\nThus JSON with list of settings. Schema? Not given but likely something like [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]. We need to follow \"Answer only with JSON matching the supplied schema.\" No schema provided in prompt, but typical would be array of objects with fields \"setting\", \"evidence\", \"default\". We'll assume that.\n\nThus output:\n\n[\n  {\n    \"setting\": \"access_mode\",\n    \"evidence\": \"access_mode=READ_ONLY\",\n    \"default\": \"absent\"\n  }\n]\n\nMake sure JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The section is about ODBC driver connection string. It mentions \"access_mode=READ_ONLY\". That's a DuckDB configuration option. Also maybe other options? The text says \"any of the available DuckDB configuration options\". But only \"access_mode=READ_ONLY\" appears explicitly. So we need to document setting \"access_mode\". Provide a verbatim quote: maybe \"access_mode=READ_ONLY\". Also need default if stated. The section does not state default for access_mode. So default is absent.\n\nThus JSON with list of settings. Schema? Not given but likely something like [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]. We need to follow \"Answer only with JSON matching the supplied schema.\" No schema provided in prompt, but typical would be array of objects with fields \"setting\", \"evidence\", \"default\". We'll assume that.\n\nThus output:\n\n[\n  {\n    \"setting\": \"access_mode\",\n    \"evidence\": \"access_mode=READ_ONLY\",\n    \"default\": \"absent\"\n  }\n]\n\nMake sure JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 585,
+  "completion_tokens": 321,
+  "total_tokens": 906,
+  "cost": 7.212e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.212e-05,
+   "upstream_inference_prompt_cost": 1.755e-05,
+   "upstream_inference_completions_cost": 5.457e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 263,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 12.390999999999622
+}

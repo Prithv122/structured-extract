@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789913244-KJZ13W7ld1bKQLcAjyxB",
+ "object": "chat.completion",
+ "created": 1789913244,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse task. We have a section from DuckDB docs? The provided text is about ODBC driver connecting using SQLDriverConnect, mentions connection string can configure database using any available DuckDB configuration options, example DSN string \"DSN=DuckDB;access_mode=READ_ONLY\". We need extract configuration settings documented in this section. The section does not document any specific setting? It mentions access_mode in example, but is that documenting a setting? Need determine. The instruction: configuration setting is one you change with SET, RESET or PRAGMA, applies to whole database instance/connection. Several other things tabulated exactly like config settings are not. If section documents those, empty list. Do not return setting merely because section contains word that happens to be setting name. Some setting names ordinary English words, or parameters belonging to other system. Section uses access_mode in connection string example. Is access_mode a DuckDB configuration option? Yes DuckDB has access_mode configuration option. But is this section documenting it? It says \"configure the database using any of the available DuckDB configuration options\" and example includes access_mode=READ_ONLY. Does that count as documenting a setting? The section is about ODBC connection, not a configuration options reference. It mentions access_mode as an example in a connection string. The task asks \"For each setting, quote a span of the section verbatim as evidence.\" We need decide if access_mode is documented as a setting here. The section does not provide type, description, default. It just uses it in example. The instruction says \"Do not return a setting merely because the section contains a word that happens to be a setting name.\" Here access_mode is a setting name and appears in example. But is it \"documenting a DuckDB setting\"? It is not documenting the setting itself; it's showing how to pass config options via connection string, with access_mode as example. The section doesn't state default. It doesn't describe the setting. Likely correct answer empty list. Need output JSON matching schema. Need know schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need infer maybe expected format: list of objects with setting, evidence, default? Need produce JSON. Since no schema explicitly, but likely from previous? We need include maybe {\"settings\": []}? Need think.\n\nThe prompt: \"Answer only with JSON matching the supplied schema.\" There is no schema in the message. But likely they expect something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nBut we need know exact keys. The instruction says \"For each setting, quote a span ... as evidence. ... Also report the setting's default...\" So likely schema has fields: name, evidence, default. Maybe \"default\" can be string or null? Need output empty list if none. Could be:\n{\"settings\": []}\nNeed ensure valid JSON.\n\nBut let's not rush. We need analyze if any settings documented. The section text: \"Alternatively, you can connect to the ODBC driver using SQLDriverConnect. SQLDriverConnect accepts a connection string in which you can configure the database using any of the available DuckDB configuration options. [code] ... std::string dsn = \"DSN=DuckDB;access_mode=READ_ONLY\" ...\"\n\nThis is not a configuration options reference. It mentions \"access_mode\" as an example. The instruction explicitly: \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting.\" Here access_mode is a DuckDB setting name, but used in passing in an example. It is not documenting the setting. So empty list.\n\nNeed maybe include no settings. JSON: {\"settings\": []}\n\nBut let's consider if \"access_mode\" is actually a configuration option? Yes. But the section says \"using any of the available DuckDB configuration options\" and then example uses access_mode. Does that \"document\" access_mode? It doesn't give description/default. The task says \"For each setting, quote a span of the section verbatim as evidence.\" Could quote \"access_mode=READ_ONLY\" as evidence? But that's not documenting the setting; it's just an example. The instruction says \"Do not return a setting merely because the section contains a word that happens to be a setting name.\" That seems exactly this case. So empty.\n\nNeed final answer only JSON. Ensure no markdown.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse task. We have a section from DuckDB docs? The provided text is about ODBC driver connecting using SQLDriverConnect, mentions connection string can configure database using any available DuckDB configuration options, example DSN string \"DSN=DuckDB;access_mode=READ_ONLY\". We need extract configuration settings documented in this section. The section does not document any specific setting? It mentions access_mode in example, but is that documenting a setting? Need determine. The instruction: configuration setting is one you change with SET, RESET or PRAGMA, applies to whole database instance/connection. Several other things tabulated exactly like config settings are not. If section documents those, empty list. Do not return setting merely because section contains word that happens to be setting name. Some setting names ordinary English words, or parameters belonging to other system. Section uses access_mode in connection string example. Is access_mode a DuckDB configuration option? Yes DuckDB has access_mode configuration option. But is this section documenting it? It says \"configure the database using any of the available DuckDB configuration options\" and example includes access_mode=READ_ONLY. Does that count as documenting a setting? The section is about ODBC connection, not a configuration options reference. It mentions access_mode as an example in a connection string. The task asks \"For each setting, quote a span of the section verbatim as evidence.\" We need decide if access_mode is documented as a setting here. The section does not provide type, description, default. It just uses it in example. The instruction says \"Do not return a setting merely because the section contains a word that happens to be a setting name.\" Here access_mode is a setting name and appears in example. But is it \"documenting a DuckDB setting\"? It is not documenting the setting itself; it's showing how to pass config options via connection string, with access_mode as example. The section doesn't state default. It doesn't describe the setting. Likely correct answer empty list. Need output JSON matching schema. Need know schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need infer maybe expected format: list of objects with setting, evidence, default? Need produce JSON. Since no schema explicitly, but likely from previous? We need include maybe {\"settings\": []}? Need think.\n\nThe prompt: \"Answer only with JSON matching the supplied schema.\" There is no schema in the message. But likely they expect something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nBut we need know exact keys. The instruction says \"For each setting, quote a span ... as evidence. ... Also report the setting's default...\" So likely schema has fields: name, evidence, default. Maybe \"default\" can be string or null? Need output empty list if none. Could be:\n{\"settings\": []}\nNeed ensure valid JSON.\n\nBut let's not rush. We need analyze if any settings documented. The section text: \"Alternatively, you can connect to the ODBC driver using SQLDriverConnect. SQLDriverConnect accepts a connection string in which you can configure the database using any of the available DuckDB configuration options. [code] ... std::string dsn = \"DSN=DuckDB;access_mode=READ_ONLY\" ...\"\n\nThis is not a configuration options reference. It mentions \"access_mode\" as an example. The instruction explicitly: \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting.\" Here access_mode is a DuckDB setting name, but used in passing in an example. It is not documenting the setting. So empty list.\n\nNeed maybe include no settings. JSON: {\"settings\": []}\n\nBut let's consider if \"access_mode\" is actually a configuration option? Yes. But the section says \"using any of the available DuckDB configuration options\" and then example uses access_mode. Does that \"document\" access_mode? It doesn't give description/default. The task says \"For each setting, quote a span of the section verbatim as evidence.\" Could quote \"access_mode=READ_ONLY\" as evidence? But that's not documenting the setting; it's just an example. The instruction says \"Do not return a setting merely because the section contains a word that happens to be a setting name.\" That seems exactly this case. So empty.\n\nNeed final answer only JSON. Ensure no markdown.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 758,
+  "completion_tokens": 976,
+  "total_tokens": 1734,
+  "cost": 0.0033605,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0033605,
+   "upstream_inference_prompt_cost": 0.0008717,
+   "upstream_inference_completions_cost": 0.0024888
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 1178,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 23.28200000000288
+}

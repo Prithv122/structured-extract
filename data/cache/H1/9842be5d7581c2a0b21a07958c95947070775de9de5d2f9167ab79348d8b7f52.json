@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789913357-lZVtTe7lNoGcm6mw3mkX",
+ "object": "chat.completion",
+ "created": 1789913357,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse user request. They provided a snippet? It seems from DuckDB docs? The user message includes bullet list with links and descriptions. Need extract configuration settings from a single section of DuckDB documentation. But the provided content is just three bullets? Need determine if any settings documented. It mentions `enable_profiling` and `profiling_mode` PRAGMAs in first bullet. But is this a section? The user says \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" Then provides text. Need answer JSON matching supplied schema. We don't have schema in prompt? Need infer. They want JSON with settings, evidence, default. Need maybe empty list if section documents those? Let's analyze.\n\nThe provided text:\n\n* [Profiling]({% link docs/current/dev/profiling.md %}) — DuckDB's query profiling output and the `enable_profiling` and `profiling_mode` PRAGMAs.\n* [Run Queries]({% link docs/current/clients/rust/querying.md %}) — running the queries whose metrics this page reads and whose execution it interrupts.\n* [Connect]({% link docs/current/clients/rust/connecting.md %}) — the `Connection` that profiling and the interrupt handle operate on.\n\nThis appears to be a \"Related content\" or \"In this section\" list, not a documentation section tabulating settings. It mentions `enable_profiling` and `profiling_mode` PRAGMAs. Are these configuration settings? Yes, enable_profiling and profiling_mode are DuckDB settings. But the instruction says: \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting.\" Here the bullet explicitly says \"the `enable_profiling` and `profiling_mode` PRAGMAs.\" Is that documenting? It is a link description, not a table. The section is likely a \"Related content\" section, not documenting settings. It mentions them in passing as topics of another page. The correct answer likely empty list because this section does not document configuration settings; it just links to profiling page. Need output JSON with empty list? Need know schema. Could be {\"settings\": []} or maybe list directly? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need infer from typical. Maybe schema is something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nNeed include default maybe null if absent. We need decide.\n\nGiven the content is not a section documenting settings, answer empty list. But need be careful: The first bullet mentions `enable_profiling` and `profiling_mode` PRAGMAs. Are those \"configuration settings\"? Yes. But the section is not documenting them; it's a related links list. The instruction says \"If the section documents those, the correct answer is an empty list, even when the section is long and every row looks like a setting.\" Here it doesn't document them, just mentions. So empty.\n\nNeed produce JSON only. Could be:\n{\"settings\": []}\nBut maybe schema expects \"settings\" array with objects. We'll output that.\n\nNeed ensure no markdown.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse user request. They provided a snippet? It seems from DuckDB docs? The user message includes bullet list with links and descriptions. Need extract configuration settings from a single section of DuckDB documentation. But the provided content is just three bullets? Need determine if any settings documented. It mentions `enable_profiling` and `profiling_mode` PRAGMAs in first bullet. But is this a section? The user says \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" Then provides text. Need answer JSON matching supplied schema. We don't have schema in prompt? Need infer. They want JSON with settings, evidence, default. Need maybe empty list if section documents those? Let's analyze.\n\nThe provided text:\n\n* [Profiling]({% link docs/current/dev/profiling.md %}) — DuckDB's query profiling output and the `enable_profiling` and `profiling_mode` PRAGMAs.\n* [Run Queries]({% link docs/current/clients/rust/querying.md %}) — running the queries whose metrics this page reads and whose execution it interrupts.\n* [Connect]({% link docs/current/clients/rust/connecting.md %}) — the `Connection` that profiling and the interrupt handle operate on.\n\nThis appears to be a \"Related content\" or \"In this section\" list, not a documentation section tabulating settings. It mentions `enable_profiling` and `profiling_mode` PRAGMAs. Are these configuration settings? Yes, enable_profiling and profiling_mode are DuckDB settings. But the instruction says: \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting.\" Here the bullet explicitly says \"the `enable_profiling` and `profiling_mode` PRAGMAs.\" Is that documenting? It is a link description, not a table. The section is likely a \"Related content\" section, not documenting settings. It mentions them in passing as topics of another page. The correct answer likely empty list because this section does not document configuration settings; it just links to profiling page. Need output JSON with empty list? Need know schema. Could be {\"settings\": []} or maybe list directly? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need infer from typical. Maybe schema is something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nNeed include default maybe null if absent. We need decide.\n\nGiven the content is not a section documenting settings, answer empty list. But need be careful: The first bullet mentions `enable_profiling` and `profiling_mode` PRAGMAs. Are those \"configuration settings\"? Yes. But the section is not documenting them; it's a related links list. The instruction says \"If the section documents those, the correct answer is an empty list, even when the section is long and every row looks like a setting.\" Here it doesn't document them, just mentions. So empty.\n\nNeed produce JSON only. Could be:\n{\"settings\": []}\nBut maybe schema expects \"settings\" array with objects. We'll output that.\n\nNeed ensure no markdown.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 611,
+  "completion_tokens": 729,
+  "total_tokens": 1340,
+  "cost": 0.0023184,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0023184,
+   "upstream_inference_prompt_cost": 0.00045945,
+   "upstream_inference_completions_cost": 0.00185895
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 836,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 20.98400000000038
+}

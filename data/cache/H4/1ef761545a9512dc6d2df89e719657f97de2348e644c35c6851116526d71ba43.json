@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919485-3vtJvB7y5Z7nwbpnH3zz",
+ "object": "chat.completion",
+ "created": 1789919485,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET memory_limit = '10GB';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET threads = 1;\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"default_collation\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"SET SESSION default_collation = 'nocase';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (optional?), default_evidence (optional?). The error says when default_kind is 'absent', default_value and default_evidence must both be null. In our JSON we set default_value to \"absent\" string, which is wrong. Should be null. Also default_evidence is null already, fine. So we need to set default_value: null for each setting. Also ensure JSON syntax correct (commas). Also need to ensure evidence is verbatim span from the document. The provided snippet includes \"SET memory_limit = '10GB';\" etc. That is verbatim. Good.\n\nAlso need to ensure input_type maybe correct? The schema expects maybe string. That's fine.\n\nAlso scope: maybe \"SESSION\" vs \"GLOBAL\"? The doc says SET memory_limit is a global setting? Not sure but we can keep as \"GLOBAL\". The schema may require specific values; but we assume okay.\n\nThus produce corrected JSON with default_value: null and default_evidence: null.\n\nAlso remove stray commas after default_kind lines. Ensure proper JSON.\n\nLet's construct:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET memory_limit = '10GB';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET threads = 1;\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"default_collation\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"SET SESSION default_collation = 'nocase';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck JSON validity. Good.\n\nReturn only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (optional?), default_evidence (optional?). The error says when default_kind is 'absent', default_value and default_evidence must both be null. In our JSON we set default_value to \"absent\" string, which is wrong. Should be null. Also default_evidence is null already, fine. So we need to set default_value: null for each setting. Also ensure JSON syntax correct (commas). Also need to ensure evidence is verbatim span from the document. The provided snippet includes \"SET memory_limit = '10GB';\" etc. That is verbatim. Good.\n\nAlso need to ensure input_type maybe correct? The schema expects maybe string. That's fine.\n\nAlso scope: maybe \"SESSION\" vs \"GLOBAL\"? The doc says SET memory_limit is a global setting? Not sure but we can keep as \"GLOBAL\". The schema may require specific values; but we assume okay.\n\nThus produce corrected JSON with default_value: null and default_evidence: null.\n\nAlso remove stray commas after default_kind lines. Ensure proper JSON.\n\nLet's construct:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET memory_limit = '10GB';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET threads = 1;\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"default_collation\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"SET SESSION default_collation = 'nocase';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck JSON validity. Good.\n\nReturn only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1672,
+  "completion_tokens": 676,
+  "total_tokens": 2348,
+  "cost": 0.00016508,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00016508,
+   "upstream_inference_prompt_cost": 5.016e-05,
+   "upstream_inference_completions_cost": 0.00011492
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 490,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 14.43800000000192
+}

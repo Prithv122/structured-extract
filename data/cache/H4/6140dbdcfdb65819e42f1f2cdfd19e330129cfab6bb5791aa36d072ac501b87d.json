@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905520-rDG4brp6zXiS9McpXQn8",
+ "object": "chat.completion",
+ "created": 1789905520,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"ca_cert_file\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`ca_cert_file` | Path to a custom certificate file for self-signed certificates.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON: default_value should be null, not \"absent\". Also default_evidence should be null (already). Also evidence must be a verbatim span from the section. The provided evidence includes backticks and pipe characters; the original table row likely is:\n\n`ca_cert_file` | Path to a custom certificate file for self-signed certificates.\n\nBut the evidence should be a verbatim span exactly as appears. The table shows columns: Name, Description, Type, Default value. The description cell is \"Path to a custom certificate file for self-signed certificates.\" So evidence could be that description text. Probably we should quote just that description: \"Path to a custom certificate file for self-signed certificates.\" Or include the name? The spec: \"quote a span of the section verbatim as evidence.\" For each setting, quote a span that shows the setting is documented. Could be the row entry: \"`ca_cert_file` | Path to a custom certificate file for self-signed certificates.\" But that includes table formatting. Might be okay. However the evidence must be verbatim; the original includes backticks around name and spaces and pipe separators. The row in markdown table: `ca_cert_file` | Path to a custom certificate file for self-signed certificates. So that is verbatim. Keep that.\n\nNow produce JSON with default_kind \"absent\", default_value null, default_evidence null.\n\nAlso ensure no stray commas. The JSON should be:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"ca_cert_file\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`ca_cert_file` | Path to a custom certificate file for self-signed certificates.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck schema: fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. All present.\n\nReturn that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON: default_value should be null, not \"absent\". Also default_evidence should be null (already). Also evidence must be a verbatim span from the section. The provided evidence includes backticks and pipe characters; the original table row likely is:\n\n`ca_cert_file` | Path to a custom certificate file for self-signed certificates.\n\nBut the evidence should be a verbatim span exactly as appears. The table shows columns: Name, Description, Type, Default value. The description cell is \"Path to a custom certificate file for self-signed certificates.\" So evidence could be that description text. Probably we should quote just that description: \"Path to a custom certificate file for self-signed certificates.\" Or include the name? The spec: \"quote a span of the section verbatim as evidence.\" For each setting, quote a span that shows the setting is documented. Could be the row entry: \"`ca_cert_file` | Path to a custom certificate file for self-signed certificates.\" But that includes table formatting. Might be okay. However the evidence must be verbatim; the original includes backticks around name and spaces and pipe separators. The row in markdown table: `ca_cert_file` | Path to a custom certificate file for self-signed certificates. So that is verbatim. Keep that.\n\nNow produce JSON with default_kind \"absent\", default_value null, default_evidence null.\n\nAlso ensure no stray commas. The JSON should be:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"ca_cert_file\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`ca_cert_file` | Path to a custom certificate file for self-signed certificates.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck schema: fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. All present.\n\nReturn that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 887,
+  "completion_tokens": 507,
+  "total_tokens": 1394,
+  "cost": 0.0001128,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 384,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0001128,
+   "upstream_inference_prompt_cost": 2.661e-05,
+   "upstream_inference_completions_cost": 8.619e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 477,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 10.65599999999904
+}

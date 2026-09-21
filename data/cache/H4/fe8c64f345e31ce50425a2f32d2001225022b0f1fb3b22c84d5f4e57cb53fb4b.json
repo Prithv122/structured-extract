@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905814-goyHTykd2Vggv4Skqljv",
+ "object": "chat.completion",
+ "created": 1789905814,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"autoload_known_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Whether known extensions are allowed to be automatically loaded when a query depends on them\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\",\n      \"default_evidence\": \"`true`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON to match schema. We need to know schema. Likely each setting object fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. The evidence must be a verbatim span from the document. The provided evidence is a fragment: \"`autoload_known_extensions` | Whether known extensions are allowed to be automatically loaded when a query depends on them\". That seems verbatim from the table row? The table row includes columns: Name, Description, Type, Default value. The evidence should be a span that includes the description? The spec: \"quote a span of the section verbatim as evidence.\" So we can use the description cell content: \"Whether known extensions are allowed to be automatically loaded when a query depends on them\". Could include the backticks? The table row includes backticks around name and type and default. The evidence should be a span that includes the setting name and description? The earlier answer used a combined string with pipes. Might be okay but default_evidence is wrong. Need to provide a verbatim span that states the default. In the table, the default value column shows \"`true`\". So a verbatim span could be \"`true`\". Or the whole cell: \"`true`\". The default_evidence should be exactly that. So set default_evidence: \"`true`\". Also need to ensure JSON syntax correct: no stray commas. Also need to include scope? The schema may require scope field; we gave \"GLOBAL\". That seems okay.\n\nAlso need to ensure evidence is a verbatim span: maybe just the description text: \"Whether known extensions are allowed to be automatically loaded when a query depends on them\". That is verbatim. Could also include backticks? The setting name is separate field. Evidence should be a span that documents the setting. The description cell is fine.\n\nThus produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"autoload_known_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Whether known extensions are allowed to be automatically loaded when a query depends on them\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\",\n      \"default_evidence\": \"`true`\"\n    }\n  ]\n}\n\nCheck JSON syntax. Ensure no trailing commas. Return only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON to match schema. We need to know schema. Likely each setting object fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. The evidence must be a verbatim span from the document. The provided evidence is a fragment: \"`autoload_known_extensions` | Whether known extensions are allowed to be automatically loaded when a query depends on them\". That seems verbatim from the table row? The table row includes columns: Name, Description, Type, Default value. The evidence should be a span that includes the description? The spec: \"quote a span of the section verbatim as evidence.\" So we can use the description cell content: \"Whether known extensions are allowed to be automatically loaded when a query depends on them\". Could include the backticks? The table row includes backticks around name and type and default. The evidence should be a span that includes the setting name and description? The earlier answer used a combined string with pipes. Might be okay but default_evidence is wrong. Need to provide a verbatim span that states the default. In the table, the default value column shows \"`true`\". So a verbatim span could be \"`true`\". Or the whole cell: \"`true`\". The default_evidence should be exactly that. So set default_evidence: \"`true`\". Also need to ensure JSON syntax correct: no stray commas. Also need to include scope? The schema may require scope field; we gave \"GLOBAL\". That seems okay.\n\nAlso need to ensure evidence is a verbatim span: maybe just the description text: \"Whether known extensions are allowed to be automatically loaded when a query depends on them\". That is verbatim. Could also include backticks? The setting name is separate field. Evidence should be a span that documents the setting. The description cell is fine.\n\nThus produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"autoload_known_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Whether known extensions are allowed to be automatically loaded when a query depends on them\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\",\n      \"default_evidence\": \"`true`\"\n    }\n  ]\n}\n\nCheck JSON syntax. Ensure no trailing commas. Return only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 953,
+  "completion_tokens": 574,
+  "total_tokens": 1527,
+  "cost": 0.00012617,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00012617,
+   "upstream_inference_prompt_cost": 2.859e-05,
+   "upstream_inference_completions_cost": 9.758e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 567,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 48.73400000000038
+}

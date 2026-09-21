@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919573-U16R7ole9BG7EhH1Wf7s",
+ "object": "chat.completion",
+ "created": 1789919573,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"enable_profiling\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA enable_profiling = 'json'\",\n      \"default_kind\": \"absent\"\n    \n    , \"default_value\": \"absent\"\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "The user asks: \"Cast a connection to `DuckDBConnection` and call `getProfilingInformation(ProfilerPrintFormat)` to retrieve profiling output for the most recent query on that connection, after enabling profiling with `PRAGMA enable_profiling`. The `ProfilerPrintFormat` enum selects the output format: `DEFAULT`, `TEXT`, `QUERY_TREE`, `QUERY_TREE_OPTIMIZER`, `NO_OUTPUT`, `JSON`, `HTML`, `GRAPHVIZ`, `YAML`, and `MERMAID`.\"\n\nWe need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The provided text is about profiling and a PRAGMA enable_profiling. The setting is \"enable_profiling\". That's a PRAGMA setting. So we need to output JSON with list of settings. The schema? Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to quote a span of the section verbatim as evidence for each setting. Also report default if section states it. The section says \"PRAGMA enable_profiling = 'json'\". It doesn't state default. So default is absent.\n\nThus we output JSON with one setting: name \"enable_profiling\". Evidence: maybe \"PRAGMA enable_profiling = 'json'\". Default: absent.\n\nCheck if any other settings? The enum values are not settings. So only enable_profiling.\n\nThus output JSON.\n\nWe need to match supplied schema. Not given, but typical: {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. If default absent, maybe null or \"absent\". The instruction: \"If the section does not state a default, say it is absent\". So default field should be \"absent\". Use string \"absent\". Provide evidence as quoted string.\n\nThus final.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The user asks: \"Cast a connection to `DuckDBConnection` and call `getProfilingInformation(ProfilerPrintFormat)` to retrieve profiling output for the most recent query on that connection, after enabling profiling with `PRAGMA enable_profiling`. The `ProfilerPrintFormat` enum selects the output format: `DEFAULT`, `TEXT`, `QUERY_TREE`, `QUERY_TREE_OPTIMIZER`, `NO_OUTPUT`, `JSON`, `HTML`, `GRAPHVIZ`, `YAML`, and `MERMAID`.\"\n\nWe need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The provided text is about profiling and a PRAGMA enable_profiling. The setting is \"enable_profiling\". That's a PRAGMA setting. So we need to output JSON with list of settings. The schema? Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to quote a span of the section verbatim as evidence for each setting. Also report default if section states it. The section says \"PRAGMA enable_profiling = 'json'\". It doesn't state default. So default is absent.\n\nThus we output JSON with one setting: name \"enable_profiling\". Evidence: maybe \"PRAGMA enable_profiling = 'json'\". Default: absent.\n\nCheck if any other settings? The enum values are not settings. So only enable_profiling.\n\nThus output JSON.\n\nWe need to match supplied schema. Not given, but typical: {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. If default absent, maybe null or \"absent\". The instruction: \"If the section does not state a default, say it is absent\". So default field should be \"absent\". Use string \"absent\". Provide evidence as quoted string.\n\nThus final.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 676,
+  "completion_tokens": 508,
+  "total_tokens": 1184,
+  "cost": 0.00010664,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00010664,
+   "upstream_inference_prompt_cost": 2.028e-05,
+   "upstream_inference_completions_cost": 8.636e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 432,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 11.796999999998661
+}

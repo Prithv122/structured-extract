@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789910461-SKvBph66kn39E4sOHnzo",
+ "object": "chat.completion",
+ "created": 1789910461,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"enable_profiling\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"after enabling profiling with `PRAGMA enable_profiling`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "The section mentions enable_profiling pragma but not a DuckDB configuration setting documented? enable_profiling is a setting? It's a PRAGMA, not documented as a setting with default. The section documents how to enable profiling via PRAGMA enable_profiling — arguably documents the setting `enable_profiling`. But no default stated. Also ProfilerPrintFormat is Java enum, not a setting. I'd return enable_profiling? The instruction: documents a setting when it tells what it does/accepts/how to set it. \"after enabling profiling with PRAGMA enable_profiling\" — tells how to set it. Include it, default absent.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The section mentions enable_profiling pragma but not a DuckDB configuration setting documented? enable_profiling is a setting? It's a PRAGMA, not documented as a setting with default. The section documents how to enable profiling via PRAGMA enable_profiling — arguably documents the setting `enable_profiling`. But no default stated. Also ProfilerPrintFormat is Java enum, not a setting. I'd return enable_profiling? The instruction: documents a setting when it tells what it does/accepts/how to set it. \"after enabling profiling with PRAGMA enable_profiling\" — tells how to set it. Include it, default absent.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 483,
+  "completion_tokens": 210,
+  "total_tokens": 693,
+  "cost": 8.8725e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.8725e-05,
+   "upstream_inference_prompt_cost": 3.6225e-05,
+   "upstream_inference_completions_cost": 5.25e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 129,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 16.14099999999962
+}

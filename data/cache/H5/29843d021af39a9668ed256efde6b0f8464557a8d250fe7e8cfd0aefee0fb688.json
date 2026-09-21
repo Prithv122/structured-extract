@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789911268-csIb7RJCXkR8NoEcNlnu",
+ "object": "chat.completion",
+ "created": 1789911268,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"pg_staleness_query_enabled\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"when `pg_staleness_query_enabled` option (`BOOLEAN`, default: `FALSE`) is enabled, on every catalog access a query is run that checks Postgres' `pg_class.xmin` column value in every table and reloads the cache automatically, if a change is detected\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"FALSE\",\n      \"default_evidence\": \"`pg_staleness_query_enabled` option (`BOOLEAN`, default: `FALSE`)\"\n    },\n    {\n      \"name\": \"pg_staleness_query\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"for Postgres-wire-compatible databases a custom \\\"staleness query\\\" can be set using `pg_staleness_query` option.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "pg_staleness_query_enabled (default FALSE), pg_staleness_query.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "pg_staleness_query_enabled (default FALSE), pg_staleness_query.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 546,
+  "completion_tokens": 249,
+  "total_tokens": 795,
+  "cost": 0.0001032,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0001032,
+   "upstream_inference_prompt_cost": 4.095e-05,
+   "upstream_inference_completions_cost": 6.225e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 16,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 10.562999999998283
+}

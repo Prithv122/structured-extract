@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919169-Sp1Y60IRYZVkZnWrYMIr",
+ "object": "chat.completion",
+ "created": 1789919169,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"\\\"DSN=DuckDB;access_mode=READ_ONLY\\\"\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to fix JSON: default_value and default_evidence must be null when default_kind is \"absent\". So set default_value: null, default_evidence: null. Also ensure JSON syntax correct (commas). Also evidence must be verbatim span from document. The snippet includes \"DSN=DuckDB;access_mode=READ_ONLY\". In the document, the line is:\n\n`std::string dsn = \"DSN=DuckDB;access_mode=READ_ONLY\"`\n\nThe evidence should be a verbatim span, likely `\"DSN=DuckDB;access_mode=READ_ONLY\"` is fine, includes quotes. That's verbatim. Keep.\n\nNow produce corrected JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to fix JSON: default_value and default_evidence must be null when default_kind is \"absent\". So set default_value: null, default_evidence: null. Also ensure JSON syntax correct (commas). Also evidence must be verbatim span from document. The snippet includes \"DSN=DuckDB;access_mode=READ_ONLY\". In the document, the line is:\n\n`std::string dsn = \"DSN=DuckDB;access_mode=READ_ONLY\"`\n\nThe evidence should be a verbatim span, likely `\"DSN=DuckDB;access_mode=READ_ONLY\"` is fine, includes quotes. That's verbatim. Keep.\n\nNow produce corrected JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1159,
+  "completion_tokens": 228,
+  "total_tokens": 1387,
+  "cost": 7.353e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.353e-05,
+   "upstream_inference_prompt_cost": 3.477e-05,
+   "upstream_inference_completions_cost": 3.876e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 139,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 4.297000000005937
+}

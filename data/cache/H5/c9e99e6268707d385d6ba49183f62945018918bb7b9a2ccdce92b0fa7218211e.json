@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789911333-qa5s03VIbyDYQkYHLWeV",
+ "object": "chat.completion",
+ "created": 1789911333,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"hnsw_enable_experimental_persistence\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"unless the `SET hnsw_enable_experimental_persistence = ⟨bool⟩`{:.language-sql .highlight} configuration option is set to `true`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "hnsw_enable_experimental_persistence is documented.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "hnsw_enable_experimental_persistence is documented.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 453,
+  "completion_tokens": 118,
+  "total_tokens": 571,
+  "cost": 6.3475e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.3475e-05,
+   "upstream_inference_prompt_cost": 3.3975e-05,
+   "upstream_inference_completions_cost": 2.95e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 10,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 3.936999999998079
+}

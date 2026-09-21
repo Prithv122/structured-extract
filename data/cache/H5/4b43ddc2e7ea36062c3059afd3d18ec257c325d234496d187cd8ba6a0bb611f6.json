@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789911551-GKa8RXsadugzVNdKY5VJ",
+ "object": "chat.completion",
+ "created": 1789911551,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "These are ATTACH options, not DuckDB configuration settings (like SET variables). The section documents ATTACH parameters, not configuration settings. So empty list? The instruction: settings that section documents — these are parameters of ATTACH, not DuckDB settings. Answer empty.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "These are ATTACH options, not DuckDB configuration settings (like SET variables). The section documents ATTACH parameters, not configuration settings. So empty list? The instruction: settings that section documents — these are parameters of ATTACH, not DuckDB settings. Answer empty.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1323,
+  "completion_tokens": 61,
+  "total_tokens": 1384,
+  "cost": 0.000114475,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000114475,
+   "upstream_inference_prompt_cost": 9.9225e-05,
+   "upstream_inference_completions_cost": 1.525e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 54,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 2.2190000000009604
+}

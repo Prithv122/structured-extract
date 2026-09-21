@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789901239-3nT1LXxs09IRSURN85rs",
+ "object": "chat.completion",
+ "created": 1789901239,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"old_implicit_casting\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"set the `old_implicit_casting` variable to `true`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). When default_kind is \"absent\", default_value and default_evidence must be null. So we should set default_value: null, default_evidence: null. Also evidence must be verbatim span from the section. The original text: \"set the `old_implicit_casting` variable to `true`:\" Actually the snippet: \"set the `old_implicit_casting` variable to `true`:\" The line: \"To revert to the old behavior that performs implicit casting, set the `old_implicit_casting` variable to `true`:\" So evidence should be that exact phrase. Let's copy exactly: \"set the `old_implicit_casting` variable to `true`\". But need verbatim span, include backticks and spaces exactly as in text. The text: \"set the `old_implicit_casting` variable to `true`\". That is fine. Ensure evidence is exactly that substring. Also include input_type maybe not required but we can keep. Scope maybe not required but we can keep. The schema likely expects these fields. Provide corrected JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). When default_kind is \"absent\", default_value and default_evidence must be null. So we should set default_value: null, default_evidence: null. Also evidence must be verbatim span from the section. The original text: \"set the `old_implicit_casting` variable to `true`:\" Actually the snippet: \"set the `old_implicit_casting` variable to `true`:\" The line: \"To revert to the old behavior that performs implicit casting, set the `old_implicit_casting` variable to `true`:\" So evidence should be that exact phrase. Let's copy exactly: \"set the `old_implicit_casting` variable to `true`\". But need verbatim span, include backticks and spaces exactly as in text. The text: \"set the `old_implicit_casting` variable to `true`\". That is fine. Ensure evidence is exactly that substring. Also include input_type maybe not required but we can keep. Scope maybe not required but we can keep. The schema likely expects these fields. Provide corrected JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 937,
+  "completion_tokens": 352,
+  "total_tokens": 1289,
+  "cost": 8.795e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.795e-05,
+   "upstream_inference_prompt_cost": 2.811e-05,
+   "upstream_inference_completions_cost": 5.984e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 282,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 7.687000000001717
+}

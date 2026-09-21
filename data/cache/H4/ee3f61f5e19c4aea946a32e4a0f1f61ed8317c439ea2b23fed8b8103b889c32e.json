@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919045-ttfF3hahfnJBRRD5fwpH",
+ "object": "chat.completion",
+ "created": 1789919045,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"custom_extension_repository\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET custom_extension_repository = 'https://some.url.com'`\",\n      \"default_kind\": \"absent\"\n   \n    , \"default_value\": \"absent\"\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "The user asks: \"As with regular DuckDB, if you use `SET custom_extension_repository = 'https://some.url.com'`, subsequent loads will be attempted at ...\"\n\nWe need to extract DuckDB configuration settings from this section. The section mentions a setting: custom_extension_repository. That's a configuration setting (set with SET). So we need to output JSON with setting name, default (if stated), and evidence quote.\n\nWe need to see if default is mentioned. The text does not state a default value. It just says \"if you use SET custom_extension_repository = ...\". No default given. So default is absent.\n\nThus output JSON array with one object: name \"custom_extension_repository\", default \"absent\", evidence: the quoted span containing the setting name. Must quote verbatim as appears. The span: \"`SET custom_extension_repository = 'https://some.url.com'`\". Or maybe include the whole sentence. Provide a quote that includes the setting name. Use backticks? The quote should be exactly as in the section. The section: \"if you use `SET custom_extension_repository = 'https://some.url.com'`, subsequent loads will be attempted at ...\". So we can quote that part.\n\nThus JSON: [{\"name\":\"custom_extension_repository\",\"default\":\"absent\",\"evidence\":\"`SET custom_extension_repository = 'https://some.url.com'`\"}]\n\nMake sure schema: likely expects list of objects with fields name, default, evidence. Provide exactly that.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The user asks: \"As with regular DuckDB, if you use `SET custom_extension_repository = 'https://some.url.com'`, subsequent loads will be attempted at ...\"\n\nWe need to extract DuckDB configuration settings from this section. The section mentions a setting: custom_extension_repository. That's a configuration setting (set with SET). So we need to output JSON with setting name, default (if stated), and evidence quote.\n\nWe need to see if default is mentioned. The text does not state a default value. It just says \"if you use SET custom_extension_repository = ...\". No default given. So default is absent.\n\nThus output JSON array with one object: name \"custom_extension_repository\", default \"absent\", evidence: the quoted span containing the setting name. Must quote verbatim as appears. The span: \"`SET custom_extension_repository = 'https://some.url.com'`\". Or maybe include the whole sentence. Provide a quote that includes the setting name. Use backticks? The quote should be exactly as in the section. The section: \"if you use `SET custom_extension_repository = 'https://some.url.com'`, subsequent loads will be attempted at ...\". So we can quote that part.\n\nThus JSON: [{\"name\":\"custom_extension_repository\",\"default\":\"absent\",\"evidence\":\"`SET custom_extension_repository = 'https://some.url.com'`\"}]\n\nMake sure schema: likely expects list of objects with fields name, default, evidence. Provide exactly that.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 621,
+  "completion_tokens": 404,
+  "total_tokens": 1025,
+  "cost": 8.731e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.731e-05,
+   "upstream_inference_prompt_cost": 1.863e-05,
+   "upstream_inference_completions_cost": 6.868e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 357,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 6.60899999999674
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789920846-e22ZpZZ1LmUKvbYFn0b7",
+ "object": "chat.completion",
+ "created": 1789920846,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. The section is about ATTACH options for a REST Catalog. These are parameters for ATTACH statement, not configuration settings (SET, RESET, PRAGMA). According to instructions, options and arguments of a SQL statement are not configuration settings. So answer should be empty list.\n\nThus JSON with empty array. Schema? Not given but likely {\"settings\": []} or just []? The instruction: \"Answer only with JSON matching the supplied schema.\" No schema provided in prompt. Usually they expect list of objects. Probably just [].\n\nI'll output [].\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. The section is about ATTACH options for a REST Catalog. These are parameters for ATTACH statement, not configuration settings (SET, RESET, PRAGMA). According to instructions, options and arguments of a SQL statement are not configuration settings. So answer should be empty list.\n\nThus JSON with empty array. Schema? Not given but likely {\"settings\": []} or just []? The instruction: \"Answer only with JSON matching the supplied schema.\" No schema provided in prompt. Usually they expect list of objects. Probably just [].\n\nI'll output [].\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1518,
+  "completion_tokens": 141,
+  "total_tokens": 1659,
+  "cost": 6.951e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.951e-05,
+   "upstream_inference_prompt_cost": 4.554e-05,
+   "upstream_inference_completions_cost": 2.397e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 154,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 13.639999999999418
+}

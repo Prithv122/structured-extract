@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789913708-RYDYHcAlFci1OX2zNjGz",
+ "object": "chat.completion",
+ "created": 1789913708,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need likely from previous? We need produce list of settings with evidence. Need determine if section documents configuration settings. The section is about duckdb_optimizers() function metadata. It mentions PRAGMA disabled_optimizers link. Does it document configuration settings? It documents table function columns? The section likely from meta functions? It has table of columns name, description, type. Not configuration settings. So correct answer empty list. Need output JSON. Need know schema. Probably something like {\"settings\": []} or list? User says \"For each setting, quote...\" and \"Answer only with JSON matching supplied schema.\" No schema visible. We need infer maybe expected JSON array of objects with name, default, evidence? Need decide.\n\nGiven no schema, but likely from previous tasks: output JSON with \"settings\": [{\"name\": ..., \"default\": ..., \"evidence\": ...}]. But if empty list, maybe {\"settings\": []}. Need answer only JSON. We can output {\"settings\": []}. Ensure no markdown.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need likely from previous? We need produce list of settings with evidence. Need determine if section documents configuration settings. The section is about duckdb_optimizers() function metadata. It mentions PRAGMA disabled_optimizers link. Does it document configuration settings? It documents table function columns? The section likely from meta functions? It has table of columns name, description, type. Not configuration settings. So correct answer empty list. Need output JSON. Need know schema. Probably something like {\"settings\": []} or list? User says \"For each setting, quote...\" and \"Answer only with JSON matching supplied schema.\" No schema visible. We need infer maybe expected JSON array of objects with name, default, evidence? Need decide.\n\nGiven no schema, but likely from previous tasks: output JSON with \"settings\": [{\"name\": ..., \"default\": ..., \"evidence\": ...}]. But if empty list, maybe {\"settings\": []}. Need answer only JSON. We can output {\"settings\": []}. Ensure no markdown.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 609,
+  "completion_tokens": 246,
+  "total_tokens": 855,
+  "cost": 0.00108445,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00108445,
+   "upstream_inference_prompt_cost": 0.00045715,
+   "upstream_inference_completions_cost": 0.0006273
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 292,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 7.156999999999243
+}

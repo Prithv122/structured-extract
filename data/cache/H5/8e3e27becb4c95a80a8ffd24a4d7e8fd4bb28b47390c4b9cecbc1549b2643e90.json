@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789911673-EkVVU8dxEQKMGkx7r8k1",
+ "object": "chat.completion",
+ "created": 1789911673,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"enable_progress_bar_print\",\"input_type\":\"BOOLEAN\",\"scope\": \"LOCAL\",\"evidence\":\"Controls the printing of the progress bar, when 'enable_progress_bar' is true\",\"default_kind\":\"literal\",\"default_value\":\"true\",\"default_evidence\":\"`true`\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 371,
+  "completion_tokens": 62,
+  "total_tokens": 433,
+  "cost": 4.3325e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 4.3325e-05,
+   "upstream_inference_prompt_cost": 2.7825e-05,
+   "upstream_inference_completions_cost": 1.55e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 4.484000000000378
+}

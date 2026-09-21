@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789900433-gcXiHv26ZnmqpF9788GI",
+ "object": "chat.completion",
+ "created": 1789900433,
+ "model": "google/gemini-2.5-flash",
+ "provider": "Google",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "STOP",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"secret_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`secret_directory`                            | Set the directory to which persistent secrets are stored                                                                                                                                                      | `VARCHAR`   | `~/.duckdb/stored_secrets`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"~/.duckdb/stored_secrets\",\n      \"default_evidence\": \"`~/.duckdb/stored_secrets`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 368,
+  "completion_tokens": 133,
+  "total_tokens": 501,
+  "cost": 0.0004429,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0004429,
+   "upstream_inference_prompt_cost": 0.0001104,
+   "upstream_inference_completions_cost": 0.0003325
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 1.3279999999977008
+}

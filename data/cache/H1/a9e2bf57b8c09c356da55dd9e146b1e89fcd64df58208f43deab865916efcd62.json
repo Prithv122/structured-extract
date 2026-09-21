@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789897768-oX7KSN5UqbJpifzt98oW",
+ "object": "chat.completion",
+ "created": 1789897768,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. The section is about `ui` extension. It documents? It says \"The `ui` extension adds a user interface for your local DuckDB instance.\" Does it document any configuration setting? Need identify settings documented. It mentions extension name `ui`, but not a configuration setting? Need return every configuration setting that section documents. Likely none. Need output JSON with empty list? Need know schema. User says \"Answer only with JSON matching the supplied schema.\" But schema not explicitly supplied in prompt? We need infer maybe list of objects with setting, evidence, default? Need produce JSON. We need be careful.\n\nThe section text: \"The `ui` extension adds a user interface for your local DuckDB instance.\n\nThe UI is built and maintained by [MotherDuck](https://motherduck.com/).\nAn overview of its features can be found\nin the [MotherDuck documentation](https://motherduck.com/docs/getting-started/motherduck-quick-tour/).\"\n\nNo configuration settings documented. It mentions `ui` extension, but not a setting. So empty list.\n\nNeed answer only JSON. Schema likely something like:\n{\n  \"settings\": [\n    {\n      \"setting\": \"name\",\n      \"evidence\": \"quote\",\n      \"default\": \"value or null?\",\n      \"default_evidence\": \"quote\",\n      \"default_is_machine_dependent\": bool?\n    }\n  ]\n}\nBut not given. Need infer from instruction: \"For each setting, quote a span ... Also report the setting's default, but only if this section states it. ... If section does not state a default, say it is absent...\" So JSON fields likely: setting, evidence, default, default_evidence? Need maybe include \"default\": null or \"absent\". Need match supplied schema but not supplied. We need decide.\n\nThe user says \"Answer only with JSON matching the supplied schema.\" But no schema in prompt. Maybe hidden? We need produce plausible. Could be:\n[\n  {\n    \"setting\": \"...\",\n    \"evidence\": \"...\",\n    \"default\": \"...\"\n  }\n]\nBut empty list is simplest. Need maybe include no settings. Could output `[]`? But they asked \"Return every configuration setting...\" and \"Answer only with JSON matching the supplied schema.\" If no settings, empty array is valid. But maybe schema expects object with settings array. Need infer.\n\nGiven typical tasks, they might expect:\n{\"settings\": []}\nBut if schema is array, `[]`. Which is more likely? The instruction says \"Return every configuration setting...\" not \"Return an object\". \"Answer only with JSON matching the supplied schema.\" The supplied schema might be something like:\n{\n  \"settings\": [\n    {\n      \"setting\": \"string\",\n      \"evidence\": \"string\",\n      \"default\": \"string or null\",\n      \"default_evidence\": \"string or null\",\n      \"default_is_machine_dependent\": \"boolean\"\n    }\n  ]\n}\nBut not shown. Need maybe use empty array? Hmm.\n\nLet's examine wording: \"For each setting, quote a span of the section verbatim as evidence. ... Also report the setting's default...\" This suggests each item has fields. \"Answer only with JSON matching the supplied schema.\" They didn't include schema in prompt, but maybe expected from previous context? We only have this. We need produce something reasonable.\n\nCould output:\n[]\nThis is JSON matching an array schema. If they expected object, maybe wrong. But no settings, so empty list is natural.\n\nNeed ensure no settings. The section documents the `ui` extension, not a configuration setting. It doesn't tell what setting does, accepts, or how to set. So empty.\n\nLet's produce `[]` only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. The section is about `ui` extension. It documents? It says \"The `ui` extension adds a user interface for your local DuckDB instance.\" Does it document any configuration setting? Need identify settings documented. It mentions extension name `ui`, but not a configuration setting? Need return every configuration setting that section documents. Likely none. Need output JSON with empty list? Need know schema. User says \"Answer only with JSON matching the supplied schema.\" But schema not explicitly supplied in prompt? We need infer maybe list of objects with setting, evidence, default? Need produce JSON. We need be careful.\n\nThe section text: \"The `ui` extension adds a user interface for your local DuckDB instance.\n\nThe UI is built and maintained by [MotherDuck](https://motherduck.com/).\nAn overview of its features can be found\nin the [MotherDuck documentation](https://motherduck.com/docs/getting-started/motherduck-quick-tour/).\"\n\nNo configuration settings documented. It mentions `ui` extension, but not a setting. So empty list.\n\nNeed answer only JSON. Schema likely something like:\n{\n  \"settings\": [\n    {\n      \"setting\": \"name\",\n      \"evidence\": \"quote\",\n      \"default\": \"value or null?\",\n      \"default_evidence\": \"quote\",\n      \"default_is_machine_dependent\": bool?\n    }\n  ]\n}\nBut not given. Need infer from instruction: \"For each setting, quote a span ... Also report the setting's default, but only if this section states it. ... If section does not state a default, say it is absent...\" So JSON fields likely: setting, evidence, default, default_evidence? Need maybe include \"default\": null or \"absent\". Need match supplied schema but not supplied. We need decide.\n\nThe user says \"Answer only with JSON matching the supplied schema.\" But no schema in prompt. Maybe hidden? We need produce plausible. Could be:\n[\n  {\n    \"setting\": \"...\",\n    \"evidence\": \"...\",\n    \"default\": \"...\"\n  }\n]\nBut empty list is simplest. Need maybe include no settings. Could output `[]`? But they asked \"Return every configuration setting...\" and \"Answer only with JSON matching the supplied schema.\" If no settings, empty array is valid. But maybe schema expects object with settings array. Need infer.\n\nGiven typical tasks, they might expect:\n{\"settings\": []}\nBut if schema is array, `[]`. Which is more likely? The instruction says \"Return every configuration setting...\" not \"Return an object\". \"Answer only with JSON matching the supplied schema.\" The supplied schema might be something like:\n{\n  \"settings\": [\n    {\n      \"setting\": \"string\",\n      \"evidence\": \"string\",\n      \"default\": \"string or null\",\n      \"default_evidence\": \"string or null\",\n      \"default_is_machine_dependent\": \"boolean\"\n    }\n  ]\n}\nBut not shown. Need maybe use empty array? Hmm.\n\nLet's examine wording: \"For each setting, quote a span of the section verbatim as evidence. ... Also report the setting's default...\" This suggests each item has fields. \"Answer only with JSON matching the supplied schema.\" They didn't include schema in prompt, but maybe expected from previous context? We only have this. We need produce something reasonable.\n\nCould output:\n[]\nThis is JSON matching an array schema. If they expected object, maybe wrong. But no settings, so empty list is natural.\n\nNeed ensure no settings. The section documents the `ui` extension, not a configuration setting. It doesn't tell what setting does, accepts, or how to set. So empty.\n\nLet's produce `[]` only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 442,
+  "completion_tokens": 785,
+  "total_tokens": 1227,
+  "cost": 0.00226685,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00226685,
+   "upstream_inference_prompt_cost": 0.0002651,
+   "upstream_inference_completions_cost": 0.00200175
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 890,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 17.813000000000102
+}

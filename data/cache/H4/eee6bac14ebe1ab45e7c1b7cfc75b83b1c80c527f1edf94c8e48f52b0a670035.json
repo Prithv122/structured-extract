@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789903449-NSbp8C8Dw4YvSlKvVXFF",
+ "object": "chat.completion",
+ "created": 1789903449,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. The user provided a snippet about CREATE TABLE statements and type resolution. We need to see if any configuration settings are documented in this section. The text mentions \"DuckDB attempts to resolve type names in the schema where a table is created.\" No config setting name appears. No mention of settings like \"search_path\" or \"enable_type_resolution\". So likely no settings documented. So answer empty list.\n\nWe must output JSON matching supplied schema. The schema not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to infer. Usually previous tasks: output list of objects with name, evidence, default. Might be something like:\n\n{\n  \"settings\": []\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" The schema not shown, but typical: an array of objects with fields \"setting\", \"evidence\", \"default\". Could be top-level array. However we can assume they expect something like:\n\n{\n  \"settings\": []\n}\n\nI'll output that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. The user provided a snippet about CREATE TABLE statements and type resolution. We need to see if any configuration settings are documented in this section. The text mentions \"DuckDB attempts to resolve type names in the schema where a table is created.\" No config setting name appears. No mention of settings like \"search_path\" or \"enable_type_resolution\". So likely no settings documented. So answer empty list.\n\nWe must output JSON matching supplied schema. The schema not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to infer. Usually previous tasks: output list of objects with name, evidence, default. Might be something like:\n\n{\n  \"settings\": []\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" The schema not shown, but typical: an array of objects with fields \"setting\", \"evidence\", \"default\". Could be top-level array. However we can assume they expect something like:\n\n{\n  \"settings\": []\n}\n\nI'll output that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 571,
+  "completion_tokens": 257,
+  "total_tokens": 828,
+  "cost": 6.082e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.082e-05,
+   "upstream_inference_prompt_cost": 1.713e-05,
+   "upstream_inference_completions_cost": 4.369e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 293,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 2.7190000000009604
+}

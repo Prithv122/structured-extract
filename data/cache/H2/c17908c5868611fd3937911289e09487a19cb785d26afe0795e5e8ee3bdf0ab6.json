@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789900443-bSkJ65ssciMaZ3huZoB8",
+ "object": "chat.completion",
+ "created": 1789900443,
+ "model": "google/gemini-2.5-flash",
+ "provider": "Google",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "STOP",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"index_scan_max_count\",\n      \"input_type\": \"UBIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan. | `UBIGINT`   | `2048`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"2048\",\n      \"default_evidence\": \"`2048`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 408,
+  "completion_tokens": 171,
+  "total_tokens": 579,
+  "cost": 0.0005499,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0005499,
+   "upstream_inference_prompt_cost": 0.0001224,
+   "upstream_inference_completions_cost": 0.0004275
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 1.3589999999967404
+}

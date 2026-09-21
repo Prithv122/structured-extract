@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789920078-55WLB7tgyHArq38GQRDf",
+ "object": "chat.completion",
+ "created": 1789920078,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. The section lists many options prefixed with `--`. However, these are command-line options for the test runner, not DuckDB configuration settings. The description says: \"The following configuration options are available:\" but these are test framework options, not DuckDB settings. The question: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" The section includes a row `--settings <list[struct]>` which says \"Set [DuckDB configuration]\". That is a command-line option to set DuckDB configuration, but the option itself is not a DuckDB configuration setting; it's a test runner option. The actual DuckDB configuration settings are those you can set with SET, RESET, PRAGMA. This list does not contain any such settings; they are all test runner CLI options. So answer should be empty list.\n\nWe must output JSON matching supplied schema. The schema not provided but likely something like {\"settings\": []}. We need to output JSON with an empty list. Probably format: {\"settings\": []}. We'll output that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. The section lists many options prefixed with `--`. However, these are command-line options for the test runner, not DuckDB configuration settings. The description says: \"The following configuration options are available:\" but these are test framework options, not DuckDB settings. The question: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" The section includes a row `--settings <list[struct]>` which says \"Set [DuckDB configuration]\". That is a command-line option to set DuckDB configuration, but the option itself is not a DuckDB configuration setting; it's a test runner option. The actual DuckDB configuration settings are those you can set with SET, RESET, PRAGMA. This list does not contain any such settings; they are all test runner CLI options. So answer should be empty list.\n\nWe must output JSON matching supplied schema. The schema not provided but likely something like {\"settings\": []}. We need to output JSON with an empty list. Probably format: {\"settings\": []}. We'll output that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1696,
+  "completion_tokens": 245,
+  "total_tokens": 1941,
+  "cost": 9.253e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.253e-05,
+   "upstream_inference_prompt_cost": 5.088e-05,
+   "upstream_inference_completions_cost": 4.165e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 280,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 21.81199999999808
+}

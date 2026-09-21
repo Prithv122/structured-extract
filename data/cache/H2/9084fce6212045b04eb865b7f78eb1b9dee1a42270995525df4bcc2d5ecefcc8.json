@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789918139-abLPqpbTGg66phqFXJ11",
+ "object": "chat.completion",
+ "created": 1789918139,
+ "model": "google/gemini-2.5-flash",
+ "provider": "Google",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "STOP",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"Calendar\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"| `Calendar`                                    | The current calendar                                                                                                                                                                                          | `VARCHAR`   | System (locale) calendar                            |\",\n      \"default_kind\": \"machine_dependent\",\n      \"default_value\": \"System (locale) calendar\",\n      \"default_evidence\": \"System (locale) calendar\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 493,
+  "completion_tokens": 119,
+  "total_tokens": 612,
+  "cost": 0.0004454,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0004454,
+   "upstream_inference_prompt_cost": 0.0001479,
+   "upstream_inference_completions_cost": 0.0002975
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 1.3439999999973224
+}

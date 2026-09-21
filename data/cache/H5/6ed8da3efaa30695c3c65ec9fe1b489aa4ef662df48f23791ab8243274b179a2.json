@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789923384-w25M6hnDYMPpp7q9Tjy3",
+ "object": "chat.completion",
+ "created": 1789923384,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"python_scan_all_frames\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "The SET python_scan_all_frames=true — is that a configuration setting documented here? It's mentioned in passing as a warning. It is a DuckDB setting being set. Evidence: \"run `%sql SET python_scan_all_frames=true`\". Default not stated. I'll include it.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The SET python_scan_all_frames=true — is that a configuration setting documented here? It's mentioned in passing as a warning. It is a DuckDB setting being set. Evidence: \"run `%sql SET python_scan_all_frames=true`\". Default not stated. I'll include it.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 556,
+  "completion_tokens": 149,
+  "total_tokens": 705,
+  "cost": 7.895e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.895e-05,
+   "upstream_inference_prompt_cost": 4.17e-05,
+   "upstream_inference_completions_cost": 3.725e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 57,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 11.046999999998661
+}

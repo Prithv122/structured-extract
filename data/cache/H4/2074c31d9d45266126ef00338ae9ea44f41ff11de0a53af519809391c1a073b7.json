@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789908913-YwM5723CSCGIWvrFgIs6",
+ "object": "chat.completion",
+ "created": 1789908913,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allocator_flush_threshold\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Peak allocation threshold at which to flush the allocator after completing a task.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"128.0 MiB\"\n   \n   \n    ,\n      \"default_evidence\": \"`128.0 MiB`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract settings documented in the given section. The section is a table with one row: Name `allocator_flush_threshold`, description, type, default value. So we need to output JSON with list of settings, each with name, description (maybe not required?), but schema? Not provided. Need to infer schema from instruction: \"Answer only with JSON matching the supplied schema.\" But no schema given in prompt. Possibly they expect something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut not sure. Could be they expect fields: name, default, evidence. Let's think typical tasks: They ask to \"Return every configuration setting that this section documents. For each setting, quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it.\" So JSON likely includes name, default, evidence. Possibly also description? Not required. Let's assume schema:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allocator_flush_threshold\",\n      \"default\": \"128.0 MiB\",\n      \"evidence\": \"`allocator_flush_threshold` | Peak allocation threshold at which to flush the allocator after completing a task.\"\n    }\n  ]\n}\n\nBut need to include exact quote. The table row includes description. The evidence could be the description cell. Provide verbatim span: \"Peak allocation threshold at which to flush the allocator after completing a task.\" Or include the whole row? Provide a span that includes name and description. Let's quote the description exactly as appears: \"Peak allocation threshold at which to flush the allocator after completing a task.\"\n\nAlso default value: \"128.0 MiB\". Provide as string.\n\nThus JSON.\n\nIf schema expects list directly, maybe just array. But they said \"matching the supplied schema\". Not given, but typical they'd want array of objects with fields: \"setting\", \"default\", \"evidence\". I'll output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allocator_flush_threshold\",\n      \"default\": \"128.0 MiB\",\n      \"evidence\": \"Peak allocation threshold at which to flush the allocator after completing a task.\"\n    }\n  ]\n}\n\nLet's do that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract settings documented in the given section. The section is a table with one row: Name `allocator_flush_threshold`, description, type, default value. So we need to output JSON with list of settings, each with name, description (maybe not required?), but schema? Not provided. Need to infer schema from instruction: \"Answer only with JSON matching the supplied schema.\" But no schema given in prompt. Possibly they expect something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut not sure. Could be they expect fields: name, default, evidence. Let's think typical tasks: They ask to \"Return every configuration setting that this section documents. For each setting, quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it.\" So JSON likely includes name, default, evidence. Possibly also description? Not required. Let's assume schema:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allocator_flush_threshold\",\n      \"default\": \"128.0 MiB\",\n      \"evidence\": \"`allocator_flush_threshold` | Peak allocation threshold at which to flush the allocator after completing a task.\"\n    }\n  ]\n}\n\nBut need to include exact quote. The table row includes description. The evidence could be the description cell. Provide verbatim span: \"Peak allocation threshold at which to flush the allocator after completing a task.\" Or include the whole row? Provide a span that includes name and description. Let's quote the description exactly as appears: \"Peak allocation threshold at which to flush the allocator after completing a task.\"\n\nAlso default value: \"128.0 MiB\". Provide as string.\n\nThus JSON.\n\nIf schema expects list directly, maybe just array. But they said \"matching the supplied schema\". Not given, but typical they'd want array of objects with fields: \"setting\", \"default\", \"evidence\". I'll output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allocator_flush_threshold\",\n      \"default\": \"128.0 MiB\",\n      \"evidence\": \"Peak allocation threshold at which to flush the allocator after completing a task.\"\n    }\n  ]\n}\n\nLet's do that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 432,
+  "completion_tokens": 587,
+  "total_tokens": 1019,
+  "cost": 0.00011275,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 384,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00011275,
+   "upstream_inference_prompt_cost": 1.296e-05,
+   "upstream_inference_completions_cost": 9.979e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 564,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 16.68699999999808
+}

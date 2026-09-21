@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789924396-do8qqdYQ2vA7BMrufLMQ",
+ "object": "chat.completion",
+ "created": 1789924396,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"profile_output\",\"input_type\":\"VARCHAR\",\"scope\":\"LOCAL\",\"evidence\":\"The file to which profile output should be saved, or empty to print to the terminal\",\"default_kind\":\"literal\",\"default_value\":\"empty\",\"default_evidence\":\"or empty to print to the terminal\"}]}",
+    "refusal": null,
+    "reasoning": "profile_output is a local configuration option (SET profile_output). It's documented as a setting. Default empty.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "profile_output is a local configuration option (SET profile_output). It's documented as a setting. Default empty.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 500,
+  "completion_tokens": 86,
+  "total_tokens": 586,
+  "cost": 5.9e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 5.9e-05,
+   "upstream_inference_prompt_cost": 3.75e-05,
+   "upstream_inference_completions_cost": 2.15e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 22,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 11.389999999999418
+}

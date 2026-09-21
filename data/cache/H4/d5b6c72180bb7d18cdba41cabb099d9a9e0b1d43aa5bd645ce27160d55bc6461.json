@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789921154-v0vv7SOh8cAmREEsWSPN",
+ "object": "chat.completion",
+ "created": 1789921154,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"ca_cert_file\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`ca_cert_file`                                | Path to a custom certificate file for self-signed certificates.                                                                                                                                               | `VARCHAR`   |                                                     \",\n      \"default_kind\": \"absent\"\n    \n    , \"default_value\": null\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with a single row: Name `ca_cert_file`, description, type VARCHAR, default value empty.\n\nWe need to determine if this is a DuckDB configuration setting. The table is titled \"Global Configuration Options\". That suggests it's a configuration setting. The setting name is `ca_cert_file`. The description: \"Path to a custom certificate file for self-signed certificates.\" Type VARCHAR. Default value column is empty (no default). So we need to output JSON with a list of settings. For each setting, include name, type, default (if present, else \"absent\"), and evidence (quote a span of the section verbatim as evidence). The evidence should be a verbatim quote from the section that includes the setting name, description, type, etc. We can quote the row line: maybe the name and description. Must copy characters exactly as they appear.\n\nThus JSON schema likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut we need to follow \"the supplied schema\". The prompt didn't give explicit schema, but typical would be an array of objects with fields name, type, default, evidence. We'll assume that.\n\nWe need to note default is absent because column empty. So default: \"absent\". Evidence: maybe the row line: \"`ca_cert_file` | Path to a custom certificate file for self-signed certificates. | `VARCHAR` |\". Must include the exact characters. Let's copy the row as appears:\n\n`ca_cert_file`                                | Path to a custom certificate file for self-signed certificates.                                                                                                                                               | `VARCHAR`   |                                                    \n\nWe need to include the backticks and spaces exactly. Provide as a string.\n\nThus final JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"ca_cert_file\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"absent\",\n      \"evidence\": \"`ca_cert_file`                                | Path to a custom certificate file for self-signed certificates.                                                                                                                                               | `VARCHAR`   |                                                     \"\n    }\n  ]\n}\n\nMake sure JSON is valid. Ensure no trailing spaces? It's okay. Provide only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with a single row: Name `ca_cert_file`, description, type VARCHAR, default value empty.\n\nWe need to determine if this is a DuckDB configuration setting. The table is titled \"Global Configuration Options\". That suggests it's a configuration setting. The setting name is `ca_cert_file`. The description: \"Path to a custom certificate file for self-signed certificates.\" Type VARCHAR. Default value column is empty (no default). So we need to output JSON with a list of settings. For each setting, include name, type, default (if present, else \"absent\"), and evidence (quote a span of the section verbatim as evidence). The evidence should be a verbatim quote from the section that includes the setting name, description, type, etc. We can quote the row line: maybe the name and description. Must copy characters exactly as they appear.\n\nThus JSON schema likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut we need to follow \"the supplied schema\". The prompt didn't give explicit schema, but typical would be an array of objects with fields name, type, default, evidence. We'll assume that.\n\nWe need to note default is absent because column empty. So default: \"absent\". Evidence: maybe the row line: \"`ca_cert_file` | Path to a custom certificate file for self-signed certificates. | `VARCHAR` |\". Must include the exact characters. Let's copy the row as appears:\n\n`ca_cert_file`                                | Path to a custom certificate file for self-signed certificates.                                                                                                                                               | `VARCHAR`   |                                                    \n\nWe need to include the backticks and spaces exactly. Provide as a string.\n\nThus final JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"ca_cert_file\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"absent\",\n      \"evidence\": \"`ca_cert_file`                                | Path to a custom certificate file for self-signed certificates.                                                                                                                                               | `VARCHAR`   |                                                     \"\n    }\n  ]\n}\n\nMake sure JSON is valid. Ensure no trailing spaces? It's okay. Provide only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 552,
+  "completion_tokens": 595,
+  "total_tokens": 1147,
+  "cost": 0.00011771,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 512,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00011771,
+   "upstream_inference_prompt_cost": 1.656e-05,
+   "upstream_inference_completions_cost": 0.00010115
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 647,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 12.640999999995984
+}

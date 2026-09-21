@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789924387-s0Lx8b7QpD5iFqSvfFru",
+ "object": "chat.completion",
+ "created": 1789924387,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"secret_directory\",\"input_type\":\"VARCHAR\",\"scope\":\"GLOBAL\",\"evidence\":\"Set the directory to which persistent secrets are stored\",\"default_kind\":\"literal\",\"default_value\":\"~/.duckdb/stored_secrets\",\"default_evidence\":\"`~/.duckdb/stored_secrets`\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 496,
+  "completion_tokens": 66,
+  "total_tokens": 562,
+  "cost": 5.37e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 5.37e-05,
+   "upstream_inference_prompt_cost": 3.72e-05,
+   "upstream_inference_completions_cost": 1.65e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 7.203000000001339
+}

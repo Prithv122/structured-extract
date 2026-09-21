@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789896614-sWNY8vVSBeSHFbZ950oL",
+ "object": "chat.completion",
+ "created": 1789896614,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. The user asks extract DuckDB configuration settings from single section of DuckDB documentation. The provided text is about STRUCT data type. Need determine if it documents any configuration settings. Likely none. Need return empty list with schema? Need know schema. User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need infer maybe list of objects with setting, evidence, default? Need produce JSON. Since no settings documented, empty list maybe. Need be careful: \"Return every configuration setting that this section documents.\" Section is about STRUCT, no config settings. It mentions \"row function\", \"STRUCT functions documentation\", \"data types overview\". No settings. So answer empty list.\n\nNeed maybe include schema? They said JSON matching supplied schema, but not supplied. We can output `[]`? But maybe expected objects with fields. Since empty list is correct. Need only JSON. Could output `[]`. But maybe they expect `{\"settings\": []}`? Hmm.\n\nLet's inspect prompt: \"Answer only with JSON matching the supplied schema.\" No schema in message. In previous tasks maybe schema is list of objects with \"setting\", \"evidence\", \"default\". We need decide. Since no settings, empty list is valid for any schema if top-level array. But if schema is object with settings array, empty object? Need infer from wording: \"Return every configuration setting...\" \"For each setting, quote...\" \"Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" They didn't supply schema. Could be expected to output array of objects. Empty list `[]` is likely.\n\nNeed ensure no settings like \"row\"? No, row is function not config. \"STRUCT\" not setting. \"case-insensitive\" not setting. So empty.\n\nFinal: `[]` only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. The user asks extract DuckDB configuration settings from single section of DuckDB documentation. The provided text is about STRUCT data type. Need determine if it documents any configuration settings. Likely none. Need return empty list with schema? Need know schema. User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need infer maybe list of objects with setting, evidence, default? Need produce JSON. Since no settings documented, empty list maybe. Need be careful: \"Return every configuration setting that this section documents.\" Section is about STRUCT, no config settings. It mentions \"row function\", \"STRUCT functions documentation\", \"data types overview\". No settings. So answer empty list.\n\nNeed maybe include schema? They said JSON matching supplied schema, but not supplied. We can output `[]`? But maybe expected objects with fields. Since empty list is correct. Need only JSON. Could output `[]`. But maybe they expect `{\"settings\": []}`? Hmm.\n\nLet's inspect prompt: \"Answer only with JSON matching the supplied schema.\" No schema in message. In previous tasks maybe schema is list of objects with \"setting\", \"evidence\", \"default\". We need decide. Since no settings, empty list is valid for any schema if top-level array. But if schema is object with settings array, empty object? Need infer from wording: \"Return every configuration setting...\" \"For each setting, quote...\" \"Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" They didn't supply schema. Could be expected to output array of objects. Empty list `[]` is likely.\n\nNeed ensure no settings like \"row\"? No, row is function not config. \"STRUCT\" not setting. \"case-insensitive\" not setting. So empty.\n\nFinal: `[]` only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 645,
+  "completion_tokens": 390,
+  "total_tokens": 1035,
+  "cost": 0.00149305,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00149305,
+   "upstream_inference_prompt_cost": 0.00049855,
+   "upstream_inference_completions_cost": 0.0009945
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 460,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 10.375
+}

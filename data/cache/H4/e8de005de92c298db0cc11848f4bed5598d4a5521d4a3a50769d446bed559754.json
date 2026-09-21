@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789922447-W2C2LSkFOtCQakoAoi9g",
+ "object": "chat.completion",
+ "created": 1789922447,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"index_scan_max_count\",\n      \"input_type\": \"UBIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan. | `UBIGINT`   | `2048`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"2048\",\n      \"default_evidence\": \"`2048`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section. The user provided a table with a single row: Name `index_scan_max_count`, description, type UBIGINT, default value 2048.\n\nWe need to output JSON matching the supplied schema. The schema is not explicitly given, but we can infer: likely an array of objects each with fields: name, type, default, description, evidence (quote). The instruction: \"Answer only with JSON matching the supplied schema.\" We need to guess the schema. In prior similar tasks, schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut not sure. Could be just a list of objects. Let's assume top-level is an array. However they said \"JSON matching the supplied schema\". Since we don't have schema, we need to guess typical. In earlier tasks, they used:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe'll output that.\n\nWe need to quote a span of the section verbatim as evidence for each setting. Provide the quote exactly as appears. The table row includes the name and default. We can quote the row line: \"`index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan. | `UBIGINT`   | `2048`\". But need a span. Could quote the name and default: \"`index_scan_max_count`\". Or the whole row. Provide a quote that includes the name and default.\n\nWe'll include evidence: \"`index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan. | `UBIGINT`   | `2048`\". That's verbatim.\n\nDefault is \"2048\". Provide as string or number? Probably string.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"index_scan_max_count\",\n      \"type\": \"UBIGINT\",\n      \"default\": \"2048\",\n      \"description\": \"The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan.\",\n      \"evidence\": \"`index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan. | `UBIGINT`   | `2048`\"\n    }\n  ]\n}\n\nMake sure JSON is valid.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section. The user provided a table with a single row: Name `index_scan_max_count`, description, type UBIGINT, default value 2048.\n\nWe need to output JSON matching the supplied schema. The schema is not explicitly given, but we can infer: likely an array of objects each with fields: name, type, default, description, evidence (quote). The instruction: \"Answer only with JSON matching the supplied schema.\" We need to guess the schema. In prior similar tasks, schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut not sure. Could be just a list of objects. Let's assume top-level is an array. However they said \"JSON matching the supplied schema\". Since we don't have schema, we need to guess typical. In earlier tasks, they used:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe'll output that.\n\nWe need to quote a span of the section verbatim as evidence for each setting. Provide the quote exactly as appears. The table row includes the name and default. We can quote the row line: \"`index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan. | `UBIGINT`   | `2048`\". But need a span. Could quote the name and default: \"`index_scan_max_count`\". Or the whole row. Provide a quote that includes the name and default.\n\nWe'll include evidence: \"`index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan. | `UBIGINT`   | `2048`\". That's verbatim.\n\nDefault is \"2048\". Provide as string or number? Probably string.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"index_scan_max_count\",\n      \"type\": \"UBIGINT\",\n      \"default\": \"2048\",\n      \"description\": \"The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan.\",\n      \"evidence\": \"`index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan. | `UBIGINT`   | `2048`\"\n    }\n  ]\n}\n\nMake sure JSON is valid.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 588,
+  "completion_tokens": 802,
+  "total_tokens": 1390,
+  "cost": 0.00015398,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 512,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00015398,
+   "upstream_inference_prompt_cost": 1.764e-05,
+   "upstream_inference_completions_cost": 0.00013634
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 715,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 14.25
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789894798-5uXKXg3VZSQ52YjdBzKb",
+ "object": "chat.completion",
+ "created": 1789894798,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use. It can be specified in various ways.\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"storage_compatibility_version\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. User asks extract DuckDB configuration settings from single section of docs. The provided text is section? It says: \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use. It can be specified in various ways.\n\nIn the Python client, you have to specify it when connecting to a new database:\n\n```python\nduckdb.connect(\"file.db\", config={'storage_compatibility_version': 'latest'})\n```\"\n\nWe need return every configuration setting documented. It documents storage_compatibility_version? It tells what setting does: specify storage version to use. It accepts? It can be specified in various ways, example Python config. Does it state default? No. Need quote verbatim span. Need include setting name and evidence. Default absent. JSON schema? Not provided but likely list of objects with setting, evidence, default? Need infer. User says \"Answer only with JSON matching supplied schema.\" But no schema in prompt. We need produce JSON with fields maybe setting, evidence, default. Need be careful.\n\nWe need quote a span verbatim. Could quote \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use.\" That documents what it does. Or include \"It can be specified in various ways.\" Maybe evidence enough. Need default absent.\n\nNeed output JSON only. Maybe:\n{\n  \"settings\": [\n    {\n      \"setting\": \"storage_compatibility_version\",\n      \"evidence\": \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nBut schema unknown. Could be array directly. Need decide. The instruction: \"Return every configuration setting... Answer only with JSON matching the supplied schema.\" Since no schema supplied, maybe expected format from previous? We need produce plausible. Could include \"default\": null or \"absent\". They said \"say it is absent\". So string \"absent\". Need maybe include \"default_quote\"? But schema likely has setting, evidence, default. We'll use object with settings array? Hmm.\n\nLet's examine wording: \"For each setting, quote a span of the section verbatim as evidence. ... Also report the setting's default... If section does not state a default, say it is absent...\" So each setting object likely has \"setting\", \"evidence\", \"default\". Could be top-level array. I'll output JSON array with one object. Need ensure no markdown. \n\nNeed quote exactly. The evidence includes link markdown with {% link ... %} exactly. We can copy. Need maybe include backticks? The quote should be verbatim from section. We can include the sentence. It includes `storage_compatibility_version` in backticks. We'll copy exactly: \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use.\" That is verbatim. Does it document setting? Yes.\n\nDefault absent. \n\nNeed maybe include \"It can be specified in various ways.\" as evidence? The first sentence enough. But maybe \"what it accepts\" is not documented except example. The example shows config value 'latest'. Could quote that too? The setting accepts values? It says can be specified in various ways, example Python. But not explicit accepted values. The evidence can be the first sentence. We can include more: \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use. It can be specified in various ways.\" That is two sentences verbatim. But need quote span; can be contiguous. That's fine. It documents what it does and how to set. I'll use that.\n\nNeed default absent. \n\nFinal JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. User asks extract DuckDB configuration settings from single section of docs. The provided text is section? It says: \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use. It can be specified in various ways.\n\nIn the Python client, you have to specify it when connecting to a new database:\n\n```python\nduckdb.connect(\"file.db\", config={'storage_compatibility_version': 'latest'})\n```\"\n\nWe need return every configuration setting documented. It documents storage_compatibility_version? It tells what setting does: specify storage version to use. It accepts? It can be specified in various ways, example Python config. Does it state default? No. Need quote verbatim span. Need include setting name and evidence. Default absent. JSON schema? Not provided but likely list of objects with setting, evidence, default? Need infer. User says \"Answer only with JSON matching supplied schema.\" But no schema in prompt. We need produce JSON with fields maybe setting, evidence, default. Need be careful.\n\nWe need quote a span verbatim. Could quote \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use.\" That documents what it does. Or include \"It can be specified in various ways.\" Maybe evidence enough. Need default absent.\n\nNeed output JSON only. Maybe:\n{\n  \"settings\": [\n    {\n      \"setting\": \"storage_compatibility_version\",\n      \"evidence\": \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nBut schema unknown. Could be array directly. Need decide. The instruction: \"Return every configuration setting... Answer only with JSON matching the supplied schema.\" Since no schema supplied, maybe expected format from previous? We need produce plausible. Could include \"default\": null or \"absent\". They said \"say it is absent\". So string \"absent\". Need maybe include \"default_quote\"? But schema likely has setting, evidence, default. We'll use object with settings array? Hmm.\n\nLet's examine wording: \"For each setting, quote a span of the section verbatim as evidence. ... Also report the setting's default... If section does not state a default, say it is absent...\" So each setting object likely has \"setting\", \"evidence\", \"default\". Could be top-level array. I'll output JSON array with one object. Need ensure no markdown. \n\nNeed quote exactly. The evidence includes link markdown with {% link ... %} exactly. We can copy. Need maybe include backticks? The quote should be verbatim from section. We can include the sentence. It includes `storage_compatibility_version` in backticks. We'll copy exactly: \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use.\" That is verbatim. Does it document setting? Yes.\n\nDefault absent. \n\nNeed maybe include \"It can be specified in various ways.\" as evidence? The first sentence enough. But maybe \"what it accepts\" is not documented except example. The example shows config value 'latest'. Could quote that too? The setting accepts values? It says can be specified in various ways, example Python. But not explicit accepted values. The evidence can be the first sentence. We can include more: \"The `storage_compatibility_version` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) can also be used to specify the storage version to use. It can be specified in various ways.\" That is two sentences verbatim. But need quote span; can be contiguous. That's fine. It documents what it does and how to set. I'll use that.\n\nNeed default absent. \n\nFinal JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 454,
+  "completion_tokens": 987,
+  "total_tokens": 1441,
+  "cost": 0.00279575,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00279575,
+   "upstream_inference_prompt_cost": 0.0002789,
+   "upstream_inference_completions_cost": 0.00251685
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 1028,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 23.45300000000134
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905762-CKVL4aK1GrrUtEsaUnFy",
+ "object": "chat.completion",
+ "created": 1789905762,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"enable_progress_bar_print\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`enable_progress_bar_print`          | Controls the printing of the progress bar, when 'enable_progress_bar' is true\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\"\n    \t, \n   \t\"default_evidence\": \"true\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "The previous answer is huge with many blank lines and not valid JSON. Need to produce correct JSON with schema: likely something like {\"settings\": [ {name, input_type, scope, evidence, default_kind, default_value} ] }. We only have one setting. Need to output minimal JSON without extra whitespace or stray commas. Provide correct fields. Scope: The table is \"Local Configuration Options\", so scope likely \"LOCAL\". Input_type: \"BOOLEAN\". Evidence must be verbatim span from the section. The section shows a table row: \"`enable_progress_bar_print`          | Controls the printing of the progress bar, when 'enable_progress_bar' is true\". We need to quote exactly as appears. The table row includes backticks and spaces. Provide evidence string exactly. Probably include the whole cell content: \"`enable_progress_bar_print`          | Controls the printing of the progress bar, when 'enable_progress_bar' is true\". That's fine.\n\nDefault: The table shows default value column \"true\". So default_kind: \"literal\", default_value: \"true\". Provide JSON.\n\nNo extra fields. Ensure valid JSON.\n\nThus output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"enable_progress_bar_print\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`enable_progress_bar_print`          | Controls the printing of the progress bar, when 'enable_progress_bar' is true\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\"\n    }\n  ]\n}\n\nMake sure no trailing commas.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The previous answer is huge with many blank lines and not valid JSON. Need to produce correct JSON with schema: likely something like {\"settings\": [ {name, input_type, scope, evidence, default_kind, default_value} ] }. We only have one setting. Need to output minimal JSON without extra whitespace or stray commas. Provide correct fields. Scope: The table is \"Local Configuration Options\", so scope likely \"LOCAL\". Input_type: \"BOOLEAN\". Evidence must be verbatim span from the section. The section shows a table row: \"`enable_progress_bar_print`          | Controls the printing of the progress bar, when 'enable_progress_bar' is true\". We need to quote exactly as appears. The table row includes backticks and spaces. Provide evidence string exactly. Probably include the whole cell content: \"`enable_progress_bar_print`          | Controls the printing of the progress bar, when 'enable_progress_bar' is true\". That's fine.\n\nDefault: The table shows default value column \"true\". So default_kind: \"literal\", default_value: \"true\". Provide JSON.\n\nNo extra fields. Ensure valid JSON.\n\nThus output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"enable_progress_bar_print\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`enable_progress_bar_print`          | Controls the printing of the progress bar, when 'enable_progress_bar' is true\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\"\n    }\n  ]\n}\n\nMake sure no trailing commas.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 15789,
+  "completion_tokens": 428,
+  "total_tokens": 16217,
+  "cost": 0.00054643,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00054643,
+   "upstream_inference_prompt_cost": 0.00047367,
+   "upstream_inference_completions_cost": 7.276e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 372,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 43.71800000000076
+}

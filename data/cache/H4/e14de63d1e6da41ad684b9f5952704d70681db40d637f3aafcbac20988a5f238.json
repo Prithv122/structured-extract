@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919373-9Z8uPyensx7DWoBHcduK",
+ "object": "chat.completion",
+ "created": 1789919373,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`access_mode = 'READ_ONLY'`\",\n      \"default_kind\": \"absent\"\n   \n    , \"default_value\": \"absent\"\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The user provided a paragraph about in-process mode concurrency, mentioning \"access_mode = 'READ_ONLY'\". That's a configuration setting? In DuckDB, there is a PRAGMA or setting \"access_mode\". I think it's a configuration setting that can be set via SET or PRAGMA. The text says: \"Read-only mode: multiple processes can read from the database, but no processes can write ([`access_mode = 'READ_ONLY'`]...\". So that is a setting. The question: we need to output JSON matching supplied schema. We need to know the schema. Not provided explicitly, but likely something like list of objects with fields: name, description?, default? The instruction: \"Answer only with JSON matching the supplied schema.\" We need to infer schema. Usually in these tasks, schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut not sure. Could be just array of objects. Let's assume schema: an array of objects each with \"setting\", \"default\", \"evidence\". Might be like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"default\": \"absent\" or something,\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe need to include a verbatim quote for the setting and default if present. The text only mentions the setting name and value 'READ_ONLY' as an example, not default. It doesn't state default. So default is absent.\n\nThus output JSON with one setting: name \"access_mode\". evidence: the quote containing it. Provide default: \"absent\". Provide maybe description? Not required.\n\nI'll output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"default\": \"absent\",\n      \"evidence\": \"`access_mode = 'READ_ONLY'`\"\n    }\n  ]\n}\n\nMake sure JSON is valid.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The user provided a paragraph about in-process mode concurrency, mentioning \"access_mode = 'READ_ONLY'\". That's a configuration setting? In DuckDB, there is a PRAGMA or setting \"access_mode\". I think it's a configuration setting that can be set via SET or PRAGMA. The text says: \"Read-only mode: multiple processes can read from the database, but no processes can write ([`access_mode = 'READ_ONLY'`]...\". So that is a setting. The question: we need to output JSON matching supplied schema. We need to know the schema. Not provided explicitly, but likely something like list of objects with fields: name, description?, default? The instruction: \"Answer only with JSON matching the supplied schema.\" We need to infer schema. Usually in these tasks, schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut not sure. Could be just array of objects. Let's assume schema: an array of objects each with \"setting\", \"default\", \"evidence\". Might be like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"default\": \"absent\" or something,\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe need to include a verbatim quote for the setting and default if present. The text only mentions the setting name and value 'READ_ONLY' as an example, not default. It doesn't state default. So default is absent.\n\nThus output JSON with one setting: name \"access_mode\". evidence: the quote containing it. Provide default: \"absent\". Provide maybe description? Not required.\n\nI'll output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"default\": \"absent\",\n      \"evidence\": \"`access_mode = 'READ_ONLY'`\"\n    }\n  ]\n}\n\nMake sure JSON is valid.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 699,
+  "completion_tokens": 514,
+  "total_tokens": 1213,
+  "cost": 0.00010835,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00010835,
+   "upstream_inference_prompt_cost": 2.097e-05,
+   "upstream_inference_completions_cost": 8.738e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 459,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.89100000000326
+}

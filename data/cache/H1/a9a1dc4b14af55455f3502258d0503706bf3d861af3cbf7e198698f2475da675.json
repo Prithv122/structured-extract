@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789896543-p5k2IU99d2wKfs7dgl4w",
+ "object": "chat.completion",
+ "created": 1789896543,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need produce likely list of settings with evidence and default. Need parse section. The section text is about Azure SDK user agents. It documents no DuckDB configuration settings. Need return empty list? Need know schema. Maybe from previous tasks: settings extraction returns JSON array of objects with setting, evidence, default? We need infer. The prompt: \"Return every configuration setting that this section documents... For each setting, quote a span... Also report the setting's default... Answer only with JSON matching the supplied schema.\" No schema included. We need produce JSON likely:\n{\n  \"settings\": []\n}\nor maybe array. Need decide.\n\nWe need be careful. The section is about Azure SDK user agents, not DuckDB settings. It mentions strings but no configuration setting. So empty list correct.\n\nNeed output only JSON. Could be:\n{\"settings\": []}\nBut if schema expects array? The phrase \"Return every configuration setting\" maybe answer as JSON array. \"For each setting...\" \"Answer only with JSON matching the supplied schema.\" Without schema, maybe expected:\n[]\nI think likely schema is an array of objects. But \"settings\" key? Need infer from common. The user says \"Return every configuration setting that this section documents.\" Could be JSON list. We need maybe include no settings. Let's output empty JSON array? But \"matching supplied schema\" maybe they expect object with \"settings\" property. Hmm.\n\nLet's examine prompt wording: \"Return every configuration setting that this section *documents*. ... For each setting, quote a span ... Also report the setting's default ... Answer only with JSON matching the supplied schema.\" They didn't supply schema in message. Could be hidden? We need produce valid JSON. If no settings, empty list is natural. But if schema is object, maybe {\"settings\": []}. Which is safer? The instruction \"Return every configuration setting\" not \"Return an object\". In many extraction tasks, answer is JSON array. But \"matching the supplied schema\" implies there is a schema, maybe from system? Not visible. We need choose.\n\nGiven no settings, both [] and {\"settings\":[]} are JSON. Which one likely accepted? The prompt says \"For each setting, quote a span ... Also report the setting's default...\" If array, each item object. If object with settings, same. The phrase \"Answer only with JSON matching the supplied schema\" maybe from benchmark where schema is:\n{\n  \"settings\": [\n    {\n      \"setting\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nBut not shown. Need maybe include \"default\": null or \"absent\"? They said \"If the section does not state a default, say it is absent\". So if no settings, no issue.\n\nI think output empty array is simplest. But \"matching supplied schema\" maybe they expect object. Let's consider if there is a hidden schema in original? The user says \"supplied schema\" but none in prompt. Could be an oversight. We need answer only JSON. I'd output:\n[]\nThis is valid JSON and indicates no settings. But if schema expects object, invalid. Hmm.\n\nMaybe we can include a JSON object with \"settings\": [] to be safe? But if schema expects array, object invalid. Which is more likely? The prompt: \"Return every configuration setting that this section documents.\" That is a plural noun. \"Answer only with JSON matching the supplied schema.\" In many such tasks, the schema is:\n{\n  \"settings\": [\n    {\n      \"setting_name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nBut they didn't include. The phrase \"For each setting, quote a span...\" suggests array items. If no settings, empty array is natural. I lean [].\n\nNeed ensure no extra text. Final only [].\n\nBut let's double-check: The section text: \"Azure uses the Azure SDK which sets its own user agents. For identity and storage calls you may see respectively strings like these: ...\" It documents no DuckDB configuration setting. It mentions \"user agents\" but not a setting. So empty.\n\nFinal: []",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need produce likely list of settings with evidence and default. Need parse section. The section text is about Azure SDK user agents. It documents no DuckDB configuration settings. Need return empty list? Need know schema. Maybe from previous tasks: settings extraction returns JSON array of objects with setting, evidence, default? We need infer. The prompt: \"Return every configuration setting that this section documents... For each setting, quote a span... Also report the setting's default... Answer only with JSON matching the supplied schema.\" No schema included. We need produce JSON likely:\n{\n  \"settings\": []\n}\nor maybe array. Need decide.\n\nWe need be careful. The section is about Azure SDK user agents, not DuckDB settings. It mentions strings but no configuration setting. So empty list correct.\n\nNeed output only JSON. Could be:\n{\"settings\": []}\nBut if schema expects array? The phrase \"Return every configuration setting\" maybe answer as JSON array. \"For each setting...\" \"Answer only with JSON matching the supplied schema.\" Without schema, maybe expected:\n[]\nI think likely schema is an array of objects. But \"settings\" key? Need infer from common. The user says \"Return every configuration setting that this section documents.\" Could be JSON list. We need maybe include no settings. Let's output empty JSON array? But \"matching supplied schema\" maybe they expect object with \"settings\" property. Hmm.\n\nLet's examine prompt wording: \"Return every configuration setting that this section *documents*. ... For each setting, quote a span ... Also report the setting's default ... Answer only with JSON matching the supplied schema.\" They didn't supply schema in message. Could be hidden? We need produce valid JSON. If no settings, empty list is natural. But if schema is object, maybe {\"settings\": []}. Which is safer? The instruction \"Return every configuration setting\" not \"Return an object\". In many extraction tasks, answer is JSON array. But \"matching the supplied schema\" implies there is a schema, maybe from system? Not visible. We need choose.\n\nGiven no settings, both [] and {\"settings\":[]} are JSON. Which one likely accepted? The prompt says \"For each setting, quote a span ... Also report the setting's default...\" If array, each item object. If object with settings, same. The phrase \"Answer only with JSON matching the supplied schema\" maybe from benchmark where schema is:\n{\n  \"settings\": [\n    {\n      \"setting\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nBut not shown. Need maybe include \"default\": null or \"absent\"? They said \"If the section does not state a default, say it is absent\". So if no settings, no issue.\n\nI think output empty array is simplest. But \"matching supplied schema\" maybe they expect object. Let's consider if there is a hidden schema in original? The user says \"supplied schema\" but none in prompt. Could be an oversight. We need answer only JSON. I'd output:\n[]\nThis is valid JSON and indicates no settings. But if schema expects object, invalid. Hmm.\n\nMaybe we can include a JSON object with \"settings\": [] to be safe? But if schema expects array, object invalid. Which is more likely? The prompt: \"Return every configuration setting that this section documents.\" That is a plural noun. \"Answer only with JSON matching the supplied schema.\" In many such tasks, the schema is:\n{\n  \"settings\": [\n    {\n      \"setting_name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nBut they didn't include. The phrase \"For each setting, quote a span...\" suggests array items. If no settings, empty array is natural. I lean [].\n\nNeed ensure no extra text. Final only [].\n\nBut let's double-check: The section text: \"Azure uses the Azure SDK which sets its own user agents. For identity and storage calls you may see respectively strings like these: ...\" It documents no DuckDB configuration setting. It mentions \"user agents\" but not a setting. So empty.\n\nFinal: []",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 567,
+  "completion_tokens": 891,
+  "total_tokens": 1458,
+  "cost": 0.0026809,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0026809,
+   "upstream_inference_prompt_cost": 0.00040885,
+   "upstream_inference_completions_cost": 0.00227205
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 1041,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 22.046000000000276
+}

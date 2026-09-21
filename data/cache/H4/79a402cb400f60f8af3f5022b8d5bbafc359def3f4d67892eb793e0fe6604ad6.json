@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919404-0vGEnCsNAopYGiVRuPBJ",
+ "object": "chat.completion",
+ "created": 1789919404,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"'access_mode' => 'read_only'\",\n      \"default_kind\": \"absent\"\n   \n    ,\"default_value\": \"absent\"\n    ,\"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "The user provided a PHP code snippet showing how to open a DuckDB database via PDO, with an attribute PDO::DUCKDB_ATTR_CONFIG => ['access_mode' => 'read_only'].\n\nThe task: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" The user gave a snippet, not a documentation section. But we need to interpret: The snippet likely is from a documentation section about PDO connection attributes. The setting \"access_mode\" appears as a configuration setting? In DuckDB, there is a configuration setting \"access_mode\" that can be set via PRAGMA or SET? I think DuckDB has a configuration setting \"access_mode\" that can be set to \"read_only\" or \"read_write\". It can be set via PRAGMA or via connection config. So we need to extract configuration settings from this section. The only setting mentioned is \"access_mode\". We need to provide JSON with list of settings, each with name, default (if stated), and evidence (quote). The snippet does not state default. It just shows usage. So default is absent.\n\nThus output JSON: {\"settings\": [{\"name\":\"access_mode\",\"default\":\"absent\",\"evidence\":\"...\"}]}. The evidence must be verbatim quote from the section. The snippet includes `'access_mode' => 'read_only'`. So we can quote that line.\n\nMake sure JSON matches schema. Schema likely expects an array of objects with fields name, default, evidence. Provide that.\n\nThus final answer.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The user provided a PHP code snippet showing how to open a DuckDB database via PDO, with an attribute PDO::DUCKDB_ATTR_CONFIG => ['access_mode' => 'read_only'].\n\nThe task: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" The user gave a snippet, not a documentation section. But we need to interpret: The snippet likely is from a documentation section about PDO connection attributes. The setting \"access_mode\" appears as a configuration setting? In DuckDB, there is a configuration setting \"access_mode\" that can be set via PRAGMA or SET? I think DuckDB has a configuration setting \"access_mode\" that can be set to \"read_only\" or \"read_write\". It can be set via PRAGMA or via connection config. So we need to extract configuration settings from this section. The only setting mentioned is \"access_mode\". We need to provide JSON with list of settings, each with name, default (if stated), and evidence (quote). The snippet does not state default. It just shows usage. So default is absent.\n\nThus output JSON: {\"settings\": [{\"name\":\"access_mode\",\"default\":\"absent\",\"evidence\":\"...\"}]}. The evidence must be verbatim quote from the section. The snippet includes `'access_mode' => 'read_only'`. So we can quote that line.\n\nMake sure JSON matches schema. Schema likely expects an array of objects with fields name, default, evidence. Provide that.\n\nThus final answer.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 575,
+  "completion_tokens": 400,
+  "total_tokens": 975,
+  "cost": 8.525e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.525e-05,
+   "upstream_inference_prompt_cost": 1.725e-05,
+   "upstream_inference_completions_cost": 6.8e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 355,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 10.01600000000326
+}

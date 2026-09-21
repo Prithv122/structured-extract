@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789900932-gCA1g2UTDLc4cgBxw7ni",
+ "object": "chat.completion",
+ "created": 1789900932,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"preserve_identifier_case\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`preserve_identifier_case`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct evidence to be a verbatim span from the provided document. The document text:\n\n\"With the `preserve_identifier_case` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) set to `false`, all identifiers are turned into lowercase:\"\n\nThus a verbatim span could be: \"`preserve_identifier_case`\". But we need a span that includes the description of the setting? The evidence must be a span that documents the setting. The sentence includes the setting name in backticks. The exact characters: \"`preserve_identifier_case`\". That is a verbatim span. Could also include \"set to `false`\". But the setting name is the span. The evidence should be a verbatim span from the document that documents the setting. The phrase \"With the `preserve_identifier_case` ... set to `false`\" includes the setting name. The span could be \"`preserve_identifier_case`\". That is verbatim.\n\nAlso the JSON schema: we need fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. In previous answer we had extra commas and formatting errors. Need proper JSON.\n\nWe need to include default_kind: \"absent\". default_value: maybe null? The schema likely expects default_value maybe null if absent. The previous answer had both default_kind and default_value and default_evidence. The schema likely expects default_kind, default_value, default_evidence. If default is absent, default_kind: \"absent\", default_value: null, default_evidence: null.\n\nThus produce:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"preserve_identifier_case\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`preserve_identifier_case`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck evidence: it's verbatim. Good.\n\nReturn JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct evidence to be a verbatim span from the provided document. The document text:\n\n\"With the `preserve_identifier_case` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) set to `false`, all identifiers are turned into lowercase:\"\n\nThus a verbatim span could be: \"`preserve_identifier_case`\". But we need a span that includes the description of the setting? The evidence must be a span that documents the setting. The sentence includes the setting name in backticks. The exact characters: \"`preserve_identifier_case`\". That is a verbatim span. Could also include \"set to `false`\". But the setting name is the span. The evidence should be a verbatim span from the document that documents the setting. The phrase \"With the `preserve_identifier_case` ... set to `false`\" includes the setting name. The span could be \"`preserve_identifier_case`\". That is verbatim.\n\nAlso the JSON schema: we need fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. In previous answer we had extra commas and formatting errors. Need proper JSON.\n\nWe need to include default_kind: \"absent\". default_value: maybe null? The schema likely expects default_value maybe null if absent. The previous answer had both default_kind and default_value and default_evidence. The schema likely expects default_kind, default_value, default_evidence. If default is absent, default_kind: \"absent\", default_value: null, default_evidence: null.\n\nThus produce:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"preserve_identifier_case\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`preserve_identifier_case`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck evidence: it's verbatim. Good.\n\nReturn JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 857,
+  "completion_tokens": 499,
+  "total_tokens": 1356,
+  "cost": 0.00011054,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00011054,
+   "upstream_inference_prompt_cost": 2.571e-05,
+   "upstream_inference_completions_cost": 8.483e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 470,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.18699999999808
+}

@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789911339-qIQTvZJqQcGqNffGdG03",
+ "object": "chat.completion",
+ "created": 1789911339,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"unsafe_enable_version_guessing\",\"input_type\":\"BOOLEAN\",\"scope\": \"GLOBAL\", \"evidence\":\"Enable globbing the filesystem (if possible) to find the latest metadata version. This may read an uncommitted version, so it is disabled by default.\",\"default_kind\":\"literal\",\"default_value\":\"false\",\"default_evidence\":\"disabled by default\"},{\"name\":\"iceberg_use_metadata_log\",\"input_type\":\"BOOLEAN\",\"scope\": \"GLOBAL\", \"evidence\":\"Use a table's optional `metadata-log` to preserve atomicity guarantees, at the cost of an additional metadata `GET` in rare cases.\",\"default_kind\":\"literal\",\"default_value\":\"true\",\"default_evidence\":\"`true`\"},{\"name\":\"ignore_target_file_size_for_partitioned_tables\",\"input_type\":\"BOOLEAN\",\"scope\": \"GLOBAL\", \"evidence\":\"Ignore the unsupported `write.target-file-size-bytes` table property on partitioned tables instead of raising an error.\",\"default_kind\":\"literal\",\"default_value\":\"false\",\"default_evidence\":\"`false`\"},{\"name\":\"ignore_row_group_size_for_partitioned_tables\",\"input_type\":\"BOOLEAN\",\"scope\": \"GLOBAL\", \"evidence\":\"Ignore the unsupported `write.parquet.row-group-size-bytes` table property on partitioned tables instead of raising an error.\",\"default_kind\":\"literal\",\"default_value\":\"false\",\"default_evidence\":\"`false`\"},{\"name\":\"iceberg_via_aws_sdk_for_catalog_interactions\",\"input_type\":\"BOOLEAN\",\"scope\": \"GLOBAL\", \"evidence\":\"Use the legacy AWS SDK code path to interact with AWS-based catalogs instead of DuckDB's HTTP client.\",\"default_kind\":\"literal\",\"default_value\":\"false\",\"default_evidence\":\"`false`\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 546,
+  "completion_tokens": 346,
+  "total_tokens": 892,
+  "cost": 0.00012745,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00012745,
+   "upstream_inference_prompt_cost": 4.095e-05,
+   "upstream_inference_completions_cost": 8.65e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 29.06199999999808
+}

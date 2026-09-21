@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789922488-tzjceMWDOsYDBth6poG3",
+ "object": "chat.completion",
+ "created": 1789922488,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allow_extensions_metadata_mismatch\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`allow_extensions_metadata_mismatch` | Allow to load extensions with not compatible metadata | `BOOLEAN` | `false`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"default_evidence\": \"`false`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section. The user provided a table with one row: Name `allow_extensions_metadata_mismatch`, description, type BOOLEAN, default false.\n\nWe need to output JSON matching supplied schema. The schema not given explicitly, but likely something like list of objects with fields: name, type, default, description, evidence (quote). We need to infer. In prior similar tasks, schema is:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to be careful. The instruction: \"Answer only with JSON matching the supplied schema.\" The schema was not shown in the prompt, but typical for these tasks: maybe:\n\n{\n  \"settings\": [\n    {\n      \"name\": string,\n      \"type\": string,\n      \"default\": string,\n      \"description\": string,\n      \"evidence\": string\n    }\n  ]\n}\n\nWe'll output that.\n\nWe have one setting. Provide evidence quote: the row line? Must quote a span of the section verbatim as evidence. Could quote the row line: \"`allow_extensions_metadata_mismatch`\". Or the whole row. Provide a snippet: \"`allow_extensions_metadata_mismatch`\". Provide default: \"false\". Provide description: \"Allow to load extensions with not compatible metadata\". Provide type: \"BOOLEAN\". Provide evidence: maybe the whole row line: \"`allow_extensions_metadata_mismatch` | Allow to load extensions with not compatible metadata | `BOOLEAN` | `false`\". Use exactly as appears.\n\nReturn JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section. The user provided a table with one row: Name `allow_extensions_metadata_mismatch`, description, type BOOLEAN, default false.\n\nWe need to output JSON matching supplied schema. The schema not given explicitly, but likely something like list of objects with fields: name, type, default, description, evidence (quote). We need to infer. In prior similar tasks, schema is:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to be careful. The instruction: \"Answer only with JSON matching the supplied schema.\" The schema was not shown in the prompt, but typical for these tasks: maybe:\n\n{\n  \"settings\": [\n    {\n      \"name\": string,\n      \"type\": string,\n      \"default\": string,\n      \"description\": string,\n      \"evidence\": string\n    }\n  ]\n}\n\nWe'll output that.\n\nWe have one setting. Provide evidence quote: the row line? Must quote a span of the section verbatim as evidence. Could quote the row line: \"`allow_extensions_metadata_mismatch`\". Or the whole row. Provide a snippet: \"`allow_extensions_metadata_mismatch`\". Provide default: \"false\". Provide description: \"Allow to load extensions with not compatible metadata\". Provide type: \"BOOLEAN\". Provide evidence: maybe the whole row line: \"`allow_extensions_metadata_mismatch` | Allow to load extensions with not compatible metadata | `BOOLEAN` | `false`\". Use exactly as appears.\n\nReturn JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 553,
+  "completion_tokens": 451,
+  "total_tokens": 1004,
+  "cost": 9.326e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.326e-05,
+   "upstream_inference_prompt_cost": 1.659e-05,
+   "upstream_inference_completions_cost": 7.667e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 397,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.343999999997322
+}

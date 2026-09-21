@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789901063-5x1cko2o2TgnP6edK8vs",
+ "object": "chat.completion",
+ "created": 1789901063,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"deprecated_using_key_syntax\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET deprecated_using_key_syntax = 'DEFAULT';\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"'DEFAULT'\",\n      \"default_evidence\": \"`DEFAULT` enables both syntax styles\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to fix default_evidence to be a verbatim span from the document that states the default. The document says: \"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\" That's a verbatim span, but we need to copy exactly as appears, including backticks and punctuation. The evidence must be a span that states the default. The default is 'DEFAULT' (the literal). The default_evidence should be a direct quote that says something like \"DEFAULT enables both syntax styles\" or similar. The exact text: \"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\" That is verbatim. However maybe the validator expects the exact characters, including backticks. That is what we have. But maybe they want the exact phrase that states the default value, like \"DEFAULT enables both syntax styles\". The current default_evidence includes the whole sentence, which is verbatim. Might be okay. But maybe they consider the backticks as not part of the document? The document includes backticks around DEFAULT. So it's verbatim. However maybe they want the default evidence to be exactly the part that says the default, not the whole sentence. But the rule says copy the exact characters that state the default. The sentence does state the default. So maybe the issue is that default_evidence must be a span, not a sentence with extra context? The validator may check that default_evidence is a substring of the original document. It is. Let's double-check the original text: \n\n\"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\"\n\nYes that's exactly. So why flagged? Possibly because default_evidence must be a direct quote of the default value, not the description. The default is 'DEFAULT', but the default_evidence should be something like \"`DEFAULT` enables both syntax styles\". The current includes extra text, but still includes that phrase. Might be okay. However maybe the validator expects the default_evidence to be exactly the same as the default_value? No, that wouldn't make sense.\n\nMaybe the issue is that default_evidence must be a verbatim span that includes the default literal, but not include backticks? The default_value is \"'DEFAULT'\" (including quotes). The default_evidence uses backticks around DEFAULT, not single quotes. That's okay.\n\nBut the error says default_evidence is not a verbatim span of the document. Could be because the document includes line breaks or spaces that we omitted. Let's check the original snippet: It is in a paragraph, not code block. The exact characters: \"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\"\n\nOur string matches that exactly. Maybe there is a trailing space or newline. Hard to know.\n\nSimplify: Provide default_evidence as the exact phrase that states the default: \"`DEFAULT` enables both syntax styles\". That is a verbatim substring. Let's use that.\n\nThus modify default_evidence to \"`DEFAULT` enables both syntax styles\". Ensure it's exactly as in doc.\n\nReturn JSON with that change.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to fix default_evidence to be a verbatim span from the document that states the default. The document says: \"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\" That's a verbatim span, but we need to copy exactly as appears, including backticks and punctuation. The evidence must be a span that states the default. The default is 'DEFAULT' (the literal). The default_evidence should be a direct quote that says something like \"DEFAULT enables both syntax styles\" or similar. The exact text: \"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\" That is verbatim. However maybe the validator expects the exact characters, including backticks. That is what we have. But maybe they want the exact phrase that states the default value, like \"DEFAULT enables both syntax styles\". The current default_evidence includes the whole sentence, which is verbatim. Might be okay. But maybe they consider the backticks as not part of the document? The document includes backticks around DEFAULT. So it's verbatim. However maybe they want the default evidence to be exactly the part that says the default, not the whole sentence. But the rule says copy the exact characters that state the default. The sentence does state the default. So maybe the issue is that default_evidence must be a span, not a sentence with extra context? The validator may check that default_evidence is a substring of the original document. It is. Let's double-check the original text: \n\n\"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\"\n\nYes that's exactly. So why flagged? Possibly because default_evidence must be a direct quote of the default value, not the description. The default is 'DEFAULT', but the default_evidence should be something like \"`DEFAULT` enables both syntax styles\". The current includes extra text, but still includes that phrase. Might be okay. However maybe the validator expects the default_evidence to be exactly the same as the default_value? No, that wouldn't make sense.\n\nMaybe the issue is that default_evidence must be a verbatim span that includes the default literal, but not include backticks? The default_value is \"'DEFAULT'\" (including quotes). The default_evidence uses backticks around DEFAULT, not single quotes. That's okay.\n\nBut the error says default_evidence is not a verbatim span of the document. Could be because the document includes line breaks or spaces that we omitted. Let's check the original snippet: It is in a paragraph, not code block. The exact characters: \"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\"\n\nOur string matches that exactly. Maybe there is a trailing space or newline. Hard to know.\n\nSimplify: Provide default_evidence as the exact phrase that states the default: \"`DEFAULT` enables both syntax styles\". That is a verbatim substring. Let's use that.\n\nThus modify default_evidence to \"`DEFAULT` enables both syntax styles\". Ensure it's exactly as in doc.\n\nReturn JSON with that change.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1508,
+  "completion_tokens": 801,
+  "total_tokens": 2309,
+  "cost": 0.00018141,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00018141,
+   "upstream_inference_prompt_cost": 4.524e-05,
+   "upstream_inference_completions_cost": 0.00013617
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 822,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 25.23400000000038
+}

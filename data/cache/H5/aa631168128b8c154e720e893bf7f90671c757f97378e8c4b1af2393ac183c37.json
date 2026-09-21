@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789909966-hbaGCNQOIPVIi5LzCtuo",
+ "object": "chat.completion",
+ "created": 1789909966,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"allocator_background_threads\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"By default, jemalloc's background threads are disabled. To enable them, use the following configuration option:\\n\\n```sql\\nSET allocator_background_threads = true;\\n```\",\"default_kind\":\"literal\",\"default_value\":\"false\",\"default_evidence\":\"By default, jemalloc's background threads are disabled.\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 391,
+  "completion_tokens": 89,
+  "total_tokens": 480,
+  "cost": 5.1575e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 5.1575e-05,
+   "upstream_inference_prompt_cost": 2.9325e-05,
+   "upstream_inference_completions_cost": 2.225e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 4.640999999999622
+}

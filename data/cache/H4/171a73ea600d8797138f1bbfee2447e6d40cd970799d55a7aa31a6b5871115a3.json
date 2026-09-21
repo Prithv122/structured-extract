@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789900859-ptefLzcunrCL6BpTZdDb",
+ "object": "chat.completion",
+ "created": 1789900859,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allow_community_extensions\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET allow_community_extensions = false`\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"allow_unsigned_extensions\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET allow_unsigned_extensions = true`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": \"absent\",\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The section includes a table with configuration column showing settings: `SET allow_community_extensions = false`, and mentions default security level, and also `SET allow_unsigned_extensions = true`. Also mentions \"Security-related configuration settings lock themselves\". It also shows example attempts to set allow_community_extensions both false and true causing error. So settings documented: allow_community_extensions, allow_unsigned_extensions. Need to provide evidence quotes and default if stated. The table says for core and community: \"This is the default security level.\" That refers to configuration? It says default security level is core and community, which corresponds to allow_community_extensions = true? Actually the default security level is core and community, meaning allow_community_extensions is true? The table's \"Configuration\" column for core and community says \"This is the default security level.\" No explicit setting value. So default for allow_community_extensions is not explicitly given as true, but implied. However we must only state default if the section states it. It says \"This is the default security level.\" Not a concrete value for the setting. So default is absent for allow_community_extensions. For allow_unsigned_extensions, no default mentioned. So default absent.\n\nWe need JSON schema. Not provided but likely something like list of objects with name, evidence, default. We'll assume schema: [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]. Provide array.\n\nLet's craft.\n\nEvidence quotes: For allow_community_extensions: from table: \"`SET allow_community_extensions = false`\". Also example attempts: \"SET allow_community_extensions = false;\" but that's same. Use table line.\n\nFor allow_unsigned_extensions: \"`SET allow_unsigned_extensions = true`\".\n\nDefaults: both absent.\n\nReturn JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The section includes a table with configuration column showing settings: `SET allow_community_extensions = false`, and mentions default security level, and also `SET allow_unsigned_extensions = true`. Also mentions \"Security-related configuration settings lock themselves\". It also shows example attempts to set allow_community_extensions both false and true causing error. So settings documented: allow_community_extensions, allow_unsigned_extensions. Need to provide evidence quotes and default if stated. The table says for core and community: \"This is the default security level.\" That refers to configuration? It says default security level is core and community, which corresponds to allow_community_extensions = true? Actually the default security level is core and community, meaning allow_community_extensions is true? The table's \"Configuration\" column for core and community says \"This is the default security level.\" No explicit setting value. So default for allow_community_extensions is not explicitly given as true, but implied. However we must only state default if the section states it. It says \"This is the default security level.\" Not a concrete value for the setting. So default is absent for allow_community_extensions. For allow_unsigned_extensions, no default mentioned. So default absent.\n\nWe need JSON schema. Not provided but likely something like list of objects with name, evidence, default. We'll assume schema: [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]. Provide array.\n\nLet's craft.\n\nEvidence quotes: For allow_community_extensions: from table: \"`SET allow_community_extensions = false`\". Also example attempts: \"SET allow_community_extensions = false;\" but that's same. Use table line.\n\nFor allow_unsigned_extensions: \"`SET allow_unsigned_extensions = true`\".\n\nDefaults: both absent.\n\nReturn JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 576,
+  "completion_tokens": 533,
+  "total_tokens": 1109,
+  "cost": 0.00010789,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00010789,
+   "upstream_inference_prompt_cost": 1.728e-05,
+   "upstream_inference_completions_cost": 9.061e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 484,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 46.61000000000058
+}

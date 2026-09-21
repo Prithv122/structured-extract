@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905313-c90MHmI0ocSXm5Bb3F0D",
+ "object": "chat.completion",
+ "created": 1789905313,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allowed_directories\",\n      \"input_type\": \"VARCHAR[]\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"List of directories/prefixes that are ALWAYS allowed to be queried - even when enable_external_access is false\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"[]\",\n      \"default_evidence\": \"`[]`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence (or maybe default_evidence optional). The evidence must be a verbatim span from the document. The document snippet is a table with columns: Name, Description, Type, Default value. The description cell contains \"List of directories/prefixes that are ALWAYS allowed to be queried - even when enable_external_access is false\". That's a verbatim span. The default value cell contains \"`[]`\". The default evidence should be the exact characters that state the default, i.e., the default value cell content. In the table, the default value column shows \"`[]`\". So default_evidence should be \"`[]`\". Not include backticks? The table shows backticks around []? The markdown table: | `allowed_directories` | ... | `VARCHAR[]` | `[]` |. So default evidence is \"`[]`\". Provide that exactly.\n\nAlso need to ensure JSON syntax correct: no stray commas. The previous JSON had a stray comma before default_evidence and extra spaces. Let's produce correct JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allowed_directories\",\n      \"input_type\": \"VARCHAR[]\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"List of directories/prefixes that are ALWAYS allowed to be queried - even when enable_external_access is false\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"[]\",\n      \"default_evidence\": \"`[]`\"\n    }\n  ]\n}\n\nCheck that evidence is verbatim: matches description cell exactly. The description includes backticks? In table, description cell not backticked. It is plain text. So fine.\n\nMake sure default_value is \"[]\", not with backticks. That's fine.\n\nReturn JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence (or maybe default_evidence optional). The evidence must be a verbatim span from the document. The document snippet is a table with columns: Name, Description, Type, Default value. The description cell contains \"List of directories/prefixes that are ALWAYS allowed to be queried - even when enable_external_access is false\". That's a verbatim span. The default value cell contains \"`[]`\". The default evidence should be the exact characters that state the default, i.e., the default value cell content. In the table, the default value column shows \"`[]`\". So default_evidence should be \"`[]`\". Not include backticks? The table shows backticks around []? The markdown table: | `allowed_directories` | ... | `VARCHAR[]` | `[]` |. So default evidence is \"`[]`\". Provide that exactly.\n\nAlso need to ensure JSON syntax correct: no stray commas. The previous JSON had a stray comma before default_evidence and extra spaces. Let's produce correct JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allowed_directories\",\n      \"input_type\": \"VARCHAR[]\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"List of directories/prefixes that are ALWAYS allowed to be queried - even when enable_external_access is false\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"[]\",\n      \"default_evidence\": \"`[]`\"\n    }\n  ]\n}\n\nCheck that evidence is verbatim: matches description cell exactly. The description includes backticks? In table, description cell not backticked. It is plain text. So fine.\n\nMake sure default_value is \"[]\", not with backticks. That's fine.\n\nReturn JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 955,
+  "completion_tokens": 488,
+  "total_tokens": 1443,
+  "cost": 0.00011161,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00011161,
+   "upstream_inference_prompt_cost": 2.865e-05,
+   "upstream_inference_completions_cost": 8.296e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 437,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 15.953000000001339
+}

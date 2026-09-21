@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789898534-Ax2IaRmK3VCzntEcJoW2",
+ "object": "chat.completion",
+ "created": 1789898534,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"`ca_cert_file`                                | Path to a custom certificate file for self-signed certificates.\",\n      \"input_type\": \"VARCHAR\",\n      \"name\": \"ca_cert_file\"\n    ,\"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. We need extract configuration settings documented. The section is a table with columns Name, Description, Type, Default value. It shows one row: ca_cert_file. Need return every configuration setting documented. It documents ca_cert_file: description \"Path to a custom certificate file for self-signed certificates.\" Type VARCHAR. Default value blank? The table shows Default value empty. Need report default only if section states it. Here default value column is empty, so absent. Need quote verbatim span. We can quote description? Need evidence setting documented. Quote span of section verbatim. Could quote row? Need copy exactly. The row includes `ca_cert_file` and description. We can quote \"`ca_cert_file` | Path to a custom certificate file for self-signed certificates.\" maybe. Need include setting name and description. The schema? User says answer only with JSON matching supplied schema. But no schema supplied in prompt? We need infer. They want JSON with settings, evidence, default. Need produce JSON. Likely array of objects with setting, evidence, default. Need include default absent. Need maybe type? They didn't ask type. Only setting, evidence, default. We can include setting name, evidence quote, default. Need ensure JSON only.\n\nLet's craft:\n\n{\n  \"settings\": [\n    {\n      \"setting\": \"ca_cert_file\",\n      \"evidence\": \"`ca_cert_file`                                | Path to a custom certificate file for self-signed certificates.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nBut need quote exactly as appears. The table row has spacing. We can quote just relevant text: \"`ca_cert_file` | Path to a custom certificate file for self-signed certificates.\" But exact characters? The original has many spaces between name and description. We can copy a span: \"`ca_cert_file`                                | Path to a custom certificate file for self-signed certificates.\" Need ensure exact spaces? The prompt says copy characters exactly as they appear. We can include the row from name through description. The original line: \n| `ca_cert_file`                                | Path to a custom certificate file for self-signed certificates.                                                                                                                                               | `VARCHAR`   |                                                     |\nWe can quote from `ca_cert_file` to the period. That includes spaces. Need maybe include backticks. We'll include exactly: \"`ca_cert_file`                                | Path to a custom certificate file for self-signed certificates.\" But there are many spaces after period? The description ends with period then spaces before type. We can stop at period. That's fine.\n\nDefault: The default value column is empty. So absent. Need maybe say \"absent\" as string. Could also include \"default\": null? The instruction: \"If the section does not state a default, say it is absent\". So use \"absent\".\n\nNeed ensure only JSON. No markdown. Final answer.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. We need extract configuration settings documented. The section is a table with columns Name, Description, Type, Default value. It shows one row: ca_cert_file. Need return every configuration setting documented. It documents ca_cert_file: description \"Path to a custom certificate file for self-signed certificates.\" Type VARCHAR. Default value blank? The table shows Default value empty. Need report default only if section states it. Here default value column is empty, so absent. Need quote verbatim span. We can quote description? Need evidence setting documented. Quote span of section verbatim. Could quote row? Need copy exactly. The row includes `ca_cert_file` and description. We can quote \"`ca_cert_file` | Path to a custom certificate file for self-signed certificates.\" maybe. Need include setting name and description. The schema? User says answer only with JSON matching supplied schema. But no schema supplied in prompt? We need infer. They want JSON with settings, evidence, default. Need produce JSON. Likely array of objects with setting, evidence, default. Need include default absent. Need maybe type? They didn't ask type. Only setting, evidence, default. We can include setting name, evidence quote, default. Need ensure JSON only.\n\nLet's craft:\n\n{\n  \"settings\": [\n    {\n      \"setting\": \"ca_cert_file\",\n      \"evidence\": \"`ca_cert_file`                                | Path to a custom certificate file for self-signed certificates.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nBut need quote exactly as appears. The table row has spacing. We can quote just relevant text: \"`ca_cert_file` | Path to a custom certificate file for self-signed certificates.\" But exact characters? The original has many spaces between name and description. We can copy a span: \"`ca_cert_file`                                | Path to a custom certificate file for self-signed certificates.\" Need ensure exact spaces? The prompt says copy characters exactly as they appear. We can include the row from name through description. The original line: \n| `ca_cert_file`                                | Path to a custom certificate file for self-signed certificates.                                                                                                                                               | `VARCHAR`   |                                                     |\nWe can quote from `ca_cert_file` to the period. That includes spaces. Need maybe include backticks. We'll include exactly: \"`ca_cert_file`                                | Path to a custom certificate file for self-signed certificates.\" But there are many spaces after period? The description ends with period then spaces before type. We can stop at period. That's fine.\n\nDefault: The default value column is empty. So absent. Need maybe say \"absent\" as string. Could also include \"default\": null? The instruction: \"If the section does not state a default, say it is absent\". So use \"absent\".\n\nNeed ensure only JSON. No markdown. Final answer.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 433,
+  "completion_tokens": 705,
+  "total_tokens": 1138,
+  "cost": 0.0022957,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0022957,
+   "upstream_inference_prompt_cost": 0.00049795,
+   "upstream_inference_completions_cost": 0.00179775
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 771,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 16.59400000000096
+}

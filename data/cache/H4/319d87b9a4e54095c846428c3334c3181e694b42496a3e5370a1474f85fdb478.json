@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905251-5x1plqH04yO38fJiYArI",
+ "object": "chat.completion",
+ "created": 1789905251,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"extension_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`extension_directory`                         | Set the directory to store extensions in\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON: default_value should be null, not \"absent\". Also default_evidence should be null (already). Also need proper JSON formatting: no stray commas. Also need to ensure evidence is verbatim span from the section. The section table row: \"`extension_directory`                         | Set the directory to store extensions in\". The evidence should be a verbatim span exactly as appears. The table row includes spaces and pipe separators. The evidence should be a substring from the section. Probably the description part: \"Set the directory to store extensions in\". But need a verbatim span that includes the setting name? The spec: quote a span of the section verbatim as evidence. Could be the whole row cell: \"`extension_directory`                         | Set the directory to store extensions in\". That is verbatim. Keep as is.\n\nNow produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"extension_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`extension_directory`                         | Set the directory to store extensions in\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nMake sure no extra commas.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON: default_value should be null, not \"absent\". Also default_evidence should be null (already). Also need proper JSON formatting: no stray commas. Also need to ensure evidence is verbatim span from the section. The section table row: \"`extension_directory`                         | Set the directory to store extensions in\". The evidence should be a verbatim span exactly as appears. The table row includes spaces and pipe separators. The evidence should be a substring from the section. Probably the description part: \"Set the directory to store extensions in\". But need a verbatim span that includes the setting name? The spec: quote a span of the section verbatim as evidence. Could be the whole row cell: \"`extension_directory`                         | Set the directory to store extensions in\". That is verbatim. Keep as is.\n\nNow produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"extension_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`extension_directory`                         | Set the directory to store extensions in\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nMake sure no extra commas.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 862,
+  "completion_tokens": 348,
+  "total_tokens": 1210,
+  "cost": 8.502e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.502e-05,
+   "upstream_inference_prompt_cost": 2.586e-05,
+   "upstream_inference_completions_cost": 5.916e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 313,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 11.65599999999904
+}

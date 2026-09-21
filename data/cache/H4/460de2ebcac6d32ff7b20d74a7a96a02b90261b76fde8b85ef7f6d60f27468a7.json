@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919632-hYqgoVmiztHknhX2NDUZ",
+ "object": "chat.completion",
+ "created": 1789919632,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"pandas_analyze_sample\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"The sample size can be changed by setting the `pandas_analyze_sample` config option.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"1000\",\n      \"default_evidence\": \"This sample size is by default set to 1000.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The section mentions \"pandas_analyze_sample\" config option. That's a DuckDB config setting. Need to provide JSON with list of settings, each with name, default (if stated), and evidence (quote). The default is described: \"This sample size is by default set to 1000.\" So default is 1000. Provide evidence quote: \"This sample size is by default set to 1000.\" Also mention setting name: pandas_analyze_sample. Provide default: \"1000\". Provide evidence for default maybe same quote. Provide evidence for setting name: maybe \"The sample size can be changed by setting the `pandas_analyze_sample` config option.\" So two quotes.\n\nSchema? Not given explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": [\"...\",\"...\"]\n    }\n  ]\n}\n\nWe need to output JSON matching supplied schema. The prompt says \"Answer only with JSON matching the supplied schema.\" The schema not shown, but typical tasks: list of objects with name, default, evidence. We'll assume structure: {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": [\"...\"]}]}.\n\nWe'll include both quotes in evidence array.\n\nReturn JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The section mentions \"pandas_analyze_sample\" config option. That's a DuckDB config setting. Need to provide JSON with list of settings, each with name, default (if stated), and evidence (quote). The default is described: \"This sample size is by default set to 1000.\" So default is 1000. Provide evidence quote: \"This sample size is by default set to 1000.\" Also mention setting name: pandas_analyze_sample. Provide default: \"1000\". Provide evidence for default maybe same quote. Provide evidence for setting name: maybe \"The sample size can be changed by setting the `pandas_analyze_sample` config option.\" So two quotes.\n\nSchema? Not given explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": [\"...\",\"...\"]\n    }\n  ]\n}\n\nWe need to output JSON matching supplied schema. The prompt says \"Answer only with JSON matching the supplied schema.\" The schema not shown, but typical tasks: list of objects with name, default, evidence. We'll assume structure: {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": [\"...\"]}]}.\n\nWe'll include both quotes in evidence array.\n\nReturn JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 626,
+  "completion_tokens": 390,
+  "total_tokens": 1016,
+  "cost": 8.508e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.508e-05,
+   "upstream_inference_prompt_cost": 1.878e-05,
+   "upstream_inference_completions_cost": 6.63e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 312,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 6.75
+}

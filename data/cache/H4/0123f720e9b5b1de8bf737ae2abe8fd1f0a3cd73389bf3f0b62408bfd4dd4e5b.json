@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789921007-Avrys9Gujlc1psUN4Bdw",
+ "object": "chat.completion",
+ "created": 1789921007,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"ordered_aggregate_threshold\",\n      \"input_type\": \"UBIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`ordered_aggregate_threshold`                 | The number of rows to accumulate before sorting, used for tuning                                                                                                                                              | `UBIGINT`   | `262144`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"262144\",\n      \"default_evidence\": \"`262144`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section. The user provided a table with one row: Name `ordered_aggregate_threshold`, description, type, default value `262144`. We need to output JSON matching supplied schema. We need to know schema. Not provided explicitly, but likely something like list of objects with fields: name, type, default, description, evidence (quote). The instruction: \"Answer only with JSON matching the supplied schema.\" We don't have schema, but we can infer typical: maybe {\"settings\": [ { \"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"description\": \"...\", \"evidence\": \"...\" } ] }. Could be simpler: an array of objects. Let's assume schema: an array of objects each with \"name\", \"type\", \"default\", \"description\", \"evidence\". Provide that.\n\nWe need to quote a span of the section verbatim as evidence for each setting. So evidence could be the row line? Provide the exact text from the table: maybe \"`ordered_aggregate_threshold`\". Provide the whole row? Provide a snippet: \"`ordered_aggregate_threshold`                 | The number of rows to accumulate before sorting, used for tuning ... | `UBIGINT`   | `262144`\". Use that.\n\nDefault is `262144`. Provide as string? Probably as number. Provide as string? We'll give as \"262144\". Provide type \"UBIGINT\". Provide description as given.\n\nReturn JSON: [{\"name\":\"ordered_aggregate_threshold\",\"type\":\"UBIGINT\",\"default\":\"262144\",\"description\":\"The number of rows to accumulate before sorting, used for tuning\",\"evidence\":\"`ordered_aggregate_threshold`                 | The number of rows to accumulate before sorting, used for tuning ... | `UBIGINT`   | `262144`\"}]\n\nBut need to match schema exactly. Without schema, we guess. Could be {\"settings\": [...]}.\n\nI'll output with key \"settings\".",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section. The user provided a table with one row: Name `ordered_aggregate_threshold`, description, type, default value `262144`. We need to output JSON matching supplied schema. We need to know schema. Not provided explicitly, but likely something like list of objects with fields: name, type, default, description, evidence (quote). The instruction: \"Answer only with JSON matching the supplied schema.\" We don't have schema, but we can infer typical: maybe {\"settings\": [ { \"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"description\": \"...\", \"evidence\": \"...\" } ] }. Could be simpler: an array of objects. Let's assume schema: an array of objects each with \"name\", \"type\", \"default\", \"description\", \"evidence\". Provide that.\n\nWe need to quote a span of the section verbatim as evidence for each setting. So evidence could be the row line? Provide the exact text from the table: maybe \"`ordered_aggregate_threshold`\". Provide the whole row? Provide a snippet: \"`ordered_aggregate_threshold`                 | The number of rows to accumulate before sorting, used for tuning ... | `UBIGINT`   | `262144`\". Use that.\n\nDefault is `262144`. Provide as string? Probably as number. Provide as string? We'll give as \"262144\". Provide type \"UBIGINT\". Provide description as given.\n\nReturn JSON: [{\"name\":\"ordered_aggregate_threshold\",\"type\":\"UBIGINT\",\"default\":\"262144\",\"description\":\"The number of rows to accumulate before sorting, used for tuning\",\"evidence\":\"`ordered_aggregate_threshold`                 | The number of rows to accumulate before sorting, used for tuning ... | `UBIGINT`   | `262144`\"}]\n\nBut need to match schema exactly. Without schema, we guess. Could be {\"settings\": [...]}.\n\nI'll output with key \"settings\".",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 559,
+  "completion_tokens": 527,
+  "total_tokens": 1086,
+  "cost": 0.00010636,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 512,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00010636,
+   "upstream_inference_prompt_cost": 1.677e-05,
+   "upstream_inference_completions_cost": 8.959e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 450,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 19.93699999999808
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905278-jleVcqUkuaUcLgF94INO",
+ "object": "chat.completion",
+ "created": 1789905278,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"ordered_aggregate_threshold\",\n      \"input_type\": \"UBIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`ordered_aggregate_threshold` | The number of rows to accumulate before sorting, used for tuning\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"262144\"\n   \n    , \"default_evidence\": \"`262144`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract settings documented in the given section. The section is a table with one setting: ordered_aggregate_threshold. We need to output JSON with list of settings, each with name, description (maybe not needed?), default, and evidence quote. Schema not provided but likely expects fields: name, default, evidence. Let's assume schema: [{\"setting\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. But need to check typical format from previous tasks. Usually they want: [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. We'll output that.\n\nWe have description: \"The number of rows to accumulate before sorting, used for tuning\". Evidence quote must be verbatim from section. Provide the row from table? Could quote the description cell. Provide: \"`ordered_aggregate_threshold` | The number of rows to accumulate before sorting, used for tuning\". Also default: \"`262144`\". Provide default as literal.\n\nReturn JSON array.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract settings documented in the given section. The section is a table with one setting: ordered_aggregate_threshold. We need to output JSON with list of settings, each with name, description (maybe not needed?), default, and evidence quote. Schema not provided but likely expects fields: name, default, evidence. Let's assume schema: [{\"setting\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. But need to check typical format from previous tasks. Usually they want: [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. We'll output that.\n\nWe have description: \"The number of rows to accumulate before sorting, used for tuning\". Evidence quote must be verbatim from section. Provide the row from table? Could quote the description cell. Provide: \"`ordered_aggregate_threshold` | The number of rows to accumulate before sorting, used for tuning\". Also default: \"`262144`\". Provide default as literal.\n\nReturn JSON array.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 430,
+  "completion_tokens": 309,
+  "total_tokens": 739,
+  "cost": 6.543e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 384,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.543e-05,
+   "upstream_inference_prompt_cost": 1.29e-05,
+   "upstream_inference_completions_cost": 5.253e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 236,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.015999999999622
+}

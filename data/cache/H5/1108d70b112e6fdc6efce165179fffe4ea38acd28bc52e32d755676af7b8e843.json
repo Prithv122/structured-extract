@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789922858-sZiyPnWZxb8kqVSS32SH",
+ "object": "chat.completion",
+ "created": 1789922858,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"custom_extension_repository\",\"input_type\":\"VARCHAR\",\"scope\":\"GLOBAL\",\"evidence\":\"if you use `SET custom_extension_repository = 'https://some.url.com'`, subsequent loads will be attempted at `https://some.url.com/duckdb-wasm/$duckdb_version_hash/$duckdb_platform/$name.duckdb_extension.wasm`\",\"default_kind\":\"absent\",\"default_value\":null,\"default_evidence\":null}]}",
+    "refusal": null,
+    "reasoning": "custom_extension_repository is a setting, documented here. Default not stated.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "custom_extension_repository is a setting, documented here. Default not stated.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 559,
+  "completion_tokens": 109,
+  "total_tokens": 668,
+  "cost": 6.9175e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.9175e-05,
+   "upstream_inference_prompt_cost": 4.1925e-05,
+   "upstream_inference_completions_cost": 2.725e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 14,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 3.389999999999418
+}

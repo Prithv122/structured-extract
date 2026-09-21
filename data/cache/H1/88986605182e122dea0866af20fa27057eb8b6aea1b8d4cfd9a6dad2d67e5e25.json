@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789915695-IZZry0bKhVIhzqachqWN",
+ "object": "chat.completion",
+ "created": 1789915695,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer only JSON matching schema. Need infer schema? User says previous answer returned nothing, validation not_json. Need provide JSON. Need know schema. We need extract DuckDB configuration settings from section. The provided section is about Iceberg partitioned tables? It mentions settings: `write.target-file-size-bytes` and `write.parquet.row-group-size-bytes` table properties are not honored for partitioned tables and raise error. Set `ignore_target_file_size_for_partitioned_tables` or `ignore_row_group_size_for_partitioned_tables` to true to ignore them instead.\n\nNeed determine if these are DuckDB configuration settings? The section documents table properties? It says \"table properties\" not honored. It mentions settings in link to iceberg reference settings. The question: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation. A configuration setting is one you change with SET, RESET or PRAGMA... If section documents those, correct answer empty list... Do not return a setting merely because section contains word that happens to be setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely...\"\n\nThe section is about Iceberg partitioned tables. It includes a note: \"The `write.target-file-size-bytes` and `write.parquet.row-group-size-bytes` table properties are not honored for partitioned tables and raise an error. Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\"\n\nAre these DuckDB configuration settings? `ignore_target_file_size_for_partitioned_tables` and `ignore_row_group_size_for_partitioned_tables` likely are settings in Iceberg extension reference. But this section only mentions them in passing, not documenting them? It says \"Set ... to true\" but not a table of settings. The section documents partition transforms and ALTER TABLE. It does not document configuration settings. The correct answer likely empty list. Need output JSON schema. Need know schema. Likely something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nMaybe default can be null? Need infer. The user says \"Answer only with JSON matching the supplied schema.\" But schema not shown in prompt. We need produce valid JSON. Could be array? Need decide.\n\nGiven previous answer nothing, we need return JSON. The instruction: \"For each setting, quote a span... Also report the setting's default... Answer only with JSON matching the supplied schema.\" We need know schema. Maybe from prior tasks? Could be:\n{\"settings\": [{\"name\": string, \"evidence\": string, \"default\": string|null}]}\nNeed include empty list if no settings. Let's produce:\n{\"settings\": []}\n\nBut need ensure schema maybe expects \"settings\" array. Could be just []? The phrase \"matching supplied schema\" but schema not included. We need infer from validation error only not_json. We can output empty list? Hmm.\n\nLet's think: The user says \"Answer only with JSON matching the supplied schema.\" In many such tasks, schema is:\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"settings\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"name\": {\"type\": \"string\"},\n          \"evidence\": {\"type\": \"string\"},\n          \"default\": {\"type\": [\"string\", \"null\"]}\n        },\n        \"required\": [\"name\", \"evidence\", \"default\"]\n      }\n    }\n  },\n  \"required\": [\"settings\"]\n}\nBut not shown. We need produce object with settings array. If no settings, {\"settings\": []}.\n\nNeed ensure no settings. Let's verify section: It documents Iceberg partition transforms, not configuration settings. The note mentions settings but not documenting them. The question explicitly says \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting.\" Here `ignore_target_file_size_for_partitioned_tables` and `ignore_row_group_size_for_partitioned_tables` are DuckDB settings? They are mentioned in passing, not documented. The section is not a settings reference. So empty.\n\nNeed output only JSON. Let's produce:\n{\"settings\": []}\n\nBut maybe schema expects \"settings\" list of objects with \"name\", \"evidence\", \"default\". Empty list okay.\n\nNeed ensure no markdown. Final answer JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer only JSON matching schema. Need infer schema? User says previous answer returned nothing, validation not_json. Need provide JSON. Need know schema. We need extract DuckDB configuration settings from section. The provided section is about Iceberg partitioned tables? It mentions settings: `write.target-file-size-bytes` and `write.parquet.row-group-size-bytes` table properties are not honored for partitioned tables and raise error. Set `ignore_target_file_size_for_partitioned_tables` or `ignore_row_group_size_for_partitioned_tables` to true to ignore them instead.\n\nNeed determine if these are DuckDB configuration settings? The section documents table properties? It says \"table properties\" not honored. It mentions settings in link to iceberg reference settings. The question: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation. A configuration setting is one you change with SET, RESET or PRAGMA... If section documents those, correct answer empty list... Do not return a setting merely because section contains word that happens to be setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely...\"\n\nThe section is about Iceberg partitioned tables. It includes a note: \"The `write.target-file-size-bytes` and `write.parquet.row-group-size-bytes` table properties are not honored for partitioned tables and raise an error. Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\"\n\nAre these DuckDB configuration settings? `ignore_target_file_size_for_partitioned_tables` and `ignore_row_group_size_for_partitioned_tables` likely are settings in Iceberg extension reference. But this section only mentions them in passing, not documenting them? It says \"Set ... to true\" but not a table of settings. The section documents partition transforms and ALTER TABLE. It does not document configuration settings. The correct answer likely empty list. Need output JSON schema. Need know schema. Likely something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nMaybe default can be null? Need infer. The user says \"Answer only with JSON matching the supplied schema.\" But schema not shown in prompt. We need produce valid JSON. Could be array? Need decide.\n\nGiven previous answer nothing, we need return JSON. The instruction: \"For each setting, quote a span... Also report the setting's default... Answer only with JSON matching the supplied schema.\" We need know schema. Maybe from prior tasks? Could be:\n{\"settings\": [{\"name\": string, \"evidence\": string, \"default\": string|null}]}\nNeed include empty list if no settings. Let's produce:\n{\"settings\": []}\n\nBut need ensure schema maybe expects \"settings\" array. Could be just []? The phrase \"matching supplied schema\" but schema not included. We need infer from validation error only not_json. We can output empty list? Hmm.\n\nLet's think: The user says \"Answer only with JSON matching the supplied schema.\" In many such tasks, schema is:\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"settings\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"name\": {\"type\": \"string\"},\n          \"evidence\": {\"type\": \"string\"},\n          \"default\": {\"type\": [\"string\", \"null\"]}\n        },\n        \"required\": [\"name\", \"evidence\", \"default\"]\n      }\n    }\n  },\n  \"required\": [\"settings\"]\n}\nBut not shown. We need produce object with settings array. If no settings, {\"settings\": []}.\n\nNeed ensure no settings. Let's verify section: It documents Iceberg partition transforms, not configuration settings. The note mentions settings but not documenting them. The question explicitly says \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting.\" Here `ignore_target_file_size_for_partitioned_tables` and `ignore_row_group_size_for_partitioned_tables` are DuckDB settings? They are mentioned in passing, not documented. The section is not a settings reference. So empty.\n\nNeed output only JSON. Let's produce:\n{\"settings\": []}\n\nBut maybe schema expects \"settings\" list of objects with \"name\", \"evidence\", \"default\". Empty list okay.\n\nNeed ensure no markdown. Final answer JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1013,
+  "completion_tokens": 1006,
+  "total_tokens": 2019,
+  "cost": 0.00373025,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00373025,
+   "upstream_inference_prompt_cost": 0.00116495,
+   "upstream_inference_completions_cost": 0.0025653
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 1172,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 25.43800000000192
+}

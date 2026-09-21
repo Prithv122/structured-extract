@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789900249-fVjwFhylrWpmpTSku9VE",
+ "object": "chat.completion",
+ "created": 1789900249,
+ "model": "google/gemini-2.5-flash",
+ "provider": "Google",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "STOP",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"secret_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"To change the secrets directory, issue:\\n\\n```sql\\nSET secret_directory = 'path/to/my_secrets_dir';\\n```\\n\\nThe `secret_directory` setting applies to the current DuckDB instance and is not persisted across DuckDB instances. If you use a custom secrets directory, set `secret_directory` again when starting a new DuckDB instance before creating or using persistent secrets from that directory.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"~/.duckdb/stored_secrets\",\n      \"default_evidence\": \"By default, this will write the secret (unencrypted) to the `~/.duckdb/stored_secrets` directory.\"\n    },\n    {\n      \"name\": \"home_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Note that setting the value of the `home_directory` configuration option has no effect on the location of the secrets.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 503,
+  "completion_tokens": 296,
+  "total_tokens": 799,
+  "cost": 0.0008909,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0008909,
+   "upstream_inference_prompt_cost": 0.0001509,
+   "upstream_inference_completions_cost": 0.00074
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 1.9070000000028813
+}

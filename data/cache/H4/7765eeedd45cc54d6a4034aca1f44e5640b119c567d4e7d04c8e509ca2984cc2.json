@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789908841-pym9e04GchP6VLha2pwX",
+ "object": "chat.completion",
+ "created": 1789908841,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"file_search_path\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`file_search_path`\",\n      \"default_kind\": \"absent\"\n   \n    , \"default_value\": \"absent\"\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with a single row: Name `file_search_path`, description, type, default value column empty. We need to return every configuration setting that this section documents. It documents `file_search_path`. Provide a JSON with setting name, evidence (quote a span of the section verbatim), and default (if stated). The default column is empty, so default is absent. Provide JSON matching supplied schema. We need to know schema. Not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to infer from prior tasks. Usually schema: an array of objects with fields \"name\", \"evidence\", \"default\". Could also be top-level list. Let's assume:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"file_search_path\",\n      \"evidence\": \"`file_search_path` ...\", // verbatim span\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe need to quote a span verbatim. The table row includes \"`file_search_path`\". So evidence could be \"`file_search_path`\". Or the description line. Provide a span that includes the name. Use the exact characters as appear. So evidence: \"`file_search_path`\". Provide default: \"absent\". Return JSON.\n\nLet's output.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with a single row: Name `file_search_path`, description, type, default value column empty. We need to return every configuration setting that this section documents. It documents `file_search_path`. Provide a JSON with setting name, evidence (quote a span of the section verbatim), and default (if stated). The default column is empty, so default is absent. Provide JSON matching supplied schema. We need to know schema. Not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to infer from prior tasks. Usually schema: an array of objects with fields \"name\", \"evidence\", \"default\". Could also be top-level list. Let's assume:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"file_search_path\",\n      \"evidence\": \"`file_search_path` ...\", // verbatim span\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe need to quote a span verbatim. The table row includes \"`file_search_path`\". So evidence could be \"`file_search_path`\". Or the description line. Provide a span that includes the name. Use the exact characters as appear. So evidence: \"`file_search_path`\". Provide default: \"absent\". Return JSON.\n\nLet's output.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 422,
+  "completion_tokens": 402,
+  "total_tokens": 824,
+  "cost": 8.1e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 384,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.1e-05,
+   "upstream_inference_prompt_cost": 1.266e-05,
+   "upstream_inference_completions_cost": 6.834e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 344,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 7.25
+}

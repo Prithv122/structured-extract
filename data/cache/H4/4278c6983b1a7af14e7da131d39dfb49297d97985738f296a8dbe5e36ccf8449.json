@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919052-A13lnCKHgIVkIMDJi3Df",
+ "object": "chat.completion",
+ "created": 1789919052,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"custom_extension_repository\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET custom_extension_repository = 'https://some.url.com'`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). When default_kind is \"absent\", default_value must be null and default_evidence must be null. So we need to set default_value: null, default_evidence: null. Also ensure JSON formatting correct (no stray commas). Also evidence must be verbatim span from the document. The document snippet: \"if you use `SET custom_extension_repository = 'https://some.url.com'`, subsequent loads will be attempted at ...\" The verbatim span should be exactly as appears, including backticks? The evidence should be a span of the section verbatim. The snippet includes backticks around SET... So we can quote: \"`SET custom_extension_repository = 'https://some.url.com'`\". That's verbatim. Good.\n\nNow produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"custom_extension_repository\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET custom_extension_repository = 'https://some.url.com'`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nMake sure no extra commas.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). When default_kind is \"absent\", default_value must be null and default_evidence must be null. So we need to set default_value: null, default_evidence: null. Also ensure JSON formatting correct (no stray commas). Also evidence must be verbatim span from the document. The document snippet: \"if you use `SET custom_extension_repository = 'https://some.url.com'`, subsequent loads will be attempted at ...\" The verbatim span should be exactly as appears, including backticks? The evidence should be a span of the section verbatim. The snippet includes backticks around SET... So we can quote: \"`SET custom_extension_repository = 'https://some.url.com'`\". That's verbatim. Good.\n\nNow produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"custom_extension_repository\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET custom_extension_repository = 'https://some.url.com'`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nMake sure no extra commas.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1072,
+  "completion_tokens": 367,
+  "total_tokens": 1439,
+  "cost": 9.455e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.455e-05,
+   "upstream_inference_prompt_cost": 3.216e-05,
+   "upstream_inference_completions_cost": 6.239e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 308,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.828000000001339
+}

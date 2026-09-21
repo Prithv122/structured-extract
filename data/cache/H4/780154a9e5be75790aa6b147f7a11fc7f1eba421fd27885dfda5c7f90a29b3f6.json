@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919519-hMA9wiENtcriETotYbtp",
+ "object": "chat.completion",
+ "created": 1789919519,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET threads = ...\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": null\n    ,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"[default 80%]\",\n      \"default_kind\": \"machine_dependent\",\n      \"default_value\": \"80% of system memory\",\n      \"default_evidence\": \"[default 80%]\"\n    },\n    {\n      \"name\": \"preserve_insertion_order\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET preserve_insertion_order = false\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. Identify settings that are changed with SET, RESET, or PRAGMA. The text mentions three settings: threads, memory_limit, preserve_insertion_order. These are configuration settings. Need to provide for each: name, default (if stated), and evidence (quote). The section includes default for memory_limit: \"[default 80%]\" and mentions default is 80% of system memory. So default is \"80% of system memory\" (machine-dependent). Provide that. For threads default? Not stated. So default is absent. For preserve_insertion_order default? Not stated. So absent.\n\nWe need to quote spans verbatim. Provide evidence for each setting. For threads: \"SET threads = ...\" appears. Quote maybe \"SET threads = ...\" but need a span that includes the setting name. Provide \"SET threads = ...\" as evidence. For memory_limit: mention default 80% in brackets. Quote \"[default 80%]\" maybe with surrounding text. Provide \"default 80%\" as evidence. For preserve_insertion_order: quote \"SET preserve_insertion_order = false\". Provide that.\n\nNow JSON schema? Not given explicitly but likely expects list of objects with fields: name, default, evidence. Provide array.\n\nLet's construct:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"threads\",\n      \"default\": \"absent\",\n      \"evidence\": \"SET threads = ...\"\n    },\n    {\n      \"name\": \"memory_limit\",\n      \"default\": \"80% of system memory (machine-dependent)\",\n      \"evidence\": \"[default 80%]\"\n    },\n    {\n      \"name\": \"preserve_insertion_order\",\n      \"default\": \"absent\",\n      \"evidence\": \"SET preserve_insertion_order = false\"\n    }\n  ]\n}\n\nMake sure quotes are correct. Provide JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. Identify settings that are changed with SET, RESET, or PRAGMA. The text mentions three settings: threads, memory_limit, preserve_insertion_order. These are configuration settings. Need to provide for each: name, default (if stated), and evidence (quote). The section includes default for memory_limit: \"[default 80%]\" and mentions default is 80% of system memory. So default is \"80% of system memory\" (machine-dependent). Provide that. For threads default? Not stated. So default is absent. For preserve_insertion_order default? Not stated. So absent.\n\nWe need to quote spans verbatim. Provide evidence for each setting. For threads: \"SET threads = ...\" appears. Quote maybe \"SET threads = ...\" but need a span that includes the setting name. Provide \"SET threads = ...\" as evidence. For memory_limit: mention default 80% in brackets. Quote \"[default 80%]\" maybe with surrounding text. Provide \"default 80%\" as evidence. For preserve_insertion_order: quote \"SET preserve_insertion_order = false\". Provide that.\n\nNow JSON schema? Not given explicitly but likely expects list of objects with fields: name, default, evidence. Provide array.\n\nLet's construct:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"threads\",\n      \"default\": \"absent\",\n      \"evidence\": \"SET threads = ...\"\n    },\n    {\n      \"name\": \"memory_limit\",\n      \"default\": \"80% of system memory (machine-dependent)\",\n      \"evidence\": \"[default 80%]\"\n    },\n    {\n      \"name\": \"preserve_insertion_order\",\n      \"default\": \"absent\",\n      \"evidence\": \"SET preserve_insertion_order = false\"\n    }\n  ]\n}\n\nMake sure quotes are correct. Provide JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 749,
+  "completion_tokens": 614,
+  "total_tokens": 1363,
+  "cost": 0.00012685,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00012685,
+   "upstream_inference_prompt_cost": 2.247e-05,
+   "upstream_inference_completions_cost": 0.00010438
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 428,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 53.328999999997905
+}

@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789900349-X1RsH750QCxymXrwNOvf",
+ "object": "chat.completion",
+ "created": 1789900349,
+ "model": "google/gemini-2.5-flash",
+ "provider": "Google",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "STOP",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"ui_remote_url\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"An alternate remote URL can be configured with a SQL command like:\\n\\n```sql\\nSET ui_remote_url = 'https://ui.duckdb.org';\\n```\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"https://ui.duckdb.org\",\n      \"default_evidence\": \"The default URL for the remote server is <https://ui.duckdb.org>.\"\n    },\n    {\n      \"name\": \"allow_unsigned_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"Because of this risk, the setting is only respected\\nif `allow_unsigned_extensions` is enabled.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 445,
+  "completion_tokens": 243,
+  "total_tokens": 688,
+  "cost": 0.000741,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000741,
+   "upstream_inference_prompt_cost": 0.0001335,
+   "upstream_inference_completions_cost": 0.0006075
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 1.8909999999996217
+}

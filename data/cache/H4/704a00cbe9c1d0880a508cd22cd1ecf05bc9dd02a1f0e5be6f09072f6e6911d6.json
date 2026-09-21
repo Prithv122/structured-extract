@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789902946-J5xhNA5CPwwhW6Jd6pOx",
+ "object": "chat.completion",
+ "created": 1789902946,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"httpfs_connection_caching\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET httpfs_connection_caching = true;\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON: default_value should be null, default_evidence null. Also evidence must be a verbatim span from the section. The provided evidence is not a verbatim span; it's a description, not a direct quote. The section includes:\n\n```\nSET httpfs_connection_caching = true;\n```\n\nThat's a verbatim span showing setting usage. Also earlier text: \"Connection caching reuses connections across requests, reducing per-query latency on repeated requests:\" is not a direct quote of setting description? It is part of the paragraph, but the setting name appears in the code snippet. The evidence should be a span that documents the setting, i.e., the code snippet line. So evidence: \"SET httpfs_connection_caching = true;\" (including the code). Must be exactly as appears, including spaces. The snippet includes backticks? The code block shows:\n\n```sql\nSET httpfs_connection_caching = true;\n```\n\nSo the line inside is \"SET httpfs_connection_caching = true;\". We'll use that.\n\nNow default: The section does not state default. So default_kind: \"absent\". default_value null, default_evidence null.\n\nAlso need to include input_type and scope? The schema likely expects those fields, but we guessed. The prompt didn't require input_type or scope, but we included. The schema unknown. Probably expects fields: name, evidence, default_kind, default_value, default_evidence. Might not require input_type, scope. The previous answer had them, but they may be okay. However validation error only about default_kind/value. So keep other fields.\n\nWe need to set default_value to null, default_evidence null. Also ensure no stray commas. Provide valid JSON.\n\nLet's produce:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"httpfs_connection_caching\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET httpfs_connection_caching = true;\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck: evidence is verbatim. Good.\n\nReturn.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON: default_value should be null, default_evidence null. Also evidence must be a verbatim span from the section. The provided evidence is not a verbatim span; it's a description, not a direct quote. The section includes:\n\n```\nSET httpfs_connection_caching = true;\n```\n\nThat's a verbatim span showing setting usage. Also earlier text: \"Connection caching reuses connections across requests, reducing per-query latency on repeated requests:\" is not a direct quote of setting description? It is part of the paragraph, but the setting name appears in the code snippet. The evidence should be a span that documents the setting, i.e., the code snippet line. So evidence: \"SET httpfs_connection_caching = true;\" (including the code). Must be exactly as appears, including spaces. The snippet includes backticks? The code block shows:\n\n```sql\nSET httpfs_connection_caching = true;\n```\n\nSo the line inside is \"SET httpfs_connection_caching = true;\". We'll use that.\n\nNow default: The section does not state default. So default_kind: \"absent\". default_value null, default_evidence null.\n\nAlso need to include input_type and scope? The schema likely expects those fields, but we guessed. The prompt didn't require input_type or scope, but we included. The schema unknown. Probably expects fields: name, evidence, default_kind, default_value, default_evidence. Might not require input_type, scope. The previous answer had them, but they may be okay. However validation error only about default_kind/value. So keep other fields.\n\nWe need to set default_value to null, default_evidence null. Also ensure no stray commas. Provide valid JSON.\n\nLet's produce:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"httpfs_connection_caching\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET httpfs_connection_caching = true;\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck: evidence is verbatim. Good.\n\nReturn.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 899,
+  "completion_tokens": 532,
+  "total_tokens": 1431,
+  "cost": 0.00011741,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00011741,
+   "upstream_inference_prompt_cost": 2.697e-05,
+   "upstream_inference_completions_cost": 9.044e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 509,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 15.03099999999904
+}

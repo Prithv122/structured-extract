@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789900735-E7ta30DBwFfAbAKXWID7",
+ "object": "chat.completion",
+ "created": 1789900735,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"threads=4\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"memory_limit=4GB\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"jdbc_stream_results\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"jdbc_stream_results=true\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The text mentions \"threads\", \"memory_limit\", \"jdbc_stream_results\". These are settings. The section says they can be appended to JDBC URL. So they are documented. Need to provide for each setting: name, evidence (quote), default (if stated). The section does not state defaults. So default is absent.\n\nWe need JSON matching supplied schema. Not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"threads\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    },\n    ...\n  ]\n}\n\nWe need to quote a span verbatim. Provide a quote that includes the setting name. For each setting, we can quote the part of the URL line: \"threads=4\". Or the description line: \"threads=4\". Provide the exact characters.\n\nLet's capture:\n\n- For threads: In the example URL: \"threads=4\". Evidence: \"threads=4\". Could also include the whole line. We'll quote \"threads=4\".\n\n- For memory_limit: \"memory_limit=4GB\". Evidence: \"memory_limit=4GB\".\n\n- For jdbc_stream_results: \"jdbc_stream_results=true\". Evidence: \"jdbc_stream_results=true\".\n\nMake sure to include quotes exactly as in text. The code block includes backticks? It's a text block. The line is:\n\n```text\njdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\n```\n\nSo the evidence can be the substring within that line.\n\nNow produce JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The text mentions \"threads\", \"memory_limit\", \"jdbc_stream_results\". These are settings. The section says they can be appended to JDBC URL. So they are documented. Need to provide for each setting: name, evidence (quote), default (if stated). The section does not state defaults. So default is absent.\n\nWe need JSON matching supplied schema. Not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"threads\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    },\n    ...\n  ]\n}\n\nWe need to quote a span verbatim. Provide a quote that includes the setting name. For each setting, we can quote the part of the URL line: \"threads=4\". Or the description line: \"threads=4\". Provide the exact characters.\n\nLet's capture:\n\n- For threads: In the example URL: \"threads=4\". Evidence: \"threads=4\". Could also include the whole line. We'll quote \"threads=4\".\n\n- For memory_limit: \"memory_limit=4GB\". Evidence: \"memory_limit=4GB\".\n\n- For jdbc_stream_results: \"jdbc_stream_results=true\". Evidence: \"jdbc_stream_results=true\".\n\nMake sure to include quotes exactly as in text. The code block includes backticks? It's a text block. The line is:\n\n```text\njdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\n```\n\nSo the evidence can be the substring within that line.\n\nNow produce JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 484,
+  "completion_tokens": 560,
+  "total_tokens": 1044,
+  "cost": 0.00010972,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00010972,
+   "upstream_inference_prompt_cost": 1.452e-05,
+   "upstream_inference_completions_cost": 9.52e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 362,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 47.43799999999828
+}

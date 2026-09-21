@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789902197-wQCgYDCx2KOl07Fyq2e6",
+ "object": "chat.completion",
+ "created": 1789902197,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "The user gave a list of links with bullet points. The task: extract DuckDB configuration settings from a single section of the DuckDB documentation. The provided text is a snippet likely from a documentation page linking to profiling, run queries, connect. The settings mentioned: `enable_profiling` and `profiling_mode`. The question: \"Return every configuration setting that this section documents.\" The section includes bullet points referencing profiling output and the `enable_profiling` and `profiling_mode` PRAGMAs. Does it document them? It mentions them as part of the link description. It says \"DuckDB's query profiling output and the `enable_profiling` and `profiling_mode` PRAGMAs.\" That is a mention, but does it document what they do? The instruction: \"A section documents a setting when it tells the reader what the setting does, what it accepts, or how to set it.\" Here it just mentions them but does not explain what they do, accept, or how to set. So likely not considered documented. Also \"Connect\" bullet mentions `Connection` but not a setting. So likely no settings documented. So answer empty list.\n\nWe need JSON matching supplied schema. Schema not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nIf empty, maybe \"settings\": [].\n\nWe'll output that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The user gave a list of links with bullet points. The task: extract DuckDB configuration settings from a single section of the DuckDB documentation. The provided text is a snippet likely from a documentation page linking to profiling, run queries, connect. The settings mentioned: `enable_profiling` and `profiling_mode`. The question: \"Return every configuration setting that this section documents.\" The section includes bullet points referencing profiling output and the `enable_profiling` and `profiling_mode` PRAGMAs. Does it document them? It mentions them as part of the link description. It says \"DuckDB's query profiling output and the `enable_profiling` and `profiling_mode` PRAGMAs.\" That is a mention, but does it document what they do? The instruction: \"A section documents a setting when it tells the reader what the setting does, what it accepts, or how to set it.\" Here it just mentions them but does not explain what they do, accept, or how to set. So likely not considered documented. Also \"Connect\" bullet mentions `Connection` but not a setting. So likely no settings documented. So answer empty list.\n\nWe need JSON matching supplied schema. Schema not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nIf empty, maybe \"settings\": [].\n\nWe'll output that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 468,
+  "completion_tokens": 325,
+  "total_tokens": 793,
+  "cost": 6.929e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.929e-05,
+   "upstream_inference_prompt_cost": 1.404e-05,
+   "upstream_inference_completions_cost": 5.525e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 351,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.829000000001543
+}

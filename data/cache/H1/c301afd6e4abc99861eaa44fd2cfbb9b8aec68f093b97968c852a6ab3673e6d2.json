@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789913877-pRoMI7EIAMTDym296en5",
+ "object": "chat.completion",
+ "created": 1789913877,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe from previous? We need produce JSON with settings extracted. Need decide empty list? The provided section is about DuckDB versioning/release calendar. It doesn't document configuration settings. It mentions Semantic Versioning, minor versions, patch releases, LTS, release calendar. No settings. So answer empty list. Need JSON likely {\"settings\": []} or maybe array? Need infer schema. They said \"For each setting, quote...\" and \"Answer only with JSON matching supplied schema.\" No schema visible. We need output likely {\"settings\": []}. Let's craft minimal JSON. Ensure no extra text.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe from previous? We need produce JSON with settings extracted. Need decide empty list? The provided section is about DuckDB versioning/release calendar. It doesn't document configuration settings. It mentions Semantic Versioning, minor versions, patch releases, LTS, release calendar. No settings. So answer empty list. Need JSON likely {\"settings\": []} or maybe array? Need infer schema. They said \"For each setting, quote...\" and \"Answer only with JSON matching supplied schema.\" No schema visible. We need output likely {\"settings\": []}. Let's craft minimal JSON. Ensure no extra text.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 592,
+  "completion_tokens": 162,
+  "total_tokens": 754,
+  "cost": 0.0008507,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0008507,
+   "upstream_inference_prompt_cost": 0.0004376,
+   "upstream_inference_completions_cost": 0.0004131
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 190,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 6.078000000001339
+}

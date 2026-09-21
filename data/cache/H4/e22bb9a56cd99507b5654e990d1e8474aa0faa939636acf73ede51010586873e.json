@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789909053-uxF0BhAQPeiBPMY4XU4f",
+ "object": "chat.completion",
+ "created": 1789909053,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"explain_output\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`explain_output` | Output of EXPLAIN statements (`ALL`, `OPTIMIZED_ONLY`, `PHYSICAL_ONLY`)\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"PHYSICAL_ONLY\"\n   \n    , \"default_evidence\": \"`PHYSICAL_ONLY`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to output JSON per schema. The schema not provided but likely expects list of objects with fields: name, description?, type?, default?, evidence? The prompt: \"Return every configuration setting that this section documents. For each setting, quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it.\"\n\nWe have a single setting: explain_output. Provide evidence quote: maybe the row content. Provide default: PHYSICAL_ONLY.\n\nWe need JSON matching supplied schema. Not given, but typical might be:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"explain_output\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"PHYSICAL_ONLY\",\n      \"evidence\": \"Output of EXPLAIN statements (`ALL`, `OPTIMIZED_ONLY`, `PHYSICAL_ONLY`)\"\n    }\n  ]\n}\n\nBut need to include description? Not required but could. The schema unknown. Could be list of objects directly. Safer: output array of objects.\n\nI'll output:\n\n[\n  {\n    \"name\": \"explain_output\",\n    \"type\": \"VARCHAR\",\n    \"default\": \"PHYSICAL_ONLY\",\n    \"evidence\": \"`explain_output` | Output of EXPLAIN statements (`ALL`, `OPTIMIZED_ONLY`, `PHYSICAL_ONLY`)\"\n  }\n]\n\nBut need JSON matching supplied schema. Since not given, assume list. Provide as JSON array.\n\nLet's do that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to output JSON per schema. The schema not provided but likely expects list of objects with fields: name, description?, type?, default?, evidence? The prompt: \"Return every configuration setting that this section documents. For each setting, quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it.\"\n\nWe have a single setting: explain_output. Provide evidence quote: maybe the row content. Provide default: PHYSICAL_ONLY.\n\nWe need JSON matching supplied schema. Not given, but typical might be:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"explain_output\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"PHYSICAL_ONLY\",\n      \"evidence\": \"Output of EXPLAIN statements (`ALL`, `OPTIMIZED_ONLY`, `PHYSICAL_ONLY`)\"\n    }\n  ]\n}\n\nBut need to include description? Not required but could. The schema unknown. Could be list of objects directly. Safer: output array of objects.\n\nI'll output:\n\n[\n  {\n    \"name\": \"explain_output\",\n    \"type\": \"VARCHAR\",\n    \"default\": \"PHYSICAL_ONLY\",\n    \"evidence\": \"`explain_output` | Output of EXPLAIN statements (`ALL`, `OPTIMIZED_ONLY`, `PHYSICAL_ONLY`)\"\n  }\n]\n\nBut need JSON matching supplied schema. Since not given, assume list. Provide as JSON array.\n\nLet's do that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 436,
+  "completion_tokens": 414,
+  "total_tokens": 850,
+  "cost": 8.346e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 384,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.346e-05,
+   "upstream_inference_prompt_cost": 1.308e-05,
+   "upstream_inference_completions_cost": 7.038e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 324,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 19.04699999999866
+}

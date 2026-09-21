@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789903385-u1ye9ntOJF71eIoH3qYY",
+ "object": "chat.completion",
+ "created": 1789903385,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The section is a table of options for test runner, not DuckDB config? Some are test runner flags, but also there is `--settings <list[struct]>` which sets DuckDB configuration. However the question: \"extract DuckDB configuration settings from a single section of the DuckDB documentation.\" So we need to list each setting that this section documents. The table includes many options, but many are test runner options, not DuckDB config. The instruction: \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting.\"\n\nThus we need to identify which of these options are actual DuckDB configuration settings. The table includes `--settings <list[struct]>` which is a test runner flag to set DuckDB configuration. But the actual DuckDB config settings are not listed here; they would be like `enable_progress_bar`, `max_memory`, etc. This section does not document any DuckDB config settings directly, only a flag to set them. So likely answer is empty list.\n\nBut we must verify: any other options correspond to DuckDB config? For example `--block-size` is test runner block allocation size, not DuckDB config. `--storage-version` maybe a DuckDB config? In DuckDB, there is a config `storage_version`? I think there is a pragma `storage_version`? Not sure. But the flag is for test runner to set default storage version. Not necessarily a DuckDB config. The question: \"DuckDB configuration settings\" refers to settings that can be set via `SET` or `PRAGMA` or via `--settings`. The table includes `--settings` which sets DuckDB configuration. But the table does not list individual DuckDB config names. So we should output empty list.\n\nThus JSON: {\"settings\": []}. Schema? Not given but likely expects list of objects with name, evidence, default. We'll output empty array.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The section is a table of options for test runner, not DuckDB config? Some are test runner flags, but also there is `--settings <list[struct]>` which sets DuckDB configuration. However the question: \"extract DuckDB configuration settings from a single section of the DuckDB documentation.\" So we need to list each setting that this section documents. The table includes many options, but many are test runner options, not DuckDB config. The instruction: \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting.\"\n\nThus we need to identify which of these options are actual DuckDB configuration settings. The table includes `--settings <list[struct]>` which is a test runner flag to set DuckDB configuration. But the actual DuckDB config settings are not listed here; they would be like `enable_progress_bar`, `max_memory`, etc. This section does not document any DuckDB config settings directly, only a flag to set them. So likely answer is empty list.\n\nBut we must verify: any other options correspond to DuckDB config? For example `--block-size` is test runner block allocation size, not DuckDB config. `--storage-version` maybe a DuckDB config? In DuckDB, there is a config `storage_version`? I think there is a pragma `storage_version`? Not sure. But the flag is for test runner to set default storage version. Not necessarily a DuckDB config. The question: \"DuckDB configuration settings\" refers to settings that can be set via `SET` or `PRAGMA` or via `--settings`. The table includes `--settings` which sets DuckDB configuration. But the table does not list individual DuckDB config names. So we should output empty list.\n\nThus JSON: {\"settings\": []}. Schema? Not given but likely expects list of objects with name, evidence, default. We'll output empty array.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1567,
+  "completion_tokens": 461,
+  "total_tokens": 2028,
+  "cost": 0.00012538,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00012538,
+   "upstream_inference_prompt_cost": 4.701e-05,
+   "upstream_inference_completions_cost": 7.837e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 523,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 16.389999999999418
+}

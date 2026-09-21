@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789911705-aMcnqX1RpSrxiu7820FC",
+ "object": "chat.completion",
+ "created": 1789911705,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"custom_profiling_settings\",\"input_type\":\"VARCHAR\",\"scope\": \"LOCAL\",\"evidence\":\"Accepts a `JSON` enabling custom metrics\",\"default_kind\":\"literal\",\"default_value\":\"{\\\"ATTACH_LOAD_STORAGE_LATENCY\\\": \\\"true\\\", \\\"ATTACH_REPLAY_WAL_LATENCY\\\": \\\"true\\\", \\\"BLOCKED_THREAD_TIME\\\": \\\"true\\\", \\\"CHECKPOINT_LATENCY\\\": \\\"true\\\", \\\"COMMIT_LOCAL_STORAGE_LATENCY\\\": \\\"true\\\", \\\"CPU_TIME\\\": \\\"true\\\", \\\"CUMULATIVE_CARDINALITY\\\": \\\"true\\\", \\\"CUMULATIVE_ROWS_SCANNED\\\": \\\"true\\\", \\\"EXTRA_INFO\\\": \\\"true\\\", \\\"LATENCY\\\": \\\"true\\\", \\\"OPERATOR_CARDINALITY\\\": \\\"true\\\", \\\"OPERATOR_NAME\\\": \\\"true\\\", \\\"OPERATOR_ROWS_SCANNED\\\": \\\"true\\\", \\\"OPERATOR_TIMING\\\": \\\"true\\\", \\\"OPERATOR_TYPE\\\": \\\"true\\\", \\\"QUERY_NAME\\\": \\\"true\\\", \\\"RESULT_SET_SIZE\\\": \\\"true\\\", \\\"ROWS_RETURNED\\\": \\\"true\\\", \\\"SYSTEM_PEAK_BUFFER_MEMORY\\\": \\\"true\\\", \\\"SYSTEM_PEAK_TEMP_DIR_SIZE\\\": \\\"true\\\", \\\"TOTAL_BYTES_READ\\\": \\\"true\\\", \\\"TOTAL_BYTES_WRITTEN\\\": \\\"true\\\", \\\"TOTAL_MEMORY_ALLOCATED\\\": \\\"true\\\", \\\"WAITING_TO_ATTACH_LATENCY\\\": \\\"true\\\", \\\"WAL_REPLAY_ENTRY_COUNT\\\": \\\"true\\\", \\\"WRITE_TO_WAL_LATENCY\\\": \\\"true\\\"}\",\"default_evidence\":\"`{\\\"ATTACH_LOAD_STORAGE_LATENCY\\\": \\\"true\\\", \\\"ATTACH_REPLAY_WAL_LATENCY\\\": \\\"true\\\", \\\"BLOCKED_THREAD_TIME\\\": \\\"true\\\", \\\"CHECKPOINT_LATENCY\\\": \\\"true\\\", \\\"COMMIT_LOCAL_STORAGE_LATENCY\\\": \\\"true\\\", \\\"CPU_TIME\\\": \\\"true\\\", \\\"CUMULATIVE_CARDINALITY\\\": \\\"true\\\", \\\"CUMULATIVE_ROWS_SCANNED\\\": \\\"true\\\", \\\"EXTRA_INFO\\\": \\\"true\\\", \\\"LATENCY\\\": \\\"true\\\", \\\"OPERATOR_CARDINALITY\\\": \\\"true\\\", \\\"OPERATOR_NAME\\\": \\\"true\\\", \\\"OPERATOR_ROWS_SCANNED\\\": \\\"true\\\", \\\"OPERATOR_TIMING\\\": \\\"true\\\", \\\"OPERATOR_TYPE\\\": \\\"true\\\", \\\"QUERY_NAME\\\": \\\"true\\\", \\\"RESULT_SET_SIZE\\\": \\\"true\\\", \\\"ROWS_RETURNED\\\": \\\"true\\\", \\\"SYSTEM_PEAK_BUFFER_MEMORY\\\": \\\"true\\\", \\\"SYSTEM_PEAK_TEMP_DIR_SIZE\\\": \\\"true\\\", \\\"TOTAL_BYTES_READ\\\": \\\"true\\\", \\\"TOTAL_BYTES_WRITTEN\\\": \\\"true\\\", \\\"TOTAL_MEMORY_ALLOCATED\\\": \\\"true\\\", \\\"WAITING_TO_ATTACH_LATENCY\\\": \\\"true\\\", \\\"WAL_REPLAY_ENTRY_COUNT\\\": \\\"true\\\", \\\"WRITE_TO_WAL_LATENCY\\\": \\\"true\\\"}`\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 610,
+  "completion_tokens": 553,
+  "total_tokens": 1163,
+  "cost": 0.000184,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000184,
+   "upstream_inference_prompt_cost": 4.575e-05,
+   "upstream_inference_completions_cost": 0.00013825
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 13.53099999999904
+}

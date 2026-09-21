@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789896005-qLelvFMPd7WJQwEEM7bQ",
+ "object": "chat.completion",
+ "created": 1789896005,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": \"This setting is `true` by default, indicating that the order should be preserved.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\",\n      \"evidence\": \"Preservation of insertion order is controlled by the `preserve_insertion_order` [configuration option]({% link docs/current/configuration/overview.md %}).\",\n      \"input_type\": \"BOOLEAN\",\n      \"name\": \"preserve_insertion_order\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need produce likely schema with settings list? Need inspect. We need extract DuckDB configuration settings from section. The section text is about preservation of insertion order. It documents setting `preserve_insertion_order`. Need quote verbatim spans. Need default: section states \"This setting is `true` by default\" so default true. Need quote for default too. Need output JSON. Need decide structure. Since no schema supplied, but likely expected: {\"settings\":[{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\", \"default_evidence\": \"...\", \"default_is_machine_dependent\": false}]}? Need infer from instruction: \"For each setting, quote a span of the section verbatim as evidence. ... Also report the setting's default, but only if this section states it. ... If the section gives a concrete value, that is a literal default. If it describes the default as something that depends on the machine ... copy that description rather than guessing a number, and say it is machine-dependent. If the section does not state a default, say it is absent; do not fill it in... A stated default must be backed by a verbatim quote in the same way the setting itself is.\"\n\nNeed answer only JSON. We can choose schema. Need include setting name, evidence quote, default info. Maybe:\n{\n  \"settings\": [\n    {\n      \"name\": \"preserve_insertion_order\",\n      \"evidence\": \"Preservation of insertion order is controlled by the `preserve_insertion_order` [configuration option]({% link docs/current/configuration/overview.md %}).\",\n      \"default\": \"true\",\n      \"default_evidence\": \"This setting is `true` by default, indicating that the order should be preserved.\",\n      \"default_is_machine_dependent\": false\n    }\n  ]\n}\nNeed ensure evidence quote exact. The section includes multiple sentences. We can quote the sentence that documents setting. The instruction: \"quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" We can quote the sentence \"Preservation of insertion order is controlled by the `preserve_insertion_order` [configuration option]({% link docs/current/configuration/overview.md %}).\" That includes markdown link. Need exact. Also default quote: \"This setting is `true` by default, indicating that the order should be preserved.\" That's exact. Need maybe include the SET statement? Not necessary. The setting is documented by that sentence. Could also include \"To change this setting, use: SET preserve_insertion_order = false;\" but evidence enough.\n\nNeed consider if any other settings? The section mentions `read_csv`, `read_json`, `read_parquet` functions but not settings. No other config options. So one setting.\n\nNeed output only JSON. Ensure valid JSON. Use double quotes. Need escape backticks? No need. But markdown link contains braces and % etc. In JSON string, braces are fine. Need include exactly. The link text includes `{% link docs/current/configuration/overview.md %}`. That's fine. Need maybe include newline? No.\n\nLet's craft final JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need produce likely schema with settings list? Need inspect. We need extract DuckDB configuration settings from section. The section text is about preservation of insertion order. It documents setting `preserve_insertion_order`. Need quote verbatim spans. Need default: section states \"This setting is `true` by default\" so default true. Need quote for default too. Need output JSON. Need decide structure. Since no schema supplied, but likely expected: {\"settings\":[{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\", \"default_evidence\": \"...\", \"default_is_machine_dependent\": false}]}? Need infer from instruction: \"For each setting, quote a span of the section verbatim as evidence. ... Also report the setting's default, but only if this section states it. ... If the section gives a concrete value, that is a literal default. If it describes the default as something that depends on the machine ... copy that description rather than guessing a number, and say it is machine-dependent. If the section does not state a default, say it is absent; do not fill it in... A stated default must be backed by a verbatim quote in the same way the setting itself is.\"\n\nNeed answer only JSON. We can choose schema. Need include setting name, evidence quote, default info. Maybe:\n{\n  \"settings\": [\n    {\n      \"name\": \"preserve_insertion_order\",\n      \"evidence\": \"Preservation of insertion order is controlled by the `preserve_insertion_order` [configuration option]({% link docs/current/configuration/overview.md %}).\",\n      \"default\": \"true\",\n      \"default_evidence\": \"This setting is `true` by default, indicating that the order should be preserved.\",\n      \"default_is_machine_dependent\": false\n    }\n  ]\n}\nNeed ensure evidence quote exact. The section includes multiple sentences. We can quote the sentence that documents setting. The instruction: \"quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" We can quote the sentence \"Preservation of insertion order is controlled by the `preserve_insertion_order` [configuration option]({% link docs/current/configuration/overview.md %}).\" That includes markdown link. Need exact. Also default quote: \"This setting is `true` by default, indicating that the order should be preserved.\" That's exact. Need maybe include the SET statement? Not necessary. The setting is documented by that sentence. Could also include \"To change this setting, use: SET preserve_insertion_order = false;\" but evidence enough.\n\nNeed consider if any other settings? The section mentions `read_csv`, `read_json`, `read_parquet` functions but not settings. No other config options. So one setting.\n\nNeed output only JSON. Ensure valid JSON. Use double quotes. Need escape backticks? No need. But markdown link contains braces and % etc. In JSON string, braces are fine. Need include exactly. The link text includes `{% link docs/current/configuration/overview.md %}`. That's fine. Need maybe include newline? No.\n\nLet's craft final JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 538,
+  "completion_tokens": 812,
+  "total_tokens": 1350,
+  "cost": 0.0026893,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0026893,
+   "upstream_inference_prompt_cost": 0.0006187,
+   "upstream_inference_completions_cost": 0.0020706
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 796,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 18.71900000000096
+}

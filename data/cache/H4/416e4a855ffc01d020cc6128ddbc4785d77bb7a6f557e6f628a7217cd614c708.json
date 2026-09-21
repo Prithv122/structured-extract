@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789901039-VSyYCa6r8RNn3cfn0klE",
+ "object": "chat.completion",
+ "created": 1789901039,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"enable_external_access\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`enable_external_access` option is set to `false`\",\n      \"default_kind\": \"absent\"\n   \n    , \"default_value\": null\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The section mentions \"`enable_external_access` option\". That's a setting. It says it's set to false. So we need to output setting name, evidence quote, default if stated. The section says \"The `enable_external_access` option is set to `false`.\" That's a statement of its value in safe mode, not necessarily default. It says it's set to false in safe mode, not default. Does it state default? No. So default is absent. Provide JSON.\n\nSchema? Not given explicitly, but likely something like list of objects with fields: setting, evidence, default. Let's assume format: [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]. Provide that.\n\nOnly one setting. Provide evidence quote exactly as appears. Quote: \"`enable_external_access` option is set to `false`\". Include backticks? The quote must be verbatim. So include the backticks and spaces exactly as in text: \"`enable_external_access` option is set to `false`\". Ensure correct.\n\nReturn JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The section mentions \"`enable_external_access` option\". That's a setting. It says it's set to false. So we need to output setting name, evidence quote, default if stated. The section says \"The `enable_external_access` option is set to `false`.\" That's a statement of its value in safe mode, not necessarily default. It says it's set to false in safe mode, not default. Does it state default? No. So default is absent. Provide JSON.\n\nSchema? Not given explicitly, but likely something like list of objects with fields: setting, evidence, default. Let's assume format: [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]. Provide that.\n\nOnly one setting. Provide evidence quote exactly as appears. Quote: \"`enable_external_access` option is set to `false`\". Include backticks? The quote must be verbatim. So include the backticks and spaces exactly as in text: \"`enable_external_access` option is set to `false`\". Ensure correct.\n\nReturn JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 686,
+  "completion_tokens": 321,
+  "total_tokens": 1007,
+  "cost": 7.515e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.515e-05,
+   "upstream_inference_prompt_cost": 2.058e-05,
+   "upstream_inference_completions_cost": 5.457e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 258,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 7.0790000000015425
+}

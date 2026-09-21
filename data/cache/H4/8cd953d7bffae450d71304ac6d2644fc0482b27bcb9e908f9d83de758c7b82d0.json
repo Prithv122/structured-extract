@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919704-0suH9OB4I6N3QqB1YzcZ",
+ "object": "chat.completion",
+ "created": 1789919704,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET temp_directory = '/path/to/directory/';`\",\n      \"default_kind\": \"absent\"\n    \n    , \"default_value\": \"absent\"\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. Identify settings that can be changed with SET, RESET, PRAGMA. In the text, we see mention of `temp_directory` as a configuration. It says \"if the `temp_directory` [configuration]... is set, data will be spilled to disk\". Also example: `SET temp_directory = '/path/to/directory/';`. So that's a configuration setting.\n\nWe need to output JSON matching supplied schema. The schema not given explicitly, but likely something like list of objects with name, default, evidence. We need to infer. Usually these tasks expect something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"default\": \"absent\" or description,\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut need to check typical schema from similar tasks. Probably:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe'll include default as absent because section does not state default. It only mentions that if set, data spilled. No default given. So default is absent.\n\nProvide evidence quote for setting name: maybe \"SET temp_directory = '/path/to/directory/';\". Also mention earlier: \"`temp_directory` [configuration]\". Provide one quote.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"default\": \"absent\",\n      \"evidence\": \"`SET temp_directory = '/path/to/directory/';`\"\n    }\n  ]\n}\n\nMake sure quotes are proper JSON string with escaped backticks? Actually backticks are fine inside string. Provide as is.\n\nReturn only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. Identify settings that can be changed with SET, RESET, PRAGMA. In the text, we see mention of `temp_directory` as a configuration. It says \"if the `temp_directory` [configuration]... is set, data will be spilled to disk\". Also example: `SET temp_directory = '/path/to/directory/';`. So that's a configuration setting.\n\nWe need to output JSON matching supplied schema. The schema not given explicitly, but likely something like list of objects with name, default, evidence. We need to infer. Usually these tasks expect something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"default\": \"absent\" or description,\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut need to check typical schema from similar tasks. Probably:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe'll include default as absent because section does not state default. It only mentions that if set, data spilled. No default given. So default is absent.\n\nProvide evidence quote for setting name: maybe \"SET temp_directory = '/path/to/directory/';\". Also mention earlier: \"`temp_directory` [configuration]\". Provide one quote.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"default\": \"absent\",\n      \"evidence\": \"`SET temp_directory = '/path/to/directory/';`\"\n    }\n  ]\n}\n\nMake sure quotes are proper JSON string with escaped backticks? Actually backticks are fine inside string. Provide as is.\n\nReturn only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 734,
+  "completion_tokens": 458,
+  "total_tokens": 1192,
+  "cost": 9.988e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.988e-05,
+   "upstream_inference_prompt_cost": 2.202e-05,
+   "upstream_inference_completions_cost": 7.786e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 399,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 46.42199999999866
+}

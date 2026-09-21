@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789920401-YcKttOFJFPvp3BlXuGiQ",
+ "object": "chat.completion",
+ "created": 1789920401,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"ui_remote_url\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"The default URL for the remote server is <https://ui.duckdb.org>.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"https://ui.duckdb.org\"\n    ,\n    \"default_evidence\": \"The default URL for the remote server is <https://ui.duckdb.org>.\"\n    },\n    {\n      \"name\": \"ui_remote_port\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"The environment variable `ui_remote_port` can also be used.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null\n    ,\n    \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The text mentions \"ui_remote_url\" and \"ui_remote_port\". These appear to be settings. They are changed with SET, environment variable, etc. So they are configuration settings.\n\nWe need to output JSON matching supplied schema. The schema not provided explicitly, but likely something like list of objects with fields: name, type?, default?, evidence? The instruction: \"Answer only with JSON matching the supplied schema.\" We need to infer schema. Usually in these tasks, schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to be careful. Could be something like:\n\n[\n  {\n    \"setting\": \"...\",\n    \"default\": \"...\",\n    \"evidence\": \"...\"\n  }\n]\n\nWe need to guess. Let's think typical format from previous similar tasks. I've seen tasks where schema is:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"ui_remote_url\",\n      \"default\": \"https://ui.duckdb.org\",\n      \"evidence\": \"SET ui_remote_url = 'https://ui.duckdb.org';\"\n    },\n    {\n      \"name\": \"ui_remote_port\",\n      \"default\": \"absent\",\n      \"evidence\": \"The environment variable `ui_remote_port` can also be used.\"\n    }\n  ]\n}\n\nBut need to include default only if stated. For ui_remote_url default is \"https://ui.duckdb.org\". The text: \"The default URL for the remote server is <https://ui.duckdb.org>.\" So default is that URL. Provide verbatim quote: \"The default URL for the remote server is <https://ui.duckdb.org>.\" For ui_remote_port default not mentioned, so absent.\n\nWe need to quote a span of the section verbatim as evidence for each setting. Provide the setting name and default.\n\nThus JSON maybe:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"ui_remote_url\",\n      \"default\": \"https://ui.duckdb.org\",\n      \"evidence\": \"The default URL for the remote server is <https://ui.duckdb.org>.\"\n    },\n    {\n      \"name\": \"ui_remote_port\",\n      \"default\": \"absent\",\n      \"evidence\": \"The environment variable `ui_remote_port` can also be used.\"\n    }\n  ]\n}\n\nMake sure quotes are correct. The default for ui_remote_url includes angle brackets? The text: \"<https://ui.duckdb.org>\" includes angle brackets. Should we include them? The default value is the URL without brackets. But we must copy characters exactly as they appear. The quote includes angle brackets. The default value we report should be the literal default. The instruction: \"If the section gives a concrete value, that is a literal default.\" The concrete value is \"https://ui.duckdb.org\". The angle brackets are markup. The quote includes them, but the default value is the URL. We can report default as \"https://ui.duckdb.org\". That's fine.\n\nNow produce JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The text mentions \"ui_remote_url\" and \"ui_remote_port\". These appear to be settings. They are changed with SET, environment variable, etc. So they are configuration settings.\n\nWe need to output JSON matching supplied schema. The schema not provided explicitly, but likely something like list of objects with fields: name, type?, default?, evidence? The instruction: \"Answer only with JSON matching the supplied schema.\" We need to infer schema. Usually in these tasks, schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to be careful. Could be something like:\n\n[\n  {\n    \"setting\": \"...\",\n    \"default\": \"...\",\n    \"evidence\": \"...\"\n  }\n]\n\nWe need to guess. Let's think typical format from previous similar tasks. I've seen tasks where schema is:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"ui_remote_url\",\n      \"default\": \"https://ui.duckdb.org\",\n      \"evidence\": \"SET ui_remote_url = 'https://ui.duckdb.org';\"\n    },\n    {\n      \"name\": \"ui_remote_port\",\n      \"default\": \"absent\",\n      \"evidence\": \"The environment variable `ui_remote_port` can also be used.\"\n    }\n  ]\n}\n\nBut need to include default only if stated. For ui_remote_url default is \"https://ui.duckdb.org\". The text: \"The default URL for the remote server is <https://ui.duckdb.org>.\" So default is that URL. Provide verbatim quote: \"The default URL for the remote server is <https://ui.duckdb.org>.\" For ui_remote_port default not mentioned, so absent.\n\nWe need to quote a span of the section verbatim as evidence for each setting. Provide the setting name and default.\n\nThus JSON maybe:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"ui_remote_url\",\n      \"default\": \"https://ui.duckdb.org\",\n      \"evidence\": \"The default URL for the remote server is <https://ui.duckdb.org>.\"\n    },\n    {\n      \"name\": \"ui_remote_port\",\n      \"default\": \"absent\",\n      \"evidence\": \"The environment variable `ui_remote_port` can also be used.\"\n    }\n  ]\n}\n\nMake sure quotes are correct. The default for ui_remote_url includes angle brackets? The text: \"<https://ui.duckdb.org>\" includes angle brackets. Should we include them? The default value is the URL without brackets. But we must copy characters exactly as they appear. The quote includes angle brackets. The default value we report should be the literal default. The instruction: \"If the section gives a concrete value, that is a literal default.\" The concrete value is \"https://ui.duckdb.org\". The angle brackets are markup. The quote includes them, but the default value is the URL. We can report default as \"https://ui.duckdb.org\". That's fine.\n\nNow produce JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 629,
+  "completion_tokens": 856,
+  "total_tokens": 1485,
+  "cost": 0.00016439,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00016439,
+   "upstream_inference_prompt_cost": 1.887e-05,
+   "upstream_inference_completions_cost": 0.00014552
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 704,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 45.67199999999866
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789920158-PSjgYWKPdQ1403NHewIt",
+ "object": "chat.completion",
+ "created": 1789920158,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The section is a table of columns: character_set_catalog, etc. These are not configuration settings; they are columns of some system catalog (maybe information_schema). The user asks to extract DuckDB configuration settings from a single section of the DuckDB documentation. The given section lists columns, not settings. According to instructions, if the section documents something else (like columns), answer with empty list.\n\nThus output JSON with empty list. Schema? Not provided explicitly, but likely something like {\"settings\": []} or just []? The instruction: \"Answer only with JSON matching the supplied schema.\" No schema given in prompt. Usually for these tasks, schema is something like {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. But not provided. We need to infer. In prior similar tasks, schema is like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"default\": \"string or null\",\n      \"evidence\": \"string\"\n    },\n    ...\n  ]\n}\n\nIf no settings, then \"settings\": [].\n\nThus produce JSON: {\"settings\": []}.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The section is a table of columns: character_set_catalog, etc. These are not configuration settings; they are columns of some system catalog (maybe information_schema). The user asks to extract DuckDB configuration settings from a single section of the DuckDB documentation. The given section lists columns, not settings. According to instructions, if the section documents something else (like columns), answer with empty list.\n\nThus output JSON with empty list. Schema? Not provided explicitly, but likely something like {\"settings\": []} or just []? The instruction: \"Answer only with JSON matching the supplied schema.\" No schema given in prompt. Usually for these tasks, schema is something like {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. But not provided. We need to infer. In prior similar tasks, schema is like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"default\": \"string or null\",\n      \"evidence\": \"string\"\n    },\n    ...\n  ]\n}\n\nIf no settings, then \"settings\": [].\n\nThus produce JSON: {\"settings\": []}.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 746,
+  "completion_tokens": 260,
+  "total_tokens": 1006,
+  "cost": 6.658e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.658e-05,
+   "upstream_inference_prompt_cost": 2.238e-05,
+   "upstream_inference_completions_cost": 4.42e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 287,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 6.8439999999973224
+}

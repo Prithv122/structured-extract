@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789903919-6MOXmLdD0XfOycHVOKeH",
+ "object": "chat.completion",
+ "created": 1789903919,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"ui_remote_url\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET ui_remote_url = 'https://ui.duckdb.org';\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"https://ui.duckdb.org\"\n    ,\n    \"default_evidence\": \"The default URL for the remote server is <https://ui.duckdb.org>.\"\n    },\n    {\n      \"name\": \"ui_remote_port\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"The environment variable `ui_remote_port` can also be used.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null\n    ,\n    \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The text mentions:\n\n- ui_remote_url\n- ui_remote_port (environment variable)\n- allow_unsigned_extensions (mentioned as condition)\n\nWe need to see if each is documented: The section says \"An alternate remote URL can be configured with a SQL command like: SET ui_remote_url = 'https://ui.duckdb.org';\". That documents ui_remote_url. It also mentions environment variable ui_remote_port can also be used. That documents ui_remote_port. It also mentions \"Because of this risk, the setting is only respected if `allow_unsigned_extensions` is enabled.\" That references allow_unsigned_extensions but does not document it; it's just a condition. The section does not explain what allow_unsigned_extensions does, just mentions it. So we should not include allow_unsigned_extensions as a documented setting.\n\nNow defaults: The section says \"The default URL for the remote server is <https://ui.duckdb.org>.\" That's default for ui_remote_url. So we need to capture that default. For ui_remote_port, no default mentioned. So default is absent.\n\nWe need to provide JSON matching supplied schema. The schema not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\", maybe not needed? Actually spec: \"Return every configuration setting that this section documents. For each setting, quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it.\" So JSON likely includes name, evidence, default. Let's assume schema:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"ui_remote_url\",\n      \"evidence\": \"...\",\n      \"default\": \"https://ui.duckdb.org\"\n    },\n    {\n      \"name\": \"ui_remote_port\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe need to quote verbatim spans. For ui_remote_url evidence: maybe \"SET ui_remote_url = 'https://ui.duckdb.org';\". Also \"The default URL for the remote server is <https://ui.duckdb.org>.\" Could include both. Probably one evidence is enough. Provide a span.\n\nFor ui_remote_port evidence: \"The environment variable `ui_remote_port` can also be used.\"\n\nNow default for ui_remote_url: \"The default URL for the remote server is <https://ui.duckdb.org>.\" Provide that as default.\n\nFor ui_remote_port default: absent.\n\nReturn JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The text mentions:\n\n- ui_remote_url\n- ui_remote_port (environment variable)\n- allow_unsigned_extensions (mentioned as condition)\n\nWe need to see if each is documented: The section says \"An alternate remote URL can be configured with a SQL command like: SET ui_remote_url = 'https://ui.duckdb.org';\". That documents ui_remote_url. It also mentions environment variable ui_remote_port can also be used. That documents ui_remote_port. It also mentions \"Because of this risk, the setting is only respected if `allow_unsigned_extensions` is enabled.\" That references allow_unsigned_extensions but does not document it; it's just a condition. The section does not explain what allow_unsigned_extensions does, just mentions it. So we should not include allow_unsigned_extensions as a documented setting.\n\nNow defaults: The section says \"The default URL for the remote server is <https://ui.duckdb.org>.\" That's default for ui_remote_url. So we need to capture that default. For ui_remote_port, no default mentioned. So default is absent.\n\nWe need to provide JSON matching supplied schema. The schema not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\", maybe not needed? Actually spec: \"Return every configuration setting that this section documents. For each setting, quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it.\" So JSON likely includes name, evidence, default. Let's assume schema:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"ui_remote_url\",\n      \"evidence\": \"...\",\n      \"default\": \"https://ui.duckdb.org\"\n    },\n    {\n      \"name\": \"ui_remote_port\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe need to quote verbatim spans. For ui_remote_url evidence: maybe \"SET ui_remote_url = 'https://ui.duckdb.org';\". Also \"The default URL for the remote server is <https://ui.duckdb.org>.\" Could include both. Probably one evidence is enough. Provide a span.\n\nFor ui_remote_port evidence: \"The environment variable `ui_remote_port` can also be used.\"\n\nNow default for ui_remote_url: \"The default URL for the remote server is <https://ui.duckdb.org>.\" Provide that as default.\n\nFor ui_remote_port default: absent.\n\nReturn JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 500,
+  "completion_tokens": 719,
+  "total_tokens": 1219,
+  "cost": 0.00013723,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00013723,
+   "upstream_inference_prompt_cost": 1.5e-05,
+   "upstream_inference_completions_cost": 0.00012223
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 601,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 24.139999999999418
+}

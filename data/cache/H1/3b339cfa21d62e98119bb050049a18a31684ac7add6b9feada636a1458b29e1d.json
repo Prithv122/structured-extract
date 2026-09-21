@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789912233-ffIA7q64mQjbDgH2a3mL",
+ "object": "chat.completion",
+ "created": 1789912233,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe from previous? We need produce likely list of settings with evidence. Need parse section. The section text: \"When the `profiling_mode` is set to `detailed`, an extra set of metrics are enabled, which are only available in the `QUERY_ROOT` node.\nThese include all the metrics in the [Phase timing]({% link docs/current/dev/metrics.md %}#phase_timing_metrics) metric group.\nIt is possible to toggle each of these additional metrics individually.\"\n\nWe need extract DuckDB configuration settings from this section. It mentions `profiling_mode` setting? It says \"When the `profiling_mode` is set to `detailed`...\" This is documenting behavior of profiling_mode? Is profiling_mode a DuckDB configuration setting? Yes likely. But the section is about metrics? Need determine if this section documents a setting. The text mentions profiling_mode as a setting? It says when set to detailed, extra metrics enabled. It doesn't give default. It doesn't describe setting type? It is a configuration setting? Need include? The instruction: \"A configuration setting is one you change with SET, RESET or PRAGMA, and it then applies to whole database instance or connection.\" profiling_mode is a setting? In DuckDB, profiling_mode can be set via PRAGMA profiling_mode='detailed'? Yes. But the section only mentions it in passing? It says \"When the profiling_mode is set to detailed...\" This is documenting behavior of profiling_mode? It is not a table of settings. It is a paragraph. The question asks extract settings from a single section. We need decide if profiling_mode is documented as a setting here. The section likely from metrics page? It mentions profiling_mode and detailed. It says \"It is possible to toggle each of these additional metrics individually.\" That might refer to settings like enable_metrics? But no names.\n\nNeed maybe output empty list? Let's think.\n\nThe user says: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" The section provided is just three sentences. It mentions `profiling_mode` as a setting? It is a configuration setting. But is it \"documented\" here? The section is about metrics, not configuration settings. It says \"When the `profiling_mode` is set to `detailed`...\" This is a conditional, not documenting the setting itself. It doesn't state default, type, description of setting. It uses it in passing. The instruction: \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting.\" Here profiling_mode is a DuckDB setting name, but the section uses it in passing to describe metrics. It is not documenting the setting. So likely empty list.\n\nBut need be careful: The section says \"When the `profiling_mode` is set to `detailed`, an extra set of metrics are enabled...\" This is documenting behavior of profiling_mode? It is not a configuration setting table. It doesn't state default. It doesn't say how to set. It is not a setting documentation. So empty list.\n\nNeed output JSON matching schema. What schema? Probably something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\",\n      \"default_type\": \"literal\" or \"machine_dependent\" or \"absent\"\n    }\n  ]\n}\nNeed infer. The user says \"For each setting, quote a span ... Also report the setting's default ... Answer only with JSON matching the supplied schema.\" No schema in prompt. We need maybe produce empty list. Could be {\"settings\": []}. Need maybe include no extra text.\n\nLet's ensure no other settings. The phrase \"profiling_mode\" is a setting. But not documented. \"detailed\" is value. \"QUERY_ROOT\" node. \"Phase timing metric group.\" \"toggle each of these additional metrics individually\" maybe refers to settings like `enable_metrics`? Not named. So empty.\n\nNeed final JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe from previous? We need produce likely list of settings with evidence. Need parse section. The section text: \"When the `profiling_mode` is set to `detailed`, an extra set of metrics are enabled, which are only available in the `QUERY_ROOT` node.\nThese include all the metrics in the [Phase timing]({% link docs/current/dev/metrics.md %}#phase_timing_metrics) metric group.\nIt is possible to toggle each of these additional metrics individually.\"\n\nWe need extract DuckDB configuration settings from this section. It mentions `profiling_mode` setting? It says \"When the `profiling_mode` is set to `detailed`...\" This is documenting behavior of profiling_mode? Is profiling_mode a DuckDB configuration setting? Yes likely. But the section is about metrics? Need determine if this section documents a setting. The text mentions profiling_mode as a setting? It says when set to detailed, extra metrics enabled. It doesn't give default. It doesn't describe setting type? It is a configuration setting? Need include? The instruction: \"A configuration setting is one you change with SET, RESET or PRAGMA, and it then applies to whole database instance or connection.\" profiling_mode is a setting? In DuckDB, profiling_mode can be set via PRAGMA profiling_mode='detailed'? Yes. But the section only mentions it in passing? It says \"When the profiling_mode is set to detailed...\" This is documenting behavior of profiling_mode? It is not a table of settings. It is a paragraph. The question asks extract settings from a single section. We need decide if profiling_mode is documented as a setting here. The section likely from metrics page? It mentions profiling_mode and detailed. It says \"It is possible to toggle each of these additional metrics individually.\" That might refer to settings like enable_metrics? But no names.\n\nNeed maybe output empty list? Let's think.\n\nThe user says: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" The section provided is just three sentences. It mentions `profiling_mode` as a setting? It is a configuration setting. But is it \"documented\" here? The section is about metrics, not configuration settings. It says \"When the `profiling_mode` is set to `detailed`...\" This is a conditional, not documenting the setting itself. It doesn't state default, type, description of setting. It uses it in passing. The instruction: \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting.\" Here profiling_mode is a DuckDB setting name, but the section uses it in passing to describe metrics. It is not documenting the setting. So likely empty list.\n\nBut need be careful: The section says \"When the `profiling_mode` is set to `detailed`, an extra set of metrics are enabled...\" This is documenting behavior of profiling_mode? It is not a configuration setting table. It doesn't state default. It doesn't say how to set. It is not a setting documentation. So empty list.\n\nNeed output JSON matching schema. What schema? Probably something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\",\n      \"default_type\": \"literal\" or \"machine_dependent\" or \"absent\"\n    }\n  ]\n}\nNeed infer. The user says \"For each setting, quote a span ... Also report the setting's default ... Answer only with JSON matching the supplied schema.\" No schema in prompt. We need maybe produce empty list. Could be {\"settings\": []}. Need maybe include no extra text.\n\nLet's ensure no other settings. The phrase \"profiling_mode\" is a setting. But not documented. \"detailed\" is value. \"QUERY_ROOT\" node. \"Phase timing metric group.\" \"toggle each of these additional metrics individually\" maybe refers to settings like `enable_metrics`? Not named. So empty.\n\nNeed final JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 577,
+  "completion_tokens": 900,
+  "total_tokens": 1477,
+  "cost": 0.00271535,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00271535,
+   "upstream_inference_prompt_cost": 0.00042035,
+   "upstream_inference_completions_cost": 0.002295
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 1049,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 21.09299999999712
+}

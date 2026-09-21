@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789900922-y61kz3HgjOChyUZWzOff",
+ "object": "chat.completion",
+ "created": 1789900922,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"preserve_identifier_case\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`preserve_identifier_case` configuration option set to `false`\",\n      \"default_kind\": \"absent\"\n   \n    , \"default_value\": \"absent\"\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The user provided a snippet about preserve_identifier_case. The section mentions \"preserve_identifier_case\" and describes its effect. So we need to output JSON with setting name, evidence quote, default if stated. The snippet does not state default. It only says \"With the `preserve_identifier_case` configuration option set to `false`, all identifiers are turned into lowercase\". No default mentioned. So default is absent.\n\nSchema? Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" Since we don't have schema, we infer typical: maybe an array of objects. Could be top-level array. But likely they expect something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"preserve_identifier_case\",\n      \"evidence\": \"`preserve_identifier_case` configuration option set to `false`\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe need to quote a span verbatim. The span: \"`preserve_identifier_case` configuration option set to `false`\". Include backticks. Provide default: \"absent\". Provide as string.\n\nThus final JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The user provided a snippet about preserve_identifier_case. The section mentions \"preserve_identifier_case\" and describes its effect. So we need to output JSON with setting name, evidence quote, default if stated. The snippet does not state default. It only says \"With the `preserve_identifier_case` configuration option set to `false`, all identifiers are turned into lowercase\". No default mentioned. So default is absent.\n\nSchema? Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" Since we don't have schema, we infer typical: maybe an array of objects. Could be top-level array. But likely they expect something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"preserve_identifier_case\",\n      \"evidence\": \"`preserve_identifier_case` configuration option set to `false`\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe need to quote a span verbatim. The span: \"`preserve_identifier_case` configuration option set to `false`\". Include backticks. Provide default: \"absent\". Provide as string.\n\nThus final JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 449,
+  "completion_tokens": 381,
+  "total_tokens": 830,
+  "cost": 7.824e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.824e-05,
+   "upstream_inference_prompt_cost": 1.347e-05,
+   "upstream_inference_completions_cost": 6.477e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 326,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.139999999999418
+}

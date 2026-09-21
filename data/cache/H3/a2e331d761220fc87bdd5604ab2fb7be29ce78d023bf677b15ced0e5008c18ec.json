@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789918348-8yHZZgWxqvPY08ZFyCkW",
+ "object": "chat.completion",
+ "created": 1789918348,
+ "model": "openai/gpt-4.1-nano",
+ "provider": "OpenAI",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "completed",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"enable_external_access\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"| `enable_external_access`                      | Allow the database to access external state (through e.g., loading/installing modules, COPY TO/FROM, CSV readers, pandas replacement scans, etc) | `BOOLEAN`   | `true` |\",\"default_kind\":\"literal\",\"default_value\":\"true\",\"default_evidence\":\"| `enable_external_access`                      | Allow the database to access external state (through e.g., loading/installing modules, COPY TO/FROM, CSV readers, pandas replacement scans, etc) | `BOOLEAN`   | `true` |\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1004,
+  "completion_tokens": 138,
+  "total_tokens": 1142,
+  "cost": 0.0001556,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0001556,
+   "upstream_inference_prompt_cost": 0.0001004,
+   "upstream_inference_completions_cost": 5.52e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 1.9530000000013388
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789897808-bGCYhjpA3JwJbra17LYR",
+ "object": "chat.completion",
+ "created": 1789897808,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse task. User provides section? Actually prompt says \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" Then they pasted section? The content after is:\n\n\"Returns the snapshots stored in the DuckLake catalog name `catalog`.\n\n| Parameter name | Parameter type | Named parameter | Description |\n| -------------- | -------------- | --------------- | ----------- |\n| `catalog`      | `VARCHAR`      | no              |             |\n\nThe information is encoded into a table with the following schema:\n\n| Column name      | Column type                |\n| ---------------- | -------------------------- |\n| `snapshot_id`    | `BIGINT`                   |\n| `snapshot_time`  | `TIMESTAMP WITH TIME ZONE` |\n| `schema_version` | `BIGINT`                   |\n| `changes`        | `MAP(VARCHAR, VARCHAR[])`  |\"\n\nThis is documentation for a function? It doesn't document any DuckDB configuration settings. Need return empty list. Need JSON matching schema. We need infer schema. Likely list of objects with setting, evidence, default? Need produce JSON only. Since no settings, maybe [].\n\nNeed ensure answer only JSON. Could be {\"settings\":[]}? User says \"Answer only with JSON matching the supplied schema.\" But supplied schema not explicitly shown in prompt. We need infer from instruction: \"For each setting, quote a span... Also report the setting's default...\" So likely schema is array of objects with fields: setting, evidence, default? Need maybe \"default\": null or \"absent\"? They said \"If section does not state a default, say it is absent\". So object fields: setting, evidence, default. Need output JSON array.\n\nGiven no settings, output [].\n\nBut let's be cautious: The section mentions `catalog` parameter, not a setting. No configuration settings. So [].\n\nNeed final only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse task. User provides section? Actually prompt says \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" Then they pasted section? The content after is:\n\n\"Returns the snapshots stored in the DuckLake catalog name `catalog`.\n\n| Parameter name | Parameter type | Named parameter | Description |\n| -------------- | -------------- | --------------- | ----------- |\n| `catalog`      | `VARCHAR`      | no              |             |\n\nThe information is encoded into a table with the following schema:\n\n| Column name      | Column type                |\n| ---------------- | -------------------------- |\n| `snapshot_id`    | `BIGINT`                   |\n| `snapshot_time`  | `TIMESTAMP WITH TIME ZONE` |\n| `schema_version` | `BIGINT`                   |\n| `changes`        | `MAP(VARCHAR, VARCHAR[])`  |\"\n\nThis is documentation for a function? It doesn't document any DuckDB configuration settings. Need return empty list. Need JSON matching schema. We need infer schema. Likely list of objects with setting, evidence, default? Need produce JSON only. Since no settings, maybe [].\n\nNeed ensure answer only JSON. Could be {\"settings\":[]}? User says \"Answer only with JSON matching the supplied schema.\" But supplied schema not explicitly shown in prompt. We need infer from instruction: \"For each setting, quote a span... Also report the setting's default...\" So likely schema is array of objects with fields: setting, evidence, default? Need maybe \"default\": null or \"absent\"? They said \"If section does not state a default, say it is absent\". So object fields: setting, evidence, default. Need output JSON array.\n\nGiven no settings, output [].\n\nBut let's be cautious: The section mentions `catalog` parameter, not a setting. No configuration settings. So [].\n\nNeed final only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 515,
+  "completion_tokens": 409,
+  "total_tokens": 924,
+  "cost": 0.0016352,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0016352,
+   "upstream_inference_prompt_cost": 0.00059225,
+   "upstream_inference_completions_cost": 0.00104295
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 470,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.311999999999898
+}

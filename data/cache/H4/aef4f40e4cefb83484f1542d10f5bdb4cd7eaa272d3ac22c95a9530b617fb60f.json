@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789902984-9Yb2mhaq7rAs21M9NliR",
+ "object": "chat.completion",
+ "created": 1789902984,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"preserve_insertion_order\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Preservation of insertion order is controlled by the `preserve_insertion_order` [configuration option]({% link docs/current/configuration/overview.md %}).\\nThis setting is `true` by default, indicating that the order should be preserved.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\"\n   \n    , \"default_evidence\": \"This setting is `true` by default, indicating that the order should be preserved.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to output JSON with list of settings documented in this section. The section mentions preserve_insertion_order configuration option. It says default true. Provide evidence quote. So output JSON with array of objects each with name, default, evidence. Schema? Not given explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"preserve_insertion_order\",\n      \"default\": \"true\",\n      \"evidence\": \"Preservation of insertion order is controlled by the `preserve_insertion_order` [configuration option]... This setting is `true` by default, indicating that the order should be preserved.\"\n    }\n  ]\n}\n\nBut need to follow \"Answer only with JSON matching the supplied schema.\" No schema provided in prompt, but typical tasks: maybe {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. We'll assume that.\n\nMake sure evidence is verbatim span. Provide exact quote. Use backticks? Should be string. Provide the quote exactly as appears. The quote: \"Preservation of insertion order is controlled by the `preserve_insertion_order` [configuration option]({% link docs/current/configuration/overview.md %}).\" and \"This setting is `true` by default, indicating that the order should be preserved.\" Could combine both or separate? Probably one evidence string containing both lines.\n\nWe'll output JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to output JSON with list of settings documented in this section. The section mentions preserve_insertion_order configuration option. It says default true. Provide evidence quote. So output JSON with array of objects each with name, default, evidence. Schema? Not given explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"preserve_insertion_order\",\n      \"default\": \"true\",\n      \"evidence\": \"Preservation of insertion order is controlled by the `preserve_insertion_order` [configuration option]... This setting is `true` by default, indicating that the order should be preserved.\"\n    }\n  ]\n}\n\nBut need to follow \"Answer only with JSON matching the supplied schema.\" No schema provided in prompt, but typical tasks: maybe {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. We'll assume that.\n\nMake sure evidence is verbatim span. Provide exact quote. Use backticks? Should be string. Provide the quote exactly as appears. The quote: \"Preservation of insertion order is controlled by the `preserve_insertion_order` [configuration option]({% link docs/current/configuration/overview.md %}).\" and \"This setting is `true` by default, indicating that the order should be preserved.\" Could combine both or separate? Probably one evidence string containing both lines.\n\nWe'll output JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 527,
+  "completion_tokens": 438,
+  "total_tokens": 965,
+  "cost": 9.027e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.027e-05,
+   "upstream_inference_prompt_cost": 1.581e-05,
+   "upstream_inference_completions_cost": 7.446e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 338,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 5.936999999998079
+}

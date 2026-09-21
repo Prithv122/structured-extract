@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789893822-790WewvtKhOU7q1lNv2u",
+ "object": "chat.completion",
+ "created": 1789893822,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"With the `preserve_identifier_case` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) set to `false`, all identifiers are turned into lowercase:\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"preserve_identifier_case\"\n    ,\"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. The section documents preserve_identifier_case? It tells what setting does: with option set false, all identifiers turned into lowercase. It shows SET. It doesn't state default? It says set to false, not default. Need return setting with evidence quote. Need quote verbatim. We need decide quote span. Could quote \"With the `preserve_identifier_case` configuration option set to `false`, all identifiers are turned into lowercase\" maybe includes setting. Need default absent. JSON schema? User says answer only with JSON matching supplied schema. We don't have schema in prompt? Need infer likely array of objects with setting, evidence, default? Need produce JSON. We need include only documented setting. The section documents preserve_identifier_case. Evidence quote exact. Default absent. Need maybe include default: null or \"absent\"? They said \"say it is absent\". Schema maybe fields: setting, evidence, default. We can output {\"setting\": \"preserve_identifier_case\", \"evidence\": \"With the `preserve_identifier_case` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) set to `false`, all identifiers are turned into lowercase:\", \"default\": \"absent\"}? Need ensure quote exact from text. The text includes markdown link. We can quote entire sentence. Need copy characters exactly. Let's craft JSON.\n\nBut need consider if section documents any other settings? It mentions `preserve_identifier_case` only. The SQL `SET preserve_identifier_case = false;` also evidence. Could quote that too? One evidence span enough. Need maybe include exact quote with backticks. JSON string must escape? We can include backticks no issue. Need include link? The text has `[configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference)`. We can quote exactly. Need maybe quote \"With the `preserve_identifier_case` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) set to `false`, all identifiers are turned into lowercase:\" That is verbatim. Default absent.\n\nNeed answer only JSON. Ensure no markdown. Use double quotes. Let's produce.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. The section documents preserve_identifier_case? It tells what setting does: with option set false, all identifiers turned into lowercase. It shows SET. It doesn't state default? It says set to false, not default. Need return setting with evidence quote. Need quote verbatim. We need decide quote span. Could quote \"With the `preserve_identifier_case` configuration option set to `false`, all identifiers are turned into lowercase\" maybe includes setting. Need default absent. JSON schema? User says answer only with JSON matching supplied schema. We don't have schema in prompt? Need infer likely array of objects with setting, evidence, default? Need produce JSON. We need include only documented setting. The section documents preserve_identifier_case. Evidence quote exact. Default absent. Need maybe include default: null or \"absent\"? They said \"say it is absent\". Schema maybe fields: setting, evidence, default. We can output {\"setting\": \"preserve_identifier_case\", \"evidence\": \"With the `preserve_identifier_case` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) set to `false`, all identifiers are turned into lowercase:\", \"default\": \"absent\"}? Need ensure quote exact from text. The text includes markdown link. We can quote entire sentence. Need copy characters exactly. Let's craft JSON.\n\nBut need consider if section documents any other settings? It mentions `preserve_identifier_case` only. The SQL `SET preserve_identifier_case = false;` also evidence. Could quote that too? One evidence span enough. Need maybe include exact quote with backticks. JSON string must escape? We can include backticks no issue. Need include link? The text has `[configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference)`. We can quote exactly. Need maybe quote \"With the `preserve_identifier_case` [configuration option]({% link docs/current/configuration/overview.md %}#configuration-reference) set to `false`, all identifiers are turned into lowercase:\" That is verbatim. Default absent.\n\nNeed answer only JSON. Ensure no markdown. Use double quotes. Let's produce.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 458,
+  "completion_tokens": 585,
+  "total_tokens": 1043,
+  "cost": 0.00177525,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00177525,
+   "upstream_inference_prompt_cost": 0.0002835,
+   "upstream_inference_completions_cost": 0.00149175
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 550,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 12.781000000000859
+}

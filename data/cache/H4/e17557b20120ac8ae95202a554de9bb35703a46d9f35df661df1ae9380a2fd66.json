@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789903459-vRjGR1aYTtexWxroTywb",
+ "object": "chat.completion",
+ "created": 1789903459,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"pg_pool_enable_thread_local_cache\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"To support this the `pg_pool_enable_thread_local_cache` configuration option can be used\",\n      \"default_kind\": \"absent\"\n    \t,\n   \t\"default_value\": \"absent\"\n   \t,\n   \t\"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. The section mentions `pg_pool_enable_thread_local_cache`. That's a setting. Need to provide evidence quote and default if stated. The text: \"To support this the `pg_pool_enable_thread_local_cache` configuration option can be used - it makes an idle connection to be returned to a thread-local (and thread-private) cache instead of the main cache shared between all threads.\"\n\nNo default mentioned. So default is absent.\n\nWe need JSON matching supplied schema. Not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"pg_pool_enable_thread_local_cache\",\n      \"description\": \"...\", maybe not needed? The instruction: Return every configuration setting that this section documents. Provide quote as evidence. Also report default if section states it. So JSON likely includes name, evidence, default. Let's assume schema:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"pg_pool_enable_thread_local_cache\",\n      \"evidence\": \"quoted span\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" Since we don't have schema, we guess typical. Could be:\n\n{\n  \"settings\": [\n    {\n      \"setting\": \"pg_pool_enable_thread_local_cache\",\n      \"quote\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nBetter to use keys: \"name\", \"quote\", \"default\". We'll choose that.\n\nProvide quote exactly as appears: \"`pg_pool_enable_thread_local_cache` configuration option\". The span: \"`pg_pool_enable_thread_local_cache` configuration option\". Or maybe include more: \"To support this the `pg_pool_enable_thread_local_cache` configuration option can be used\". Use that.\n\nReturn JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. The section mentions `pg_pool_enable_thread_local_cache`. That's a setting. Need to provide evidence quote and default if stated. The text: \"To support this the `pg_pool_enable_thread_local_cache` configuration option can be used - it makes an idle connection to be returned to a thread-local (and thread-private) cache instead of the main cache shared between all threads.\"\n\nNo default mentioned. So default is absent.\n\nWe need JSON matching supplied schema. Not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"pg_pool_enable_thread_local_cache\",\n      \"description\": \"...\", maybe not needed? The instruction: Return every configuration setting that this section documents. Provide quote as evidence. Also report default if section states it. So JSON likely includes name, evidence, default. Let's assume schema:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"pg_pool_enable_thread_local_cache\",\n      \"evidence\": \"quoted span\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" Since we don't have schema, we guess typical. Could be:\n\n{\n  \"settings\": [\n    {\n      \"setting\": \"pg_pool_enable_thread_local_cache\",\n      \"quote\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nBetter to use keys: \"name\", \"quote\", \"default\". We'll choose that.\n\nProvide quote exactly as appears: \"`pg_pool_enable_thread_local_cache` configuration option\". The span: \"`pg_pool_enable_thread_local_cache` configuration option\". Or maybe include more: \"To support this the `pg_pool_enable_thread_local_cache` configuration option can be used\". Use that.\n\nReturn JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 516,
+  "completion_tokens": 485,
+  "total_tokens": 1001,
+  "cost": 9.793e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.793e-05,
+   "upstream_inference_prompt_cost": 1.548e-05,
+   "upstream_inference_completions_cost": 8.245e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 436,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.390999999999622
+}

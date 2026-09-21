@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905301-mNZUR439Zc341vh1Ar6g",
+ "object": "chat.completion",
+ "created": 1789905301,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allowed_directories\",\n      \"input_type\": \"VARCHAR[]\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"List of directories/prefixes that are ALWAYS allowed to be queried - even when enable_external_access is false\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"[]\"\n   \n    , \"default_evidence\": \"`allowed_directories` ... Default value: `[]`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a table with one setting: `allowed_directories`. We need to output JSON with each setting, its evidence (quote from the section), and default (if stated). The table includes description, type, default value. So we have evidence: the row includes the description and default. We need to quote a span verbatim. Probably we can quote the default value line: \"`allowed_directories` ...\". The evidence could be the description line. Provide default: `[]`. Provide JSON matching schema. We need to know schema. Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to infer schema. The instruction: \"Answer only with JSON matching the supplied schema.\" The schema wasn't supplied in the prompt. Possibly the schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"evidence\": \"string\",\n      \"default\": \"string\"\n    }\n  ]\n}\n\nWe'll output that.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allowed_directories\",\n      \"evidence\": \"`allowed_directories`                         | List of directories/prefixes that are ALWAYS allowed to be queried - even when enable_external_access is false\",\n      \"default\": \"[]\"\n    }\n  ]\n}\n\nMake sure quoting exactly as appears. The table row includes spaces and pipes. We need a verbatim span. Could quote the description part: \"List of directories/prefixes that are ALWAYS allowed to be queried - even when enable_external_access is false\". That is a span. Provide that.\n\nThus final.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a table with one setting: `allowed_directories`. We need to output JSON with each setting, its evidence (quote from the section), and default (if stated). The table includes description, type, default value. So we have evidence: the row includes the description and default. We need to quote a span verbatim. Probably we can quote the default value line: \"`allowed_directories` ...\". The evidence could be the description line. Provide default: `[]`. Provide JSON matching schema. We need to know schema. Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to infer schema. The instruction: \"Answer only with JSON matching the supplied schema.\" The schema wasn't supplied in the prompt. Possibly the schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"evidence\": \"string\",\n      \"default\": \"string\"\n    }\n  ]\n}\n\nWe'll output that.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allowed_directories\",\n      \"evidence\": \"`allowed_directories`                         | List of directories/prefixes that are ALWAYS allowed to be queried - even when enable_external_access is false\",\n      \"default\": \"[]\"\n    }\n  ]\n}\n\nMake sure quoting exactly as appears. The table row includes spaces and pipes. We need a verbatim span. Could quote the description part: \"List of directories/prefixes that are ALWAYS allowed to be queried - even when enable_external_access is false\". That is a span. Provide that.\n\nThus final.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 434,
+  "completion_tokens": 489,
+  "total_tokens": 923,
+  "cost": 9.615e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 384,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.615e-05,
+   "upstream_inference_prompt_cost": 1.302e-05,
+   "upstream_inference_completions_cost": 8.313e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 431,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 12.640999999999622
+}

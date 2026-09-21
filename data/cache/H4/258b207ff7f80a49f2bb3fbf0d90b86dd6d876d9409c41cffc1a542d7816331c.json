@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905463-Fj9ljS7aRnbZCgUM8ktA",
+ "object": "chat.completion",
+ "created": 1789905463,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"zstd_min_string_length\",\n      \"input_type\": \"UBIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`zstd_min_string_length`                      | The (average) length at which to enable ZSTD compression, defaults to 4096\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"4096\"\n   \n    , \"default_evidence\": \"`zstd_min_string_length`                      | The (average) length at which to enable ZSTD compression, defaults to 4096\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a table with one setting: `zstd_min_string_length`. We need to output JSON with each setting, quoting a span of the section verbatim as evidence, and also report default if the section states it. The table includes description and default value. So we need to output JSON array of objects with fields: \"setting\", \"evidence\", \"default\". The schema not given explicitly but we can infer: likely an array of objects with those keys. Let's assume schema: [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]. Provide default as string maybe. The default is \"4096\". Provide evidence: a verbatim span from the section. Could quote the description line: \"`zstd_min_string_length` | The (average) length at which to enable ZSTD compression, defaults to 4096\". Or just the part that mentions default. Must copy characters exactly. So evidence: \"`zstd_min_string_length`                      | The (average) length at which to enable ZSTD compression, defaults to 4096\". Ensure exact characters as in the table. The table line includes spaces and backticks. Provide that.\n\nReturn JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a table with one setting: `zstd_min_string_length`. We need to output JSON with each setting, quoting a span of the section verbatim as evidence, and also report default if the section states it. The table includes description and default value. So we need to output JSON array of objects with fields: \"setting\", \"evidence\", \"default\". The schema not given explicitly but we can infer: likely an array of objects with those keys. Let's assume schema: [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]. Provide default as string maybe. The default is \"4096\". Provide evidence: a verbatim span from the section. Could quote the description line: \"`zstd_min_string_length` | The (average) length at which to enable ZSTD compression, defaults to 4096\". Or just the part that mentions default. Must copy characters exactly. So evidence: \"`zstd_min_string_length`                      | The (average) length at which to enable ZSTD compression, defaults to 4096\". Ensure exact characters as in the table. The table line includes spaces and backticks. Provide that.\n\nReturn JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 437,
+  "completion_tokens": 399,
+  "total_tokens": 836,
+  "cost": 8.094e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.094e-05,
+   "upstream_inference_prompt_cost": 1.311e-05,
+   "upstream_inference_completions_cost": 6.783e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 299,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 11.40599999999904
+}

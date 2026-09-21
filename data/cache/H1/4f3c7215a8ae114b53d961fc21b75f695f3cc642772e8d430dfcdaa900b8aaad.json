@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789896565-5XEsoxR03IdFfypSxxfL",
+ "object": "chat.completion",
+ "created": 1789896565,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe from previous? We only have current. Need produce JSON with settings documented in section. The section is a table row? The provided text:\n\n| **Description** | Returns the value of the environment variable `var`. Only available in the [command line client]({% link docs/current/clients/cli/overview.md %}). |\n| **Example** | `getenv('HOME')` |\n| **Result** | `/path/to/user/home` |\n\nThis appears to be documentation for a function `getenv`, not a configuration setting. Need return every configuration setting documented. Likely none. Need output JSON maybe {\"settings\": []} or schema? Need infer. The instruction: \"Return every configuration setting that this section documents... Answer only with JSON matching the supplied schema.\" Since no schema supplied, maybe expected format from known tasks? Could be list of objects with setting, evidence, default. Need decide.\n\nWe need answer only JSON. Since no settings documented, likely empty list. But need match schema. Could be:\n{\n  \"settings\": []\n}\nor maybe just [].\n\nNeed think. The user says \"Answer only with JSON matching the supplied schema.\" There is no supplied schema in prompt. Maybe hidden schema? We need produce likely structure. They ask \"For each setting, quote a span... Also report the setting's default...\" So each setting object likely has fields: setting name, evidence, default. Maybe schema:\n{\n  \"settings\": [\n    {\n      \"setting\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nBut if none, empty array.\n\nNeed ensure no false positives. The section documents `getenv` function, not a configuration setting. It mentions environment variable `var`, command line client. No DuckDB configuration setting. So empty.\n\nNeed output JSON only. Could be:\n{\"settings\": []}\n\nLet's craft final.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe from previous? We only have current. Need produce JSON with settings documented in section. The section is a table row? The provided text:\n\n| **Description** | Returns the value of the environment variable `var`. Only available in the [command line client]({% link docs/current/clients/cli/overview.md %}). |\n| **Example** | `getenv('HOME')` |\n| **Result** | `/path/to/user/home` |\n\nThis appears to be documentation for a function `getenv`, not a configuration setting. Need return every configuration setting documented. Likely none. Need output JSON maybe {\"settings\": []} or schema? Need infer. The instruction: \"Return every configuration setting that this section documents... Answer only with JSON matching the supplied schema.\" Since no schema supplied, maybe expected format from known tasks? Could be list of objects with setting, evidence, default. Need decide.\n\nWe need answer only JSON. Since no settings documented, likely empty list. But need match schema. Could be:\n{\n  \"settings\": []\n}\nor maybe just [].\n\nNeed think. The user says \"Answer only with JSON matching the supplied schema.\" There is no supplied schema in prompt. Maybe hidden schema? We need produce likely structure. They ask \"For each setting, quote a span... Also report the setting's default...\" So each setting object likely has fields: setting name, evidence, default. Maybe schema:\n{\n  \"settings\": [\n    {\n      \"setting\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nBut if none, empty array.\n\nNeed ensure no false positives. The section documents `getenv` function, not a configuration setting. It mentions environment variable `var`, command line client. No DuckDB configuration setting. So empty.\n\nNeed output JSON only. Could be:\n{\"settings\": []}\n\nLet's craft final.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 433,
+  "completion_tokens": 427,
+  "total_tokens": 860,
+  "cost": 0.0013436,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0013436,
+   "upstream_inference_prompt_cost": 0.00025475,
+   "upstream_inference_completions_cost": 0.00108885
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 496,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.92200000000048
+}

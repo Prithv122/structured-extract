@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789914521-Qv1StDLow6WmvFIbBF9S",
+ "object": "chat.completion",
+ "created": 1789914521,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only, schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. Need infer? We need extract DuckDB configuration settings from section. The section is about STRUCT data type. It documents STRUCT concept, not configuration settings. Likely empty list. Need output JSON maybe {\"settings\": []} or maybe list? Need know schema. Since no schema, likely expected array of settings? We need answer only JSON. We can output empty list? Need decide.\n\nThe instruction: \"Answer only with JSON matching the supplied schema.\" But no schema in conversation. Maybe from previous? We need produce likely {\"settings\": []} or []. The prompt says \"For each setting, quote...\" and \"Also report the setting's default...\" It asks answer only JSON matching supplied schema. Could be schema like:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\",\n      \"default_evidence\": \"...\"\n    }\n  ]\n}\nBut not supplied. Need maybe output empty list? Hmm.\n\nGiven no settings in section, correct answer is empty list. But \"Answer only with JSON matching the supplied schema.\" If schema unknown, safest maybe output `[]`? But if schema expects object with settings array, empty list might not match. Need infer from wording: \"For each setting, quote a span...\" \"Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" Could be schema like:\n{\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"evidence\": \"string\",\n      \"default\": \"string or null\",\n      \"default_evidence\": \"string or null\"\n    }\n  ]\n}\nBut no explicit. In many such tasks, expected JSON is an array of objects. But \"matching the supplied schema\" maybe from system? Not present. We need maybe output `[]` because no settings. But if schema is object, empty list might be invalid. Hmm.\n\nLet's examine prompt: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" Then instructions. \"Answer only with JSON matching the supplied schema.\" It doesn't show schema. Could be hidden? We need produce JSON. Since no settings, likely `[]` is acceptable if schema is array. But if schema is object with \"settings\" property, maybe `{\"settings\": []}`. Which is more likely? The phrase \"matching the supplied schema\" suggests there is a schema, but not included in user message. In previous tasks, maybe schema is:\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"settings\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"name\": {\"type\": \"string\"},\n          \"evidence\": {\"type\": \"string\"},\n          \"default\": {\"type\": \"string\"},\n          \"default_evidence\": {\"type\": \"string\"}\n        },\n        \"required\": [\"name\", \"evidence\", \"default\", \"default_evidence\"]\n      }\n    }\n  },\n  \"required\": [\"settings\"]\n}\nBut not shown. We need decide.\n\nGiven the instruction \"For each setting, quote a span...\" and \"Also report the setting's default...\" It might expect an array of objects with fields: name, evidence, default, default_evidence. But \"Answer only with JSON matching the supplied schema.\" If no settings, empty array is natural. I'll output `[]`? But if schema is object, maybe fail. Let's think of common evaluation: They likely parse JSON and compare to expected. If expected is empty list, output `[]`. If expected is object with settings empty, output `{\"settings\": []}`. Which is more likely? The prompt says \"Answer only with JSON matching the supplied schema.\" It doesn't say \"Return a JSON array\" or \"Return a JSON object\". The schema might be from a system prompt not shown. In many OpenAI function calling tasks, the schema is provided in the prompt. Here it's missing. Could be a mistake. We need infer from \"For each setting, quote a span...\" The output likely is a list of settings. So empty list is plausible.\n\nBut the user says \"If the section documents those, the correct answer is an empty list\" — \"empty list\" explicitly. So they expect a list. So output `[]` is correct. They say \"empty list\" not \"empty object\". So answer should be `[]`. I'll output `[]`.\n\nNeed ensure no extra text.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only, schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. Need infer? We need extract DuckDB configuration settings from section. The section is about STRUCT data type. It documents STRUCT concept, not configuration settings. Likely empty list. Need output JSON maybe {\"settings\": []} or maybe list? Need know schema. Since no schema, likely expected array of settings? We need answer only JSON. We can output empty list? Need decide.\n\nThe instruction: \"Answer only with JSON matching the supplied schema.\" But no schema in conversation. Maybe from previous? We need produce likely {\"settings\": []} or []. The prompt says \"For each setting, quote...\" and \"Also report the setting's default...\" It asks answer only JSON matching supplied schema. Could be schema like:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\",\n      \"default_evidence\": \"...\"\n    }\n  ]\n}\nBut not supplied. Need maybe output empty list? Hmm.\n\nGiven no settings in section, correct answer is empty list. But \"Answer only with JSON matching the supplied schema.\" If schema unknown, safest maybe output `[]`? But if schema expects object with settings array, empty list might not match. Need infer from wording: \"For each setting, quote a span...\" \"Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" Could be schema like:\n{\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"evidence\": \"string\",\n      \"default\": \"string or null\",\n      \"default_evidence\": \"string or null\"\n    }\n  ]\n}\nBut no explicit. In many such tasks, expected JSON is an array of objects. But \"matching the supplied schema\" maybe from system? Not present. We need maybe output `[]` because no settings. But if schema is object, empty list might be invalid. Hmm.\n\nLet's examine prompt: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" Then instructions. \"Answer only with JSON matching the supplied schema.\" It doesn't show schema. Could be hidden? We need produce JSON. Since no settings, likely `[]` is acceptable if schema is array. But if schema is object with \"settings\" property, maybe `{\"settings\": []}`. Which is more likely? The phrase \"matching the supplied schema\" suggests there is a schema, but not included in user message. In previous tasks, maybe schema is:\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"settings\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"name\": {\"type\": \"string\"},\n          \"evidence\": {\"type\": \"string\"},\n          \"default\": {\"type\": \"string\"},\n          \"default_evidence\": {\"type\": \"string\"}\n        },\n        \"required\": [\"name\", \"evidence\", \"default\", \"default_evidence\"]\n      }\n    }\n  },\n  \"required\": [\"settings\"]\n}\nBut not shown. We need decide.\n\nGiven the instruction \"For each setting, quote a span...\" and \"Also report the setting's default...\" It might expect an array of objects with fields: name, evidence, default, default_evidence. But \"Answer only with JSON matching the supplied schema.\" If no settings, empty array is natural. I'll output `[]`? But if schema is object, maybe fail. Let's think of common evaluation: They likely parse JSON and compare to expected. If expected is empty list, output `[]`. If expected is object with settings empty, output `{\"settings\": []}`. Which is more likely? The prompt says \"Answer only with JSON matching the supplied schema.\" It doesn't say \"Return a JSON array\" or \"Return a JSON object\". The schema might be from a system prompt not shown. In many OpenAI function calling tasks, the schema is provided in the prompt. Here it's missing. Could be a mistake. We need infer from \"For each setting, quote a span...\" The output likely is a list of settings. So empty list is plausible.\n\nBut the user says \"If the section documents those, the correct answer is an empty list\" — \"empty list\" explicitly. So they expect a list. So output `[]` is correct. They say \"empty list\" not \"empty object\". So answer should be `[]`. I'll output `[]`.\n\nNeed ensure no extra text.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 777,
+  "completion_tokens": 955,
+  "total_tokens": 1732,
+  "cost": 0.0030856,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0030856,
+   "upstream_inference_prompt_cost": 0.00065035,
+   "upstream_inference_completions_cost": 0.00243525
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 1056,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 23.110000000000582
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789914846-TZdlp0isJChp7PWUBDMm",
+ "object": "chat.completion",
+ "created": 1789914846,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"If you wish to load your own extensions or extensions from third-parties you will need to enable the `allow_unsigned_extensions` flag.\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"allow_unsigned_extensions\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need extract DuckDB configuration settings from section. Need identify settings documented. Section text about loading unsigned extensions. Mentions `allow_unsigned_extensions` flag and database configuration option. Need quote verbatim spans. Need default? Section does not state default. Need output schema? User says answer only with JSON matching supplied schema. We don't have schema in prompt? Need infer likely list of objects with setting name, evidence quote, default. Need produce JSON. Need be careful: \"allow_unsigned_extensions\" is a DuckDB configuration setting? Yes. Section documents it: \"enable the `allow_unsigned_extensions` flag\" and \"the `allow_unsigned_extensions` database configuration options needs to be set\". Need quote spans. Could include both? Need one setting. Default absent. Need maybe also `-unsigned` CLI flag? That's not configuration setting? It is startup flag, not SET/RESET/PRAGMA? The prompt says configuration setting changed with SET, RESET or PRAGMA applies to database/connection. `allow_unsigned_extensions` is config option. `-unsigned` is CLI flag, not config setting. So only one.\n\nNeed produce JSON. Need maybe schema: {\"settings\":[{\"name\": \"...\", \"evidence\": \"...\", \"default\": null or \"absent\"?}]}. Need decide. User says \"Also report the setting's default, but only if this section states it... If section does not state a default, say it is absent\". So default field maybe string \"absent\". Need include evidence verbatim. Need exact quote. Let's quote: \"If you wish to load your own extensions or extensions from third-parties you will need to enable the `allow_unsigned_extensions` flag.\" That's evidence. Also \"For client APIs, the `allow_unsigned_extensions` database configuration options needs to be set\" maybe second evidence. Need one span? \"quote a span of the section verbatim as evidence\" singular. Could use first sentence. Need include backticks? Copy exactly. The text has backticks around allow_unsigned_extensions. We can include. Need JSON escape? Fine.\n\nNeed maybe include default absent. Let's craft:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allow_unsigned_extensions\",\n      \"evidence\": \"If you wish to load your own extensions or extensions from third-parties you will need to enable the `allow_unsigned_extensions` flag.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nNeed ensure no extra text.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need extract DuckDB configuration settings from section. Need identify settings documented. Section text about loading unsigned extensions. Mentions `allow_unsigned_extensions` flag and database configuration option. Need quote verbatim spans. Need default? Section does not state default. Need output schema? User says answer only with JSON matching supplied schema. We don't have schema in prompt? Need infer likely list of objects with setting name, evidence quote, default. Need produce JSON. Need be careful: \"allow_unsigned_extensions\" is a DuckDB configuration setting? Yes. Section documents it: \"enable the `allow_unsigned_extensions` flag\" and \"the `allow_unsigned_extensions` database configuration options needs to be set\". Need quote spans. Could include both? Need one setting. Default absent. Need maybe also `-unsigned` CLI flag? That's not configuration setting? It is startup flag, not SET/RESET/PRAGMA? The prompt says configuration setting changed with SET, RESET or PRAGMA applies to database/connection. `allow_unsigned_extensions` is config option. `-unsigned` is CLI flag, not config setting. So only one.\n\nNeed produce JSON. Need maybe schema: {\"settings\":[{\"name\": \"...\", \"evidence\": \"...\", \"default\": null or \"absent\"?}]}. Need decide. User says \"Also report the setting's default, but only if this section states it... If section does not state a default, say it is absent\". So default field maybe string \"absent\". Need include evidence verbatim. Need exact quote. Let's quote: \"If you wish to load your own extensions or extensions from third-parties you will need to enable the `allow_unsigned_extensions` flag.\" That's evidence. Also \"For client APIs, the `allow_unsigned_extensions` database configuration options needs to be set\" maybe second evidence. Need one span? \"quote a span of the section verbatim as evidence\" singular. Could use first sentence. Need include backticks? Copy exactly. The text has backticks around allow_unsigned_extensions. We can include. Need JSON escape? Fine.\n\nNeed maybe include default absent. Let's craft:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allow_unsigned_extensions\",\n      \"evidence\": \"If you wish to load your own extensions or extensions from third-parties you will need to enable the `allow_unsigned_extensions` flag.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nNeed ensure no extra text.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 754,
+  "completion_tokens": 633,
+  "total_tokens": 1387,
+  "cost": 0.00223805,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00223805,
+   "upstream_inference_prompt_cost": 0.0006239,
+   "upstream_inference_completions_cost": 0.00161415
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 601,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 16.218000000000757
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905041-or4nriRn5ESHwNh1seXH",
+ "object": "chat.completion",
+ "created": 1789905041,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"ignore_target_file_size_for_partitioned_tables\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"ignore_row_group_size_for_partitioned_tables\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). When default_kind is \"absent\", default_value must be null and default_evidence must be null. In previous answer we set default_value to \"absent\" string, which is wrong. Also we have stray commas after default_kind line causing syntax errors. Need to produce proper JSON.\n\nAlso need correct input_type and scope? The schema likely expects input_type as string (maybe \"BOOLEAN\" for true/false). The settings are boolean flags. The previous answer set input_type \"DOUBLE\" incorrectly. Should be \"BOOLEAN\". Scope maybe \"SESSION\" or \"GLOBAL\"? Not sure. The doc says \"Set ignore_target_file_size_for_partitioned_tables or ignore_row_group_size_for_partitioned_tables to true\". Likely these are session or global settings. In DuckDB, many settings are \"GLOBAL\". Could be \"SESSION\". But we need to infer from doc? The doc snippet only mentions \"Set ... to true\". No scope. The schema may require scope field; we guessed \"GLOBAL\". Might be okay. Input_type should be \"BOOLEAN\". Let's adjust.\n\nEvidence must be verbatim span. The snippet: \"ignore_target_file_size_for_partitioned_tables\" appears within backticks. The evidence should be a span that includes the setting name and description. The sentence: \"Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\" That's verbatim. So evidence fine.\n\nNow produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"ignore_target_file_size_for_partitioned_tables\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"ignore_row_group_size_for_partitioned_tables\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nMake sure JSON valid.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). When default_kind is \"absent\", default_value must be null and default_evidence must be null. In previous answer we set default_value to \"absent\" string, which is wrong. Also we have stray commas after default_kind line causing syntax errors. Need to produce proper JSON.\n\nAlso need correct input_type and scope? The schema likely expects input_type as string (maybe \"BOOLEAN\" for true/false). The settings are boolean flags. The previous answer set input_type \"DOUBLE\" incorrectly. Should be \"BOOLEAN\". Scope maybe \"SESSION\" or \"GLOBAL\"? Not sure. The doc says \"Set ignore_target_file_size_for_partitioned_tables or ignore_row_group_size_for_partitioned_tables to true\". Likely these are session or global settings. In DuckDB, many settings are \"GLOBAL\". Could be \"SESSION\". But we need to infer from doc? The doc snippet only mentions \"Set ... to true\". No scope. The schema may require scope field; we guessed \"GLOBAL\". Might be okay. Input_type should be \"BOOLEAN\". Let's adjust.\n\nEvidence must be verbatim span. The snippet: \"ignore_target_file_size_for_partitioned_tables\" appears within backticks. The evidence should be a span that includes the setting name and description. The sentence: \"Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\" That's verbatim. So evidence fine.\n\nNow produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"ignore_target_file_size_for_partitioned_tables\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"ignore_row_group_size_for_partitioned_tables\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Set [`ignore_target_file_size_for_partitioned_tables`]({% link docs/current/core_extensions/iceberg/reference.md %}#settings) or `ignore_row_group_size_for_partitioned_tables` to `true` to ignore them instead.\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nMake sure JSON valid.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1782,
+  "completion_tokens": 833,
+  "total_tokens": 2615,
+  "cost": 0.00019507,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00019507,
+   "upstream_inference_prompt_cost": 5.346e-05,
+   "upstream_inference_completions_cost": 0.00014161
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 659,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 21.78099999999904
+}

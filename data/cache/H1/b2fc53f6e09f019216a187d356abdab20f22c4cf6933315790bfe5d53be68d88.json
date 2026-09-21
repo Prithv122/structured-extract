@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789896681-xj2ml9zzqMPvlpFIiGFP",
+ "object": "chat.completion",
+ "created": 1789896681,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"To support this the `pg_pool_enable_thread_local_cache` configuration option can be used - it makes an idle connection to be returned to a thread-local (and thread-private) cache instead of the main cache shared between all threads.\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"pg_pool_enable_thread_local_cache\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer only JSON matching schema. Need fix validation: default_kind absent => default_value and default_evidence both null. Also need ensure input_type? Schema likely expects enum? Previous had input_type DOUBLE maybe wrong? But validation only complained about default_evidence. Need return corrected JSON. We should not add/remove settings. Need set default_evidence null. Also maybe input_type should be something else? The schema not shown but previous validation only that error. We need output JSON only. Ensure valid. The setting name pg_pool_enable_thread_local_cache. Evidence quote exact. default_kind absent, default_value null, default_evidence null. input_type? We previously used DOUBLE, but maybe should be BOOLEAN? The setting is a flag likely boolean. But schema may have input_type enum? The validation didn't complain about input_type, so maybe accepted? But we need be cautious. The user says fix exactly these problems. So only change default_evidence to null. Keep input_type DOUBLE? But if schema expects enum maybe it would have complained. It didn't. So keep. But maybe input_type should be \"BOOLEAN\" because pg_pool_enable_thread_local_cache is boolean. However previous answer had DOUBLE and no error. The instruction says do not change what errors point at. So only default_evidence. Return JSON.\n\nNeed ensure no markdown. Final answer JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer only JSON matching schema. Need fix validation: default_kind absent => default_value and default_evidence both null. Also need ensure input_type? Schema likely expects enum? Previous had input_type DOUBLE maybe wrong? But validation only complained about default_evidence. Need return corrected JSON. We should not add/remove settings. Need set default_evidence null. Also maybe input_type should be something else? The schema not shown but previous validation only that error. We need output JSON only. Ensure valid. The setting name pg_pool_enable_thread_local_cache. Evidence quote exact. default_kind absent, default_value null, default_evidence null. input_type? We previously used DOUBLE, but maybe should be BOOLEAN? The setting is a flag likely boolean. But schema may have input_type enum? The validation didn't complain about input_type, so maybe accepted? But we need be cautious. The user says fix exactly these problems. So only change default_evidence to null. Keep input_type DOUBLE? But if schema expects enum maybe it would have complained. It didn't. So keep. But maybe input_type should be \"BOOLEAN\" because pg_pool_enable_thread_local_cache is boolean. However previous answer had DOUBLE and no error. The instruction says do not change what errors point at. So only default_evidence. Return JSON.\n\nNeed ensure no markdown. Final answer JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1221,
+  "completion_tokens": 411,
+  "total_tokens": 1632,
+  "cost": 0.002209,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.002209,
+   "upstream_inference_prompt_cost": 0.00116095,
+   "upstream_inference_completions_cost": 0.00104805
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 345,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 7.781000000000859
+}

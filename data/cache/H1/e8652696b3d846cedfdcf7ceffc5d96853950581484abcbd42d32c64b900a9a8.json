@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789895996-IVZLuuSY1dPqtFBy3fPW",
+ "object": "chat.completion",
+ "created": 1789895996,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"if the `temp_directory` [configuration]({% link docs/current/configuration/overview.md %}) is set, data will be spilled to disk if memory becomes constrained.\",\n      \"input_type\": \"VARCHAR\",\n      \"name\": \"temp_directory\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to fix the JSON according to schema. The error says: default_kind is 'absent', so default_value and default_evidence must both be null. In our previous answer, default_evidence was \"absent\" (string) but should be null. default_value is already null. So change default_evidence to null. Also ensure other fields are correct. The evidence string includes markdown link syntax; that's fine as verbatim. But note: the evidence includes the link markup exactly as in the document? The document text: \"if the `temp_directory` [configuration]({% link docs/current/configuration/overview.md %}) is set, data will be spilled to disk if memory becomes constrained.\" That is verbatim. So keep.\n\nAlso check input_type: \"VARCHAR\" is likely correct? The schema might expect a string, but we don't know exact allowed values. The error didn't complain about input_type, so it's fine. Scope: \"GLOBAL\" is fine.\n\nThus corrected JSON: default_evidence: null, default_kind: \"absent\", default_value: null.\n\nReturn only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to fix the JSON according to schema. The error says: default_kind is 'absent', so default_value and default_evidence must both be null. In our previous answer, default_evidence was \"absent\" (string) but should be null. default_value is already null. So change default_evidence to null. Also ensure other fields are correct. The evidence string includes markdown link syntax; that's fine as verbatim. But note: the evidence includes the link markup exactly as in the document? The document text: \"if the `temp_directory` [configuration]({% link docs/current/configuration/overview.md %}) is set, data will be spilled to disk if memory becomes constrained.\" That is verbatim. So keep.\n\nAlso check input_type: \"VARCHAR\" is likely correct? The schema might expect a string, but we don't know exact allowed values. The error didn't complain about input_type, so it's fine. Scope: \"GLOBAL\" is fine.\n\nThus corrected JSON: default_evidence: null, default_kind: \"absent\", default_value: null.\n\nReturn only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1119,
+  "completion_tokens": 337,
+  "total_tokens": 1456,
+  "cost": 0.0021462,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0021462,
+   "upstream_inference_prompt_cost": 0.00128685,
+   "upstream_inference_completions_cost": 0.00085935
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 254,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.20299999999952
+}

@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789900466-lzmuvWc5hjMgofclLI70",
+ "object": "chat.completion",
+ "created": 1789900466,
+ "model": "openai/gpt-4.1-nano",
+ "provider": "OpenAI",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "completed",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"partitioned_write_max_open_files\",\n      \"input_type\": \"UINTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET partitioned_write_max_open_files = 10;\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"100\",\n      \"default_evidence\": \"default: 100\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1150,
+  "completion_tokens": 87,
+  "total_tokens": 1237,
+  "cost": 0.0001498,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0001498,
+   "upstream_inference_prompt_cost": 0.000115,
+   "upstream_inference_completions_cost": 3.48e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 1.625
+}

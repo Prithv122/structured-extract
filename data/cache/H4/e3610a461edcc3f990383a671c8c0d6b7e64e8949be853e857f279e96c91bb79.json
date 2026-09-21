@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789920993-nPOODNFPx6v6wDKCKMIM",
+ "object": "chat.completion",
+ "created": 1789920993,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"extension_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`extension_directory`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. For default_kind \"absent\", default_value and default_evidence must be null. In previous answer they set default_value to \"absent\" string, which is wrong. Should set default_value: null, default_evidence: null.\n\nAlso evidence must be verbatim span from section. The provided evidence \"`extension_directory` | Set the directory to store extensions in | `VARCHAR` |\" includes pipe separators from table. The original section shows a markdown table:\n\n|                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |\n|----|--------|--|---|\n| `extension_directory`                         | Set the directory to store extensions in                                                                                                                                                                      | `VARCHAR`   |                                                     |\n\nThus the row is: \"`extension_directory`\" then description then \"`VARCHAR`\" then empty default. The evidence should be a verbatim span, maybe just the name cell? The spec: quote a span of the section verbatim as evidence. Could quote the name cell: \"`extension_directory`\". Or the whole row. The row includes spaces and pipes. The evidence we gave includes pipes, which is verbatim from the markdown. That should be okay.\n\nBut we need to adjust default fields.\n\nThus output JSON:\n\n{\n \"settings\": [\n   {\n     \"name\": \"extension_directory\",\n     \"input_type\": \"VARCHAR\",\n     \"scope\": \"GLOBAL\",\n     \"evidence\": \"`extension_directory`\",\n     \"default_kind\": \"absent\",\n     \"default_value\": null,\n     \"default_evidence\": null\n   }\n ]\n}\n\nMake sure evidence is verbatim. Could also include the description but not needed. Provide minimal.\n\nReturn only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. For default_kind \"absent\", default_value and default_evidence must be null. In previous answer they set default_value to \"absent\" string, which is wrong. Should set default_value: null, default_evidence: null.\n\nAlso evidence must be verbatim span from section. The provided evidence \"`extension_directory` | Set the directory to store extensions in | `VARCHAR` |\" includes pipe separators from table. The original section shows a markdown table:\n\n|                     Name                      |                                                                                                  Description                                                                                                  |    Type     |                    Default value                    |\n|----|--------|--|---|\n| `extension_directory`                         | Set the directory to store extensions in                                                                                                                                                                      | `VARCHAR`   |                                                     |\n\nThus the row is: \"`extension_directory`\" then description then \"`VARCHAR`\" then empty default. The evidence should be a verbatim span, maybe just the name cell? The spec: quote a span of the section verbatim as evidence. Could quote the name cell: \"`extension_directory`\". Or the whole row. The row includes spaces and pipes. The evidence we gave includes pipes, which is verbatim from the markdown. That should be okay.\n\nBut we need to adjust default fields.\n\nThus output JSON:\n\n{\n \"settings\": [\n   {\n     \"name\": \"extension_directory\",\n     \"input_type\": \"VARCHAR\",\n     \"scope\": \"GLOBAL\",\n     \"evidence\": \"`extension_directory`\",\n     \"default_kind\": \"absent\",\n     \"default_value\": null,\n     \"default_evidence\": null\n   }\n ]\n}\n\nMake sure evidence is verbatim. Could also include the description but not needed. Provide minimal.\n\nReturn only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 12135,
+  "completion_tokens": 456,
+  "total_tokens": 12591,
+  "cost": 0.00044157,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 544,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00044157,
+   "upstream_inference_prompt_cost": 0.00036405,
+   "upstream_inference_completions_cost": 7.752e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 542,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 10.375
+}

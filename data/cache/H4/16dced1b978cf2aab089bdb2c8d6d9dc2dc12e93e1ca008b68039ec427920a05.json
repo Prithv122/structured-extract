@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789903424-Bv5O0OUlJdzIoGsuXUM9",
+ "object": "chat.completion",
+ "created": 1789903424,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The provided snippet is a table with Description, Example, Result. It describes a function `getenv('HOME')`. This is not a configuration setting; it's a function. The question: \"Return every configuration setting that this section documents.\" The snippet does not document any configuration setting. So answer should be empty list.\n\nWe need to output JSON matching supplied schema. The schema not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to infer. Usually these tasks require output like:\n\n{\n  \"settings\": []\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" Since we don't have schema, but typical is an array of objects. Could be just []? But they said \"Return every configuration setting that this section documents.\" So maybe output a JSON array. Could be just [].\n\nI'll output an empty array.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The provided snippet is a table with Description, Example, Result. It describes a function `getenv('HOME')`. This is not a configuration setting; it's a function. The question: \"Return every configuration setting that this section documents.\" The snippet does not document any configuration setting. So answer should be empty list.\n\nWe need to output JSON matching supplied schema. The schema not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to infer. Usually these tasks require output like:\n\n{\n  \"settings\": []\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" Since we don't have schema, but typical is an array of objects. Could be just []? But they said \"Return every configuration setting that this section documents.\" So maybe output a JSON array. Could be just [].\n\nI'll output an empty array.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 423,
+  "completion_tokens": 246,
+  "total_tokens": 669,
+  "cost": 5.451e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 5.451e-05,
+   "upstream_inference_prompt_cost": 1.269e-05,
+   "upstream_inference_completions_cost": 4.182e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 278,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 3.8909999999996217
+}

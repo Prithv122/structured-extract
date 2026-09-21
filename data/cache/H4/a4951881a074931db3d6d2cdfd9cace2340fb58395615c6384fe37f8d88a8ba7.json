@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789902970-DJNdActRuv1Iups4esDA",
+ "object": "chat.completion",
+ "created": 1789902970,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"if the `temp_directory` [configuration]({% link docs/current/configuration/overview.md %}) is set, data will be spilled to disk if memory becomes constrained.\",\n      \"default_kind\": \"absent\"\n   \n    ,\n      \"default_value\": \"absent\"\n   \n    ,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The section mentions `temp_directory` as a configuration. It says: \"if the `temp_directory` [configuration]... is set, data will be spilled to disk if memory becomes constrained.\" Also shows SET temp_directory = '/path/to/directory/'; So we need to output a JSON with list of settings. Only one: temp_directory.\n\nWe need to provide evidence quote: a span verbatim. Could use \"if the `temp_directory` [configuration]({% link docs/current/configuration/overview.md %}) is set, data will be spilled to disk if memory becomes constrained.\" Also \"SET temp_directory = '/path/to/directory/';\". Provide default: does the section state default? It does not mention default. So default is absent.\n\nSchema? Not provided but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nBut need to follow \"Answer only with JSON matching the supplied schema.\" We don't have schema explicitly, but typical tasks: maybe {\"settings\": [{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]}. We'll assume that.\n\nReturn JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The section mentions `temp_directory` as a configuration. It says: \"if the `temp_directory` [configuration]... is set, data will be spilled to disk if memory becomes constrained.\" Also shows SET temp_directory = '/path/to/directory/'; So we need to output a JSON with list of settings. Only one: temp_directory.\n\nWe need to provide evidence quote: a span verbatim. Could use \"if the `temp_directory` [configuration]({% link docs/current/configuration/overview.md %}) is set, data will be spilled to disk if memory becomes constrained.\" Also \"SET temp_directory = '/path/to/directory/';\". Provide default: does the section state default? It does not mention default. So default is absent.\n\nSchema? Not provided but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nBut need to follow \"Answer only with JSON matching the supplied schema.\" We don't have schema explicitly, but typical tasks: maybe {\"settings\": [{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]}. We'll assume that.\n\nReturn JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 605,
+  "completion_tokens": 390,
+  "total_tokens": 995,
+  "cost": 8.445e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.445e-05,
+   "upstream_inference_prompt_cost": 1.815e-05,
+   "upstream_inference_completions_cost": 6.63e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 297,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.31199999999808
+}

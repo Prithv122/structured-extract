@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789908848-NBbVwquyLtpmTdhBhxUh",
+ "object": "chat.completion",
+ "created": 1789908848,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"file_search_path\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`file_search_path`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). When default_kind is \"absent\", default_value must be null and default_evidence must be null. In previous answer, default_value was \"absent\". Should be null. Also evidence must be a verbatim span from the document. The document snippet shows a table with description. The evidence should be a span that documents the setting. The setting name appears in the table header row: \"`file_search_path`\". That's a verbatim span. Probably okay. But we need to ensure evidence is a string quoting the span exactly as appears. The snippet includes backticks around file_search_path. So evidence: \"`file_search_path`\". That's fine.\n\nNow adjust JSON: default_value: null, default_evidence: null. Also remove stray commas. Ensure proper JSON formatting.\n\nThus:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"file_search_path\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`file_search_path`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nReturn that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). When default_kind is \"absent\", default_value must be null and default_evidence must be null. In previous answer, default_value was \"absent\". Should be null. Also evidence must be a verbatim span from the document. The document snippet shows a table with description. The evidence should be a span that documents the setting. The setting name appears in the table header row: \"`file_search_path`\". That's a verbatim span. Probably okay. But we need to ensure evidence is a string quoting the span exactly as appears. The snippet includes backticks around file_search_path. So evidence: \"`file_search_path`\". That's fine.\n\nNow adjust JSON: default_value: null, default_evidence: null. Also remove stray commas. Ensure proper JSON formatting.\n\nThus:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"file_search_path\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`file_search_path`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nReturn that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 846,
+  "completion_tokens": 353,
+  "total_tokens": 1199,
+  "cost": 8.539e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.539e-05,
+   "upstream_inference_prompt_cost": 2.538e-05,
+   "upstream_inference_completions_cost": 6.001e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 306,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.0
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789900687-hoWpXEFgt6GhmvIm1fFl",
+ "object": "chat.completion",
+ "created": 1789900687,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"file_search_path\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"Use the configuration option `file_search_path` to configure to which “root directories” relative paths are expanded on.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"working directory\"\n    ,\n      \"default_evidence\": \"If `file_search_path` is not set, the working directory is used as the basis for relative paths.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. The text mentions `file_search_path`. It describes what it does: \"Use the configuration option `file_search_path` to configure to which “root directories” relative paths are expanded on.\" Also: \"If `file_search_path` is not set, the working directory is used as the basis for relative paths.\"\n\nThus we have one setting: file_search_path. Need to provide evidence quotes. Also default: The section says if not set, working directory is used. So default is working directory. That's a description. So default is \"working directory\". It's a concrete default? It's a description: \"the working directory\". So we can state default: \"working directory\". It's not machine-dependent; it's a specific default. Provide as string.\n\nJSON schema? Not given explicitly but likely something like list of objects with name, evidence, default. We'll assume format: [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]. Provide that.\n\nLet's produce JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. The text mentions `file_search_path`. It describes what it does: \"Use the configuration option `file_search_path` to configure to which “root directories” relative paths are expanded on.\" Also: \"If `file_search_path` is not set, the working directory is used as the basis for relative paths.\"\n\nThus we have one setting: file_search_path. Need to provide evidence quotes. Also default: The section says if not set, working directory is used. So default is working directory. That's a description. So default is \"working directory\". It's a concrete default? It's a description: \"the working directory\". So we can state default: \"working directory\". It's not machine-dependent; it's a specific default. Provide as string.\n\nJSON schema? Not given explicitly but likely something like list of objects with name, evidence, default. We'll assume format: [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]. Provide that.\n\nLet's produce JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 422,
+  "completion_tokens": 338,
+  "total_tokens": 760,
+  "cost": 7.012e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.012e-05,
+   "upstream_inference_prompt_cost": 1.266e-05,
+   "upstream_inference_completions_cost": 5.746e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 255,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 30.82800000000134
+}

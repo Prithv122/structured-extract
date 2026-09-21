@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789917772-FImLztI4RFWHlkhxSN6t",
+ "object": "chat.completion",
+ "created": 1789917772,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": \"`false`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\",\n      \"evidence\": \"| `allow_extensions_metadata_mismatch`          | Allow to load extensions with not compatible metadata                                                                                                                                                         | `BOOLEAN`   | `false`                                             |\",\n      \"input_type\": \"BOOLEAN\",\n      \"name\": \"allow_extensions_metadata_mismatch\"\n    ,\"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. User asks extract DuckDB configuration settings from single section. We have table \"Global Configuration Options\" with one row: allow_extensions_metadata_mismatch. Need output JSON matching supplied schema? They didn't supply schema explicitly in prompt? They say \"Answer only with JSON matching the supplied schema.\" But no schema in visible? Need infer maybe list of objects with setting, evidence, default, default_evidence? Need produce JSON. Need include setting name, quote verbatim, default. Need quote span exactly. The row: `allow_extensions_metadata_mismatch` | Allow to load extensions with not compatible metadata | `BOOLEAN` | `false`. Need quote evidence for setting. Could quote entire row? Need quote span of section verbatim. We can quote the name and description maybe. Need default stated: false. Need default evidence quote. Need maybe include type? Schema unknown. We need answer only JSON. Let's craft likely schema: maybe {\"settings\":[{\"name\":\"allow_extensions_metadata_mismatch\",\"evidence\":\"...\",\"default\":\"false\",\"default_evidence\":\"...\"}]}. But user says \"For each setting, quote a span of the section verbatim as evidence. Copy the characters exactly as they appear. Do not paraphrase, tidy or complete the quote. Also report the setting's default, but only if this section states it. ... A stated default must be backed by a verbatim quote in the same way the setting itself is.\" So likely fields: name, evidence, default, default_evidence? Need include maybe type? The schema not supplied. We need decide. Could include \"settings\" array with objects. Need ensure quotes exact. The table row includes backticks around names and type/default. We can quote the row line: \"| `allow_extensions_metadata_mismatch`          | Allow to load extensions with not compatible metadata                                                                                                                                                         | `BOOLEAN`   | `false`                                             |\" That includes exact. But maybe evidence should be a span that identifies setting. Could quote just \"`allow_extensions_metadata_mismatch`\" and description? Need \"quote a span of the section verbatim as evidence\" for setting. The row is fine. For default, quote \"`false`\" maybe. Need default value \"false\". Could include default_evidence: \"`false`\". Need maybe default is literal false. \n\nNeed consider if this is a configuration setting? Yes Global Configuration Options. It is a setting changed with SET/RESET/PRAGMA? allow_extensions_metadata_mismatch is a DuckDB setting. So include.\n\nNeed output only JSON. No markdown. Let's produce:\n{\n  \"settings\": [\n    {\n      \"name\": \"allow_extensions_metadata_mismatch\",\n      \"evidence\": \"| `allow_extensions_metadata_mismatch`          | Allow to load extensions with not compatible metadata                                                                                                                                                         | `BOOLEAN`   | `false`                                             |\",\n      \"default\": \"false\",\n      \"default_evidence\": \"`false`\"\n    }\n  ]\n}\nBut maybe schema expects \"default\" as string or boolean? They say report default; if concrete value, literal default. Could be string \"false\". Need maybe include \"type\": \"BOOLEAN\"? Not requested. But schema unknown. Could include type? Hmm.\n\nNeed maybe include \"default_is_machine_dependent\": false? Not requested. But maybe schema includes fields: setting, evidence, default, default_evidence. We'll keep minimal.\n\nNeed ensure exact quote. The row in prompt has spaces. We need copy exactly as appears. The line:\n| `allow_extensions_metadata_mismatch`          | Allow to load extensions with not compatible metadata                                                                                                                                                         | `BOOLEAN`   | `false`                                             |\nNeed count spaces? We can copy from prompt. It has many spaces. We can include exactly. But JSON string can contain spaces. Need not escape backticks. Fine.\n\nPotential issue: The table header and separator are not included. Evidence row is enough. Could include entire table? But quote span of section verbatim. Row is fine.\n\nNeed maybe include default evidence as \"`false`\" from row. Good.\n\nLet's final JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. User asks extract DuckDB configuration settings from single section. We have table \"Global Configuration Options\" with one row: allow_extensions_metadata_mismatch. Need output JSON matching supplied schema? They didn't supply schema explicitly in prompt? They say \"Answer only with JSON matching the supplied schema.\" But no schema in visible? Need infer maybe list of objects with setting, evidence, default, default_evidence? Need produce JSON. Need include setting name, quote verbatim, default. Need quote span exactly. The row: `allow_extensions_metadata_mismatch` | Allow to load extensions with not compatible metadata | `BOOLEAN` | `false`. Need quote evidence for setting. Could quote entire row? Need quote span of section verbatim. We can quote the name and description maybe. Need default stated: false. Need default evidence quote. Need maybe include type? Schema unknown. We need answer only JSON. Let's craft likely schema: maybe {\"settings\":[{\"name\":\"allow_extensions_metadata_mismatch\",\"evidence\":\"...\",\"default\":\"false\",\"default_evidence\":\"...\"}]}. But user says \"For each setting, quote a span of the section verbatim as evidence. Copy the characters exactly as they appear. Do not paraphrase, tidy or complete the quote. Also report the setting's default, but only if this section states it. ... A stated default must be backed by a verbatim quote in the same way the setting itself is.\" So likely fields: name, evidence, default, default_evidence? Need include maybe type? The schema not supplied. We need decide. Could include \"settings\" array with objects. Need ensure quotes exact. The table row includes backticks around names and type/default. We can quote the row line: \"| `allow_extensions_metadata_mismatch`          | Allow to load extensions with not compatible metadata                                                                                                                                                         | `BOOLEAN`   | `false`                                             |\" That includes exact. But maybe evidence should be a span that identifies setting. Could quote just \"`allow_extensions_metadata_mismatch`\" and description? Need \"quote a span of the section verbatim as evidence\" for setting. The row is fine. For default, quote \"`false`\" maybe. Need default value \"false\". Could include default_evidence: \"`false`\". Need maybe default is literal false. \n\nNeed consider if this is a configuration setting? Yes Global Configuration Options. It is a setting changed with SET/RESET/PRAGMA? allow_extensions_metadata_mismatch is a DuckDB setting. So include.\n\nNeed output only JSON. No markdown. Let's produce:\n{\n  \"settings\": [\n    {\n      \"name\": \"allow_extensions_metadata_mismatch\",\n      \"evidence\": \"| `allow_extensions_metadata_mismatch`          | Allow to load extensions with not compatible metadata                                                                                                                                                         | `BOOLEAN`   | `false`                                             |\",\n      \"default\": \"false\",\n      \"default_evidence\": \"`false`\"\n    }\n  ]\n}\nBut maybe schema expects \"default\" as string or boolean? They say report default; if concrete value, literal default. Could be string \"false\". Need maybe include \"type\": \"BOOLEAN\"? Not requested. But schema unknown. Could include type? Hmm.\n\nNeed maybe include \"default_is_machine_dependent\": false? Not requested. But maybe schema includes fields: setting, evidence, default, default_evidence. We'll keep minimal.\n\nNeed ensure exact quote. The row in prompt has spaces. We need copy exactly as appears. The line:\n| `allow_extensions_metadata_mismatch`          | Allow to load extensions with not compatible metadata                                                                                                                                                         | `BOOLEAN`   | `false`                                             |\nNeed count spaces? We can copy from prompt. It has many spaces. We can include exactly. But JSON string can contain spaces. Need not escape backticks. Fine.\n\nPotential issue: The table header and separator are not included. Evidence row is enough. Could include entire table? But quote span of section verbatim. Row is fine.\n\nNeed maybe include default evidence as \"`false`\" from row. Good.\n\nLet's final JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 570,
+  "completion_tokens": 1012,
+  "total_tokens": 1582,
+  "cost": 0.0027497,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 512,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0027497,
+   "upstream_inference_prompt_cost": 0.0001691,
+   "upstream_inference_completions_cost": 0.0025806
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 1123,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 24.139999999999418
+}

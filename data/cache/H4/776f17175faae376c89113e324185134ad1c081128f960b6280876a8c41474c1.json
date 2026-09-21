@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789902213-udj1M4qjXQYZHNxfkN6L",
+ "object": "chat.completion",
+ "created": 1789902213,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`access_mode = 'READ_ONLY'`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON: default_value and default_evidence must be null when default_kind is \"absent\". Also evidence must be verbatim span from the section. The section text includes: \"access_mode = 'READ_ONLY'\" inside backticks? The original text: \"([`access_mode = 'READ_ONLY'`]({% link docs/current/configuration/overview.md %}#configuration-reference))\". The verbatim span should be exactly as appears, including backticks? The instruction: quote a span of the section verbatim as evidence. So we can include the backticks and brackets? The span should be a substring of the section. The substring \"access_mode = 'READ_ONLY'\" appears inside backticks and brackets. The exact characters: \"`access_mode = 'READ_ONLY'`\". That is present. So evidence is fine.\n\nNow adjust JSON: default_value null, default_evidence null. Also remove stray comma after default_kind line. Ensure proper JSON.\n\nReturn:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`access_mode = 'READ_ONLY'`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck schema: fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. Good.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON: default_value and default_evidence must be null when default_kind is \"absent\". Also evidence must be verbatim span from the section. The section text includes: \"access_mode = 'READ_ONLY'\" inside backticks? The original text: \"([`access_mode = 'READ_ONLY'`]({% link docs/current/configuration/overview.md %}#configuration-reference))\". The verbatim span should be exactly as appears, including backticks? The instruction: quote a span of the section verbatim as evidence. So we can include the backticks and brackets? The span should be a substring of the section. The substring \"access_mode = 'READ_ONLY'\" appears inside backticks and brackets. The exact characters: \"`access_mode = 'READ_ONLY'`\". That is present. So evidence is fine.\n\nNow adjust JSON: default_value null, default_evidence null. Also remove stray comma after default_kind line. Ensure proper JSON.\n\nReturn:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`access_mode = 'READ_ONLY'`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck schema: fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. Good.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1003,
+  "completion_tokens": 385,
+  "total_tokens": 1388,
+  "cost": 9.554e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.554e-05,
+   "upstream_inference_prompt_cost": 3.009e-05,
+   "upstream_inference_completions_cost": 6.545e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 325,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 11.90599999999904
+}

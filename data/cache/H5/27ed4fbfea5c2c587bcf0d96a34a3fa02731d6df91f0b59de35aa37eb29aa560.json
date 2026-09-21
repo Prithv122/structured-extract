@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789923154-aXpRFTAhDJf6RZaDiDHW",
+ "object": "chat.completion",
+ "created": 1789923154,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": [{\"name\": \"old_implicit_casting\", \"input_type\": \"BOOLEAN\", \"scope\": \"GLOBAL\", \"evidence\": \"The [`old_implicit_casting` configuration option]({% link docs/current/configuration/pragmas.md %}#implicit-casting-to-varchar) setting can be used to revert to the old behavior.\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 667,
+  "completion_tokens": 98,
+  "total_tokens": 765,
+  "cost": 7.4525e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.4525e-05,
+   "upstream_inference_prompt_cost": 5.0025e-05,
+   "upstream_inference_completions_cost": 2.45e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 4.360000000000582
+}

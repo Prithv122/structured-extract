@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789921192-dcyuFF6h90TZEbi7ISjC",
+ "object": "chat.completion",
+ "created": 1789921192,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`threads`, `worker_threads` | The number of total threads used by the system. | `BIGINT` | # CPU cores\",\n      \"default_kind\": \"machine_dependent\",\n      \"default_value\": \"# CPU cores\"\n    ,\n    \"default_evidence\": \"# CPU cores\"\n    },\n    {\n      \"name\": \"worker_threads\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`threads`, `worker_threads` | The number of total threads used by the system. | `BIGINT` | # CPU cores\",\n      \"default_kind\": \"machine_dependent\",\n      \"default_value\": \"# CPU cores\"\n    ,\n    \"default_evidence\": \"# CPU cores\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section. The user provided a table with a row: Name: `threads`, `worker_threads`; Description: The number of total threads used by the system.; Type: BIGINT; Default value: # CPU cores.\n\nWe need to output JSON matching the supplied schema. The schema is not given explicitly, but we can infer: likely an array of objects each with fields: \"name\", \"type\", \"description\", \"default\". Possibly also \"evidence\". The instruction: \"For each setting, quote a span of the section verbatim as evidence.\" So we need to include evidence field with the quoted span. Also report default if section states it. The default is \"# CPU cores\". That's a description, machine-dependent. So we should note default is \"# CPU cores\" and mark as machine-dependent? The instruction: \"If the section gives a concrete value, that is a literal default. If it describes the default as something that depends on the machine -- a share of RAM, the number of CPU cores, the system locale -- copy that description rather than guessing a number, and say it is machine-dependent.\" So we can include default: \"# CPU cores (machine-dependent)\". Or separate field indicating machine-dependent. Not sure schema.\n\nWe need to output JSON matching supplied schema. Since not provided, we guess typical: {\"settings\": [ { \"name\": \"threads\", \"type\": \"BIGINT\", \"description\": \"...\", \"default\": \"# CPU cores\", \"evidence\": \"...\" } ] }. But there are two names: `threads`, `worker_threads`. Possibly treat as separate settings? The row lists both names as synonyms. Could output two entries, each with same description and default. Or one entry with name list. The schema unknown. Might be expecting array of objects each with \"name\", \"type\", \"description\", \"default\", \"evidence\". We'll output two entries.\n\nEvidence: we need to quote a span of the section verbatim. Could quote the whole row line: \"`threads`, `worker_threads` | The number of total threads used by the system. | `BIGINT` | # CPU cores\". Provide that as evidence.\n\nLet's produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"threads\",\n      \"type\": \"BIGINT\",\n      \"description\": \"The number of total threads used by the system.\",\n      \"default\": \"# CPU cores (machine-dependent)\",\n      \"evidence\": \"`threads`, `worker_threads` | The number of total threads used by the system. | `BIGINT` | # CPU cores\"\n    },\n    {\n      \"name\": \"worker_threads\",\n      \"type\": \"BIGINT\",\n      \"description\": \"The number of total threads used by the system.\",\n      \"default\": \"# CPU cores (machine-dependent)\",\n      \"evidence\": \"`threads`, `worker_threads` | The number of total threads used by the system. | `BIGINT` | # CPU cores\"\n    }\n  ]\n}\n\nMake sure JSON is valid.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section. The user provided a table with a row: Name: `threads`, `worker_threads`; Description: The number of total threads used by the system.; Type: BIGINT; Default value: # CPU cores.\n\nWe need to output JSON matching the supplied schema. The schema is not given explicitly, but we can infer: likely an array of objects each with fields: \"name\", \"type\", \"description\", \"default\". Possibly also \"evidence\". The instruction: \"For each setting, quote a span of the section verbatim as evidence.\" So we need to include evidence field with the quoted span. Also report default if section states it. The default is \"# CPU cores\". That's a description, machine-dependent. So we should note default is \"# CPU cores\" and mark as machine-dependent? The instruction: \"If the section gives a concrete value, that is a literal default. If it describes the default as something that depends on the machine -- a share of RAM, the number of CPU cores, the system locale -- copy that description rather than guessing a number, and say it is machine-dependent.\" So we can include default: \"# CPU cores (machine-dependent)\". Or separate field indicating machine-dependent. Not sure schema.\n\nWe need to output JSON matching supplied schema. Since not provided, we guess typical: {\"settings\": [ { \"name\": \"threads\", \"type\": \"BIGINT\", \"description\": \"...\", \"default\": \"# CPU cores\", \"evidence\": \"...\" } ] }. But there are two names: `threads`, `worker_threads`. Possibly treat as separate settings? The row lists both names as synonyms. Could output two entries, each with same description and default. Or one entry with name list. The schema unknown. Might be expecting array of objects each with \"name\", \"type\", \"description\", \"default\", \"evidence\". We'll output two entries.\n\nEvidence: we need to quote a span of the section verbatim. Could quote the whole row line: \"`threads`, `worker_threads` | The number of total threads used by the system. | `BIGINT` | # CPU cores\". Provide that as evidence.\n\nLet's produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"threads\",\n      \"type\": \"BIGINT\",\n      \"description\": \"The number of total threads used by the system.\",\n      \"default\": \"# CPU cores (machine-dependent)\",\n      \"evidence\": \"`threads`, `worker_threads` | The number of total threads used by the system. | `BIGINT` | # CPU cores\"\n    },\n    {\n      \"name\": \"worker_threads\",\n      \"type\": \"BIGINT\",\n      \"description\": \"The number of total threads used by the system.\",\n      \"default\": \"# CPU cores (machine-dependent)\",\n      \"evidence\": \"`threads`, `worker_threads` | The number of total threads used by the system. | `BIGINT` | # CPU cores\"\n    }\n  ]\n}\n\nMake sure JSON is valid.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 556,
+  "completion_tokens": 832,
+  "total_tokens": 1388,
+  "cost": 0.00015812,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 512,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00015812,
+   "upstream_inference_prompt_cost": 1.668e-05,
+   "upstream_inference_completions_cost": 0.00014144
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 693,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 26.281000000002678
+}

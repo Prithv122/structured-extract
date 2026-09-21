@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789900647-WZJlQQgsU4ZKGGMfZ6Xz",
+ "object": "chat.completion",
+ "created": 1789900647,
+ "model": "openai/gpt-4.1-nano",
+ "provider": "OpenAI",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "completed",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"index_scan_max_count\",\"input_type\":\"UBIGINT\",\"scope\":\"GLOBAL\",\"evidence\":\"| `index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan.\",\"default_kind\":\"literal\",\"default_value\":\"2048\",\"default_evidence\":\"| `index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan.\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 890,
+  "completion_tokens": 147,
+  "total_tokens": 1037,
+  "cost": 0.0001478,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0001478,
+   "upstream_inference_prompt_cost": 8.9e-05,
+   "upstream_inference_completions_cost": 5.88e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 1.7340000000003783
+}

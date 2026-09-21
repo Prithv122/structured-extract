@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789901229-XdVW5B81fCpiWkVKEs3V",
+ "object": "chat.completion",
+ "created": 1789901229,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"old_implicit_casting\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"set the `old_implicit_casting` variable to `true`\",\n      \"default_kind\": \"absent\"\n    \t\t\n   \t, \n   \t\"default_value\": \"absent\"\n   \t,\n   \t\"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The section mentions `old_implicit_casting`. It says to set variable to true. It also describes default? It says prior to version 0.10.0 it was automatic; for version v0.10.0 and later an explicit cast is needed instead. To revert to old behavior set variable to true. It does not state default explicitly, but implies default is false (i.e., old behavior disabled). However the section does not explicitly state default value. It says \"To revert to the old behavior ... set ... to true\". It doesn't say default is false. So default is absent. We need to output JSON with list of settings. Schema? Not provided but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"old_implicit_casting\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe need to quote a span verbatim as evidence for the setting. Provide the quote: \"`old_implicit_casting` variable\". Or the line \"set the `old_implicit_casting` variable to `true`\". Provide that.\n\nThus JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The section mentions `old_implicit_casting`. It says to set variable to true. It also describes default? It says prior to version 0.10.0 it was automatic; for version v0.10.0 and later an explicit cast is needed instead. To revert to old behavior set variable to true. It does not state default explicitly, but implies default is false (i.e., old behavior disabled). However the section does not explicitly state default value. It says \"To revert to the old behavior ... set ... to true\". It doesn't say default is false. So default is absent. We need to output JSON with list of settings. Schema? Not provided but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"old_implicit_casting\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe need to quote a span verbatim as evidence for the setting. Provide the quote: \"`old_implicit_casting` variable\". Or the line \"set the `old_implicit_casting` variable to `true`\". Provide that.\n\nThus JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 467,
+  "completion_tokens": 363,
+  "total_tokens": 830,
+  "cost": 7.572e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.572e-05,
+   "upstream_inference_prompt_cost": 1.401e-05,
+   "upstream_inference_completions_cost": 6.171e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 265,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.437999999998283
+}

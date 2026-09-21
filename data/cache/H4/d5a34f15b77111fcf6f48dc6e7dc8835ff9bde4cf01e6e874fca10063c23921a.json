@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789920042-sx7AD1eE6FmzNEJBe0wr",
+ "object": "chat.completion",
+ "created": 1789920042,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"python_scan_all_frames\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"%sql SET python_scan_all_frames=true\",\n      \"default_kind\": \"absent\"\n    \n    ,    \"default_value\": \"absent\"\n    ,    \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The section is about Jupyter notebook dataframe scanning. It mentions a warning: \"When using the SQLAlchemy connection, make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.\"\n\nThus the setting is python_scan_all_frames. It's a configuration setting that can be set with SET. The default may be mentioned? The section does not state default. It only says to set true. No default given. So we output JSON with list containing one setting: name \"python_scan_all_frames\", evidence quote, default \"absent\". Schema? Not provided but likely something like [{\"name\":..., \"default\":..., \"evidence\":...}]. Need to follow \"Answer only with JSON matching the supplied schema.\" No schema given in prompt, but typical would be array of objects with fields \"setting\", \"default\", \"evidence\". Let's assume fields: \"setting\", \"default\", \"evidence\". Provide that.\n\nWe'll quote the line: `%sql SET python_scan_all_frames=true`. Provide default absent.\n\nReturn JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The section is about Jupyter notebook dataframe scanning. It mentions a warning: \"When using the SQLAlchemy connection, make sure to run `%sql SET python_scan_all_frames=true`, to make Pandas dataframes queryable.\"\n\nThus the setting is python_scan_all_frames. It's a configuration setting that can be set with SET. The default may be mentioned? The section does not state default. It only says to set true. No default given. So we output JSON with list containing one setting: name \"python_scan_all_frames\", evidence quote, default \"absent\". Schema? Not provided but likely something like [{\"name\":..., \"default\":..., \"evidence\":...}]. Need to follow \"Answer only with JSON matching the supplied schema.\" No schema given in prompt, but typical would be array of objects with fields \"setting\", \"default\", \"evidence\". Let's assume fields: \"setting\", \"default\", \"evidence\". Provide that.\n\nWe'll quote the line: `%sql SET python_scan_all_frames=true`. Provide default absent.\n\nReturn JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 618,
+  "completion_tokens": 326,
+  "total_tokens": 944,
+  "cost": 7.396e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.396e-05,
+   "upstream_inference_prompt_cost": 1.854e-05,
+   "upstream_inference_completions_cost": 5.542e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 266,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 31.735000000000582
+}

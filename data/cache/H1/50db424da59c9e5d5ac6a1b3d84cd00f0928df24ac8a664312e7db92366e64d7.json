@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789896633-PniOwu1PG8Az21bEOjIS",
+ "object": "chat.completion",
+ "created": 1789896633,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse task. User asks extract DuckDB configuration settings from a single section of DuckDB documentation. They provided a table? It seems section from information_schema? Columns: character_set_catalog etc. Need determine if these are configuration settings? The section documents columns of `information_schema.character_sets`? The table lists columns and descriptions. Are these DuckDB configuration settings? Likely not. Need return every configuration setting that this section documents. The section documents columns of a view, not configuration settings. Need empty list. But need be careful: \"configuration settings\" maybe DuckDB settings like `default_collation`? The table includes `default_collate_catalog`, etc. These are columns in information_schema.character_sets, not configuration settings. The section documents what each column means. It does not document DuckDB configuration settings. So answer empty list.\n\nNeed output JSON matching supplied schema. Schema not explicitly shown in prompt? It says \"Answer only with JSON matching the supplied schema.\" But no schema included in user message? We need infer maybe expected format: list of settings with quote and default. Need produce JSON. Since empty list, maybe `[]`? But schema likely object with settings? Need know. The prompt says \"Return every configuration setting... For each setting, quote... Also report default...\" \"Answer only with JSON matching the supplied schema.\" No schema visible. We need maybe output `{\"settings\": []}`? Hmm.\n\nWe need infer from typical tasks. They likely expect JSON array of objects? The instruction says \"Return every configuration setting...\" Could be array. But \"matching supplied schema\" maybe omitted in prompt? We need decide. Since no schema, safest JSON empty array? But maybe they expect object with \"settings\": []. Let's examine wording: \"Answer only with JSON matching the supplied schema.\" The supplied schema might be in system? Not visible. We need produce valid JSON. If no settings, empty list is correct. Could be `[]`. But if schema is object, empty list may not match. Need maybe include fields? Hmm.\n\nGiven the user asks \"Return every configuration setting that this section documents.\" If none, answer empty list. JSON: `[]`. But they also mention \"For each setting, quote a span...\" If no settings, no objects. So `[]` is plausible.\n\nNeed ensure no settings. Let's analyze table: It's from DuckDB documentation \"Information Schema - character_sets\"? The columns are `character_set_catalog`, `character_set_schema`, `character_set_name`, `character_repertoire`, `form_of_use`, `default_collate_catalog`, `default_collate_schema`, `default_collate_name`. These are not configuration settings. They are columns in `information_schema.character_sets`. The section documents these columns. It does not document any DuckDB configuration setting. So empty.\n\nNeed final JSON only. Could include `[]`. But maybe schema expects object like:\n```json\n{\n  \"settings\": []\n}\n```\nWhich is more likely? The prompt says \"Answer only with JSON matching the supplied schema.\" Without schema, maybe they expect array because \"Return every configuration setting\" and \"For each setting...\" Usually these tasks ask for JSON array of objects. I'll output `[]`.\n\nBut let's consider if any of these column names could be configuration settings? DuckDB has settings like `default_collation`, `default_order`, `character_set`? Actually DuckDB has `default_collation` setting? There is `default_collation` configuration option? DuckDB supports `SET default_collation = ...`? I know DuckDB has `default_collation` setting? It might. But the table column `default_collate_name` is not a setting; it's a column. The section documents columns, not settings. The prompt explicitly warns: \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely...\" So we must not return `default_collate_name` etc. So empty.\n\nNeed final.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse task. User asks extract DuckDB configuration settings from a single section of DuckDB documentation. They provided a table? It seems section from information_schema? Columns: character_set_catalog etc. Need determine if these are configuration settings? The section documents columns of `information_schema.character_sets`? The table lists columns and descriptions. Are these DuckDB configuration settings? Likely not. Need return every configuration setting that this section documents. The section documents columns of a view, not configuration settings. Need empty list. But need be careful: \"configuration settings\" maybe DuckDB settings like `default_collation`? The table includes `default_collate_catalog`, etc. These are columns in information_schema.character_sets, not configuration settings. The section documents what each column means. It does not document DuckDB configuration settings. So answer empty list.\n\nNeed output JSON matching supplied schema. Schema not explicitly shown in prompt? It says \"Answer only with JSON matching the supplied schema.\" But no schema included in user message? We need infer maybe expected format: list of settings with quote and default. Need produce JSON. Since empty list, maybe `[]`? But schema likely object with settings? Need know. The prompt says \"Return every configuration setting... For each setting, quote... Also report default...\" \"Answer only with JSON matching the supplied schema.\" No schema visible. We need maybe output `{\"settings\": []}`? Hmm.\n\nWe need infer from typical tasks. They likely expect JSON array of objects? The instruction says \"Return every configuration setting...\" Could be array. But \"matching supplied schema\" maybe omitted in prompt? We need decide. Since no schema, safest JSON empty array? But maybe they expect object with \"settings\": []. Let's examine wording: \"Answer only with JSON matching the supplied schema.\" The supplied schema might be in system? Not visible. We need produce valid JSON. If no settings, empty list is correct. Could be `[]`. But if schema is object, empty list may not match. Need maybe include fields? Hmm.\n\nGiven the user asks \"Return every configuration setting that this section documents.\" If none, answer empty list. JSON: `[]`. But they also mention \"For each setting, quote a span...\" If no settings, no objects. So `[]` is plausible.\n\nNeed ensure no settings. Let's analyze table: It's from DuckDB documentation \"Information Schema - character_sets\"? The columns are `character_set_catalog`, `character_set_schema`, `character_set_name`, `character_repertoire`, `form_of_use`, `default_collate_catalog`, `default_collate_schema`, `default_collate_name`. These are not configuration settings. They are columns in `information_schema.character_sets`. The section documents these columns. It does not document any DuckDB configuration setting. So empty.\n\nNeed final JSON only. Could include `[]`. But maybe schema expects object like:\n```json\n{\n  \"settings\": []\n}\n```\nWhich is more likely? The prompt says \"Answer only with JSON matching the supplied schema.\" Without schema, maybe they expect array because \"Return every configuration setting\" and \"For each setting...\" Usually these tasks ask for JSON array of objects. I'll output `[]`.\n\nBut let's consider if any of these column names could be configuration settings? DuckDB has settings like `default_collation`, `default_order`, `character_set`? Actually DuckDB has `default_collation` setting? There is `default_collation` configuration option? DuckDB supports `SET default_collation = ...`? I know DuckDB has `default_collation` setting? It might. But the table column `default_collate_name` is not a setting; it's a column. The section documents columns, not settings. The prompt explicitly warns: \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely...\" So we must not return `default_collate_name` etc. So empty.\n\nNeed final.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 652,
+  "completion_tokens": 874,
+  "total_tokens": 1526,
+  "cost": 0.0027353,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0027353,
+   "upstream_inference_prompt_cost": 0.0005066,
+   "upstream_inference_completions_cost": 0.0022287
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 1031,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 20.78099999999904
+}

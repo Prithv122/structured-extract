@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789901088-z60Y3kw2iY9odp50rqz2",
+ "object": "chat.completion",
+ "created": 1789901088,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"explain_output\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"The default setting. Only shows the physical plan.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"physical_only\"\n    ,\n      \"default_evidence\": \"The default setting. Only shows the physical plan.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. The section describes settings for EXPLAIN output. The setting name is \"explain_output\". It shows three possible values: 'physical_only', 'optimized_only', 'all'. The default is 'physical_only' as per \"The default setting. Only shows the physical plan.\" So we need to output JSON with setting name, default, and evidence quotes.\n\nSchema? Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't given in the prompt, but typical tasks: maybe an array of objects with fields \"setting\", \"default\", \"evidence\". Let's assume:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"explain_output\",\n      \"default\": \"physical_only\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe need to quote a span of the section verbatim as evidence for each. For setting name, we can quote the PRAGMA line. For default, quote \"The default setting. Only shows the physical plan.\" Also maybe the PRAGMA line.\n\nWe need to include the default only if section states it. It does: \"The default setting. Only shows the physical plan.\" So default is 'physical_only'.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"explain_output\",\n      \"default\": \"physical_only\",\n      \"evidence\": \"The default setting. Only shows the physical plan.\"\n    }\n  ]\n}\n\nBut maybe also include the PRAGMA line as evidence. The instruction: \"quote a span of the section verbatim as evidence.\" Could be a single string, but we can include multiple? Probably one evidence string is enough. Could combine both lines.\n\nI'll output as above.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. The section describes settings for EXPLAIN output. The setting name is \"explain_output\". It shows three possible values: 'physical_only', 'optimized_only', 'all'. The default is 'physical_only' as per \"The default setting. Only shows the physical plan.\" So we need to output JSON with setting name, default, and evidence quotes.\n\nSchema? Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't given in the prompt, but typical tasks: maybe an array of objects with fields \"setting\", \"default\", \"evidence\". Let's assume:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"explain_output\",\n      \"default\": \"physical_only\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe need to quote a span of the section verbatim as evidence for each. For setting name, we can quote the PRAGMA line. For default, quote \"The default setting. Only shows the physical plan.\" Also maybe the PRAGMA line.\n\nWe need to include the default only if section states it. It does: \"The default setting. Only shows the physical plan.\" So default is 'physical_only'.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"explain_output\",\n      \"default\": \"physical_only\",\n      \"evidence\": \"The default setting. Only shows the physical plan.\"\n    }\n  ]\n}\n\nBut maybe also include the PRAGMA line as evidence. The instruction: \"quote a span of the section verbatim as evidence.\" Could be a single string, but we can include multiple? Probably one evidence string is enough. Could combine both lines.\n\nI'll output as above.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 449,
+  "completion_tokens": 503,
+  "total_tokens": 952,
+  "cost": 9.898e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.898e-05,
+   "upstream_inference_prompt_cost": 1.347e-05,
+   "upstream_inference_completions_cost": 8.551e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 447,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 14.062000000001717
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789900906-v0mLHnUaKb51kkahndyN",
+ "object": "chat.completion",
+ "created": 1789900906,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allow_community_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`SET allow_community_extensions = false`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"allow_unsigned_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`SET allow_unsigned_extensions = true`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). When default_kind is \"absent\", default_value and default_evidence must be null, not \"absent\". So we need to set default_value: null, default_evidence: null. Also need to ensure input_type and scope are correct? The prompt didn't require those fields, but schema expects them. We guessed input_type INTEGER and scope GLOBAL, but not sure. The documentation didn't specify type. Might be boolean. Actually settings are boolean (true/false). Input_type maybe \"BOOLEAN\". Scope maybe \"SESSION\" or \"GLOBAL\". The doc didn't specify. The schema likely expects these fields, but we guessed. Might be okay. However we need to ensure evidence is verbatim span. The evidence should be exactly as appears in the section. The section contains backticks around SET statements: \"`SET allow_community_extensions = false`\". That's verbatim. Good.\n\nNow adjust default_kind: \"absent\". default_value: null. default_evidence: null.\n\nAlso remove stray commas in JSON. Ensure proper JSON format.\n\nReturn:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allow_community_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET allow_community_extensions = false`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"allow_unsigned_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET allow_unsigned_extensions = true`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nWe need to decide input_type. The schema may accept \"BOOLEAN\". Safer than INTEGER. The doc shows true/false. So boolean.\n\nScope: maybe \"SESSION\". But not specified. Could be \"GLOBAL\". The doc says \"SET\" which sets session-level? In DuckDB, SET is session-level. But not sure. The schema may accept \"SESSION\". Safer to use \"SESSION\". However earlier we used GLOBAL. Might cause validation error if schema expects specific enum values. We don't know. The prompt didn't require these fields; but schema includes them. We need to guess correct values. The typical DuckDB settings are session-level. So scope likely \"SESSION\". Let's set scope \"SESSION\". Input_type \"BOOLEAN\". That seems plausible.\n\nReturn corrected JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). When default_kind is \"absent\", default_value and default_evidence must be null, not \"absent\". So we need to set default_value: null, default_evidence: null. Also need to ensure input_type and scope are correct? The prompt didn't require those fields, but schema expects them. We guessed input_type INTEGER and scope GLOBAL, but not sure. The documentation didn't specify type. Might be boolean. Actually settings are boolean (true/false). Input_type maybe \"BOOLEAN\". Scope maybe \"SESSION\" or \"GLOBAL\". The doc didn't specify. The schema likely expects these fields, but we guessed. Might be okay. However we need to ensure evidence is verbatim span. The evidence should be exactly as appears in the section. The section contains backticks around SET statements: \"`SET allow_community_extensions = false`\". That's verbatim. Good.\n\nNow adjust default_kind: \"absent\". default_value: null. default_evidence: null.\n\nAlso remove stray commas in JSON. Ensure proper JSON format.\n\nReturn:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allow_community_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET allow_community_extensions = false`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"allow_unsigned_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET allow_unsigned_extensions = true`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nWe need to decide input_type. The schema may accept \"BOOLEAN\". Safer than INTEGER. The doc shows true/false. So boolean.\n\nScope: maybe \"SESSION\". But not specified. Could be \"GLOBAL\". The doc says \"SET\" which sets session-level? In DuckDB, SET is session-level. But not sure. The schema may accept \"SESSION\". Safer to use \"SESSION\". However earlier we used GLOBAL. Might cause validation error if schema expects specific enum values. We don't know. The prompt didn't require these fields; but schema includes them. We need to guess correct values. The typical DuckDB settings are session-level. So scope likely \"SESSION\". Let's set scope \"SESSION\". Input_type \"BOOLEAN\". That seems plausible.\n\nReturn corrected JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1327,
+  "completion_tokens": 700,
+  "total_tokens": 2027,
+  "cost": 0.00015881,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00015881,
+   "upstream_inference_prompt_cost": 3.981e-05,
+   "upstream_inference_completions_cost": 0.000119
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 619,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 16.812000000001717
+}

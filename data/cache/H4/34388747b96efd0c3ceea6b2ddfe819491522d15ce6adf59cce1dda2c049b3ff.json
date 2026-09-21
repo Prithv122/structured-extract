@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905062-xq0NAhdxvNEY4WDNDIK8",
+ "object": "chat.completion",
+ "created": 1789905062,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"ca_cert_file\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET ca_cert_file = '⟨certificate_file⟩';\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": null\n    ,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"enable_server_cert_verification\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET enable_server_cert_verification = true;\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": null\n    ,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The text mentions \"ca_cert_file\" and \"enable_server_cert_verification\". These are configuration options. The section says \"set the following configuration options prior to loading the extension\". So we need to list each setting with a quote and default if mentioned. The text does not mention defaults. So default is absent.\n\nWe need JSON matching supplied schema. We need to infer schema: likely an array of objects with fields: setting, evidence, default. The prompt: \"Return every configuration setting that this section documents. ... For each setting, quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it.\" So JSON likely like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"ca_cert_file\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    },\n    {\n      \"name\": \"enable_server_cert_verification\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nBut need to match schema. Not given explicitly. Could be list of objects. Usually they want something like:\n\n[\n  {\n    \"setting\": \"ca_cert_file\",\n    \"evidence\": \"SET ca_cert_file = '⟨certificate_file⟩';\",\n    \"default\": \"absent\"\n  },\n  {\n    \"setting\": \"enable_server_cert_verification\",\n    \"evidence\": \"SET enable_server_cert_verification = true;\",\n    \"default\": \"absent\"\n  }\n]\n\nWe need to be safe. The schema likely expects keys: \"setting\", \"evidence\", \"default\". Use those.\n\nReturn JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The text mentions \"ca_cert_file\" and \"enable_server_cert_verification\". These are configuration options. The section says \"set the following configuration options prior to loading the extension\". So we need to list each setting with a quote and default if mentioned. The text does not mention defaults. So default is absent.\n\nWe need JSON matching supplied schema. We need to infer schema: likely an array of objects with fields: setting, evidence, default. The prompt: \"Return every configuration setting that this section documents. ... For each setting, quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it.\" So JSON likely like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"ca_cert_file\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    },\n    {\n      \"name\": \"enable_server_cert_verification\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nBut need to match schema. Not given explicitly. Could be list of objects. Usually they want something like:\n\n[\n  {\n    \"setting\": \"ca_cert_file\",\n    \"evidence\": \"SET ca_cert_file = '⟨certificate_file⟩';\",\n    \"default\": \"absent\"\n  },\n  {\n    \"setting\": \"enable_server_cert_verification\",\n    \"evidence\": \"SET enable_server_cert_verification = true;\",\n    \"default\": \"absent\"\n  }\n]\n\nWe need to be safe. The schema likely expects keys: \"setting\", \"evidence\", \"default\". Use those.\n\nReturn JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 543,
+  "completion_tokens": 528,
+  "total_tokens": 1071,
+  "cost": 0.00010605,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00010605,
+   "upstream_inference_prompt_cost": 1.629e-05,
+   "upstream_inference_completions_cost": 8.976e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 388,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 13.015999999999622
+}

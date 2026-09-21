@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789923100-qXYWmdgixnD1fzBul909",
+ "object": "chat.completion",
+ "created": 1789923100,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "No section content given—only links list. The section is \"Profiling\" presumably? Actually we're given a list of links, not the section text. We must answer based on... The task: extract settings from a single section. The provided content is just link descriptions mentioning enable_profiling and profiling_mode PRAGMAs. But no verbatim quotes available. Likely answer empty list? The links mention PRAGMAs but we can't quote. Safer: empty list.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "No section content given—only links list. The section is \"Profiling\" presumably? Actually we're given a list of links, not the section text. We must answer based on... The task: extract settings from a single section. The provided content is just link descriptions mentioning enable_profiling and profiling_mode PRAGMAs. But no verbatim quotes available. Likely answer empty list? The links mention PRAGMAs but we can't quote. Safer: empty list.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 535,
+  "completion_tokens": 105,
+  "total_tokens": 640,
+  "cost": 6.6375e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.6375e-05,
+   "upstream_inference_prompt_cost": 4.0125e-05,
+   "upstream_inference_completions_cost": 2.625e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 98,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.531000000002678
+}

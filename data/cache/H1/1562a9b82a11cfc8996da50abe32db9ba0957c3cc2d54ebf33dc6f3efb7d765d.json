@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789896530-Pb7d0bzRkqALG9653Moq",
+ "object": "chat.completion",
+ "created": 1789896530,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse task. We have section from DuckDB documentation? It is about CREATE VIEW. Need extract configuration settings documented. Likely none. Need return JSON matching schema. We need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe produce list of settings with evidence and default. Need decide structure. Since no explicit schema, but likely expected: {\"settings\": [{\"name\": ..., \"evidence\": \"...\", \"default\": ...}]}. Need be careful.\n\nWe need determine if section documents any DuckDB configuration settings. The text is about CREATE VIEW syntax, not configuration settings. It mentions \"Temporary views exist in a special schema\" etc. No settings. So empty list.\n\nNeed output JSON only. Could be {\"settings\": []}. But maybe schema includes \"documented_settings\"? Need infer from instruction: \"Return every configuration setting that this section documents.\" \"For each setting, quote a span...\" \"Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" No schema shown. We need maybe use common schema? Could be from previous tasks? We need produce valid JSON with empty list. Maybe include fields? If no settings, just empty array? Let's think.\n\nThe user says \"Answer only with JSON matching the supplied schema.\" But no schema in message. Maybe hidden? We need produce something like:\n{\n  \"settings\": []\n}\nThis is safe. But if schema expects an object with \"settings\" array. Could also be just []? The instruction \"Return every configuration setting\" maybe array. But \"For each setting...\" and \"Also report...\" suggests array of objects. \"Answer only with JSON matching the supplied schema.\" Without schema, I'd output an object with \"settings\": [].\n\nNeed ensure no extra text. Final JSON only.\n\nBut let's double-check if any configuration setting is documented in this section. The section is about CREATE VIEW. It doesn't mention any PRAGMA or SET configuration. Words like \"schema\", \"view\", \"query\", \"temporary\" are not settings. \"Temporary views exist in a special schema\" not a setting. So empty.\n\nNeed maybe include \"default\": absent? No settings.\n\nThus final:\n{\"settings\": []}\n\nBut maybe they expect \"settings\": [] and no other fields. I'll output that.\n\nNeed ensure valid JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse task. We have section from DuckDB documentation? It is about CREATE VIEW. Need extract configuration settings documented. Likely none. Need return JSON matching schema. We need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe produce list of settings with evidence and default. Need decide structure. Since no explicit schema, but likely expected: {\"settings\": [{\"name\": ..., \"evidence\": \"...\", \"default\": ...}]}. Need be careful.\n\nWe need determine if section documents any DuckDB configuration settings. The text is about CREATE VIEW syntax, not configuration settings. It mentions \"Temporary views exist in a special schema\" etc. No settings. So empty list.\n\nNeed output JSON only. Could be {\"settings\": []}. But maybe schema includes \"documented_settings\"? Need infer from instruction: \"Return every configuration setting that this section documents.\" \"For each setting, quote a span...\" \"Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" No schema shown. We need maybe use common schema? Could be from previous tasks? We need produce valid JSON with empty list. Maybe include fields? If no settings, just empty array? Let's think.\n\nThe user says \"Answer only with JSON matching the supplied schema.\" But no schema in message. Maybe hidden? We need produce something like:\n{\n  \"settings\": []\n}\nThis is safe. But if schema expects an object with \"settings\" array. Could also be just []? The instruction \"Return every configuration setting\" maybe array. But \"For each setting...\" and \"Also report...\" suggests array of objects. \"Answer only with JSON matching the supplied schema.\" Without schema, I'd output an object with \"settings\": [].\n\nNeed ensure no extra text. Final JSON only.\n\nBut let's double-check if any configuration setting is documented in this section. The section is about CREATE VIEW. It doesn't mention any PRAGMA or SET configuration. Words like \"schema\", \"view\", \"query\", \"temporary\" are not settings. \"Temporary views exist in a special schema\" not a setting. So empty.\n\nNeed maybe include \"default\": absent? No settings.\n\nThus final:\n{\"settings\": []}\n\nBut maybe they expect \"settings\": [] and no other fields. I'll output that.\n\nNeed ensure valid JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 508,
+  "completion_tokens": 499,
+  "total_tokens": 1007,
+  "cost": 0.00161345,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00161345,
+   "upstream_inference_prompt_cost": 0.000341,
+   "upstream_inference_completions_cost": 0.00127245
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 590,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 12.843999999999141
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789914445-2OwAEOTF1KfbIn273lMs",
+ "object": "chat.completion",
+ "created": 1789914445,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON with schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe from prior? We need produce list of settings with evidence and default. Need inspect section. The section is CREATE VIEW docs. It documents SQL statement options? It has no configuration settings. Need return empty list likely. But need JSON matching schema. Need know schema. Could be something like {\"settings\": [{\"name\": ..., \"evidence\": ..., \"default\": ...}]}. We need answer only JSON. Since no settings, likely {\"settings\": []}. Need ensure no settings. Let's analyze section.\n\nSection content: `<div id=\"rrdiagram\"></div>` and paragraphs about CREATE VIEW. No table of settings. No configuration settings. So empty list.\n\nNeed maybe include schema? The instruction \"Answer only with JSON matching the supplied schema.\" We don't have schema but likely expected format from previous tasks: maybe list of objects with \"setting\", \"evidence\", \"default\"? Need infer. The user says \"For each setting, quote a span... Also report the setting's default...\" So JSON likely array of objects with fields: name, evidence, default. Could be {\"settings\": [...]}. Need decide.\n\nGiven no settings, any reasonable empty JSON? Need match supplied schema. Since not supplied, maybe we can output `[]`? But \"Answer only with JSON matching the supplied schema.\" Could be schema is an array of settings. Hmm.\n\nLet's think of typical extraction tasks: They might expect:\n```json\n{\n  \"settings\": []\n}\n```\nor\n```json\n[]\n```\nNeed infer from wording: \"For each setting, quote a span... Also report the setting's default...\" They might have supplied schema in system? Not visible. The user says \"Answer only with JSON matching the supplied schema.\" In this interface, maybe schema was in previous message? But only one user message. Could be hidden? We need produce JSON object with settings array.\n\nI'll output `{\"settings\": []}`. But maybe they expect `[]`? Let's examine phrase: \"Answer only with JSON matching the supplied schema.\" If schema was an array, then empty array. If schema was object with settings property, then object. Which is more likely? The prompt says \"For each setting, quote a span... Also report the setting's default...\" It doesn't mention a top-level key. In many such tasks, they ask \"Return a JSON array of objects...\" But here \"matching the supplied schema\" implies there is a schema. Without seeing it, safest is to include a key \"settings\" because they refer to \"settings\" plural. But maybe schema is:\n```\n{\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"name\": {\"type\": \"string\"},\n      \"evidence\": {\"type\": \"string\"},\n      \"default\": {\"type\": \"string\"}\n    },\n    \"required\": [\"name\", \"evidence\", \"default\"]\n  }\n}\n```\nThen answer should be `[]`. Hmm.\n\nLet's read user: \"Answer only with JSON matching the supplied schema.\" They didn't supply schema in the message. Could be from system prompt? We don't have system prompt. In previous similar tasks, the schema might be:\n```json\n{\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"evidence\": \"string\",\n      \"default\": \"string\"\n    }\n  ]\n}\n```\nI think object with settings is common.\n\nNeed maybe include \"default\": null if absent? The prompt says \"If the section does not state a default, say it is absent; do not fill it in...\" So for each setting, default field should be string or \"absent\" or \"machine-dependent\". But no settings.\n\nI'll output:\n```json\n{\"settings\": []}\n```\nNo extra text. Ensure valid JSON.\n\nBut let's double-check if any configuration settings hidden in CREATE VIEW section? It mentions \"Temporary views exist in a special schema\" but no settings. No SET/RESET/PRAGMA. So empty.\n\nNeed maybe include \"evidence\" and \"default\" fields? Not needed for empty.\n\nI'll answer only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON with schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe from prior? We need produce list of settings with evidence and default. Need inspect section. The section is CREATE VIEW docs. It documents SQL statement options? It has no configuration settings. Need return empty list likely. But need JSON matching schema. Need know schema. Could be something like {\"settings\": [{\"name\": ..., \"evidence\": ..., \"default\": ...}]}. We need answer only JSON. Since no settings, likely {\"settings\": []}. Need ensure no settings. Let's analyze section.\n\nSection content: `<div id=\"rrdiagram\"></div>` and paragraphs about CREATE VIEW. No table of settings. No configuration settings. So empty list.\n\nNeed maybe include schema? The instruction \"Answer only with JSON matching the supplied schema.\" We don't have schema but likely expected format from previous tasks: maybe list of objects with \"setting\", \"evidence\", \"default\"? Need infer. The user says \"For each setting, quote a span... Also report the setting's default...\" So JSON likely array of objects with fields: name, evidence, default. Could be {\"settings\": [...]}. Need decide.\n\nGiven no settings, any reasonable empty JSON? Need match supplied schema. Since not supplied, maybe we can output `[]`? But \"Answer only with JSON matching the supplied schema.\" Could be schema is an array of settings. Hmm.\n\nLet's think of typical extraction tasks: They might expect:\n```json\n{\n  \"settings\": []\n}\n```\nor\n```json\n[]\n```\nNeed infer from wording: \"For each setting, quote a span... Also report the setting's default...\" They might have supplied schema in system? Not visible. The user says \"Answer only with JSON matching the supplied schema.\" In this interface, maybe schema was in previous message? But only one user message. Could be hidden? We need produce JSON object with settings array.\n\nI'll output `{\"settings\": []}`. But maybe they expect `[]`? Let's examine phrase: \"Answer only with JSON matching the supplied schema.\" If schema was an array, then empty array. If schema was object with settings property, then object. Which is more likely? The prompt says \"For each setting, quote a span... Also report the setting's default...\" It doesn't mention a top-level key. In many such tasks, they ask \"Return a JSON array of objects...\" But here \"matching the supplied schema\" implies there is a schema. Without seeing it, safest is to include a key \"settings\" because they refer to \"settings\" plural. But maybe schema is:\n```\n{\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"name\": {\"type\": \"string\"},\n      \"evidence\": {\"type\": \"string\"},\n      \"default\": {\"type\": \"string\"}\n    },\n    \"required\": [\"name\", \"evidence\", \"default\"]\n  }\n}\n```\nThen answer should be `[]`. Hmm.\n\nLet's read user: \"Answer only with JSON matching the supplied schema.\" They didn't supply schema in the message. Could be from system prompt? We don't have system prompt. In previous similar tasks, the schema might be:\n```json\n{\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"evidence\": \"string\",\n      \"default\": \"string\"\n    }\n  ]\n}\n```\nI think object with settings is common.\n\nNeed maybe include \"default\": null if absent? The prompt says \"If the section does not state a default, say it is absent; do not fill it in...\" So for each setting, default field should be string or \"absent\" or \"machine-dependent\". But no settings.\n\nI'll output:\n```json\n{\"settings\": []}\n```\nNo extra text. Ensure valid JSON.\n\nBut let's double-check if any configuration settings hidden in CREATE VIEW section? It mentions \"Temporary views exist in a special schema\" but no settings. No SET/RESET/PRAGMA. So empty.\n\nNeed maybe include \"evidence\" and \"default\" fields? Not needed for empty.\n\nI'll answer only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 640,
+  "completion_tokens": 886,
+  "total_tokens": 1526,
+  "cost": 0.0029953,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0029953,
+   "upstream_inference_prompt_cost": 0.000736,
+   "upstream_inference_completions_cost": 0.0022593
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 982,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 23.29699999999866
+}

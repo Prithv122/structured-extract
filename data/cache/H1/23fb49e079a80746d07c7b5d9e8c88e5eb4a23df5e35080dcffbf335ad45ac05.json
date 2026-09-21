@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789914514-banrJ8Kxer2LWpgv6oIH",
+ "object": "chat.completion",
+ "created": 1789914514,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse task. We have a section of DuckDB documentation? User provided text about insertCSVFromPath. Need extract configuration settings from single section. The section documents options/arguments of insertCSVFromPath? It says \"The insert options describe the target table and, when auto-detection is disabled, the CSV dialect and column types:\" and code. This is not configuration settings; it's options of a function/method. Need return empty list. Need JSON matching schema. We need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need likely output list of settings with evidence/default. Need maybe schema like {\"settings\": [{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]}. Since no settings, empty list. Need ensure JSON only. Could be {\"settings\": []}. Let's craft.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse task. We have a section of DuckDB documentation? User provided text about insertCSVFromPath. Need extract configuration settings from single section. The section documents options/arguments of insertCSVFromPath? It says \"The insert options describe the target table and, when auto-detection is disabled, the CSV dialect and column types:\" and code. This is not configuration settings; it's options of a function/method. Need return empty list. Need JSON matching schema. We need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need likely output list of settings with evidence/default. Need maybe schema like {\"settings\": [{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]}. Since no settings, empty list. Need ensure JSON only. Could be {\"settings\": []}. Let's craft.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 653,
+  "completion_tokens": 194,
+  "total_tokens": 847,
+  "cost": 0.00124565,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00124565,
+   "upstream_inference_prompt_cost": 0.00075095,
+   "upstream_inference_completions_cost": 0.0004947
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 219,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 7.1710000000020955
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789902390-7xvYH1lUCz2fg0WTEYHt",
+ "object": "chat.completion",
+ "created": 1789902390,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct evidence to be verbatim span from the provided text. The document snippet:\n\n\"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\"\n\nActually the text includes backticks and link. Let's copy exactly as appears:\n\n\"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\"\n\nCheck original: The user wrote:\n\n\"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\n\n```sql\nSET memory_limit = '2GB';\n```\"\n\nSo the line ends with \"e.g.:\" not \"e:\". The previous evidence omitted \"g.\" and colon. So we need exact.\n\nThus evidence: \"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\"\n\nAlso need to fix JSON formatting: earlier had stray commas and fields. Schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. We need to include default_kind as \"absent\". default_value and default_evidence maybe omitted or null? The schema likely expects them optional? But previous answer included them with null and stray commas causing invalid JSON. We need proper JSON.\n\nLet's produce:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\",\n      \"default_kind\": \"absent\"\n    }\n  ]\n}\n\nAssuming default_value and default_evidence optional. If required, we can include null fields but must be proper. The schema unknown. Safer to include them as null explicitly but ensure proper commas.\n\nLet's include them as null:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nMake sure JSON valid.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct evidence to be verbatim span from the provided text. The document snippet:\n\n\"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\"\n\nActually the text includes backticks and link. Let's copy exactly as appears:\n\n\"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\"\n\nCheck original: The user wrote:\n\n\"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\n\n```sql\nSET memory_limit = '2GB';\n```\"\n\nSo the line ends with \"e.g.:\" not \"e:\". The previous evidence omitted \"g.\" and colon. So we need exact.\n\nThus evidence: \"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\"\n\nAlso need to fix JSON formatting: earlier had stray commas and fields. Schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. We need to include default_kind as \"absent\". default_value and default_evidence maybe omitted or null? The schema likely expects them optional? But previous answer included them with null and stray commas causing invalid JSON. We need proper JSON.\n\nLet's produce:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\",\n      \"default_kind\": \"absent\"\n    }\n  ]\n}\n\nAssuming default_value and default_evidence optional. If required, we can include null fields but must be proper. The schema unknown. Safer to include them as null explicitly but ensure proper commas.\n\nLet's include them as null:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nMake sure JSON valid.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 920,
+  "completion_tokens": 679,
+  "total_tokens": 1599,
+  "cost": 0.00014303,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00014303,
+   "upstream_inference_prompt_cost": 2.76e-05,
+   "upstream_inference_completions_cost": 0.00011543
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 603,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 29.14099999999962
+}

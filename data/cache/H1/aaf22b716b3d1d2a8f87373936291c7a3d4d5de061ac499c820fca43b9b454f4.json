@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789897184-sSHAqj5zjqQZUvnS8XZz",
+ "object": "chat.completion",
+ "created": 1789897184,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"The size of the index in memory does not count towards DuckDB's `memory_limit` configuration parameter.\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"memory_limit\",\n      \"scope\": \"GLOBAL\"\n    },\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"`HNSW` indexes can only be created on tables in in-memory databases, unless the `SET hnsw_enable_experimental_persistence = ⟨bool⟩`{:.language-sql .highlight} configuration option is set to `true`\",\n      \"input_type\": \"BOOLEAN\",\n      \"name\": \"hnsw_enable_experimental_persistence\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer only JSON matching schema. Need fix errors: default_kind absent => default_value and default_evidence must both be null. Previously default_evidence was \"absent\" string, should be null. Need return corrected JSON. Also ensure no other issues. We need output JSON only. Let's produce with default_evidence null, default_value null, default_kind \"absent\". Evidence spans verbatim. Need ensure quotes exactly. The evidence for memory_limit: \"The size of the index in memory does not count towards DuckDB's `memory_limit` configuration parameter.\" That's verbatim from bullet. For hnsw: \"`HNSW` indexes can only be created on tables in in-memory databases, unless the `SET hnsw_enable_experimental_persistence = ⟨bool⟩`{:.language-sql .highlight} configuration option is set to `true`\" Need check exact characters: The original bullet: \"* `HNSW` indexes can only be created on tables in in-memory databases, unless the `SET hnsw_enable_experimental_persistence = ⟨bool⟩`{:.language-sql .highlight} configuration option is set to `true`, see [Persistence](#persistence) for more information.\" We can include up to `true` without comma? The evidence should be a span. We can include exactly from backtick HNSW to true. Need include the markdown attribute? The text includes `{:.language-sql .highlight}` after code span. We included that. Good. But maybe the schema expects evidence string exactly as in document. We'll keep.\n\nNeed output JSON only. Ensure no markdown.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer only JSON matching schema. Need fix errors: default_kind absent => default_value and default_evidence must both be null. Previously default_evidence was \"absent\" string, should be null. Need return corrected JSON. Also ensure no other issues. We need output JSON only. Let's produce with default_evidence null, default_value null, default_kind \"absent\". Evidence spans verbatim. Need ensure quotes exactly. The evidence for memory_limit: \"The size of the index in memory does not count towards DuckDB's `memory_limit` configuration parameter.\" That's verbatim from bullet. For hnsw: \"`HNSW` indexes can only be created on tables in in-memory databases, unless the `SET hnsw_enable_experimental_persistence = ⟨bool⟩`{:.language-sql .highlight} configuration option is set to `true`\" Need check exact characters: The original bullet: \"* `HNSW` indexes can only be created on tables in in-memory databases, unless the `SET hnsw_enable_experimental_persistence = ⟨bool⟩`{:.language-sql .highlight} configuration option is set to `true`, see [Persistence](#persistence) for more information.\" We can include up to `true` without comma? The evidence should be a span. We can include exactly from backtick HNSW to true. Need include the markdown attribute? The text includes `{:.language-sql .highlight}` after code span. We included that. Good. But maybe the schema expects evidence string exactly as in document. We'll keep.\n\nNeed output JSON only. Ensure no markdown.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1452,
+  "completion_tokens": 552,
+  "total_tokens": 2004,
+  "cost": 0.0028342,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0028342,
+   "upstream_inference_prompt_cost": 0.0014266,
+   "upstream_inference_completions_cost": 0.0014076
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 373,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 13.110000000000582
+}

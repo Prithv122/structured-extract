@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789920164-yQiaWA0G70dWwDd0380n",
+ "object": "chat.completion",
+ "created": 1789920164,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"pg_pool_enable_thread_local_cache\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`pg_pool_enable_thread_local_cache` configuration option can be used\",\n      \"default_kind\": \"absent\"\n    \t, \n    \"default_value\": \"absent\"\n   \t, \n    \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The section mentions `pg_pool_enable_thread_local_cache` configuration option. That's a setting. We need to provide JSON with list of settings, each with name, default (if stated), and evidence (quote). The default is not mentioned in the text. It just says \"the `pg_pool_enable_thread_local_cache` configuration option can be used\". No default given. So default is absent.\n\nWe need to output JSON matching supplied schema. The schema not provided but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to follow that. Provide array of objects.\n\nThus output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"pg_pool_enable_thread_local_cache\",\n      \"default\": \"absent\",\n      \"evidence\": \"`pg_pool_enable_thread_local_cache` configuration option can be used\"\n    }\n  ]\n}\n\nMake sure quote exactly as appears. The phrase: \"`pg_pool_enable_thread_local_cache` configuration option can be used\". Include backticks. Provide as string.\n\nReturn only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The section mentions `pg_pool_enable_thread_local_cache` configuration option. That's a setting. We need to provide JSON with list of settings, each with name, default (if stated), and evidence (quote). The default is not mentioned in the text. It just says \"the `pg_pool_enable_thread_local_cache` configuration option can be used\". No default given. So default is absent.\n\nWe need to output JSON matching supplied schema. The schema not provided but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to follow that. Provide array of objects.\n\nThus output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"pg_pool_enable_thread_local_cache\",\n      \"default\": \"absent\",\n      \"evidence\": \"`pg_pool_enable_thread_local_cache` configuration option can be used\"\n    }\n  ]\n}\n\nMake sure quote exactly as appears. The phrase: \"`pg_pool_enable_thread_local_cache` configuration option can be used\". Include backticks. Provide as string.\n\nReturn only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 645,
+  "completion_tokens": 357,
+  "total_tokens": 1002,
+  "cost": 8.004e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.004e-05,
+   "upstream_inference_prompt_cost": 1.935e-05,
+   "upstream_inference_completions_cost": 6.069e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 286,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 12.530999999995402
+}

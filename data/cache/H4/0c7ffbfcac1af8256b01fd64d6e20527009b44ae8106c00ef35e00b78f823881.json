@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919908-dZJUomAinbZfQfoSdvis",
+ "object": "chat.completion",
+ "created": 1789919908,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`access_mode()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"max_memory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`max_memory()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \".threads(4)?;\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"default_order\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`default_order()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"default_null_order\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`default_null_order()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"enable_external_access\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`enable_external_access()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"enable_object_cache\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`enable_object_cache()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"custom_user_agent\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`custom_user_agent()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"allow_unsigned_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`allow_unsigned_extensions()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"temp_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \".with(\\\"temp_directory\\\", \\\"/path/to/temp/dir/\\\")?\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"preserve_insertion_order\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \".with(\\\"preserve_insertion_order\\\", \\\"false\\\")?;\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to fix JSON according to schema. Issues:\n\n- default_kind is \"absent\", so default_value and default_evidence must be null, not \"absent\". So set default_value: null, default_evidence: null.\n\n- evidence must be at least 12 characters and verbatim from document. The document snippet includes lines like:\n\n`let config = Config::default()\n    .max_memory(\"4GB\")?\n    .threads(4)?;`\n\nAlso method names appear as `.max_memory(\"4GB\")?` etc. The evidence should be a verbatim span from the document that includes the setting name. For each setting, we need a span of at least 12 characters. For access_mode, the doc mentions `access_mode()` in the list of methods. The snippet: `Config` exposes typed methods for the most common options, including `access_mode()`, `max_memory()`, `threads()`, ... So the verbatim span could be \"`access_mode()`\". That's only 13 characters? Let's count: backticks count as characters. \"`access_mode()`\" length: backtick (1) + access_mode (12) + () (2) + backtick (1) = 16. So okay. But need at least 12 characters, fine.\n\nBut evidence must be verbatim from document. The backticks are present. So okay.\n\nFor max_memory, evidence \"`max_memory()`\" is fine.\n\nFor threads, evidence \"`threads()`\" is only 10 characters? Let's count: backtick (1) + threads (7) + () (2) + backtick (1) = 11. Actually threads is 7 letters, plus parentheses 2, plus backticks 2 = 11. Need at least 12. So need longer span, maybe include the call with argument: `.threads(4)?;` The document includes `.threads(4)?;`. That's 13 characters plus backticks? Actually it's not in backticks. The evidence must be a verbatim span of the document, not necessarily in backticks. Could be `.threads(4)?;` which is 13 characters. That includes the setting name. So use that.\n\nSimilarly for default_order, evidence \"`default_order()`\" length: backticks 2 + default_order (13) + () 2 = 17, okay.\n\ndefault_null_order: \"`default_null_order()`\" length okay.\n\nenable_external_access: \"`enable_external_access()`\" okay.\n\nenable_object_cache: \"`enable_object_cache()`\" okay.\n\ncustom_user_agent: \"`custom_user_agent()`\" okay.\n\nallow_unsigned_extensions: \"`allow_unsigned_extensions()`\" okay.\n\ntemp_directory: need verbatim span. Document line: `.with(\"temp_directory\", \"/path/to/temp/dir/\")?;` Actually the snippet: `let config = Config::default()\n    .with(\"temp_directory\", \"/path/to/temp/dir/\")?` (no semicolon). The line includes `.with(\"temp_directory\", \"/path/to/temp/dir/\")?`. That's verbatim. Use that.\n\npreserve_insertion_order: `.with(\"preserve_insertion_order\", \"false\")?;` Actually snippet: `.with(\"preserve_insertion_order\", \"false\")?;` Use that.\n\nAlso need to set default_kind: \"absent\" and default_value null, default_evidence null.\n\nAlso need to ensure JSON syntax correct: no stray commas. The previous answer had extra commas after default_kind etc. We'll produce correct JSON.\n\nSchema fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. Provide all.\n\nWe need input_type: we guessed types, but not required to be accurate? Should be fine. Could be BOOLEAN, VARCHAR, INTEGER. For default_order and default_null_order maybe VARCHAR. Keep as before.\n\nNow produce corrected JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to fix JSON according to schema. Issues:\n\n- default_kind is \"absent\", so default_value and default_evidence must be null, not \"absent\". So set default_value: null, default_evidence: null.\n\n- evidence must be at least 12 characters and verbatim from document. The document snippet includes lines like:\n\n`let config = Config::default()\n    .max_memory(\"4GB\")?\n    .threads(4)?;`\n\nAlso method names appear as `.max_memory(\"4GB\")?` etc. The evidence should be a verbatim span from the document that includes the setting name. For each setting, we need a span of at least 12 characters. For access_mode, the doc mentions `access_mode()` in the list of methods. The snippet: `Config` exposes typed methods for the most common options, including `access_mode()`, `max_memory()`, `threads()`, ... So the verbatim span could be \"`access_mode()`\". That's only 13 characters? Let's count: backticks count as characters. \"`access_mode()`\" length: backtick (1) + access_mode (12) + () (2) + backtick (1) = 16. So okay. But need at least 12 characters, fine.\n\nBut evidence must be verbatim from document. The backticks are present. So okay.\n\nFor max_memory, evidence \"`max_memory()`\" is fine.\n\nFor threads, evidence \"`threads()`\" is only 10 characters? Let's count: backtick (1) + threads (7) + () (2) + backtick (1) = 11. Actually threads is 7 letters, plus parentheses 2, plus backticks 2 = 11. Need at least 12. So need longer span, maybe include the call with argument: `.threads(4)?;` The document includes `.threads(4)?;`. That's 13 characters plus backticks? Actually it's not in backticks. The evidence must be a verbatim span of the document, not necessarily in backticks. Could be `.threads(4)?;` which is 13 characters. That includes the setting name. So use that.\n\nSimilarly for default_order, evidence \"`default_order()`\" length: backticks 2 + default_order (13) + () 2 = 17, okay.\n\ndefault_null_order: \"`default_null_order()`\" length okay.\n\nenable_external_access: \"`enable_external_access()`\" okay.\n\nenable_object_cache: \"`enable_object_cache()`\" okay.\n\ncustom_user_agent: \"`custom_user_agent()`\" okay.\n\nallow_unsigned_extensions: \"`allow_unsigned_extensions()`\" okay.\n\ntemp_directory: need verbatim span. Document line: `.with(\"temp_directory\", \"/path/to/temp/dir/\")?;` Actually the snippet: `let config = Config::default()\n    .with(\"temp_directory\", \"/path/to/temp/dir/\")?` (no semicolon). The line includes `.with(\"temp_directory\", \"/path/to/temp/dir/\")?`. That's verbatim. Use that.\n\npreserve_insertion_order: `.with(\"preserve_insertion_order\", \"false\")?;` Actually snippet: `.with(\"preserve_insertion_order\", \"false\")?;` Use that.\n\nAlso need to set default_kind: \"absent\" and default_value null, default_evidence null.\n\nAlso need to ensure JSON syntax correct: no stray commas. The previous answer had extra commas after default_kind etc. We'll produce correct JSON.\n\nSchema fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. Provide all.\n\nWe need input_type: we guessed types, but not required to be accurate? Should be fine. Could be BOOLEAN, VARCHAR, INTEGER. For default_order and default_null_order maybe VARCHAR. Keep as before.\n\nNow produce corrected JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 4231,
+  "completion_tokens": 1519,
+  "total_tokens": 5750,
+  "cost": 0.00038516,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 800,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00038516,
+   "upstream_inference_prompt_cost": 0.00012693,
+   "upstream_inference_completions_cost": 0.00025823
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 817,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 133.84399999999732
+}

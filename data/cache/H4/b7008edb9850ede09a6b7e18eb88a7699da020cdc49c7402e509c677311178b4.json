@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789903468-RUjEKFJEG3WNKFsvznHr",
+ "object": "chat.completion",
+ "created": 1789903468,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"pg_pool_enable_thread_local_cache\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"To support this the `pg_pool_enable_thread_local_cache` configuration option can be used\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON: when default_kind is \"absent\", default_value and default_evidence must be null. So set default_value: null, default_evidence: null. Also ensure schema fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. The previous had extra commas and spaces. Need proper JSON.\n\nAlso evidence must be verbatim span. The text: \"To support this the `pg_pool_enable_thread_local_cache` configuration option can be used\". That is verbatim. Good.\n\nWe need to output corrected JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON: when default_kind is \"absent\", default_value and default_evidence must be null. So set default_value: null, default_evidence: null. Also ensure schema fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. The previous had extra commas and spaces. Need proper JSON.\n\nAlso evidence must be verbatim span. The text: \"To support this the `pg_pool_enable_thread_local_cache` configuration option can be used\". That is verbatim. Good.\n\nWe need to output corrected JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 994,
+  "completion_tokens": 215,
+  "total_tokens": 1209,
+  "cost": 6.637e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.637e-05,
+   "upstream_inference_prompt_cost": 2.982e-05,
+   "upstream_inference_completions_cost": 3.655e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 133,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 20.281999999999243
+}

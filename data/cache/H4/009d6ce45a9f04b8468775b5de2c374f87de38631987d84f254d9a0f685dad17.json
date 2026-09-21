@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789921167-9bdSUxoZWkZSVM3CgWjh",
+ "object": "chat.completion",
+ "created": 1789921167,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"write_buffer_row_group_memory_limit\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"The maximum data to buffer in row groups (in bytes) prior to flushing them together. When either this limit or `write_buffer_row_group_count` is reached, the data is flushed to disk. Defaults to 20% of the memory limit divided by the thread count.\",\n      \"default_kind\": \"machine_dependent\",\n      \"default_value\": \"Defaults to 20% of the memory limit divided by the thread count.\"\n   \n    , \"default_evidence\": \"Defaults to 20% of the memory limit divided by the thread count.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section. The user provided a table with one row: Name `write_buffer_row_group_memory_limit`, description, type VARCHAR, default value column empty. We need to determine if this is a configuration setting. It seems like a setting that can be changed with SET, RESET, PRAGMA. The description mentions defaults. Likely it's a config setting. The default column is empty, but description says \"Defaults to 20% of the memory limit divided by the thread count.\" So default is described. We need to output JSON with list of settings, each with name, type, default (if present), and evidence (quote). Schema? Not provided explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe need to quote a span of the section verbatim as evidence for each setting. Provide default as described. The default description: \"Defaults to 20% of the memory limit divided by the thread count.\" That's a machine-dependent default. So we should include that string as default and note it's machine-dependent? The instruction: \"If the section gives a concrete value, that is a literal default. If it describes the default as something that depends on the machine -- a share of RAM, the number of CPU cores, the system locale -- copy that description rather than guessing a number, and say it is machine-dependent.\" So we can include default: \"20% of the memory limit divided by the thread count (machine-dependent)\". But we need to copy the description exactly: \"Defaults to 20% of the memory limit divided by the thread count.\" So we can set default to that string and maybe note machine-dependent? The schema may have a field \"default\" as string. We'll just put the quoted description.\n\nEvidence: we need a verbatim quote that includes the setting name and maybe description. Could quote the row: \"`write_buffer_row_group_memory_limit`\". Or the description line. Provide a quote: \"`write_buffer_row_group_memory_limit`\". Or the description: \"The maximum data to buffer in row groups (in bytes) prior to flushing them together. When either this limit or `write_buffer_row_group_count` is reached, the data is flushed to disk. Defaults to 20% of the memory limit divided by the thread count.\"\n\nWe'll include that as evidence.\n\nNow produce JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section. The user provided a table with one row: Name `write_buffer_row_group_memory_limit`, description, type VARCHAR, default value column empty. We need to determine if this is a configuration setting. It seems like a setting that can be changed with SET, RESET, PRAGMA. The description mentions defaults. Likely it's a config setting. The default column is empty, but description says \"Defaults to 20% of the memory limit divided by the thread count.\" So default is described. We need to output JSON with list of settings, each with name, type, default (if present), and evidence (quote). Schema? Not provided explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe need to quote a span of the section verbatim as evidence for each setting. Provide default as described. The default description: \"Defaults to 20% of the memory limit divided by the thread count.\" That's a machine-dependent default. So we should include that string as default and note it's machine-dependent? The instruction: \"If the section gives a concrete value, that is a literal default. If it describes the default as something that depends on the machine -- a share of RAM, the number of CPU cores, the system locale -- copy that description rather than guessing a number, and say it is machine-dependent.\" So we can include default: \"20% of the memory limit divided by the thread count (machine-dependent)\". But we need to copy the description exactly: \"Defaults to 20% of the memory limit divided by the thread count.\" So we can set default to that string and maybe note machine-dependent? The schema may have a field \"default\" as string. We'll just put the quoted description.\n\nEvidence: we need a verbatim quote that includes the setting name and maybe description. Could quote the row: \"`write_buffer_row_group_memory_limit`\". Or the description line. Provide a quote: \"`write_buffer_row_group_memory_limit`\". Or the description: \"The maximum data to buffer in row groups (in bytes) prior to flushing them together. When either this limit or `write_buffer_row_group_count` is reached, the data is flushed to disk. Defaults to 20% of the memory limit divided by the thread count.\"\n\nWe'll include that as evidence.\n\nNow produce JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 596,
+  "completion_tokens": 679,
+  "total_tokens": 1275,
+  "cost": 0.00013331,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 512,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00013331,
+   "upstream_inference_prompt_cost": 1.788e-05,
+   "upstream_inference_completions_cost": 0.00011543
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 603,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 24.875
+}

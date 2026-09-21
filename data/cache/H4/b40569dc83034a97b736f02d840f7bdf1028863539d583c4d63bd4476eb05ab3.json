@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789922475-LXD5IbW802zBPtD3D8Xj",
+ "object": "chat.completion",
+ "created": 1789922475,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allocator_flush_threshold\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`allocator_flush_threshold`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"128.0 MiB\",\n      \"default_evidence\": \"`128.0 MiB`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section. The user provided a table with one row: Name `allocator_flush_threshold`, description, type, default value `128.0 MiB`. We need to output JSON matching the supplied schema. We need to know the schema. Not provided explicitly in prompt, but likely something like list of objects with fields: name, type, default, description, evidence (quote). We need to infer. The instruction: \"Answer only with JSON matching the supplied schema.\" The schema wasn't given in the conversation. Possibly the schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to be careful. Could be something else. Let's assume typical: an array of objects. Might be top-level array. Could be like:\n\n[\n  {\n    \"name\": \"...\",\n    \"type\": \"...\",\n    \"default\": \"...\",\n    \"description\": \"...\",\n    \"evidence\": \"...\"\n  }\n]\n\nWe need to include a quote of the setting as evidence: the row line? Provide verbatim span. For example: \"`allocator_flush_threshold`\". Or the whole row? Probably the name column. Provide a quote: \"`allocator_flush_threshold`\". Also default: \"128.0 MiB\". Provide as string.\n\nThus output JSON: maybe {\"settings\": [ { \"name\": \"allocator_flush_threshold\", \"type\": \"VARCHAR\", \"default\": \"128.0 MiB\", \"description\": \"Peak allocation threshold at which to flush the allocator after completing a task.\", \"evidence\": \"`allocator_flush_threshold`\" } ] }\n\nI'll go with that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section. The user provided a table with one row: Name `allocator_flush_threshold`, description, type, default value `128.0 MiB`. We need to output JSON matching the supplied schema. We need to know the schema. Not provided explicitly in prompt, but likely something like list of objects with fields: name, type, default, description, evidence (quote). We need to infer. The instruction: \"Answer only with JSON matching the supplied schema.\" The schema wasn't given in the conversation. Possibly the schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to be careful. Could be something else. Let's assume typical: an array of objects. Might be top-level array. Could be like:\n\n[\n  {\n    \"name\": \"...\",\n    \"type\": \"...\",\n    \"default\": \"...\",\n    \"description\": \"...\",\n    \"evidence\": \"...\"\n  }\n]\n\nWe need to include a quote of the setting as evidence: the row line? Provide verbatim span. For example: \"`allocator_flush_threshold`\". Or the whole row? Probably the name column. Provide a quote: \"`allocator_flush_threshold`\". Also default: \"128.0 MiB\". Provide as string.\n\nThus output JSON: maybe {\"settings\": [ { \"name\": \"allocator_flush_threshold\", \"type\": \"VARCHAR\", \"default\": \"128.0 MiB\", \"description\": \"Peak allocation threshold at which to flush the allocator after completing a task.\", \"evidence\": \"`allocator_flush_threshold`\" } ] }\n\nI'll go with that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 561,
+  "completion_tokens": 464,
+  "total_tokens": 1025,
+  "cost": 9.571e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.571e-05,
+   "upstream_inference_prompt_cost": 1.683e-05,
+   "upstream_inference_completions_cost": 7.888e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 402,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 5.35899999999674
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789918588-wxGaXdxAHML0byZChc4P",
+ "object": "chat.completion",
+ "created": 1789918588,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allow_community_extensions\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET allow_community_extensions = false`\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"allow_unsigned_extensions\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET allow_unsigned_extensions = true`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": \"absent\",\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. Identify settings that are changed with SET, RESET, PRAGMA. In the text we see:\n\n- `SET allow_community_extensions = false` (in table row for core)\n- \"This is the default security level.\" (no setting)\n- `SET allow_unsigned_extensions = true` (in table row for any extension)\n\nAlso later example shows:\n\n- `SET allow_community_extensions = false;`\n- `SET allow_community_extensions = true;`\n\nBut those are same setting.\n\nThus we have two settings: allow_community_extensions and allow_unsigned_extensions.\n\nWe need to provide for each: name, default (if stated), evidence (quote). The default: For allow_community_extensions, the table row says \"This is the default security level.\" That's not a default value for the setting; it's describing default security level. It doesn't state default value for allow_community_extensions. However earlier row says `SET allow_community_extensions = false` for core level. The default security level is core and community, which presumably means allow_community_extensions = true? Actually core and community means extensions can be loaded if signed from core or community key. That likely corresponds to allow_community_extensions = true (allow community extensions). The text says \"This is the default security level.\" So default for allow_community_extensions is true. The section states that: \"This is the default security level.\" But does it explicitly state default value? Not directly, but we can infer that default security level corresponds to allow_community_extensions = true. However the phrase \"This is the default security level.\" is not a literal default value for the setting. The setting default is not explicitly given as true/false. The description of default security level is not a direct default value for the setting. The instruction: \"If the section gives a concrete value, that is a literal default. If it describes the default as something that depends on the machine... copy that description.\" Here it says \"This is the default security level.\" That's not a concrete value. It is a description that default security level is core and community. That implies allow_community_extensions = true. But is that considered a default? The setting default is not explicitly stated. The phrase \"This is the default security level.\" is about the security level, not the setting. Might be considered as default for the configuration? I'd say we can treat default as absent because not explicitly given as true/false. The safe approach: default is absent.\n\nFor allow_unsigned_extensions: No default mentioned. The table row says `SET allow_unsigned_extensions = true` for any extension. No default statement. So default absent.\n\nThus JSON with two entries, each default absent.\n\nProvide evidence quotes: need verbatim spans.\n\n- For allow_community_extensions: quote \"`SET allow_community_extensions = false`\" from table. Also maybe the example lines. Provide one quote.\n\n- For allow_unsigned_extensions: quote \"`SET allow_unsigned_extensions = true`\".\n\nInclude default: \"absent\".\n\nSchema? Not provided but likely something like list of objects with name, default, evidence. We'll output JSON array.\n\nLet's assume schema: [{\"setting\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. Use keys: \"name\", \"default\", \"evidence\". Provide.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. Identify settings that are changed with SET, RESET, PRAGMA. In the text we see:\n\n- `SET allow_community_extensions = false` (in table row for core)\n- \"This is the default security level.\" (no setting)\n- `SET allow_unsigned_extensions = true` (in table row for any extension)\n\nAlso later example shows:\n\n- `SET allow_community_extensions = false;`\n- `SET allow_community_extensions = true;`\n\nBut those are same setting.\n\nThus we have two settings: allow_community_extensions and allow_unsigned_extensions.\n\nWe need to provide for each: name, default (if stated), evidence (quote). The default: For allow_community_extensions, the table row says \"This is the default security level.\" That's not a default value for the setting; it's describing default security level. It doesn't state default value for allow_community_extensions. However earlier row says `SET allow_community_extensions = false` for core level. The default security level is core and community, which presumably means allow_community_extensions = true? Actually core and community means extensions can be loaded if signed from core or community key. That likely corresponds to allow_community_extensions = true (allow community extensions). The text says \"This is the default security level.\" So default for allow_community_extensions is true. The section states that: \"This is the default security level.\" But does it explicitly state default value? Not directly, but we can infer that default security level corresponds to allow_community_extensions = true. However the phrase \"This is the default security level.\" is not a literal default value for the setting. The setting default is not explicitly given as true/false. The description of default security level is not a direct default value for the setting. The instruction: \"If the section gives a concrete value, that is a literal default. If it describes the default as something that depends on the machine... copy that description.\" Here it says \"This is the default security level.\" That's not a concrete value. It is a description that default security level is core and community. That implies allow_community_extensions = true. But is that considered a default? The setting default is not explicitly stated. The phrase \"This is the default security level.\" is about the security level, not the setting. Might be considered as default for the configuration? I'd say we can treat default as absent because not explicitly given as true/false. The safe approach: default is absent.\n\nFor allow_unsigned_extensions: No default mentioned. The table row says `SET allow_unsigned_extensions = true` for any extension. No default statement. So default absent.\n\nThus JSON with two entries, each default absent.\n\nProvide evidence quotes: need verbatim spans.\n\n- For allow_community_extensions: quote \"`SET allow_community_extensions = false`\" from table. Also maybe the example lines. Provide one quote.\n\n- For allow_unsigned_extensions: quote \"`SET allow_unsigned_extensions = true`\".\n\nInclude default: \"absent\".\n\nSchema? Not provided but likely something like list of objects with name, default, evidence. We'll output JSON array.\n\nLet's assume schema: [{\"setting\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. Use keys: \"name\", \"default\", \"evidence\". Provide.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 705,
+  "completion_tokens": 846,
+  "total_tokens": 1551,
+  "cost": 0.00016497,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00016497,
+   "upstream_inference_prompt_cost": 2.115e-05,
+   "upstream_inference_completions_cost": 0.00014382
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 847,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 13.718000000000757
+}

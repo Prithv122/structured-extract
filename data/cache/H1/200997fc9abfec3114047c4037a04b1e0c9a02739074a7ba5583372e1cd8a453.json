@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789895474-2lRNMXq8TdnnOLNM9F5E",
+ "object": "chat.completion",
+ "created": 1789895474,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"Reduce the number of threads using the `SET threads = ...` command.\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"threads\",\n      \"scope\": \"GLOBAL\"\n    },\n    {\n      \"default_evidence\": \"Setting the memory limit lower than the [default 80%]({% link docs/current/operations_manual/limits.md %}) can help prevent out of memory errors. While this configuration sounds counter-intuitive, it helps because some of DuckDB's operations circumvent the database's buffer manager and thus they can reserve more memory than allowed by the memory limit. If this happens (e.g., DuckDB is killed by the operating system or an OOM reaper process), set the memory limit to just 50-60% of the total system memory by using the `SET memory_limit = '...'` statement.\",\n      \"default_kind\": \"machine_dependent\",\n      \"default_value\": \"80%\",\n      \"evidence\": \"Setting the memory limit lower than the [default 80%]({% link docs/current/operations_manual/limits.md %}) can help prevent out of memory errors. While this configuration sounds counter-intuitive, it helps because some of DuckDB's operations circumvent the database's buffer manager and thus they can reserve more memory than allowed by the memory limit. If this happens (e.g., DuckDB is killed by the operating system or an OOM reaper process), set the memory limit to just 50-60% of the total system memory by using the `SET memory_limit = '...'` statement.\",\n      \"input_type\": \"VARCHAR\",\n      \"name\": \"memory_limit\",\n      \"scope\": \"GLOBAL\"\n    },\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"If your query reads a large amount of data from a file or writes a large amount of data, try setting the `preserve_insertion_order` option to `false`: `SET preserve_insertion_order = false`.\",\n      \"input_type\": \"BOOLEAN\",\n      \"name\": \"preserve_insertion_order\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer only JSON matching schema. Need fix errors: for default_kind absent, default_value and default_evidence must both be null. So for threads and preserve_insertion_order, set default_evidence null, default_value null. For memory_limit, default_kind machine_dependent, default_value \"80%\", default_evidence quote. Need ensure evidence spans verbatim. The previous evidence for threads is \"Reduce the number of threads using the `SET threads = ...` command.\" That's verbatim from bullet. For preserve_insertion_order evidence is verbatim. For memory_limit evidence includes markdown link syntax? The document text includes \"[default 80%]({% link docs/current/operations_manual/limits.md %})\" as literal? The user said copy characters exactly as they appear. The provided section includes that markdown link. We should copy exactly. The previous evidence did. Need ensure default_evidence for memory_limit is same quote? The schema likely requires default_evidence if default_kind not absent. We can use same quote. Need maybe default_value \"80%\" is concrete? The section says default 80% of system memory? It says \"default 80%\" with link. That is a concrete value? It is a percentage of system memory, machine-dependent? The instruction: \"If the section gives a concrete value, that is a literal default. If it describes the default as something that depends on the machine -- a share of RAM, the number of CPU cores, the system locale -- copy that description rather than guessing a number, and say it is machine-dependent.\" Here default 80% is a share of RAM, so machine-dependent. default_value should be \"80%\" or \"80% of system memory\"? The previous used \"80%\". The schema likely expects string. We can keep \"80%\". But maybe default_value should be \"80% of system memory\"? The instruction says copy that description rather than guessing a number. The description is \"default 80%\" maybe with link. We can set default_value \"80% of system memory\"? But the quote says \"default 80%\" and later \"total system memory\". The default is 80% of system memory. The previous answer had \"80%\". The validation didn't complain about memory_limit. So keep.\n\nNeed output only JSON. Ensure no extra text. Also ensure input_type maybe correct? Schema likely expects input_type? The previous had DOUBLE for threads, VARCHAR for memory_limit, BOOLEAN for preserve_insertion_order. That wasn't flagged. Keep.\n\nNeed fix default_evidence null for absent. Also maybe default_value null. For memory_limit, default_evidence should be quote. We can use same as evidence. Need ensure default_kind machine_dependent. Good.\n\nLet's produce corrected JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer only JSON matching schema. Need fix errors: for default_kind absent, default_value and default_evidence must both be null. So for threads and preserve_insertion_order, set default_evidence null, default_value null. For memory_limit, default_kind machine_dependent, default_value \"80%\", default_evidence quote. Need ensure evidence spans verbatim. The previous evidence for threads is \"Reduce the number of threads using the `SET threads = ...` command.\" That's verbatim from bullet. For preserve_insertion_order evidence is verbatim. For memory_limit evidence includes markdown link syntax? The document text includes \"[default 80%]({% link docs/current/operations_manual/limits.md %})\" as literal? The user said copy characters exactly as they appear. The provided section includes that markdown link. We should copy exactly. The previous evidence did. Need ensure default_evidence for memory_limit is same quote? The schema likely requires default_evidence if default_kind not absent. We can use same quote. Need maybe default_value \"80%\" is concrete? The section says default 80% of system memory? It says \"default 80%\" with link. That is a concrete value? It is a percentage of system memory, machine-dependent? The instruction: \"If the section gives a concrete value, that is a literal default. If it describes the default as something that depends on the machine -- a share of RAM, the number of CPU cores, the system locale -- copy that description rather than guessing a number, and say it is machine-dependent.\" Here default 80% is a share of RAM, so machine-dependent. default_value should be \"80%\" or \"80% of system memory\"? The previous used \"80%\". The schema likely expects string. We can keep \"80%\". But maybe default_value should be \"80% of system memory\"? The instruction says copy that description rather than guessing a number. The description is \"default 80%\" maybe with link. We can set default_value \"80% of system memory\"? But the quote says \"default 80%\" and later \"total system memory\". The default is 80% of system memory. The previous answer had \"80%\". The validation didn't complain about memory_limit. So keep.\n\nNeed output only JSON. Ensure no extra text. Also ensure input_type maybe correct? Schema likely expects input_type? The previous had DOUBLE for threads, VARCHAR for memory_limit, BOOLEAN for preserve_insertion_order. That wasn't flagged. Keep.\n\nNeed fix default_evidence null for absent. Also maybe default_value null. For memory_limit, default_evidence should be quote. We can use same as evidence. Need ensure default_kind machine_dependent. Good.\n\nLet's produce corrected JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 2290,
+  "completion_tokens": 1075,
+  "total_tokens": 3365,
+  "cost": 0.00488835,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 512,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00488835,
+   "upstream_inference_prompt_cost": 0.0021471,
+   "upstream_inference_completions_cost": 0.00274125
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 661,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 25.79699999999866
+}

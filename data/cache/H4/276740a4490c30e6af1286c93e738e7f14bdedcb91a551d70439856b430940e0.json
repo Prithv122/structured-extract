@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789920836-OFAs51b4whm10WnV2r9d",
+ "object": "chat.completion",
+ "created": 1789920836,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user gave a paragraph about shared installation location for extensions. We need to see if any configuration settings are documented there. The paragraph mentions \"shared installation location\", \"extensions\", \"client APIs\", \"platform\", \"ABI\". No mention of SET, RESET, PRAGMA. It does not list any settings. So answer should be empty list.\n\nWe must output JSON matching supplied schema. The schema likely expects something like {\"settings\": []} or maybe just []? The prompt says \"Answer only with JSON matching the supplied schema.\" But we don't have the schema explicitly. Usually for these tasks, the schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nIf no settings, then \"settings\": [].\n\nThus output:\n\n{\n  \"settings\": []\n}\n\nWe'll do that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user gave a paragraph about shared installation location for extensions. We need to see if any configuration settings are documented there. The paragraph mentions \"shared installation location\", \"extensions\", \"client APIs\", \"platform\", \"ABI\". No mention of SET, RESET, PRAGMA. It does not list any settings. So answer should be empty list.\n\nWe must output JSON matching supplied schema. The schema likely expects something like {\"settings\": []} or maybe just []? The prompt says \"Answer only with JSON matching the supplied schema.\" But we don't have the schema explicitly. Usually for these tasks, the schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nIf no settings, then \"settings\": [].\n\nThus output:\n\n{\n  \"settings\": []\n}\n\nWe'll do that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 581,
+  "completion_tokens": 218,
+  "total_tokens": 799,
+  "cost": 5.449e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 5.449e-05,
+   "upstream_inference_prompt_cost": 1.743e-05,
+   "upstream_inference_completions_cost": 3.706e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 241,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 4.5
+}

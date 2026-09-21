@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789902358-lAZBBQsQ93Qz5rvslhQr",
+ "object": "chat.completion",
+ "created": 1789902358,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"['access_mode' => 'read_only']\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to fix JSON: default_value should be null, not \"absent\". Also remove stray commas. Also evidence must be verbatim span from the section. The section is PHP code snippet. The evidence should be exact text from the snippet that documents the setting. The snippet includes `'access_mode' => 'read_only'`. The verbatim span should be exactly that part as appears: `'access_mode' => 'read_only'`. Probably include the quotes and spaces exactly as in code. The snippet line: `$db = new PDO('duckdb:/tmp/test.db', null, null, [PDO::DUCKDB_ATTR_CONFIG => ['access_mode' => 'read_only']]);`\n\nThus evidence could be `\"['access_mode' => 'read_only']\"`? But that includes brackets. The setting name appears inside that array. The verbatim span should be a substring that includes the setting name and maybe the value. The instruction: quote a span of the section verbatim as evidence. So we can use `\"['access_mode' => 'read_only']\"` which is exactly as appears. That is fine.\n\nNow JSON schema: fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. default_value null, default_evidence null.\n\nReturn corrected JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to fix JSON: default_value should be null, not \"absent\". Also remove stray commas. Also evidence must be verbatim span from the section. The section is PHP code snippet. The evidence should be exact text from the snippet that documents the setting. The snippet includes `'access_mode' => 'read_only'`. The verbatim span should be exactly that part as appears: `'access_mode' => 'read_only'`. Probably include the quotes and spaces exactly as in code. The snippet line: `$db = new PDO('duckdb:/tmp/test.db', null, null, [PDO::DUCKDB_ATTR_CONFIG => ['access_mode' => 'read_only']]);`\n\nThus evidence could be `\"['access_mode' => 'read_only']\"`? But that includes brackets. The setting name appears inside that array. The verbatim span should be a substring that includes the setting name and maybe the value. The instruction: quote a span of the section verbatim as evidence. So we can use `\"['access_mode' => 'read_only']\"` which is exactly as appears. That is fine.\n\nNow JSON schema: fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. default_value null, default_evidence null.\n\nReturn corrected JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 882,
+  "completion_tokens": 351,
+  "total_tokens": 1233,
+  "cost": 8.613e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.613e-05,
+   "upstream_inference_prompt_cost": 2.646e-05,
+   "upstream_inference_completions_cost": 5.967e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 289,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 17.187999999998283
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789920390-G3J6jC9JEsrvnlHuEJRX",
+ "object": "chat.completion",
+ "created": 1789920390,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"delta_kernel_logging\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`delta_kernel_logging` | `BOOLEAN` | `false` | Forward the internal logging of the [Delta Kernel](https://github.com/delta-incubator/delta-kernel-rs) to the DuckDB logger. May impact performance even when DuckDB logging is disabled.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\"\n    ,\n      \"default_evidence\": \"`delta_kernel_logging` | `BOOLEAN` | `false` |\"\n    },\n    {\n      \"name\": \"delta_scan_explain_files_filtered\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`delta_scan_explain_files_filtered` | `BOOLEAN` | `true` | Add the filtered files to the `EXPLAIN` output. May impact the performance of `delta_scan` during `EXPLAIN ANALYZE` queries.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\",\n      \"default_evidence\": \"`delta_scan_explain_files_filtered` | `BOOLEAN` | `true` |\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to output JSON per schema. The schema not provided but likely expects list of objects with fields: setting, type, default, description, evidence (quote). The instruction: \"Answer only with JSON matching the supplied schema.\" We don't have schema but we can infer typical: maybe array of objects with keys: name, type, default, description, evidence. Provide each setting with quoted span as evidence. Provide default as given. So produce JSON array.\n\nWe'll include both settings.\n\nEvidence: need verbatim quote from section. For each setting we can quote the row line. Eg: \"`delta_kernel_logging` | `BOOLEAN` | `false` | Forward the internal logging...\" Provide that.\n\nReturn JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to output JSON per schema. The schema not provided but likely expects list of objects with fields: setting, type, default, description, evidence (quote). The instruction: \"Answer only with JSON matching the supplied schema.\" We don't have schema but we can infer typical: maybe array of objects with keys: name, type, default, description, evidence. Provide each setting with quoted span as evidence. Provide default as given. So produce JSON array.\n\nWe'll include both settings.\n\nEvidence: need verbatim quote from section. For each setting we can quote the row line. Eg: \"`delta_kernel_logging` | `BOOLEAN` | `false` | Forward the internal logging...\" Provide that.\n\nReturn JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 626,
+  "completion_tokens": 418,
+  "total_tokens": 1044,
+  "cost": 8.984e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.984e-05,
+   "upstream_inference_prompt_cost": 1.878e-05,
+   "upstream_inference_completions_cost": 7.106e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 175,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 10.31199999999808
+}

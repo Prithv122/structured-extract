@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789922240-ZEVkWbBCGEI8JxkZAiJ5",
+ "object": "chat.completion",
+ "created": 1789922240,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to parse the user content: a table with a single row: Name `password`, Description \"The password to use. Ignored for legacy compatibility.\", Type `VARCHAR`, Default value empty.\n\nWe need to determine if this is a DuckDB configuration setting. The instruction says: configuration setting is one you change with SET, RESET or PRAGMA, and it applies to whole DB instance or connection. The table appears to be \"Global Configuration Options\". That suggests it's a config setting. However, we need to verify if `password` is a DuckDB setting. I'm not aware of a `password` setting in DuckDB. DuckDB does not have authentication; it's an embedded DB. So likely this is not a real DuckDB setting; maybe it's from some other system. The description says \"The password to use. Ignored for legacy compatibility.\" That sounds like maybe a placeholder for compatibility with other DBs. Could be a config option but not a real setting. The instruction: If the section documents options/arguments of a SQL statement, parameters of functions, column constraints, etc., then answer empty list. But this is a \"Global Configuration Options\" table. That seems like config settings. However, we must be careful: The setting must be changeable via SET, RESET, PRAGMA. Does DuckDB have a PRAGMA password? I don't think so. There's no authentication. So likely this is not a DuckDB setting. The instruction: \"If the section documents those, the correct answer is an empty list, even when the section is long and every row looks like a setting.\" So we need to decide if this is a config setting. The table is titled \"Global Configuration Options\". That suggests config options. But the description says \"Ignored for legacy compatibility.\" Could be a placeholder for compatibility with other DBs. But still a config option? The question: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" So we need to extract settings that are actual DuckDB config settings. If this is not a real DuckDB setting, we should output empty list.\n\nGiven my knowledge, DuckDB does not have a password config. So answer empty list.\n\nThus JSON: {\"settings\": []}.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to parse the user content: a table with a single row: Name `password`, Description \"The password to use. Ignored for legacy compatibility.\", Type `VARCHAR`, Default value empty.\n\nWe need to determine if this is a DuckDB configuration setting. The instruction says: configuration setting is one you change with SET, RESET or PRAGMA, and it applies to whole DB instance or connection. The table appears to be \"Global Configuration Options\". That suggests it's a config setting. However, we need to verify if `password` is a DuckDB setting. I'm not aware of a `password` setting in DuckDB. DuckDB does not have authentication; it's an embedded DB. So likely this is not a real DuckDB setting; maybe it's from some other system. The description says \"The password to use. Ignored for legacy compatibility.\" That sounds like maybe a placeholder for compatibility with other DBs. Could be a config option but not a real setting. The instruction: If the section documents options/arguments of a SQL statement, parameters of functions, column constraints, etc., then answer empty list. But this is a \"Global Configuration Options\" table. That seems like config settings. However, we must be careful: The setting must be changeable via SET, RESET, PRAGMA. Does DuckDB have a PRAGMA password? I don't think so. There's no authentication. So likely this is not a DuckDB setting. The instruction: \"If the section documents those, the correct answer is an empty list, even when the section is long and every row looks like a setting.\" So we need to decide if this is a config setting. The table is titled \"Global Configuration Options\". That suggests config options. But the description says \"Ignored for legacy compatibility.\" Could be a placeholder for compatibility with other DBs. But still a config option? The question: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" So we need to extract settings that are actual DuckDB config settings. If this is not a real DuckDB setting, we should output empty list.\n\nGiven my knowledge, DuckDB does not have a password config. So answer empty list.\n\nThus JSON: {\"settings\": []}.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 549,
+  "completion_tokens": 472,
+  "total_tokens": 1021,
+  "cost": 9.671e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.671e-05,
+   "upstream_inference_prompt_cost": 1.647e-05,
+   "upstream_inference_completions_cost": 8.024e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 543,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 41.20300000000134
+}

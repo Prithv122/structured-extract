@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789903488-RLV72qpBThYXJMQnZKGM",
+ "object": "chat.completion",
+ "created": 1789903488,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"s3_version_id_pinning\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`s3_version_id_pinning` (`BOOLEAN`, default `false`)\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\"\n    ,\n      \"default_evidence\": \"`s3_version_id_pinning` (`BOOLEAN`, default `false`)\"\n    },\n    {\n      \"name\": \"enable_http_metadata_cache\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET enable_http_metadata_cache = true;\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null\n    ,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. The text mentions two settings: `s3_version_id_pinning` and `enable_http_metadata_cache`. We need to see if the section documents each setting. It says: \"Set `s3_version_id_pinning` (`BOOLEAN`, default `false`) to pin reads...\" That's documentation of s3_version_id_pinning, includes type and default. Also mentions \"This requires the HTTP metadata cache:\" then shows SET enable_http_metadata_cache = true; but does the section document enable_http_metadata_cache? It mentions it as required, but does it describe what it does? The instruction: \"A section documents a setting when it tells the reader what the setting does, what it accepts, or how to set it.\" For enable_http_metadata_cache, the section says \"This requires the HTTP metadata cache:\" and then shows a SET command. It doesn't describe what the setting does, but it tells how to set it (the SET command). That counts as documentation? It says \"or how to set it.\" So yes, showing a SET command qualifies as documenting how to set it. So we should include both settings.\n\nWe need to provide for each setting: name, evidence (quote span), default (if stated). For s3_version_id_pinning: default `false` is stated. Provide quote: \"`s3_version_id_pinning` (`BOOLEAN`, default `false`)\" maybe include that. For enable_http_metadata_cache: default not mentioned in this section, so default is absent.\n\nProvide JSON matching schema. Need to know schema: Not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to output only JSON. Let's assume schema: an array of objects? The instruction: \"Answer only with JSON matching the supplied schema.\" No schema provided in prompt, but typical would be list of objects. Could be like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"s3_version_id_pinning\",\n      \"evidence\": \"...\",\n      \"default\": \"false\"\n    },\n    {\n      \"name\": \"enable_http_metadata_cache\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe'll output that. Ensure quotes are proper.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. The text mentions two settings: `s3_version_id_pinning` and `enable_http_metadata_cache`. We need to see if the section documents each setting. It says: \"Set `s3_version_id_pinning` (`BOOLEAN`, default `false`) to pin reads...\" That's documentation of s3_version_id_pinning, includes type and default. Also mentions \"This requires the HTTP metadata cache:\" then shows SET enable_http_metadata_cache = true; but does the section document enable_http_metadata_cache? It mentions it as required, but does it describe what it does? The instruction: \"A section documents a setting when it tells the reader what the setting does, what it accepts, or how to set it.\" For enable_http_metadata_cache, the section says \"This requires the HTTP metadata cache:\" and then shows a SET command. It doesn't describe what the setting does, but it tells how to set it (the SET command). That counts as documentation? It says \"or how to set it.\" So yes, showing a SET command qualifies as documenting how to set it. So we should include both settings.\n\nWe need to provide for each setting: name, evidence (quote span), default (if stated). For s3_version_id_pinning: default `false` is stated. Provide quote: \"`s3_version_id_pinning` (`BOOLEAN`, default `false`)\" maybe include that. For enable_http_metadata_cache: default not mentioned in this section, so default is absent.\n\nProvide JSON matching schema. Need to know schema: Not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to output only JSON. Let's assume schema: an array of objects? The instruction: \"Answer only with JSON matching the supplied schema.\" No schema provided in prompt, but typical would be list of objects. Could be like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"s3_version_id_pinning\",\n      \"evidence\": \"...\",\n      \"default\": \"false\"\n    },\n    {\n      \"name\": \"enable_http_metadata_cache\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe'll output that. Ensure quotes are proper.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 467,
+  "completion_tokens": 676,
+  "total_tokens": 1143,
+  "cost": 0.00012893,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00012893,
+   "upstream_inference_prompt_cost": 1.401e-05,
+   "upstream_inference_completions_cost": 0.00011492
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 546,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.295999999998457
+}

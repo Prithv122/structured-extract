@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789900496-92EmJWJAkQT06FOLGvvh",
+ "object": "chat.completion",
+ "created": 1789900496,
+ "model": "openai/gpt-4.1-nano",
+ "provider": "OpenAI",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "completed",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": [{\"name\": \"binary_as_string\", \"input_type\": \"BOOLEAN\", \"scope\": \"LOCAL\", \"evidence\": \"Set this to true to load binary columns as strings.\", \"default_kind\": \"literal\", \"default_value\": \"false\", \"default_evidence\": \"false\"}, {\"name\": \"can_have_nan\", \"input_type\": \"BOOLEAN\", \"scope\": \"LOCAL\", \"evidence\": \"When set to true, the reader accounts for `NaN` when using a column's min/max statistics for filter pushdown, since `NaN` does not compare as ordered.\", \"default_kind\": \"literal\", \"default_value\": \"false\", \"default_evidence\": \"false\"}, {\"name\": \"encryption_config\", \"input_type\": \"VARCHAR\", \"scope\": \"LOCAL\", \"evidence\": \"Configuration for [Parquet encryption]({% link docs/current/data/parquet/encryption.md %}).\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null}, {\"name\": \"filename\", \"input_type\": \"BOOLEAN\", \"scope\": \"LOCAL\", \"evidence\": \"Since DuckDB v1.3.0, the `filename` column is added automatically as a virtual column and this option is only kept for compatibility reasons.\", \"default_kind\": \"literal\", \"default_value\": \"false\", \"default_evidence\": \"false\"}, {\"name\": \"file_row_number\", \"input_type\": \"BOOLEAN\", \"scope\": \"LOCAL\", \"evidence\": \"Whether or not to include the `file_row_number` column.\", \"default_kind\": \"literal\", \"default_value\": \"false\", \"default_evidence\": \"false\"}, {\"name\": \"hive_partitioning\", \"input_type\": \"BOOLEAN\", \"scope\": \"LOCAL\", \"evidence\": \"Whether or not to interpret the path as a [Hive partitioned path]({% link docs/current/data/partitioning/hive_partitioning.md % }).\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null}, {\"name\": \"union_by_name\", \"input_type\": \"BOOLEAN\", \"scope\": \"LOCAL\", \"evidence\": \"Whether the columns of multiple schemas should be [unified by name]({% link docs/current/data/multiple_files/combining_schemas.md % }), rather than by position.\", \"default_kind\": \"literal\", \"default_value\": \"false\", \"default_evidence\": \"false\"}, {\"name\": \"schema\", \"input_type\": \"VARCHAR[]\", \"scope\": \"LOCAL\", \"evidence\": \"Allows you to read a Parquet file as if it has the supplied schema. Field IDs are required.\", \"default_kind\": \"absent\", \"default_value\": null, \"default_evidence\": null}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 2827,
+  "completion_tokens": 587,
+  "total_tokens": 3414,
+  "cost": 0.0003927,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 1664,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003927,
+   "upstream_inference_prompt_cost": 0.0001579,
+   "upstream_inference_completions_cost": 0.0002348
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 3.4690000000009604
+}

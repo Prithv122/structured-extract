@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789922656-uOUV2Af4TI5qKUdmuDc8",
+ "object": "chat.completion",
+ "created": 1789922656,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n \"settings\": [\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"jdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"jdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"jdbc_stream_results\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"jdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "JDBC URL options — these are connection parameters, not documented settings with defaults. The section mentions threads, memory_limit, jdbc_stream_results as URL options. Are these configuration settings? They configure DuckDB via JDBC... but the section documents URL options, not a settings table. The instruction says options of a SQL statement aren't settings; JDBC URL parameters are similar — parameters. But they do correspond to settings settable via SET. Hmm. The section doesn't give defaults. Likely answer: empty list, since it documents JDBC URL parameters, not settings. But threads, memory_limit, jdbc_stream_results are actual DuckDB settings. The section is about how to pass them via URL. I think these count as settings being configured. Evidence: \"jdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\". Defaults absent.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "JDBC URL options — these are connection parameters, not documented settings with defaults. The section mentions threads, memory_limit, jdbc_stream_results as URL options. Are these configuration settings? They configure DuckDB via JDBC... but the section documents URL options, not a settings table. The instruction says options of a SQL statement aren't settings; JDBC URL parameters are similar — parameters. But they do correspond to settings settable via SET. Hmm. The section doesn't give defaults. Likely answer: empty list, since it documents JDBC URL parameters, not settings. But threads, memory_limit, jdbc_stream_results are actual DuckDB settings. The section is about how to pass them via URL. I think these count as settings being configured. Evidence: \"jdbc:duckdb:/tmp/my_database;threads=4;memory_limit=4GB;jdbc_stream_results=true\". Defaults absent.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 552,
+  "completion_tokens": 433,
+  "total_tokens": 985,
+  "cost": 0.00014965,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00014965,
+   "upstream_inference_prompt_cost": 4.14e-05,
+   "upstream_inference_completions_cost": 0.00010825
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 176,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 19.781999999999243
+}

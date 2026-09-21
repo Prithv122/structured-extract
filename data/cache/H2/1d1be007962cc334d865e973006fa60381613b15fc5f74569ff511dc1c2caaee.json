@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789918136-dqHFhvNINEKBOJTDOLbF",
+ "object": "chat.completion",
+ "created": 1789918136,
+ "model": "google/gemini-2.5-flash",
+ "provider": "Google",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "STOP",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"geometry_minimum_shredding_size\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`geometry_minimum_shredding_size`             | Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"30000\",\n      \"default_evidence\": \"`30000`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 532,
+  "completion_tokens": 145,
+  "total_tokens": 677,
+  "cost": 0.0005221,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0005221,
+   "upstream_inference_prompt_cost": 0.0001596,
+   "upstream_inference_completions_cost": 0.0003625
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 1.3130000000019209
+}

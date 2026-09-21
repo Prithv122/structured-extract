@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789918005-XnU99v9Vn0NQTaXHyIDD",
+ "object": "chat.completion",
+ "created": 1789918005,
+ "model": "google/gemini-2.5-flash",
+ "provider": "Google",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "STOP",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"vacuum_rebuild_indexes\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"The `vacuum_rebuild_indexes` setting enables vacuum to compact row groups on tables with indexes by rebuilding the indexes afterward. The setting specifies a row count threshold: tables exceeding the threshold are skipped.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"0\",\n      \"default_evidence\": \"Set to `0` to disable (the default).\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 523,
+  "completion_tokens": 136,
+  "total_tokens": 659,
+  "cost": 0.0004969,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0004969,
+   "upstream_inference_prompt_cost": 0.0001569,
+   "upstream_inference_completions_cost": 0.00034
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 1.9839999999967404
+}

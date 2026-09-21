@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789900992-Xbmfwnz7CezKh2sFBTl3",
+ "object": "chat.completion",
+ "created": 1789900992,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The text is about HTTP transport logging, using CALL enable_logging('HTTP'); and function duckdb_logs_parsed('HTTP'). Are these configuration settings? \"enable_logging\" is a function, not a setting. The section mentions \"HTTP transport can be logged separately\". No explicit setting name like \"log_http\" etc. The only possible setting is maybe \"enable_logging\" but that's a function, not a config setting. The instruction: Return every configuration setting that this section documents. A setting is documented when it tells the reader what the setting does, what it accepts, or how to set it. This section does not mention any setting name like \"log_http\" or \"http_logging\". So answer empty list.\n\nThus JSON with empty array. Schema? Not given but likely something like {\"settings\": []}. But need to follow \"Answer only with JSON matching the supplied schema.\" No schema provided in prompt. Probably expects list of objects? In previous tasks, they used something like [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. But not given. We need infer. The instruction: \"Return every configuration setting that this section documents.\" For each setting, quote a span, also report default. So likely output is an array of objects with fields: \"setting\", \"default\", \"evidence\". Let's assume schema: [{\"setting\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. If none, empty array [].\n\nThus answer: [].\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The text is about HTTP transport logging, using CALL enable_logging('HTTP'); and function duckdb_logs_parsed('HTTP'). Are these configuration settings? \"enable_logging\" is a function, not a setting. The section mentions \"HTTP transport can be logged separately\". No explicit setting name like \"log_http\" etc. The only possible setting is maybe \"enable_logging\" but that's a function, not a config setting. The instruction: Return every configuration setting that this section documents. A setting is documented when it tells the reader what the setting does, what it accepts, or how to set it. This section does not mention any setting name like \"log_http\" or \"http_logging\". So answer empty list.\n\nThus JSON with empty array. Schema? Not given but likely something like {\"settings\": []}. But need to follow \"Answer only with JSON matching the supplied schema.\" No schema provided in prompt. Probably expects list of objects? In previous tasks, they used something like [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. But not given. We need infer. The instruction: \"Return every configuration setting that this section documents.\" For each setting, quote a span, also report default. So likely output is an array of objects with fields: \"setting\", \"default\", \"evidence\". Let's assume schema: [{\"setting\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. If none, empty array [].\n\nThus answer: [].\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 498,
+  "completion_tokens": 330,
+  "total_tokens": 828,
+  "cost": 7.104e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.104e-05,
+   "upstream_inference_prompt_cost": 1.494e-05,
+   "upstream_inference_completions_cost": 5.61e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 372,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 29.110000000000582
+}

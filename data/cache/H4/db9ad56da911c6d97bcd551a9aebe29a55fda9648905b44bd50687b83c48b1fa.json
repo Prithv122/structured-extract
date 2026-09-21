@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919174-EW5DdNjey1WzmXmiDCnH",
+ "object": "chat.completion",
+ "created": 1789919174,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"enable_profiling\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA enable_profiling = 'json';\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"profiling_output\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA profiling_output = '/path/to/file.json';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": \"absent\",\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"configure_profiling\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA configure_profiling = '{\\\"CPU_TIME\\\": \\\"false\\\", \\\"EXTRA_INFO\\\": \\\"true\\\", \\\"OPERATOR_CARDINALITY\\\": \\\"true\\\", \\\"OPERATOR_TIMING\\\": \\\"true\\\"}';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": \"absent\",\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"profiling_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA profiling_mode = 'detailed';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": \"absent\",\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The section includes PRAGMA statements: enable_profiling, profiling_output, configure_profiling, profiling_mode. Are these configuration settings? In DuckDB, PRAGMA enable_profiling, profiling_output, configure_profiling, profiling_mode are indeed settings that affect profiling. They are set via PRAGMA. So we need to list each setting with a verbatim quote and default if stated. The section does not state defaults for these settings. It just shows usage. So default is absent.\n\nWe need JSON matching supplied schema. Not given explicitly, but likely something like list of objects with name, description? We need to infer schema. The instruction: \"Answer only with JSON matching the supplied schema.\" The schema not shown in prompt. We need to guess typical schema used in previous tasks: maybe {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. Could be array of objects. Let's assume schema: an array of objects each with \"setting\", \"default\", \"evidence\". But need to be safe. Could be {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. We'll output that.\n\nList settings: enable_profiling, profiling_output, configure_profiling, profiling_mode.\n\nProvide evidence quotes exactly as appear.\n\nEvidence for enable_profiling: `PRAGMA enable_profiling = 'json';`\n\nprofiling_output: `PRAGMA profiling_output = '/path/to/file.json';`\n\nconfigure_profiling: `PRAGMA configure_profiling = '{\"CPU_TIME\": \"false\", \"EXTRA_INFO\": \"true\", \"OPERATOR_CARDINALITY\": \"true\", \"OPERATOR_TIMING\": \"true\"}';`\n\nprofiling_mode: `PRAGMA profiling_mode = 'detailed';`\n\nDefaults: absent for all.\n\nReturn JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The section includes PRAGMA statements: enable_profiling, profiling_output, configure_profiling, profiling_mode. Are these configuration settings? In DuckDB, PRAGMA enable_profiling, profiling_output, configure_profiling, profiling_mode are indeed settings that affect profiling. They are set via PRAGMA. So we need to list each setting with a verbatim quote and default if stated. The section does not state defaults for these settings. It just shows usage. So default is absent.\n\nWe need JSON matching supplied schema. Not given explicitly, but likely something like list of objects with name, description? We need to infer schema. The instruction: \"Answer only with JSON matching the supplied schema.\" The schema not shown in prompt. We need to guess typical schema used in previous tasks: maybe {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. Could be array of objects. Let's assume schema: an array of objects each with \"setting\", \"default\", \"evidence\". But need to be safe. Could be {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. We'll output that.\n\nList settings: enable_profiling, profiling_output, configure_profiling, profiling_mode.\n\nProvide evidence quotes exactly as appear.\n\nEvidence for enable_profiling: `PRAGMA enable_profiling = 'json';`\n\nprofiling_output: `PRAGMA profiling_output = '/path/to/file.json';`\n\nconfigure_profiling: `PRAGMA configure_profiling = '{\"CPU_TIME\": \"false\", \"EXTRA_INFO\": \"true\", \"OPERATOR_CARDINALITY\": \"true\", \"OPERATOR_TIMING\": \"true\"}';`\n\nprofiling_mode: `PRAGMA profiling_mode = 'detailed';`\n\nDefaults: absent for all.\n\nReturn JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1378,
+  "completion_tokens": 739,
+  "total_tokens": 2117,
+  "cost": 0.00016697,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00016697,
+   "upstream_inference_prompt_cost": 4.134e-05,
+   "upstream_inference_completions_cost": 0.00012563
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 430,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 28.0309999999954
+}

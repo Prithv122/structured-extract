@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919761-LXqhvRgxmqcvKzo8tZpc",
+ "object": "chat.completion",
+ "created": 1789919761,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"preserve_insertion_order\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Preservation of insertion order is controlled by the `preserve_insertion_order` [configuration option]({% link docs/current/configuration/overview.md %}).\\nThis setting is `true` by default, indicating that the order should be preserved.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\"\n   \n    , \"default_evidence\": \"This setting is `true` by default, indicating that the order should be preserved.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The section mentions `preserve_insertion_order` configuration option. It says \"This setting is `true` by default\". So we need to output JSON with list of settings. Schema? Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe need to quote a span of the section verbatim as evidence for each setting. Provide default if stated. The default is true. Provide that.\n\nThus output JSON.\n\nProbably schema: {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}\n\nWe'll follow that.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The section mentions `preserve_insertion_order` configuration option. It says \"This setting is `true` by default\". So we need to output JSON with list of settings. Schema? Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe need to quote a span of the section verbatim as evidence for each setting. Provide default if stated. The default is true. Provide that.\n\nThus output JSON.\n\nProbably schema: {\"settings\": [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}\n\nWe'll follow that.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 656,
+  "completion_tokens": 307,
+  "total_tokens": 963,
+  "cost": 7.187e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.187e-05,
+   "upstream_inference_prompt_cost": 1.968e-05,
+   "upstream_inference_completions_cost": 5.219e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 173,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.875
+}

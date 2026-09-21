@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789915747-OvwZ8GEGEPAN3kdTaYHk",
+ "object": "chat.completion",
+ "created": 1789915747,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse task. We have a documentation section about in-tree vs out-of-tree extensions. Need extract DuckDB configuration settings from this section. Likely none. Need output JSON matching schema. We need know schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need infer maybe from previous? We need produce JSON with settings list. Need include for each setting quote verbatim and default. Since none, likely empty list. Need decide structure. Could be {\"settings\": []} or maybe array. Need infer from \"For each setting, quote a span...\" \"Answer only with JSON matching the supplied schema.\" No schema shown. We need maybe output empty list? Let's inspect text. It's about extensions, no configuration settings. It mentions \"versioning\", \"in-tree extensions use version of DuckDB\", no SET/RESET/PRAGMA. So answer empty list.\n\nNeed produce JSON only. Could be:\n{\n  \"settings\": []\n}\nBut if schema expects array directly? The instruction \"For each setting, quote...\" and \"Answer only with JSON matching the supplied schema.\" Usually these tasks expect {\"settings\": [{\"name\":..., \"evidence\":..., \"default\":...}]}. Since no settings, {\"settings\": []}. Need ensure no extra text. Let's output that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse task. We have a documentation section about in-tree vs out-of-tree extensions. Need extract DuckDB configuration settings from this section. Likely none. Need output JSON matching schema. We need know schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need infer maybe from previous? We need produce JSON with settings list. Need include for each setting quote verbatim and default. Since none, likely empty list. Need decide structure. Could be {\"settings\": []} or maybe array. Need infer from \"For each setting, quote a span...\" \"Answer only with JSON matching the supplied schema.\" No schema shown. We need maybe output empty list? Let's inspect text. It's about extensions, no configuration settings. It mentions \"versioning\", \"in-tree extensions use version of DuckDB\", no SET/RESET/PRAGMA. So answer empty list.\n\nNeed produce JSON only. Could be:\n{\n  \"settings\": []\n}\nBut if schema expects array directly? The instruction \"For each setting, quote...\" and \"Answer only with JSON matching the supplied schema.\" Usually these tasks expect {\"settings\": [{\"name\":..., \"evidence\":..., \"default\":...}]}. Since no settings, {\"settings\": []}. Need ensure no extra text. Let's output that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 712,
+  "completion_tokens": 287,
+  "total_tokens": 999,
+  "cost": 0.00130745,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00130745,
+   "upstream_inference_prompt_cost": 0.0005756,
+   "upstream_inference_completions_cost": 0.00073185
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 322,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 7.843000000000757
+}

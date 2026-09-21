@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789897785-cAQ08RB3SkgrfpsIqDWh",
+ "object": "chat.completion",
+ "created": 1789897785,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. The user provided a section from DuckDB documentation? It discusses in-tree vs out-of-tree extensions. Need return every configuration setting documented. Likely none. Need output JSON matching schema. We need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe produce list of settings with evidence and default. Need decide structure. Since no schema explicitly, but likely expected: {\"settings\": [{\"name\": ..., \"evidence\": \"...\", \"default\": ...}]}. Need be careful.\n\nThe section text: \"Originally, DuckDB extensions lived exclusively in the DuckDB main repository, `github.com/duckdb/duckdb`. These extensions are called in-tree. Later, the concept of out-of-tree extensions was added, where extensions were separated into their own repository, which we call out-of-tree.\n\nWhile from a user's perspective, there are generally no noticeable differences, there are some minor differences related to versioning:\n\n* in-tree extensions use the version of DuckDB instead of having their own version\n* in-tree extensions do not have dedicated release notes, their changes are reflected in the regular [DuckDB release notes](https://github.com/duckdb/duckdb/releases)\n* core out-of tree extensions tend to live in repositories named `github.com/duckdb/duckdb-⟨extension_name⟩`{:.language-sql .highlight} but the name may vary. See the [full list]({% link docs/current/core_extensions/overview.md %}) of core extensions for details.\"\n\nNo configuration settings documented. It mentions \"version\", \"release notes\", \"repositories\" but not settings. So empty list.\n\nNeed output JSON. Could be {\"settings\": []}. But maybe schema includes \"settings\" array with objects. We'll output that.\n\nNeed ensure no extra text.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. The user provided a section from DuckDB documentation? It discusses in-tree vs out-of-tree extensions. Need return every configuration setting documented. Likely none. Need output JSON matching schema. We need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe produce list of settings with evidence and default. Need decide structure. Since no schema explicitly, but likely expected: {\"settings\": [{\"name\": ..., \"evidence\": \"...\", \"default\": ...}]}. Need be careful.\n\nThe section text: \"Originally, DuckDB extensions lived exclusively in the DuckDB main repository, `github.com/duckdb/duckdb`. These extensions are called in-tree. Later, the concept of out-of-tree extensions was added, where extensions were separated into their own repository, which we call out-of-tree.\n\nWhile from a user's perspective, there are generally no noticeable differences, there are some minor differences related to versioning:\n\n* in-tree extensions use the version of DuckDB instead of having their own version\n* in-tree extensions do not have dedicated release notes, their changes are reflected in the regular [DuckDB release notes](https://github.com/duckdb/duckdb/releases)\n* core out-of tree extensions tend to live in repositories named `github.com/duckdb/duckdb-⟨extension_name⟩`{:.language-sql .highlight} but the name may vary. See the [full list]({% link docs/current/core_extensions/overview.md %}) of core extensions for details.\"\n\nNo configuration settings documented. It mentions \"version\", \"release notes\", \"repositories\" but not settings. So empty list.\n\nNeed output JSON. Could be {\"settings\": []}. But maybe schema includes \"settings\" array with objects. We'll output that.\n\nNeed ensure no extra text.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 580,
+  "completion_tokens": 401,
+  "total_tokens": 981,
+  "cost": 0.00168955,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00168955,
+   "upstream_inference_prompt_cost": 0.000667,
+   "upstream_inference_completions_cost": 0.00102255
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 461,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.936999999999898
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789908871-cAwo9oetYz0X47qJN52P",
+ "object": "chat.completion",
+ "created": 1789908871,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"index_scan_max_count\",\n      \"input_type\": \"UBIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan.\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"2048\",\n      \"default_evidence\": \"`index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan. | `UBIGINT`   | `2048`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to fix evidence to be at least 12 characters of text copied from the document. The document is a table row. We need a span that includes description and default. For evidence we need a verbatim span that documents the setting. Could use the description line: \"The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan.\" That's longer than 12 characters. So evidence should be that string. Also default_evidence should be a span showing default value, maybe \"Default value: `2048`\" but the table shows default column with `2048`. The span could be \"`2048`\" but that's only 6 characters. Need at least 12 characters. Could include the whole cell: \"`2048`\". That's still short. Could include the header row? Better to include the whole line: \"`index_scan_max_count` ... `2048`\". But need a verbatim span from the document. The table row includes: \"`index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan. | `UBIGINT`   | `2048`\". So we can use a span that includes the default value within context, e.g., \"`2048`\". But need at least 12 characters. Could use \" `2048`\" plus surrounding spaces? Still short. Better to use the whole cell: \"`2048`\". That's 6. So need longer. Could use the entire row text as evidence for default_evidence, but default_evidence also must be at least 12 characters. So we can set default_evidence to something like \"`2048` (default value)\". But that phrase not in document. Must be verbatim from document. The document only has \"`2048`\". So we need a longer span that includes that value plus other characters from the same line. For example, the entire row: \"`index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan. | `UBIGINT`   | `2048`\". That includes default. That is >12 characters. So we can set default_evidence to that entire row or at least a part containing default. Use the same row string.\n\nThus produce JSON:\n\n{\n \"settings\": [\n   {\n     \"name\": \"index_scan_max_count\",\n     \"input_type\": \"UBIGINT\",\n     \"scope\": \"GLOBAL\",\n     \"evidence\": \"The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan.\",\n     \"default_kind\": \"literal\",\n     \"default_value\": \"2048\",\n     \"default_evidence\": \"`index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan. | `UBIGINT`   | `2048`\"\n   }\n ]\n}\n\nMake sure JSON valid.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to fix evidence to be at least 12 characters of text copied from the document. The document is a table row. We need a span that includes description and default. For evidence we need a verbatim span that documents the setting. Could use the description line: \"The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan.\" That's longer than 12 characters. So evidence should be that string. Also default_evidence should be a span showing default value, maybe \"Default value: `2048`\" but the table shows default column with `2048`. The span could be \"`2048`\" but that's only 6 characters. Need at least 12 characters. Could include the whole cell: \"`2048`\". That's still short. Could include the header row? Better to include the whole line: \"`index_scan_max_count` ... `2048`\". But need a verbatim span from the document. The table row includes: \"`index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan. | `UBIGINT`   | `2048`\". So we can use a span that includes the default value within context, e.g., \"`2048`\". But need at least 12 characters. Could use \" `2048`\" plus surrounding spaces? Still short. Better to use the whole cell: \"`2048`\". That's 6. So need longer. Could use the entire row text as evidence for default_evidence, but default_evidence also must be at least 12 characters. So we can set default_evidence to something like \"`2048` (default value)\". But that phrase not in document. Must be verbatim from document. The document only has \"`2048`\". So we need a longer span that includes that value plus other characters from the same line. For example, the entire row: \"`index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan. | `UBIGINT`   | `2048`\". That includes default. That is >12 characters. So we can set default_evidence to that entire row or at least a part containing default. Use the same row string.\n\nThus produce JSON:\n\n{\n \"settings\": [\n   {\n     \"name\": \"index_scan_max_count\",\n     \"input_type\": \"UBIGINT\",\n     \"scope\": \"GLOBAL\",\n     \"evidence\": \"The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan.\",\n     \"default_kind\": \"literal\",\n     \"default_value\": \"2048\",\n     \"default_evidence\": \"`index_scan_max_count`                        | The maximum index scan count sets a threshold for index scans. If fewer than MAX(index_scan_max_count, index_scan_percentage * total_row_count) rows match, we perform an index scan instead of a table scan. | `UBIGINT`   | `2048`\"\n   }\n ]\n}\n\nMake sure JSON valid.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 840,
+  "completion_tokens": 914,
+  "total_tokens": 1754,
+  "cost": 0.00018058,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00018058,
+   "upstream_inference_prompt_cost": 2.52e-05,
+   "upstream_inference_completions_cost": 0.00015538
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 789,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 21.264999999999418
+}

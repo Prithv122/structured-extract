@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789914234-QUxlSxzshsW3E4Zr3ggF",
+ "object": "chat.completion",
+ "created": 1789914234,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need likely output list of settings with evidence and default. Need determine if section documents configuration settings. The provided section is about AT TIME ZONE syntax, timezone function. It does not document configuration settings. So correct answer empty list. Need output JSON maybe {\"settings\": []} or maybe schema has fields? We need infer. The instruction: \"For each setting, quote a span... Also report default...\" Answer only JSON matching supplied schema. Since no schema visible, likely expected format from previous tasks? We need produce JSON with empty list. Could be {\"settings\": []}. Need ensure no extra text. Let's craft.\n\nBut let's examine: The section is from DuckDB docs about AT TIME ZONE. It mentions timezone function, not configuration setting. No settings. So empty list.\n\nNeed output JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need likely output list of settings with evidence and default. Need determine if section documents configuration settings. The provided section is about AT TIME ZONE syntax, timezone function. It does not document configuration settings. So correct answer empty list. Need output JSON maybe {\"settings\": []} or maybe schema has fields? We need infer. The instruction: \"For each setting, quote a span... Also report default...\" Answer only JSON matching supplied schema. Since no schema visible, likely expected format from previous tasks? We need produce JSON with empty list. Could be {\"settings\": []}. Need ensure no extra text. Let's craft.\n\nBut let's examine: The section is from DuckDB docs about AT TIME ZONE. It mentions timezone function, not configuration setting. No settings. So empty list.\n\nNeed output JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 694,
+  "completion_tokens": 205,
+  "total_tokens": 899,
+  "cost": 0.00107765,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00107765,
+   "upstream_inference_prompt_cost": 0.0005549,
+   "upstream_inference_completions_cost": 0.00052275
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 248,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.421999999998661
+}

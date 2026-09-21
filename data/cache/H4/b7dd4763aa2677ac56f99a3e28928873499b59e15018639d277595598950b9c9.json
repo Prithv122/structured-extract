@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789903435-C7GSbz8GyhDDxXGkYrgs",
+ "object": "chat.completion",
+ "created": 1789903435,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The text is about STRUCT data type, not configuration settings. Likely no settings. So output empty list.\n\nWe must follow JSON schema: likely something like {\"settings\": []}. But need to infer schema. The prompt says \"Answer only with JSON matching the supplied schema.\" Not given explicitly, but typical would be list of objects with name, description, default, evidence. Could be something like [{\"setting\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. Since no settings, we output [] maybe.\n\nBetter to output [] as JSON array. Probably acceptable.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The text is about STRUCT data type, not configuration settings. Likely no settings. So output empty list.\n\nWe must follow JSON schema: likely something like {\"settings\": []}. But need to infer schema. The prompt says \"Answer only with JSON matching the supplied schema.\" Not given explicitly, but typical would be list of objects with name, description, default, evidence. Could be something like [{\"setting\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. Since no settings, we output [] maybe.\n\nBetter to output [] as JSON array. Probably acceptable.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 633,
+  "completion_tokens": 146,
+  "total_tokens": 779,
+  "cost": 4.381e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 4.381e-05,
+   "upstream_inference_prompt_cost": 1.899e-05,
+   "upstream_inference_completions_cost": 2.482e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 158,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 13.671999999998661
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789901056-SzODrOuLWQTddoseYY0P",
+ "object": "chat.completion",
+ "created": 1789901056,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"deprecated_using_key_syntax\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET deprecated_using_key_syntax = 'DEFAULT';\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"'DEFAULT'\",\n      \"default_evidence\": \"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The text mentions a new setting: `deprecated_using_key_syntax`. It shows SET commands and describes default behavior. So we need to output JSON with list of settings, each with name, evidence (quote), default (if stated). The default is described: \"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\" Also later: \"DuckDB 2.0.0 disables the `UNION` syntax by default.\" But that's about default for the setting? The setting's default value is 'DEFAULT' (the literal default). The section says \"SET deprecated_using_key_syntax = 'DEFAULT';\". It also says \"Currently, `DEFAULT` enables both syntax styles\". So default is 'DEFAULT'. Provide evidence quote: maybe \"SET deprecated_using_key_syntax = 'DEFAULT';\". Also mention default description: maybe \"DEFAULT enables both syntax styles\". Provide default as \"'DEFAULT'\". The schema? Not given but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"deprecated_using_key_syntax\",\n      \"evidence\": \"...\",\n      \"default\": \"'DEFAULT'\"\n    }\n  ]\n}\n\nWe need to follow schema. Since not provided, assume typical: {\"settings\": [{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]}. Provide JSON only.\n\nLet's craft.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The text mentions a new setting: `deprecated_using_key_syntax`. It shows SET commands and describes default behavior. So we need to output JSON with list of settings, each with name, evidence (quote), default (if stated). The default is described: \"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\" Also later: \"DuckDB 2.0.0 disables the `UNION` syntax by default.\" But that's about default for the setting? The setting's default value is 'DEFAULT' (the literal default). The section says \"SET deprecated_using_key_syntax = 'DEFAULT';\". It also says \"Currently, `DEFAULT` enables both syntax styles\". So default is 'DEFAULT'. Provide evidence quote: maybe \"SET deprecated_using_key_syntax = 'DEFAULT';\". Also mention default description: maybe \"DEFAULT enables both syntax styles\". Provide default as \"'DEFAULT'\". The schema? Not given but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"deprecated_using_key_syntax\",\n      \"evidence\": \"...\",\n      \"default\": \"'DEFAULT'\"\n    }\n  ]\n}\n\nWe need to follow schema. Since not provided, assume typical: {\"settings\": [{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]}. Provide JSON only.\n\nLet's craft.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 946,
+  "completion_tokens": 438,
+  "total_tokens": 1384,
+  "cost": 0.00010284,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00010284,
+   "upstream_inference_prompt_cost": 2.838e-05,
+   "upstream_inference_completions_cost": 7.446e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 335,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 6.265999999999622
+}

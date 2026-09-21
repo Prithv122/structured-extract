@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919080-IXMrobBpB4DfptzX6JTO",
+ "object": "chat.completion",
+ "created": 1789919080,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allocator_background_threads\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"By default, jemalloc's background threads are disabled.\\nSET allocator_background_threads = true;\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false (disabled)\"\n   \n    , \"default_evidence\": \"By default, jemalloc's background threads are disabled.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The text mentions \"allocator_background_threads\". It says \"SET allocator_background_threads = true;\". This is a configuration setting. We need to output JSON with list of settings, each with name, default (if stated), and evidence (quote). The default is not explicitly stated in the snippet, but the first sentence says \"By default, jemalloc's background threads are disabled.\" That implies default is false. The phrase \"By default, jemalloc's background threads are disabled.\" This is about the setting? It says default disabled, which corresponds to false. So we can capture default as \"false (disabled)\". The quote: \"By default, jemalloc's background threads are disabled.\" Also the SET line as evidence for the name. Provide default as \"false (disabled)\". The schema? Not given but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allocator_background_threads\",\n      \"default\": \"false (disabled)\",\n      \"evidence\": [\"By default, jemalloc's background threads are disabled.\", \"SET allocator_background_threads = true;\"]\n    }\n  ]\n}\n\nBut need to match supplied schema. Not provided, but typical: list of objects with name, default, evidence. We'll output JSON with \"settings\". Use array.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The text mentions \"allocator_background_threads\". It says \"SET allocator_background_threads = true;\". This is a configuration setting. We need to output JSON with list of settings, each with name, default (if stated), and evidence (quote). The default is not explicitly stated in the snippet, but the first sentence says \"By default, jemalloc's background threads are disabled.\" That implies default is false. The phrase \"By default, jemalloc's background threads are disabled.\" This is about the setting? It says default disabled, which corresponds to false. So we can capture default as \"false (disabled)\". The quote: \"By default, jemalloc's background threads are disabled.\" Also the SET line as evidence for the name. Provide default as \"false (disabled)\". The schema? Not given but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allocator_background_threads\",\n      \"default\": \"false (disabled)\",\n      \"evidence\": [\"By default, jemalloc's background threads are disabled.\", \"SET allocator_background_threads = true;\"]\n    }\n  ]\n}\n\nBut need to match supplied schema. Not provided, but typical: list of objects with name, default, evidence. We'll output JSON with \"settings\". Use array.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 579,
+  "completion_tokens": 389,
+  "total_tokens": 968,
+  "cost": 8.35e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.35e-05,
+   "upstream_inference_prompt_cost": 1.737e-05,
+   "upstream_inference_completions_cost": 6.613e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 323,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 19.577999999994063
+}

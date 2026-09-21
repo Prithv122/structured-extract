@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789915720-hHkIZWtcdYn0hedBMsA7",
+ "object": "chat.completion",
+ "created": 1789915720,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"SET ca_cert_file = '⟨certificate_file⟩';\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"ca_cert_file\"\n    ,\n    \"scope\": \"GLOBAL\"\n    },\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"SET enable_server_cert_verification = true;\",\n      \"input_type\": \"BOOLEAN\",\n      \"name\": \"enable_server_cert_verification\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need extract DuckDB configuration settings from section. Need understand task. We have provided text from DuckDB docs? It mentions httpfs extension custom certificate file, set configuration options prior to loading extension. SQL: LOAD httpfs; SET ca_cert_file = '...'; SET enable_server_cert_verification = true; Then secrets.\n\nWe need identify configuration settings documented in this section. The section documents? It says \"set the following configuration options prior to loading the extension:\" and shows SET ca_cert_file and SET enable_server_cert_verification. These are DuckDB settings? ca_cert_file and enable_server_cert_verification likely configuration settings. Need quote verbatim spans. Also report default if section states it. Section does not state defaults. Need answer list with settings and evidence. Need maybe include both settings. Need ensure not include CREATE SECRET parameters? They are not configuration settings? CREATE SECRET options TYPE, VERIFY_SSL, SCOPE are parameters of SQL statement/secret, not settings. So only ca_cert_file and enable_server_cert_verification.\n\nNeed produce JSON matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need likely from previous? We need produce JSON with settings array? Need decide structure. Could be:\n{\n  \"settings\": [\n    {\"name\": \"ca_cert_file\", \"evidence\": \"SET ca_cert_file = '⟨certificate_file⟩';\", \"default\": \"absent\"},\n    {\"name\": \"enable_server_cert_verification\", \"evidence\": \"SET enable_server_cert_verification = true;\", \"default\": \"absent\"}\n  ]\n}\nNeed maybe include \"default\": null or \"absent\". The instruction: \"Also report the setting's default, but only if this section states it... If section does not state a default, say it is absent\". So use \"absent\". Need quote exact characters. Evidence should be span verbatim. Could quote the whole sentence? \"SET ca_cert_file = '⟨certificate_file⟩';\" is exact. For enable: \"SET enable_server_cert_verification = true;\". Need maybe include \"set the following configuration options prior to loading the extension:\"? But evidence for setting name maybe enough. Need quote span of section verbatim. We can use the SQL line.\n\nNeed ensure no extra text. JSON only. Let's craft.\n\nBut let's think if there are any hidden pitfalls. The section includes \"LOAD httpfs;\" not setting. \"CREATE SECRET disable_ssl (...)\" not setting. \"VERIFY_SSL 0\" is secret parameter. \"SCOPE\" parameter. So only two.\n\nNeed maybe \"ca_cert_file\" and \"enable_server_cert_verification\" are indeed configuration options. They are set via SET. Yes.\n\nNeed maybe default absent because section doesn't state. It says \"set ... prior to loading extension\" but no default. So absent.\n\nNeed maybe include \"default\": \"absent\" as string. Could be \"default\": null? The instruction says \"say it is absent\". So string \"absent\".\n\nNeed maybe include \"machine_dependent\": false? Not required. Schema unknown. We can include only name, evidence, default. But maybe schema expects \"default\" can be string or null. We'll use \"absent\".\n\nNeed ensure JSON valid. Use double quotes. Evidence contains single quotes and angle brackets. Fine.\n\nFinal answer only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need extract DuckDB configuration settings from section. Need understand task. We have provided text from DuckDB docs? It mentions httpfs extension custom certificate file, set configuration options prior to loading extension. SQL: LOAD httpfs; SET ca_cert_file = '...'; SET enable_server_cert_verification = true; Then secrets.\n\nWe need identify configuration settings documented in this section. The section documents? It says \"set the following configuration options prior to loading the extension:\" and shows SET ca_cert_file and SET enable_server_cert_verification. These are DuckDB settings? ca_cert_file and enable_server_cert_verification likely configuration settings. Need quote verbatim spans. Also report default if section states it. Section does not state defaults. Need answer list with settings and evidence. Need maybe include both settings. Need ensure not include CREATE SECRET parameters? They are not configuration settings? CREATE SECRET options TYPE, VERIFY_SSL, SCOPE are parameters of SQL statement/secret, not settings. So only ca_cert_file and enable_server_cert_verification.\n\nNeed produce JSON matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need likely from previous? We need produce JSON with settings array? Need decide structure. Could be:\n{\n  \"settings\": [\n    {\"name\": \"ca_cert_file\", \"evidence\": \"SET ca_cert_file = '⟨certificate_file⟩';\", \"default\": \"absent\"},\n    {\"name\": \"enable_server_cert_verification\", \"evidence\": \"SET enable_server_cert_verification = true;\", \"default\": \"absent\"}\n  ]\n}\nNeed maybe include \"default\": null or \"absent\". The instruction: \"Also report the setting's default, but only if this section states it... If section does not state a default, say it is absent\". So use \"absent\". Need quote exact characters. Evidence should be span verbatim. Could quote the whole sentence? \"SET ca_cert_file = '⟨certificate_file⟩';\" is exact. For enable: \"SET enable_server_cert_verification = true;\". Need maybe include \"set the following configuration options prior to loading the extension:\"? But evidence for setting name maybe enough. Need quote span of section verbatim. We can use the SQL line.\n\nNeed ensure no extra text. JSON only. Let's craft.\n\nBut let's think if there are any hidden pitfalls. The section includes \"LOAD httpfs;\" not setting. \"CREATE SECRET disable_ssl (...)\" not setting. \"VERIFY_SSL 0\" is secret parameter. \"SCOPE\" parameter. So only two.\n\nNeed maybe \"ca_cert_file\" and \"enable_server_cert_verification\" are indeed configuration options. They are set via SET. Yes.\n\nNeed maybe default absent because section doesn't state. It says \"set ... prior to loading extension\" but no default. So absent.\n\nNeed maybe include \"default\": \"absent\" as string. Could be \"default\": null? The instruction says \"say it is absent\". So string \"absent\".\n\nNeed maybe include \"machine_dependent\": false? Not required. Schema unknown. We can include only name, evidence, default. But maybe schema expects \"default\" can be string or null. We'll use \"absent\".\n\nNeed ensure JSON valid. Use double quotes. Evidence contains single quotes and angle brackets. Fine.\n\nFinal answer only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 685,
+  "completion_tokens": 896,
+  "total_tokens": 1581,
+  "cost": 0.00282935,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00282935,
+   "upstream_inference_prompt_cost": 0.00054455,
+   "upstream_inference_completions_cost": 0.0022848
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 824,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 20.781999999999243
+}

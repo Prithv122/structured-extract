@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789896625-CFp0ItwlSvtJ7ml4wCYR",
+ "object": "chat.completion",
+ "created": 1789896625,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse task. We have a section from DuckDB documentation? It discusses CREATE TABLE statements and type resolution. Need extract configuration settings documented. Likely none. Need return JSON matching schema. We need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe produce list of settings with evidence and default. Need know expected schema. We need infer from instruction: \"Return every configuration setting that this section documents... For each setting, quote a span... Also report the setting's default...\" So JSON likely array of objects with setting name, evidence quote, default info. Need maybe include \"default\": string or null, \"is_machine_dependent\": boolean? Need decide.\n\nWe need answer only JSON. The section provided is about DuckDB behavior for CREATE TABLE type resolution, not documenting configuration settings. So empty list. Need output JSON maybe `[]` or `{\"settings\": []}`? The instruction says \"Return every configuration setting...\" and \"Answer only with JSON matching the supplied schema.\" Since no schema shown, but likely expected array. We can output `[]`. Need ensure no extra text. But maybe schema includes fields. If empty list, just `[]`.\n\nLet's examine: The text is from DuckDB docs? It mentions \"For CREATE TABLE statements, DuckDB attempts to resolve type names in the schema where a table is created.\" This is not a configuration setting. No settings documented. So answer empty list.\n\nNeed final JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse task. We have a section from DuckDB documentation? It discusses CREATE TABLE statements and type resolution. Need extract configuration settings documented. Likely none. Need return JSON matching schema. We need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe produce list of settings with evidence and default. Need know expected schema. We need infer from instruction: \"Return every configuration setting that this section documents... For each setting, quote a span... Also report the setting's default...\" So JSON likely array of objects with setting name, evidence quote, default info. Need maybe include \"default\": string or null, \"is_machine_dependent\": boolean? Need decide.\n\nWe need answer only JSON. The section provided is about DuckDB behavior for CREATE TABLE type resolution, not documenting configuration settings. So empty list. Need output JSON maybe `[]` or `{\"settings\": []}`? The instruction says \"Return every configuration setting...\" and \"Answer only with JSON matching the supplied schema.\" Since no schema shown, but likely expected array. We can output `[]`. Need ensure no extra text. But maybe schema includes fields. If empty list, just `[]`.\n\nLet's examine: The text is from DuckDB docs? It mentions \"For CREATE TABLE statements, DuckDB attempts to resolve type names in the schema where a table is created.\" This is not a configuration setting. No settings documented. So answer empty list.\n\nNeed final JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 587,
+  "completion_tokens": 318,
+  "total_tokens": 905,
+  "cost": 0.00148595,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00148595,
+   "upstream_inference_prompt_cost": 0.00067505,
+   "upstream_inference_completions_cost": 0.0008109
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 392,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.75
+}

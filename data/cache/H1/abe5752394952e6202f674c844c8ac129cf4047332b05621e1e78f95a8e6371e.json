@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789913561-FWD57oo1VP46RVCqz3Ox",
+ "object": "chat.completion",
+ "created": 1789913561,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. User asks extract DuckDB configuration settings from single section of DuckDB documentation. The provided section is about odbc.ini file DSNs for drivers. It lists parameters: [DuckDB], Driver, Database, access_mode. Need determine if any are DuckDB configuration settings (SET/RESET/PRAGMA). These are ODBC DSN parameters, not DuckDB config settings? access_mode maybe DuckDB setting? But in ODBC ini, access_mode is connection parameter? Need be careful. The instruction says settings belonging to some other database system or parameters of SQL statement etc not config. ODBC ini parameters are not DuckDB configuration settings? They are ODBC configuration file entries, not SET/PRAGMA. The section documents odbc.ini file, not DuckDB configuration settings. So answer empty list. Need JSON matching schema. Need know schema? User says answer only with JSON matching supplied schema. But schema not included in prompt? We need infer maybe {\"settings\": [{\"name\": ..., \"evidence\": ..., \"default\": ...}]}. Need produce empty list. Since no settings, maybe {\"settings\": []}. Need ensure only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. User asks extract DuckDB configuration settings from single section of DuckDB documentation. The provided section is about odbc.ini file DSNs for drivers. It lists parameters: [DuckDB], Driver, Database, access_mode. Need determine if any are DuckDB configuration settings (SET/RESET/PRAGMA). These are ODBC DSN parameters, not DuckDB config settings? access_mode maybe DuckDB setting? But in ODBC ini, access_mode is connection parameter? Need be careful. The instruction says settings belonging to some other database system or parameters of SQL statement etc not config. ODBC ini parameters are not DuckDB configuration settings? They are ODBC configuration file entries, not SET/PRAGMA. The section documents odbc.ini file, not DuckDB configuration settings. So answer empty list. Need JSON matching schema. Need know schema? User says answer only with JSON matching supplied schema. But schema not included in prompt? We need infer maybe {\"settings\": [{\"name\": ..., \"evidence\": ..., \"default\": ...}]}. Need produce empty list. Since no settings, maybe {\"settings\": []}. Need ensure only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 662,
+  "completion_tokens": 255,
+  "total_tokens": 917,
+  "cost": 0.00116835,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00116835,
+   "upstream_inference_prompt_cost": 0.0005181,
+   "upstream_inference_completions_cost": 0.00065025
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 286,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.329000000001543
+}

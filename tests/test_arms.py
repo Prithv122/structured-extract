@@ -220,3 +220,13 @@ def test_an_error_that_is_not_json_is_passed_through_unchanged():
 def test_different_errors_stay_separate():
     grouped = _group_errors([row("H1", REAL_402), row("H2", "HTTP 500: upstream")])
     assert len(grouped) == 2
+
+
+def test_errors_group_the_same_whether_rows_are_objects_or_dicts():
+    """`extract run` passes ExtractionRow objects; `report` reads a results
+    file and passes the dicts they serialise to. The second path crashed on
+    the first full grid, after all 1,200 calls had been paid for."""
+    objects = [row("H1", REAL_402), row("H2", REAL_402)]
+    dicts = [r.to_json() for r in objects]
+    assert list(_group_errors(objects)) == list(_group_errors(dicts))
+    assert len(_group_errors(dicts)) == 1

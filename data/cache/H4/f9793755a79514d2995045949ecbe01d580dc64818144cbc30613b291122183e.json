@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789902419-wXbH7UeRZ94W4FVacpvj",
+ "object": "chat.completion",
+ "created": 1789902419,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET memory_limit = '10GB';\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET threads = 1;\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"default_collation\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"SET SESSION default_collation = 'nocase';\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": \"absent\"\n    ,\n    \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The user provided a snippet of documentation? It includes examples of SET memory_limit, SET threads, RESET threads, SELECT current_setting('threads'), SET SESSION default_collation. The question: \"Update the `memory_limit` configuration value: ...\" So the section likely documents settings memory_limit, threads, default_collation. We need to list each setting that the section documents, with a verbatim quote from the section as evidence, and default if stated. The snippet does not include default values. It just shows usage. No default statements. So defaults are absent.\n\nWe need to output JSON matching supplied schema. The schema not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    },\n    ...\n  ]\n}\n\nWe need to guess schema. Usually these tasks expect:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe'll follow that.\n\nWe need to quote a span verbatim for each setting. For memory_limit: the line \"SET memory_limit = '10GB';\". For threads: \"SET threads = 1;\" and maybe \"SET threads TO 1;\". For default_collation: \"SET SESSION default_collation = 'nocase';\". Also maybe \"RESET threads;\" documents threads as well. But we need one evidence per setting.\n\nDefaults: none stated, so \"absent\".\n\nReturn JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The user provided a snippet of documentation? It includes examples of SET memory_limit, SET threads, RESET threads, SELECT current_setting('threads'), SET SESSION default_collation. The question: \"Update the `memory_limit` configuration value: ...\" So the section likely documents settings memory_limit, threads, default_collation. We need to list each setting that the section documents, with a verbatim quote from the section as evidence, and default if stated. The snippet does not include default values. It just shows usage. No default statements. So defaults are absent.\n\nWe need to output JSON matching supplied schema. The schema not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    },\n    ...\n  ]\n}\n\nWe need to guess schema. Usually these tasks expect:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe'll follow that.\n\nWe need to quote a span verbatim for each setting. For memory_limit: the line \"SET memory_limit = '10GB';\". For threads: \"SET threads = 1;\" and maybe \"SET threads TO 1;\". For default_collation: \"SET SESSION default_collation = 'nocase';\". Also maybe \"RESET threads;\" documents threads as well. But we need one evidence per setting.\n\nDefaults: none stated, so \"absent\".\n\nReturn JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 475,
+  "completion_tokens": 568,
+  "total_tokens": 1043,
+  "cost": 0.00011081,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00011081,
+   "upstream_inference_prompt_cost": 1.425e-05,
+   "upstream_inference_completions_cost": 9.656e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 376,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 16.64099999999962
+}

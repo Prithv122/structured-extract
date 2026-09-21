@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789893723-h92qasT1mtOiTaoE1nwg",
+ "object": "chat.completion",
+ "created": 1789893723,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. It documents DATE type? The prompt asks \"DuckDB configuration settings\" from section. This section is about DATE data type, not configuration setting. Need return empty list likely. Need ensure schema? User says answer only with JSON matching supplied schema. But no schema supplied in prompt? We need infer maybe list of objects with setting, evidence, default? Need output JSON. Since no settings documented, empty list. Need maybe include fields? The instruction: \"For each setting, quote a span... Also report default...\" Answer only JSON matching supplied schema. We don't have schema. We can output [] maybe. Need be careful: \"Return every configuration setting that this section documents.\" Section documents DATE type, not config setting. Empty list correct. Output [].\n\nNeed final only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. It documents DATE type? The prompt asks \"DuckDB configuration settings\" from section. This section is about DATE data type, not configuration setting. Need return empty list likely. Need ensure schema? User says answer only with JSON matching supplied schema. But no schema supplied in prompt? We need infer maybe list of objects with setting, evidence, default? Need output JSON. Since no settings documented, empty list. Need maybe include fields? The instruction: \"For each setting, quote a span... Also report default...\" Answer only JSON matching supplied schema. We don't have schema. We can output [] maybe. Need be careful: \"Return every configuration setting that this section documents.\" Section documents DATE type, not config setting. Empty list correct. Output [].\n\nNeed final only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 491,
+  "completion_tokens": 175,
+  "total_tokens": 666,
+  "cost": 0.0007677,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0007677,
+   "upstream_inference_prompt_cost": 0.00032145,
+   "upstream_inference_completions_cost": 0.00044625
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 212,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 5.79700000000048
+}

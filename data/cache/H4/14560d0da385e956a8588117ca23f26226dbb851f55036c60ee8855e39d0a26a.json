@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789901031-kgM91AQqSut3J3ltjWUX",
+ "object": "chat.completion",
+ "created": 1789901031,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"custom_user_agent\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`custom_user_agent` setting\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). If default_kind is \"absent\", default_value and default_evidence must be null. In previous answer, default_value was \"absent\" string, default_evidence null. Need to set default_value null and default_evidence null. Also evidence must be verbatim span from the section. The previous evidence \"`custom_user_agent` setting\" is not verbatim; need to extract exact text from the provided snippet. The snippet: \"The user-agent string can also be modified via the `custom_user_agent` setting, see [Configuration]...\". The verbatim span should be exactly as appears, including backticks? The phrase \"custom_user_agent` setting\" includes backticks around name. The verbatim span could be \"`custom_user_agent` setting\". That is a span. It is verbatim. Probably acceptable. But they said evidence must be a verbatim span; the backticks are part of the text. So keep that.\n\nNow produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"custom_user_agent\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`custom_user_agent` setting\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nMake sure no extra commas.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). If default_kind is \"absent\", default_value and default_evidence must be null. In previous answer, default_value was \"absent\" string, default_evidence null. Need to set default_value null and default_evidence null. Also evidence must be verbatim span from the section. The previous evidence \"`custom_user_agent` setting\" is not verbatim; need to extract exact text from the provided snippet. The snippet: \"The user-agent string can also be modified via the `custom_user_agent` setting, see [Configuration]...\". The verbatim span should be exactly as appears, including backticks? The phrase \"custom_user_agent` setting\" includes backticks around name. The verbatim span could be \"`custom_user_agent` setting\". That is a span. It is verbatim. Probably acceptable. But they said evidence must be a verbatim span; the backticks are part of the text. So keep that.\n\nNow produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"custom_user_agent\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`custom_user_agent` setting\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nMake sure no extra commas.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 931,
+  "completion_tokens": 394,
+  "total_tokens": 1325,
+  "cost": 9.491e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.491e-05,
+   "upstream_inference_prompt_cost": 2.793e-05,
+   "upstream_inference_completions_cost": 6.698e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 344,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.217999999997119
+}

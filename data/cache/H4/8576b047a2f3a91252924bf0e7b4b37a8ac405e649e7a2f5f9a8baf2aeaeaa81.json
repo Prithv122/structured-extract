@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919201-nmGEVLcujdxKi9Habsrn",
+ "object": "chat.completion",
+ "created": 1789919201,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"enable_profiling\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA enable_profiling = 'json';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"profiling_output\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA profiling_output = '/path/to/file.json';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"configure_profiling\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA configure_profiling = '{\\\"CPU_TIME\\\": \\\"false\\\", \\\"EXTRA_INFO\\\": \\\"true\\\", \\\"OPERATOR_CARDINALITY\\\": \\\"true\\\", \\\"OPERATOR_TIMING\\\": \\\"true\\\"}';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"profiling_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA profiling_mode = 'detailed';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to fix JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (optional?), default_evidence (optional?). The validation error says when default_kind is 'absent', default_value and default_evidence must both be null. In our JSON we set default_value to \"absent\" string, which is wrong. Should be null. Also default_evidence should be null (already). So we need to set default_value: null for each setting. Also need to ensure input_type correct: For enable_profiling, likely BOOLEAN or STRING? In docs, enable_profiling expects string like 'json' maybe it's a string. But we used INTEGER. Might be okay? The schema may not validate type values; but we can keep. However evidence must be verbatim span. The evidence strings we gave are verbatim? The code snippet includes \"PRAGMA enable_profiling = 'json';\". That's exact. Good.\n\nWe also need to ensure JSON syntax correct: remove stray commas and stray lines. The previous JSON had syntax errors: after default_kind we had stray commas and lines. We'll produce correct JSON.\n\nStructure:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"enable_profiling\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA enable_profiling = 'json';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    ...\n  ]\n}\n\nCheck input_type: The docs show enable_profiling takes string like 'json' or 'off'? Might be VARCHAR. Use VARCHAR.\n\nprofiling_output: VARCHAR.\n\nconfigure_profiling: VARCHAR.\n\nprofiling_mode: VARCHAR.\n\nAll scope GLOBAL.\n\nNow produce JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to fix JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (optional?), default_evidence (optional?). The validation error says when default_kind is 'absent', default_value and default_evidence must both be null. In our JSON we set default_value to \"absent\" string, which is wrong. Should be null. Also default_evidence should be null (already). So we need to set default_value: null for each setting. Also need to ensure input_type correct: For enable_profiling, likely BOOLEAN or STRING? In docs, enable_profiling expects string like 'json' maybe it's a string. But we used INTEGER. Might be okay? The schema may not validate type values; but we can keep. However evidence must be verbatim span. The evidence strings we gave are verbatim? The code snippet includes \"PRAGMA enable_profiling = 'json';\". That's exact. Good.\n\nWe also need to ensure JSON syntax correct: remove stray commas and stray lines. The previous JSON had syntax errors: after default_kind we had stray commas and lines. We'll produce correct JSON.\n\nStructure:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"enable_profiling\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA enable_profiling = 'json';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    ...\n  ]\n}\n\nCheck input_type: The docs show enable_profiling takes string like 'json' or 'off'? Might be VARCHAR. Use VARCHAR.\n\nprofiling_output: VARCHAR.\n\nconfigure_profiling: VARCHAR.\n\nprofiling_mode: VARCHAR.\n\nAll scope GLOBAL.\n\nNow produce JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 2887,
+  "completion_tokens": 710,
+  "total_tokens": 3597,
+  "cost": 0.00020731,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00020731,
+   "upstream_inference_prompt_cost": 8.661e-05,
+   "upstream_inference_completions_cost": 0.0001207
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 417,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 63.90600000000268
+}

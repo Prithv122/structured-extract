@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919016-CfS0lxyyPRLYA41JjDXQ",
+ "object": "chat.completion",
+ "created": 1789919016,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"deprecated_using_key_syntax\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET deprecated_using_key_syntax = 'DEFAULT';\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"DEFAULT\",\n      \"default_evidence\": \"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to fix evidence to be a verbatim span from the document. The document includes lines:\n\n```\nSET deprecated_using_key_syntax = 'DEFAULT';\nSET deprecated_using_key_syntax = 'UNION_AS_UNION_ALL';\n```\n\nAnd also a sentence: \"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\"\n\nWe need to provide a single span? The schema likely expects a string evidence that is a verbatim span. It can be any part of the document that includes the setting name. We can just use the first line: \"SET deprecated_using_key_syntax = 'DEFAULT';\". That is verbatim. Or we could include both lines separated by newline, but that is verbatim as well. The previous evidence included extra text not verbatim (the sentence). The sentence is verbatim but we need to ensure it's exactly as in doc. It is exactly as in doc. However the combined evidence includes three lines, which is verbatim? The first two lines are verbatim, the third line is also verbatim. The issue might be that the evidence includes extra spaces or formatting? The error says evidence is not a verbatim span. Possibly because we combined multiple spans; maybe they expect a single contiguous span from the document. The three lines are contiguous in the doc? The doc shows code block with two SET statements, then a blank line, then \"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\" In the original text, there is a blank line between code block and the sentence. The evidence includes newline and then the sentence, which may not be contiguous in the source (the code block ends, then a blank line, then the sentence). But still contiguous if we include newline. However maybe the evidence must be exactly as appears, including code fences? The code block includes triple backticks, but we omitted them. The evidence should be exactly a span from the document, not including formatting like code fences? The doc shows:\n\n```sql\nSET deprecated_using_key_syntax = 'DEFAULT';\nSET deprecated_using_key_syntax = 'UNION_AS_UNION_ALL';\n```\n\nThus the span includes the backticks and sql tag? The evidence should be exactly that line(s) including backticks? The spec: \"quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" So we need to include the backticks and maybe the code fences. The code block includes three backticks, \"sql\", newline, then the two lines, then three backticks. The span could be just the two SET lines without fences, but those lines appear inside the code block, but they are still part of the document. The characters of those lines are exactly as shown. So our evidence could be \"SET deprecated_using_key_syntax = 'DEFAULT';\". That's a verbatim span. That should satisfy.\n\nAlso we have an extra field \"default_evidence\" which may not be part of schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence? Not sure. The previous answer included default_evidence, but maybe schema expects \"default_evidence\". The error only about evidence. So we keep default_evidence as is.\n\nBut we need to ensure JSON syntax correct: remove stray comma before \"default_evidence\". In previous answer there is a stray comma after \"default_value\": \"DEFAULT\"   (then newline)   , \"default_evidence\": ... That comma is okay if there is a field after. But there is an extra newline before comma. It's okay. However we need to ensure proper JSON formatting.\n\nLet's produce corrected JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"deprecated_using_key_syntax\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET deprecated_using_key_syntax = 'DEFAULT';\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"DEFAULT\",\n      \"default_evidence\": \"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\"\n    }\n  ]\n}\n\nCheck that evidence is verbatim: Yes.\n\nReturn that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to fix evidence to be a verbatim span from the document. The document includes lines:\n\n```\nSET deprecated_using_key_syntax = 'DEFAULT';\nSET deprecated_using_key_syntax = 'UNION_AS_UNION_ALL';\n```\n\nAnd also a sentence: \"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\"\n\nWe need to provide a single span? The schema likely expects a string evidence that is a verbatim span. It can be any part of the document that includes the setting name. We can just use the first line: \"SET deprecated_using_key_syntax = 'DEFAULT';\". That is verbatim. Or we could include both lines separated by newline, but that is verbatim as well. The previous evidence included extra text not verbatim (the sentence). The sentence is verbatim but we need to ensure it's exactly as in doc. It is exactly as in doc. However the combined evidence includes three lines, which is verbatim? The first two lines are verbatim, the third line is also verbatim. The issue might be that the evidence includes extra spaces or formatting? The error says evidence is not a verbatim span. Possibly because we combined multiple spans; maybe they expect a single contiguous span from the document. The three lines are contiguous in the doc? The doc shows code block with two SET statements, then a blank line, then \"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\" In the original text, there is a blank line between code block and the sentence. The evidence includes newline and then the sentence, which may not be contiguous in the source (the code block ends, then a blank line, then the sentence). But still contiguous if we include newline. However maybe the evidence must be exactly as appears, including code fences? The code block includes triple backticks, but we omitted them. The evidence should be exactly a span from the document, not including formatting like code fences? The doc shows:\n\n```sql\nSET deprecated_using_key_syntax = 'DEFAULT';\nSET deprecated_using_key_syntax = 'UNION_AS_UNION_ALL';\n```\n\nThus the span includes the backticks and sql tag? The evidence should be exactly that line(s) including backticks? The spec: \"quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" So we need to include the backticks and maybe the code fences. The code block includes three backticks, \"sql\", newline, then the two lines, then three backticks. The span could be just the two SET lines without fences, but those lines appear inside the code block, but they are still part of the document. The characters of those lines are exactly as shown. So our evidence could be \"SET deprecated_using_key_syntax = 'DEFAULT';\". That's a verbatim span. That should satisfy.\n\nAlso we have an extra field \"default_evidence\" which may not be part of schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence? Not sure. The previous answer included default_evidence, but maybe schema expects \"default_evidence\". The error only about evidence. So we keep default_evidence as is.\n\nBut we need to ensure JSON syntax correct: remove stray comma before \"default_evidence\". In previous answer there is a stray comma after \"default_value\": \"DEFAULT\"   (then newline)   , \"default_evidence\": ... That comma is okay if there is a field after. But there is an extra newline before comma. It's okay. However we need to ensure proper JSON formatting.\n\nLet's produce corrected JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"deprecated_using_key_syntax\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET deprecated_using_key_syntax = 'DEFAULT';\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"DEFAULT\",\n      \"default_evidence\": \"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\"\n    }\n  ]\n}\n\nCheck that evidence is verbatim: Yes.\n\nReturn that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1710,
+  "completion_tokens": 1045,
+  "total_tokens": 2755,
+  "cost": 0.00022895,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00022895,
+   "upstream_inference_prompt_cost": 5.13e-05,
+   "upstream_inference_completions_cost": 0.00017765
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 1033,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 18.110000000000582
+}

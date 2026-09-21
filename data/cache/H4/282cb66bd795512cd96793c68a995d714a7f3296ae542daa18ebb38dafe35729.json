@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919034-Y4S2bPAbGIgKTy7LsdJE",
+ "object": "chat.completion",
+ "created": 1789919034,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"explain_output\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"PRAGMA explain_output = 'physical_only';\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"physical_only\"\n   \n    ,\n    \"default_evidence\": \"The default setting. Only shows the physical plan.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The user provided a section about EXPLAIN statement supports additional settings that can be used to control the output. It lists settings: \"explain_output\" with possible values physical_only, optimized_only, all. The question: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" So we need to output JSON with list of settings. The schema? Not provided explicitly in prompt, but we need to infer. Usually such tasks require JSON with fields like \"setting\", \"default\", \"evidence\". Possibly something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"explain_output\",\n      \"default\": \"physical_only\",\n      \"evidence\": \"PRAGMA explain_output = 'physical_only';\"\n    }\n  ]\n}\n\nBut need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't given in the prompt. Might be known from previous tasks: maybe something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"default\": \"string or null\",\n      \"evidence\": \"string\"\n    }\n  ]\n}\n\nWe need to include default only if section states it. The section says \"The default setting. Only shows the physical plan.\" Then shows PRAGMA explain_output = 'physical_only'; So default is 'physical_only'. Provide evidence quote: \"PRAGMA explain_output = 'physical_only';\". Also maybe include description? Not required.\n\nThus JSON with one setting.\n\nWe'll output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"explain_output\",\n      \"default\": \"physical_only\",\n      \"evidence\": \"PRAGMA explain_output = 'physical_only';\"\n    }\n  ]\n}\n\nMake sure quotes are correct.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The user provided a section about EXPLAIN statement supports additional settings that can be used to control the output. It lists settings: \"explain_output\" with possible values physical_only, optimized_only, all. The question: \"You extract DuckDB configuration settings from a single section of the DuckDB documentation.\" So we need to output JSON with list of settings. The schema? Not provided explicitly in prompt, but we need to infer. Usually such tasks require JSON with fields like \"setting\", \"default\", \"evidence\". Possibly something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"explain_output\",\n      \"default\": \"physical_only\",\n      \"evidence\": \"PRAGMA explain_output = 'physical_only';\"\n    }\n  ]\n}\n\nBut need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't given in the prompt. Might be known from previous tasks: maybe something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"default\": \"string or null\",\n      \"evidence\": \"string\"\n    }\n  ]\n}\n\nWe need to include default only if section states it. The section says \"The default setting. Only shows the physical plan.\" Then shows PRAGMA explain_output = 'physical_only'; So default is 'physical_only'. Provide evidence quote: \"PRAGMA explain_output = 'physical_only';\". Also maybe include description? Not required.\n\nThus JSON with one setting.\n\nWe'll output:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"explain_output\",\n      \"default\": \"physical_only\",\n      \"evidence\": \"PRAGMA explain_output = 'physical_only';\"\n    }\n  ]\n}\n\nMake sure quotes are correct.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 578,
+  "completion_tokens": 472,
+  "total_tokens": 1050,
+  "cost": 9.758e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.758e-05,
+   "upstream_inference_prompt_cost": 1.734e-05,
+   "upstream_inference_completions_cost": 8.024e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 420,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 11.390999999995984
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789900658-UyRGFUZme7EO3HGpAXi5",
+ "object": "chat.completion",
+ "created": 1789900658,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"default_collation\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"The `PRAGMA` `default_collation` can be used to specify the global default collator.\",\n      \"default_kind\": \"absent\"\n   \n    ,\n      \"default_value\": \"absent\"\n    ,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The section mentions \"PRAGMA default_collation\". That's a setting. It also mentions \"SET default_collation = NOCASE\". So setting name: default_collation. Need to provide evidence quote. Also need default if stated. The section does not state default value. It just says can be used to specify global default collator. No default mentioned. So default is absent.\n\nAny other settings? Possibly \"PRAGMA default_collation\" is the only. No other PRAGMA mentioned. So output JSON with list containing one object.\n\nSchema? Not provided but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't given explicitly, but typical tasks: maybe fields: name, evidence, default. We'll assume that.\n\nThus produce JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The section mentions \"PRAGMA default_collation\". That's a setting. It also mentions \"SET default_collation = NOCASE\". So setting name: default_collation. Need to provide evidence quote. Also need default if stated. The section does not state default value. It just says can be used to specify global default collator. No default mentioned. So default is absent.\n\nAny other settings? Possibly \"PRAGMA default_collation\" is the only. No other PRAGMA mentioned. So output JSON with list containing one object.\n\nSchema? Not provided but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't given explicitly, but typical tasks: maybe fields: name, evidence, default. We'll assume that.\n\nThus produce JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 777,
+  "completion_tokens": 315,
+  "total_tokens": 1092,
+  "cost": 7.686e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 7.686e-05,
+   "upstream_inference_prompt_cost": 2.331e-05,
+   "upstream_inference_completions_cost": 5.355e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 242,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.484000000000378
+}

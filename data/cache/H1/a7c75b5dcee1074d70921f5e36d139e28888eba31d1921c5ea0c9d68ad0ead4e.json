@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789913527-gNjBErKsvpXJIPKFfZFe",
+ "object": "chat.completion",
+ "created": 1789913527,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"default_evidence\":null,\"default_kind\":\"absent\",\"default_value\":null,\"evidence\":\"The [`old_implicit_casting` configuration option]({% link docs/current/configuration/pragmas.md %}#implicit-casting-to-varchar) setting can be used to revert to the old behavior.\",\"input_type\":\"DOUBLE\",\"name\":\"old_implicit_casting\",\"scope\":\"GLOBAL\"}]}",
+    "refusal": null,
+    "reasoning": "We need answer only JSON matching schema. Need fix validation. We need understand schema. Previous had default_evidence \"absent\", default_kind \"absent\", default_value \"absent\". Error says if default_kind absent, default_value and default_evidence must both be null. So set default_evidence null, default_value null. Need ensure input_type maybe? It was DOUBLE? Is that correct? The setting old_implicit_casting likely boolean? But schema maybe input_type enum? Need infer. We need return corrected JSON only. But also need ensure evidence verbatim. The evidence includes markdown link syntax exactly from document? The document text: \"The [`old_implicit_casting` configuration option]({% link docs/current/configuration/pragmas.md %}#implicit-casting-to-varchar) setting can be used to revert to the old behavior.\" That is verbatim from provided section. Good.\n\nNeed maybe default_kind absent, default_value null, default_evidence null. input_type maybe \"BOOLEAN\"? The previous answer had \"DOUBLE\" maybe wrong? But validation didn't complain about input_type. However schema may expect input_type? Need know. The user says fix exactly these problems, do not change valid. So only change default fields. But if input_type is invalid maybe not flagged? It wasn't flagged. We should keep DOUBLE? But old_implicit_casting is a boolean setting. But maybe schema input_type is string? Could be any. The validation only error about default fields. So keep input_type \"DOUBLE\" as previous? But that seems incorrect. However instruction: \"change only what the errors point at.\" So we should not change input_type. But maybe if we know it's boolean, should we correct? The error didn't mention. But the user says do not add/remove settings, change only what errors point at. So keep input_type as DOUBLE. But maybe the schema expects input_type from enum? It didn't flag. So okay.\n\nNeed output JSON only. Ensure null values. So:\n\n{\"settings\":[{\"default_evidence\":null,\"default_kind\":\"absent\",\"default_value\":null,\"evidence\":\"The [`old_implicit_casting` configuration option]({% link docs/current/configuration/pragmas.md %}#implicit-casting-to-varchar) setting can be used to revert to the old behavior.\",\"input_type\":\"DOUBLE\",\"name\":\"old_implicit_casting\",\"scope\":\"GLOBAL\"}]}\n\nBut wait: default_kind \"absent\" means default_value and default_evidence null. Yes.\n\nNeed maybe default_kind should be \"absent\" or \"machine_dependent\"? The section does not state default. So absent. Good.\n\nNeed ensure no extra text. Final answer JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer only JSON matching schema. Need fix validation. We need understand schema. Previous had default_evidence \"absent\", default_kind \"absent\", default_value \"absent\". Error says if default_kind absent, default_value and default_evidence must both be null. So set default_evidence null, default_value null. Need ensure input_type maybe? It was DOUBLE? Is that correct? The setting old_implicit_casting likely boolean? But schema maybe input_type enum? Need infer. We need return corrected JSON only. But also need ensure evidence verbatim. The evidence includes markdown link syntax exactly from document? The document text: \"The [`old_implicit_casting` configuration option]({% link docs/current/configuration/pragmas.md %}#implicit-casting-to-varchar) setting can be used to revert to the old behavior.\" That is verbatim from provided section. Good.\n\nNeed maybe default_kind absent, default_value null, default_evidence null. input_type maybe \"BOOLEAN\"? The previous answer had \"DOUBLE\" maybe wrong? But validation didn't complain about input_type. However schema may expect input_type? Need know. The user says fix exactly these problems, do not change valid. So only change default fields. But if input_type is invalid maybe not flagged? It wasn't flagged. We should keep DOUBLE? But old_implicit_casting is a boolean setting. But maybe schema input_type is string? Could be any. The validation only error about default fields. So keep input_type \"DOUBLE\" as previous? But that seems incorrect. However instruction: \"change only what the errors point at.\" So we should not change input_type. But maybe if we know it's boolean, should we correct? The error didn't mention. But the user says do not add/remove settings, change only what errors point at. So keep input_type as DOUBLE. But maybe the schema expects input_type from enum? It didn't flag. So okay.\n\nNeed output JSON only. Ensure null values. So:\n\n{\"settings\":[{\"default_evidence\":null,\"default_kind\":\"absent\",\"default_value\":null,\"evidence\":\"The [`old_implicit_casting` configuration option]({% link docs/current/configuration/pragmas.md %}#implicit-casting-to-varchar) setting can be used to revert to the old behavior.\",\"input_type\":\"DOUBLE\",\"name\":\"old_implicit_casting\",\"scope\":\"GLOBAL\"}]}\n\nBut wait: default_kind \"absent\" means default_value and default_evidence null. Yes.\n\nNeed maybe default_kind should be \"absent\" or \"machine_dependent\"? The section does not state default. So absent. Good.\n\nNeed ensure no extra text. Final answer JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1232,
+  "completion_tokens": 662,
+  "total_tokens": 1894,
+  "cost": 0.0028617,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0028617,
+   "upstream_inference_prompt_cost": 0.0011736,
+   "upstream_inference_completions_cost": 0.0016881
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 634,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 18.562000000001717
+}

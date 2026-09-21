@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789910778-HKvTNbdh4XlSlEuh4VI7",
+ "object": "chat.completion",
+ "created": 1789910778,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"max_memory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`Config` exposes typed methods for the most common options, including `access_mode()`, `max_memory()`, `threads()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`Config` exposes typed methods for the most common options, including `access_mode()`, `max_memory()`, `threads()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"access_mode\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`Config` exposes typed methods for the most common options, including `access_mode()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"default_order\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"including `access_mode()`, `max_memory()`, `threads()`, `default_order()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"default_null_order\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`default_order()`, `default_null_order()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"enable_external_access\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`default_null_order()`, `enable_external_access()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"enable_object_cache\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`enable_external_access()`, `enable_object_cache()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"custom_user_agent\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`enable_object_cache()`, `custom_user_agent()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"allow_unsigned_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`custom_user_agent()`, and `allow_unsigned_extensions()`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"temp_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \".with(\\\"temp_directory\\\", \\\"/path/to/temp/dir/\\\")?\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"preserve_insertion_order\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \".with(\\\"preserve_insertion_order\\\", \\\"false\\\")?\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "The section documents settings via typed methods and with(). Which DuckDB settings are documented? max_memory, threads, access_mode, default_order, default_null_order, enable_external_access, enable_object_cache, custom_user_agent, allow_unsigned_extensions, temp_directory, preserve_insertion_order. Defaults: none stated except example values (4GB, 4, false) — those are examples, not defaults. So defaults absent.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The section documents settings via typed methods and with(). Which DuckDB settings are documented? max_memory, threads, access_mode, default_order, default_null_order, enable_external_access, enable_object_cache, custom_user_agent, allow_unsigned_extensions, temp_directory, preserve_insertion_order. Defaults: none stated except example values (4GB, 4, false) — those are examples, not defaults. So defaults absent.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 611,
+  "completion_tokens": 910,
+  "total_tokens": 1521,
+  "cost": 0.000273325,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000273325,
+   "upstream_inference_prompt_cost": 4.5825e-05,
+   "upstream_inference_completions_cost": 0.0002275
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 84,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 26.92199999999866
+}

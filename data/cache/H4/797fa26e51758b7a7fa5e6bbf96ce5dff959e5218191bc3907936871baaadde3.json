@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905544-nHwkQJR0J97UkfwFoGKY",
+ "object": "chat.completion",
+ "created": 1789905544,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"The number of total threads used by the system.\",\n      \"default_kind\": \"machine_dependent\",\n      \"default_value\": \"# CPU cores\"\n    ,\n    \"default_evidence\": \"# CPU cores\"\n    },\n    {\n      \"name\": \"worker_threads\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"The number of total threads used by the system.\",\n      \"default_kind\": \"machine_dependent\",\n      \"default_value\": \"# CPU cores\"\n    ,\n    \"default_evidence\": \"# CPU cores\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract configuration settings from the given section. The section is a table with Name, Description, Type, Default value. It lists `threads`, `worker_threads`. The description says \"The number of total threads used by the system.\" The default value column says \"# CPU cores\". So we need to output JSON with each setting, evidence quote, default (as described). The default is machine-dependent: \"# CPU cores\". So we should note that it's machine-dependent.\n\nSchema? Not provided explicitly, but likely something like list of objects with fields: name, evidence, default. Let's assume format: [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]. The instruction: \"Answer only with JSON matching the supplied schema.\" No schema given in prompt, but typical tasks: maybe {\"settings\": [ { \"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\" } ] }. However we need to infer. Could be an array of objects. Let's output array.\n\nWe'll include both names? The Name column lists both `threads`, `worker_threads`. Likely they are aliases for same setting. Should we treat as separate? Probably each setting documented. So two entries.\n\nEvidence quote: need verbatim span. For both, the description line: \"The number of total threads used by the system.\" Also default column: \"# CPU cores\". Provide that as evidence for default.\n\nThus JSON:\n\n[\n  {\n    \"setting\": \"threads\",\n    \"evidence\": \"The number of total threads used by the system.\",\n    \"default\": \"# CPU cores (machine-dependent)\"\n  },\n  {\n    \"setting\": \"worker_threads\",\n    \"evidence\": \"The number of total threads used by the system.\",\n    \"default\": \"# CPU cores (machine-dependent)\"\n  }\n]\n\nBut need to include default as exactly \"# CPU cores\". And note machine-dependent? The instruction: \"If it describes the default as something that depends on the machine -- a share of RAM, the number of CPU cores, the system locale -- copy that description rather than guessing a number, and say it is machine-dependent.\" So we can set default to \"# CPU cores (machine-dependent)\". Provide that.\n\nThus final.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract configuration settings from the given section. The section is a table with Name, Description, Type, Default value. It lists `threads`, `worker_threads`. The description says \"The number of total threads used by the system.\" The default value column says \"# CPU cores\". So we need to output JSON with each setting, evidence quote, default (as described). The default is machine-dependent: \"# CPU cores\". So we should note that it's machine-dependent.\n\nSchema? Not provided explicitly, but likely something like list of objects with fields: name, evidence, default. Let's assume format: [{\"setting\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]. The instruction: \"Answer only with JSON matching the supplied schema.\" No schema given in prompt, but typical tasks: maybe {\"settings\": [ { \"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\" } ] }. However we need to infer. Could be an array of objects. Let's output array.\n\nWe'll include both names? The Name column lists both `threads`, `worker_threads`. Likely they are aliases for same setting. Should we treat as separate? Probably each setting documented. So two entries.\n\nEvidence quote: need verbatim span. For both, the description line: \"The number of total threads used by the system.\" Also default column: \"# CPU cores\". Provide that as evidence for default.\n\nThus JSON:\n\n[\n  {\n    \"setting\": \"threads\",\n    \"evidence\": \"The number of total threads used by the system.\",\n    \"default\": \"# CPU cores (machine-dependent)\"\n  },\n  {\n    \"setting\": \"worker_threads\",\n    \"evidence\": \"The number of total threads used by the system.\",\n    \"default\": \"# CPU cores (machine-dependent)\"\n  }\n]\n\nBut need to include default as exactly \"# CPU cores\". And note machine-dependent? The instruction: \"If it describes the default as something that depends on the machine -- a share of RAM, the number of CPU cores, the system locale -- copy that description rather than guessing a number, and say it is machine-dependent.\" So we can set default to \"# CPU cores (machine-dependent)\". Provide that.\n\nThus final.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 427,
+  "completion_tokens": 625,
+  "total_tokens": 1052,
+  "cost": 0.00011906,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 384,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00011906,
+   "upstream_inference_prompt_cost": 1.281e-05,
+   "upstream_inference_completions_cost": 0.00010625
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 524,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 15.625
+}

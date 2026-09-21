@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789909989-sheRvfu7Nzg4ZDONZRQU",
+ "object": "chat.completion",
+ "created": 1789909989,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"access_mode\",\n      \"input_type\": \"DOUBLE\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"std::string dsn = \\\"DSN=DuckDB;access_mode=READ_ONLY\\\"\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "The section mentions \"access_mode=READ_ONLY\" — is that documenting a DuckDB setting? It's used as an example connection string parameter. It says \"you can configure the database using any of the available DuckDB configuration options\" — access_mode is a DuckDB setting being set. I'd include access_mode with evidence \"access_mode=READ_ONLY\", default absent.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The section mentions \"access_mode=READ_ONLY\" — is that documenting a DuckDB setting? It's used as an example connection string parameter. It says \"you can configure the database using any of the available DuckDB configuration options\" — access_mode is a DuckDB setting being set. I'd include access_mode with evidence \"access_mode=READ_ONLY\", default absent.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 525,
+  "completion_tokens": 167,
+  "total_tokens": 692,
+  "cost": 8.1125e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.1125e-05,
+   "upstream_inference_prompt_cost": 3.9375e-05,
+   "upstream_inference_completions_cost": 4.175e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 75,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 24.656999999999243
+}

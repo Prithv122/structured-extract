@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919397-42fUXcco6UB7WJrp2eXA",
+ "object": "chat.completion",
+ "created": 1789919397,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a snippet about odbc.ini file and parameters: DSN, Driver, Database, access_mode. Are these DuckDB configuration settings? The instruction says configuration setting is one you change with SET, RESET or PRAGMA, and it applies to whole database instance or connection. The odbc.ini parameters are not changed via SET/PRAGMA; they are ODBC connection parameters, not DuckDB config settings. So they are not configuration settings. Therefore answer should be empty list.\n\nWe must output JSON matching supplied schema. The schema not given explicitly, but likely something like {\"settings\": [ ... ]}. We need to infer. Usually tasks like this expect something like:\n\n{\n  \"settings\": []\n}\n\nOr maybe just []? The instruction: \"Answer only with JSON matching the supplied schema.\" The schema not shown, but typical is an array of objects with name, default, evidence. Could be {\"settings\": []}. Safer to output an object with \"settings\": [].\n\nThus final answer: {\"settings\": []}.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a snippet about odbc.ini file and parameters: DSN, Driver, Database, access_mode. Are these DuckDB configuration settings? The instruction says configuration setting is one you change with SET, RESET or PRAGMA, and it applies to whole database instance or connection. The odbc.ini parameters are not changed via SET/PRAGMA; they are ODBC connection parameters, not DuckDB config settings. So they are not configuration settings. Therefore answer should be empty list.\n\nWe must output JSON matching supplied schema. The schema not given explicitly, but likely something like {\"settings\": [ ... ]}. We need to infer. Usually tasks like this expect something like:\n\n{\n  \"settings\": []\n}\n\nOr maybe just []? The instruction: \"Answer only with JSON matching the supplied schema.\" The schema not shown, but typical is an array of objects with name, default, evidence. Could be {\"settings\": []}. Safer to output an object with \"settings\": [].\n\nThus final answer: {\"settings\": []}.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 643,
+  "completion_tokens": 243,
+  "total_tokens": 886,
+  "cost": 6.06e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.06e-05,
+   "upstream_inference_prompt_cost": 1.929e-05,
+   "upstream_inference_completions_cost": 4.131e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 275,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 6.889999999999418
+}

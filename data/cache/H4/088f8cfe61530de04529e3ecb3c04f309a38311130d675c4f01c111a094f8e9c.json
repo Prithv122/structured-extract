@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789918543-KSDejAOqo4gqln6hkLAB",
+ "object": "chat.completion",
+ "created": 1789918543,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "The user provides a snippet of documentation: a table with Name, Aliases, Description, showing `DATE` type. This is not a configuration setting. According to instructions, if the section documents something else (like data types), answer empty list.\n\nWe need to output JSON matching supplied schema. The schema not given explicitly, but likely something like an array of objects with fields: name, default, evidence. But we need to infer. In prior similar tasks, schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to be safe. The instruction: \"Answer only with JSON matching the supplied schema.\" The schema not shown here, but typical for these tasks: maybe {\"settings\": []}. Could be just an array. Let's assume schema: {\"settings\": []}. Provide empty list.\n\nThus output: {\"settings\": []}.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The user provides a snippet of documentation: a table with Name, Aliases, Description, showing `DATE` type. This is not a configuration setting. According to instructions, if the section documents something else (like data types), answer empty list.\n\nWe need to output JSON matching supplied schema. The schema not given explicitly, but likely something like an array of objects with fields: name, default, evidence. But we need to infer. In prior similar tasks, schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to be safe. The instruction: \"Answer only with JSON matching the supplied schema.\" The schema not shown here, but typical for these tasks: maybe {\"settings\": []}. Could be just an array. Let's assume schema: {\"settings\": []}. Provide empty list.\n\nThus output: {\"settings\": []}.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 610,
+  "completion_tokens": 214,
+  "total_tokens": 824,
+  "cost": 5.468e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 5.468e-05,
+   "upstream_inference_prompt_cost": 1.83e-05,
+   "upstream_inference_completions_cost": 3.638e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 229,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 21.04699999999866
+}

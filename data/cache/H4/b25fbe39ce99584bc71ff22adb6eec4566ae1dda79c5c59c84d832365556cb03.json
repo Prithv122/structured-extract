@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789920196-CWzeZL0xnSpPwXfw4TlW",
+ "object": "chat.completion",
+ "created": 1789920196,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"pg_staleness_query_enabled\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`pg_staleness_query_enabled` option (`BOOLEAN`, default: `FALSE`)\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"FALSE\"\n    ,\n      \"default_evidence\": \"`pg_staleness_query_enabled` option (`BOOLEAN`, default: `FALSE`)\"\n    },\n    {\n      \"name\": \"pg_staleness_query\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`pg_staleness_query` option\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. Identify settings that can be changed with SET, RESET, or PRAGMA, applying to whole DB or connection. The text mentions options: `pg_staleness_query_enabled` option (BOOLEAN, default: FALSE) and `pg_staleness_query` option. Are these DuckDB configuration settings? They are options for the PostgreSQL extension. Likely they are configuration settings that can be set via SET? The description says \"when `pg_staleness_query_enabled` option (`BOOLEAN`, default: `FALSE`) is enabled\". It sounds like a configuration setting. It may be set via SET? Not sure but likely yes. The other is `pg_staleness_query` option, no default given. So we have two settings.\n\nWe need to provide JSON matching supplied schema. The schema not given explicitly, but likely something like list of objects with name, type, default, evidence. We need to infer. Usually tasks like this require output like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"pg_staleness_query_enabled\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"FALSE\",\n      \"evidence\": \"when `pg_staleness_query_enabled` option (`BOOLEAN`, default: `FALSE`) is enabled\"\n    },\n    {\n      \"name\": \"pg_staleness_query\",\n      \"type\": null,\n      \"default\": \"absent\",\n      \"evidence\": \"custom \\\"staleness query\\\" can be set using `pg_staleness_query` option.\"\n    }\n  ]\n}\n\nBut need to match schema. Since not provided, we guess typical: an array of objects with fields: \"setting\", \"type\", \"default\", \"evidence\". Let's assume schema: {\"settings\": [{\"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. Provide that.\n\nWe must quote verbatim spans. For first: \"`pg_staleness_query_enabled` option (`BOOLEAN`, default: `FALSE`)\" exactly. For second: \"`pg_staleness_query` option\". Provide default absent.\n\nReturn JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. Identify settings that can be changed with SET, RESET, or PRAGMA, applying to whole DB or connection. The text mentions options: `pg_staleness_query_enabled` option (BOOLEAN, default: FALSE) and `pg_staleness_query` option. Are these DuckDB configuration settings? They are options for the PostgreSQL extension. Likely they are configuration settings that can be set via SET? The description says \"when `pg_staleness_query_enabled` option (`BOOLEAN`, default: `FALSE`) is enabled\". It sounds like a configuration setting. It may be set via SET? Not sure but likely yes. The other is `pg_staleness_query` option, no default given. So we have two settings.\n\nWe need to provide JSON matching supplied schema. The schema not given explicitly, but likely something like list of objects with name, type, default, evidence. We need to infer. Usually tasks like this require output like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"pg_staleness_query_enabled\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"FALSE\",\n      \"evidence\": \"when `pg_staleness_query_enabled` option (`BOOLEAN`, default: `FALSE`) is enabled\"\n    },\n    {\n      \"name\": \"pg_staleness_query\",\n      \"type\": null,\n      \"default\": \"absent\",\n      \"evidence\": \"custom \\\"staleness query\\\" can be set using `pg_staleness_query` option.\"\n    }\n  ]\n}\n\nBut need to match schema. Since not provided, we guess typical: an array of objects with fields: \"setting\", \"type\", \"default\", \"evidence\". Let's assume schema: {\"settings\": [{\"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]}. Provide that.\n\nWe must quote verbatim spans. For first: \"`pg_staleness_query_enabled` option (`BOOLEAN`, default: `FALSE`)\" exactly. For second: \"`pg_staleness_query` option\". Provide default absent.\n\nReturn JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 736,
+  "completion_tokens": 629,
+  "total_tokens": 1365,
+  "cost": 0.00012901,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00012901,
+   "upstream_inference_prompt_cost": 2.208e-05,
+   "upstream_inference_completions_cost": 0.00010693
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 466,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 11.343999999997322
+}

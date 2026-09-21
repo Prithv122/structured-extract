@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789920757-1bVZ7AZJhKFpdhTe5Bx1",
+ "object": "chat.completion",
+ "created": 1789920757,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"azure_http_stats\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`azure_http_stats` | Include HTTP info from Azure Storage in the [`EXPLAIN ANALYZE` statement]({% link docs/current/dev/profiling.md %}). | `BOOLEAN` | `false`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\"\n   ,\n      \"default_evidence\": \"`false`\"\n    },\n    {\n      \"name\": \"azure_read_transfer_concurrency\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`azure_read_transfer_concurrency` | Maximum number of threads the Azure client can use for a single parallel read. If `azure_read_transfer_chunk_size` is less than `azure_read_buffer_size` then setting this > 1 will allow the Azure client to do concurrent requests to fill the buffer. | `BIGINT` | `5`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"5\",\n      \"default_evidence\": \"`5`\"\n    },\n    {\n      \"name\": \"azure_read_transfer_chunk_size\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`azure_read_transfer_chunk_size` | Maximum size in bytes that the Azure client will read in a single request. It is recommended that this is a factor of `azure_read_buffer_size`. | `BIGINT` | `1024*1024`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"1024*1024\",\n      \"default_evidence\": \"`1024*1024`\"\n    },\n    {\n      \"name\": \"azure_read_buffer_size\",\n      \"input_type\": \"UBIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`azure_read_buffer_size` | Size of the read buffer. It is recommended that this is evenly divisible by `azure_read_transfer_chunk_size`. | `UBIGINT` | `1024*1024`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"1024*1024\",\n      \"default_evidence\": \"`1024*1024`\"\n    },\n    {\n      \"name\": \"azure_transport_option_type\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`azure_transport_option_type` | Underlying [adapter](https://github.com/Azure/azure-sdk-for-cpp/blob/main/doc/HttpTransportAdapter.md) to use in the Azure SDK. Valid values are: `default` or `curl`. | `VARCHAR` | `default`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"default\",\n      \"default_evidence\": \"`default`\"\n    },\n    {\n      \"name\": \"azure_context_caching\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`azure_context_caching` | Enable/disable the caching of the underlying Azure SDK HTTP connection in the DuckDB connection context when performing queries. If you suspect that this is causing some side effect, you can try to disable it by setting it to false (not recommended). | `BOOLEAN` | `true`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\",\n      \"default_evidence\": \"`true`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The section is a table of Name, Description, Type, Default. These are configuration settings. We need to output JSON matching supplied schema. We need to know schema. Not provided in prompt, but likely something like list of objects with fields: name, type, default, description, evidence (quote). We need to infer. Usually previous tasks: schema: {\"settings\": [{\"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"description\": \"...\", \"evidence\": \"...\"}]}. But not sure. Let's assume schema: an array of objects. Could be just list. Let's assume:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to quote a span of the section verbatim as evidence for each setting. Could quote the row line. Provide default as given.\n\nLet's list settings:\n\nazure_http_stats: BOOLEAN default false\nazure_read_transfer_concurrency: BIGINT default 5\nazure_read_transfer_chunk_size: BIGINT default 1024*1024\nazure_read_buffer_size: UBIGINT default 1024*1000000? Actually 1024*1024\nazure_transport_option_type: VARCHAR default default\nazure_context_caching: BOOLEAN default true\n\nProvide evidence: the row line.\n\nWe'll produce JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The section is a table of Name, Description, Type, Default. These are configuration settings. We need to output JSON matching supplied schema. We need to know schema. Not provided in prompt, but likely something like list of objects with fields: name, type, default, description, evidence (quote). We need to infer. Usually previous tasks: schema: {\"settings\": [{\"name\": \"...\", \"type\": \"...\", \"default\": \"...\", \"description\": \"...\", \"evidence\": \"...\"}]}. But not sure. Let's assume schema: an array of objects. Could be just list. Let's assume:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to quote a span of the section verbatim as evidence for each setting. Could quote the row line. Provide default as given.\n\nLet's list settings:\n\nazure_http_stats: BOOLEAN default false\nazure_read_transfer_concurrency: BIGINT default 5\nazure_read_transfer_chunk_size: BIGINT default 1024*1024\nazure_read_buffer_size: UBIGINT default 1024*1000000? Actually 1024*1024\nazure_transport_option_type: VARCHAR default default\nazure_context_caching: BOOLEAN default true\n\nProvide evidence: the row line.\n\nWe'll produce JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1150,
+  "completion_tokens": 1044,
+  "total_tokens": 2194,
+  "cost": 0.00021198,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00021198,
+   "upstream_inference_prompt_cost": 3.45e-05,
+   "upstream_inference_completions_cost": 0.00017748
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 335,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 15.93699999999808
+}

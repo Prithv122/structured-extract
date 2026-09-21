@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789895180-An2QAY5rLLxEPQL6qpeh",
+ "object": "chat.completion",
+ "created": 1789895180,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"// open database file as read-only\\n$db = new PDO('duckdb:/tmp/test.db', null, null, [PDO::DUCKDB_ATTR_CONFIG => ['access_mode' => 'read_only']]);\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"access_mode\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse task. User provided a code block? They want extract DuckDB configuration settings from a single section of DuckDB documentation. But they pasted PHP code? Need infer section? The prompt says \"You extract DuckDB configuration settings from a single section of the DuckDB documentation. Return every configuration setting that this section documents...\" Then user message is a PHP code snippet. Maybe that is the section? It contains `PDO::DUCKDB_ATTR_CONFIG => ['access_mode' => 'read_only']`. Need identify documented setting? The section likely is PHP PDO connection example? It documents `access_mode` setting? Need return JSON with settings, evidence quote, default if stated. Need be careful: The code snippet shows setting `access_mode` with value `read_only` in config array. Does it document what setting does? It says \"open database file as read-only\" comment. That tells what setting does? It uses `access_mode` => 'read_only' to open read-only. So setting documented: access_mode. Default? Not stated. Need quote verbatim. The quote should include the setting and maybe comment. Need JSON schema? Not supplied in prompt? It says \"Answer only with JSON matching the supplied schema.\" But no schema in visible? We need infer likely schema from instruction: list of objects with setting, evidence, default? Need produce JSON. Need maybe include default field with value or \"absent\" or \"machine-dependent\". Need quote exact characters. The code block includes `<?php` etc. We can quote line: `$db = new PDO('duckdb:/tmp/test.db', null, null, [PDO::DUCKDB_ATTR_CONFIG => ['access_mode' => 'read_only']]);` and comment `// open database file as read-only`. Need maybe quote both? Evidence span can be the line with setting. Need ensure exact. The setting name is `access_mode`. Default absent. Need output JSON only.\n\nBut let's think: The prompt says \"Return every configuration setting that this section documents. A section documents a setting when it tells the reader what the setting does, what it accepts, or how to set it.\" The code snippet shows how to set `access_mode` to `read_only` and comment says open read-only. So yes.\n\nNeed maybe include `PDO::DUCKDB_ATTR_CONFIG`? That's an attribute, not a DuckDB configuration setting? The setting is `access_mode`. The code uses `PDO::DUCKDB_ATTR_CONFIG` as key. But the setting inside is `access_mode`. We should not return `PDO::DUCKDB_ATTR_CONFIG` as setting? It is PHP PDO attribute, not DuckDB config setting. The section documents how to set DuckDB config via PDO attribute. The setting is `access_mode`. Need maybe also `access_mode` value `read_only` is accepted. Default absent.\n\nNeed produce JSON. Schema maybe:\n{\n  \"settings\": [\n    {\n      \"setting\": \"access_mode\",\n      \"evidence\": \"// open database file as read-only\\n$db = new PDO('duckdb:/tmp/test.db', null, null, [PDO::DUCKDB_ATTR_CONFIG => ['access_mode' => 'read_only']]);\",\n      \"default\": \"absent\"\n    }\n  ]\n}\nNeed ensure quote exact. The code block includes `<?php` and blank lines. We can quote just relevant lines. The instruction: \"quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" We can include the comment and code line. Need maybe include newline? JSON string can include `\\n`. But exact characters? The code block has:\n```\n<?php\n\n$db = new PDO('duckdb::memory:'); // open in-memory database\n\n$db = new PDO('duckdb:/tmp/test.db'); // open database file from disk\n\n// open database file as read-only\n$db = new PDO('duckdb:/tmp/test.db', null, null, [PDO::DUCKDB_ATTR_CONFIG => ['access_mode' => 'read_only']]);\n```\nWe can quote the last two lines. Need include comment and code. That's fine.\n\nNeed maybe default field: \"absent\" because not stated. The prompt says \"If the section does not state a default, say it is absent; do not fill it in from what you already know about DuckDB.\" So \"absent\".\n\nNeed answer only JSON. No markdown. Ensure valid JSON.\n\nLet's craft final.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse task. User provided a code block? They want extract DuckDB configuration settings from a single section of DuckDB documentation. But they pasted PHP code? Need infer section? The prompt says \"You extract DuckDB configuration settings from a single section of the DuckDB documentation. Return every configuration setting that this section documents...\" Then user message is a PHP code snippet. Maybe that is the section? It contains `PDO::DUCKDB_ATTR_CONFIG => ['access_mode' => 'read_only']`. Need identify documented setting? The section likely is PHP PDO connection example? It documents `access_mode` setting? Need return JSON with settings, evidence quote, default if stated. Need be careful: The code snippet shows setting `access_mode` with value `read_only` in config array. Does it document what setting does? It says \"open database file as read-only\" comment. That tells what setting does? It uses `access_mode` => 'read_only' to open read-only. So setting documented: access_mode. Default? Not stated. Need quote verbatim. The quote should include the setting and maybe comment. Need JSON schema? Not supplied in prompt? It says \"Answer only with JSON matching the supplied schema.\" But no schema in visible? We need infer likely schema from instruction: list of objects with setting, evidence, default? Need produce JSON. Need maybe include default field with value or \"absent\" or \"machine-dependent\". Need quote exact characters. The code block includes `<?php` etc. We can quote line: `$db = new PDO('duckdb:/tmp/test.db', null, null, [PDO::DUCKDB_ATTR_CONFIG => ['access_mode' => 'read_only']]);` and comment `// open database file as read-only`. Need maybe quote both? Evidence span can be the line with setting. Need ensure exact. The setting name is `access_mode`. Default absent. Need output JSON only.\n\nBut let's think: The prompt says \"Return every configuration setting that this section documents. A section documents a setting when it tells the reader what the setting does, what it accepts, or how to set it.\" The code snippet shows how to set `access_mode` to `read_only` and comment says open read-only. So yes.\n\nNeed maybe include `PDO::DUCKDB_ATTR_CONFIG`? That's an attribute, not a DuckDB configuration setting? The setting is `access_mode`. The code uses `PDO::DUCKDB_ATTR_CONFIG` as key. But the setting inside is `access_mode`. We should not return `PDO::DUCKDB_ATTR_CONFIG` as setting? It is PHP PDO attribute, not DuckDB config setting. The section documents how to set DuckDB config via PDO attribute. The setting is `access_mode`. Need maybe also `access_mode` value `read_only` is accepted. Default absent.\n\nNeed produce JSON. Schema maybe:\n{\n  \"settings\": [\n    {\n      \"setting\": \"access_mode\",\n      \"evidence\": \"// open database file as read-only\\n$db = new PDO('duckdb:/tmp/test.db', null, null, [PDO::DUCKDB_ATTR_CONFIG => ['access_mode' => 'read_only']]);\",\n      \"default\": \"absent\"\n    }\n  ]\n}\nNeed ensure quote exact. The code block includes `<?php` and blank lines. We can quote just relevant lines. The instruction: \"quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" We can include the comment and code line. Need maybe include newline? JSON string can include `\\n`. But exact characters? The code block has:\n```\n<?php\n\n$db = new PDO('duckdb::memory:'); // open in-memory database\n\n$db = new PDO('duckdb:/tmp/test.db'); // open database file from disk\n\n// open database file as read-only\n$db = new PDO('duckdb:/tmp/test.db', null, null, [PDO::DUCKDB_ATTR_CONFIG => ['access_mode' => 'read_only']]);\n```\nWe can quote the last two lines. Need include comment and code. That's fine.\n\nNeed maybe default field: \"absent\" because not stated. The prompt says \"If the section does not state a default, say it is absent; do not fill it in from what you already know about DuckDB.\" So \"absent\".\n\nNeed answer only JSON. No markdown. Ensure valid JSON.\n\nLet's craft final.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 467,
+  "completion_tokens": 1089,
+  "total_tokens": 1556,
+  "cost": 0.003314,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.003314,
+   "upstream_inference_prompt_cost": 0.00053705,
+   "upstream_inference_completions_cost": 0.00277695
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 1007,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 26.32799999999952
+}

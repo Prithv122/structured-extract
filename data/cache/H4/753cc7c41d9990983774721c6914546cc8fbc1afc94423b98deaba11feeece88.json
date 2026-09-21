@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789902848-0m8RKW2R5QQbB6yOJHIR",
+ "object": "chat.completion",
+ "created": 1789902848,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"default_null_order\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"By default, DuckDB sorts `ASC` and `NULLS LAST`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"NULLS_LAST\"\n    ,\n      \"default_evidence\": \"By default, DuckDB sorts `ASC` and `NULLS LAST`\"\n    },\n    {\n      \"name\": \"default_order\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"By default, DuckDB sorts `ASC` and `NULLS LAST`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"ASC\"\n    ,\n      \"default_evidence\": \"By default, DuckDB sorts `ASC` and `NULLS LAST`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The section mentions default_null_order and default_order. It also mentions default sort order but that's not a setting name. So we have two settings.\n\nWe need to provide for each setting: name, default (if stated), and evidence (quote). The section states defaults? It says \"By default, DuckDB sorts ASC and NULLS LAST\". That describes default behavior, which corresponds to default_order = 'ASC' and default_null_order = 'NULLS_LAST'? Actually default_null_order default is NULLS_LAST? The text: \"By default, DuckDB sorts ASC and NULLS LAST\". So default_null_order default is NULLS_LAST. default_order default is ASC. So we need to capture those defaults with quotes.\n\nWe need to provide evidence quotes for each setting and default. The quote for default_null_order default: \"By default, DuckDB sorts `ASC` and `NULLS LAST`\". That includes both. We can quote that phrase. For default_order default: same phrase.\n\nAlso the section includes \"To match PostgreSQL in both directions, set `default_null_order = 'NULLS_LAST_ON_ASC_FIRST_ON_DESC'`.\" That's not default.\n\nThus JSON schema? Not provided but we infer: likely an array of objects with fields: setting, default, evidence. Provide as JSON.\n\nWe'll output something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"default_null_order\",\n      \"default\": \"NULLS_LAST\",\n      \"evidence\": \"By default, DuckDB sorts `ASC` and `NULLS LAST`\"\n    },\n    {\n      \"name\": \"default_order\",\n      \"default\": \"ASC\",\n      \"evidence\": \"By default, DuckDB sorts `ASC` and `NULLS LAST`\"\n    }\n  ]\n}\n\nBut need to ensure quoting exactly as appears. The phrase includes backticks around ASC and NULLS LAST. So evidence: \"By default, DuckDB sorts `ASC` and `NULLS LAST`\". Include that exact.\n\nAlso maybe include separate evidence for each setting's description: the lines showing SET usage. But default evidence is the first line.\n\nThus final JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The section mentions default_null_order and default_order. It also mentions default sort order but that's not a setting name. So we have two settings.\n\nWe need to provide for each setting: name, default (if stated), and evidence (quote). The section states defaults? It says \"By default, DuckDB sorts ASC and NULLS LAST\". That describes default behavior, which corresponds to default_order = 'ASC' and default_null_order = 'NULLS_LAST'? Actually default_null_order default is NULLS_LAST? The text: \"By default, DuckDB sorts ASC and NULLS LAST\". So default_null_order default is NULLS_LAST. default_order default is ASC. So we need to capture those defaults with quotes.\n\nWe need to provide evidence quotes for each setting and default. The quote for default_null_order default: \"By default, DuckDB sorts `ASC` and `NULLS LAST`\". That includes both. We can quote that phrase. For default_order default: same phrase.\n\nAlso the section includes \"To match PostgreSQL in both directions, set `default_null_order = 'NULLS_LAST_ON_ASC_FIRST_ON_DESC'`.\" That's not default.\n\nThus JSON schema? Not provided but we infer: likely an array of objects with fields: setting, default, evidence. Provide as JSON.\n\nWe'll output something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"default_null_order\",\n      \"default\": \"NULLS_LAST\",\n      \"evidence\": \"By default, DuckDB sorts `ASC` and `NULLS LAST`\"\n    },\n    {\n      \"name\": \"default_order\",\n      \"default\": \"ASC\",\n      \"evidence\": \"By default, DuckDB sorts `ASC` and `NULLS LAST`\"\n    }\n  ]\n}\n\nBut need to ensure quoting exactly as appears. The phrase includes backticks around ASC and NULLS LAST. So evidence: \"By default, DuckDB sorts `ASC` and `NULLS LAST`\". Include that exact.\n\nAlso maybe include separate evidence for each setting's description: the lines showing SET usage. But default evidence is the first line.\n\nThus final JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 590,
+  "completion_tokens": 656,
+  "total_tokens": 1246,
+  "cost": 0.00012922,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00012922,
+   "upstream_inference_prompt_cost": 1.77e-05,
+   "upstream_inference_completions_cost": 0.00011152
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 498,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 64.88999999999942
+}

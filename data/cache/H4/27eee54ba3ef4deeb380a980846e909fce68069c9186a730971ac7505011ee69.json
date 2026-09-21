@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919345-dFfTjpHMEs8Gdn54WlGQ",
+ "object": "chat.completion",
+ "created": 1789919345,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"storage_compatibility_version\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`storage_compatibility_version`\",\n      \"default_kind\": \"absent\"\n    \n    ,    \"default_value\": \"absent\"\n    ,    \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a snippet: \"The `storage_compatibility_version` [configuration option]...\". This is a configuration setting. We need to output JSON matching the supplied schema. We need to know the schema. Not provided explicitly, but likely something like list of objects with fields: name, default, evidence. We need to infer. Usually these tasks expect JSON array of objects with \"setting\", \"default\", \"evidence\". Let's assume schema: [{\"setting\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. Could be \"name\", \"default\", \"evidence\". We need to quote a span of the section verbatim as evidence for each setting. The default: does the snippet state a default? It says \"storage_compatibility_version can also be used to specify the storage version to use. It can be specified in various ways.\" No default given. So default is absent. So we output default: \"absent\". Evidence: the line with the setting name. Provide verbatim quote: \"`storage_compatibility_version`\". Or the whole sentence. Provide a span: \"`storage_compatibility_version`\". Probably include the backticks.\n\nThus JSON: [{\"name\":\"storage_compatibility_version\",\"default\":\"absent\",\"evidence\":\"`storage_compatibility_version`\"}].\n\nBut need to match schema. Let's assume fields: \"setting\", \"default\", \"evidence\". Use \"setting\". Provide as array.\n\nReturn only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a snippet: \"The `storage_compatibility_version` [configuration option]...\". This is a configuration setting. We need to output JSON matching the supplied schema. We need to know the schema. Not provided explicitly, but likely something like list of objects with fields: name, default, evidence. We need to infer. Usually these tasks expect JSON array of objects with \"setting\", \"default\", \"evidence\". Let's assume schema: [{\"setting\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. Could be \"name\", \"default\", \"evidence\". We need to quote a span of the section verbatim as evidence for each setting. The default: does the snippet state a default? It says \"storage_compatibility_version can also be used to specify the storage version to use. It can be specified in various ways.\" No default given. So default is absent. So we output default: \"absent\". Evidence: the line with the setting name. Provide verbatim quote: \"`storage_compatibility_version`\". Or the whole sentence. Provide a span: \"`storage_compatibility_version`\". Probably include the backticks.\n\nThus JSON: [{\"name\":\"storage_compatibility_version\",\"default\":\"absent\",\"evidence\":\"`storage_compatibility_version`\"}].\n\nBut need to match schema. Let's assume fields: \"setting\", \"default\", \"evidence\". Use \"setting\". Provide as array.\n\nReturn only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 574,
+  "completion_tokens": 415,
+  "total_tokens": 989,
+  "cost": 8.777e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.777e-05,
+   "upstream_inference_prompt_cost": 1.722e-05,
+   "upstream_inference_completions_cost": 7.055e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 357,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 6.5
+}

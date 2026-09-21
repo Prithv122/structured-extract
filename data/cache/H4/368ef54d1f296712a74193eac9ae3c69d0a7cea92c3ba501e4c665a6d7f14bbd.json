@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789908857-3uLRnc1kWdiySW00BT5v",
+ "object": "chat.completion",
+ "created": 1789908857,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"index_scan_max_count\",\n      \"input_type\": \"UBIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`2048`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"2048\"\n   \n    , \"default_evidence\": \"`2048`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract settings from the given section. The table shows one setting: `index_scan_max_count`. We need to provide JSON with list of settings, each with name, default, evidence (quote). The default is given as `2048`. Need to quote a span verbatim. The evidence should be a span of the section verbatim that documents the setting. The table row includes description and default. We can quote the default cell: \"`2048`\". Or the whole row. Provide evidence as a string.\n\nSchema? Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't given in the prompt, but typical would be an array of objects. Let's assume top-level is an array? Might be {\"settings\": [...]}.\n\nBetter to output an array of objects? The instruction: \"Return every configuration setting that this section documents.\" Could be just a list. But they say \"JSON matching the supplied schema.\" No schema given, but likely they expect something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"index_scan_max_count\",\n      \"default\": \"2048\",\n      \"evidence\": \"`2048`\"\n    }\n  ]\n}\n\nInclude evidence as a verbatim span. Could include the description line. Provide the quote exactly as appears: \"`2048`\". Or maybe the whole row: \"`index_scan_max_count` ... `2048`\". Let's quote the default cell: \"`2048`\". Provide default as \"2048\". Provide evidence as \"`2048`\". That satisfies.\n\nReturn JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract settings from the given section. The table shows one setting: `index_scan_max_count`. We need to provide JSON with list of settings, each with name, default, evidence (quote). The default is given as `2048`. Need to quote a span verbatim. The evidence should be a span of the section verbatim that documents the setting. The table row includes description and default. We can quote the default cell: \"`2048`\". Or the whole row. Provide evidence as a string.\n\nSchema? Not provided explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" The schema wasn't given in the prompt, but typical would be an array of objects. Let's assume top-level is an array? Might be {\"settings\": [...]}.\n\nBetter to output an array of objects? The instruction: \"Return every configuration setting that this section documents.\" Could be just a list. But they say \"JSON matching the supplied schema.\" No schema given, but likely they expect something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"index_scan_max_count\",\n      \"default\": \"2048\",\n      \"evidence\": \"`2048`\"\n    }\n  ]\n}\n\nInclude evidence as a verbatim span. Could include the description line. Provide the quote exactly as appears: \"`2048`\". Or maybe the whole row: \"`index_scan_max_count` ... `2048`\". Let's quote the default cell: \"`2048`\". Provide default as \"2048\". Provide evidence as \"`2048`\". That satisfies.\n\nReturn JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 459,
+  "completion_tokens": 459,
+  "total_tokens": 918,
+  "cost": 9.18e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.18e-05,
+   "upstream_inference_prompt_cost": 1.377e-05,
+   "upstream_inference_completions_cost": 7.803e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 398,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 13.515999999999622
+}

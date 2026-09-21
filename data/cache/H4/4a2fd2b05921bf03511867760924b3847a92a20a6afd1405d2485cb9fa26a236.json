@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789901021-o6CiDRuCBX2GbG1rCaMO",
+ "object": "chat.completion",
+ "created": 1789901021,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"geometry_minimum_shredding_size\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Additionally, row groups are not shredded if they fall below the minimum size threshold (default: ~25% of the maximum row group size, i.e., 30,000 rows).\",\n      \"default_kind\": \"machine_dependent\",\n      \"default_value\": \"~25% of the maximum row group size, i.e., 30,000 rows\"\n   \n    ,\n      \"default_evidence\": \"default: ~25% of the maximum row group size, i.e., 30,000 rows\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The section mentions `geometry_minimum_shredding_size` setting. It describes default: \"default: ~25% of the maximum row group size, i.e., 30,000 rows\". So default is that description. Also mentions setting to 0 or -1. So we need to output JSON with list of settings. Schema? Not provided explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\", maybe not needed? The instruction: Return every configuration setting that this section documents. For each setting, quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it. So JSON likely includes name, evidence, default. Need to infer schema. Probably:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"geometry_minimum_shredding_size\",\n      \"evidence\": \"...\",\n      \"default\": \"...\",\n    }\n  ]\n}\n\nWe must include the verbatim quote for evidence. Provide default as the quoted description. The default quote: \"default: ~25% of the maximum row group size, i.e., 30,000 rows\". Include that.\n\nThus produce JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The section mentions `geometry_minimum_shredding_size` setting. It describes default: \"default: ~25% of the maximum row group size, i.e., 30,000 rows\". So default is that description. Also mentions setting to 0 or -1. So we need to output JSON with list of settings. Schema? Not provided explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\", maybe not needed? The instruction: Return every configuration setting that this section documents. For each setting, quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it. So JSON likely includes name, evidence, default. Need to infer schema. Probably:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"geometry_minimum_shredding_size\",\n      \"evidence\": \"...\",\n      \"default\": \"...\",\n    }\n  ]\n}\n\nWe must include the verbatim quote for evidence. Provide default as the quoted description. The default quote: \"default: ~25% of the maximum row group size, i.e., 30,000 rows\". Include that.\n\nThus produce JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1385,
+  "completion_tokens": 429,
+  "total_tokens": 1814,
+  "cost": 0.00011448,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00011448,
+   "upstream_inference_prompt_cost": 4.155e-05,
+   "upstream_inference_completions_cost": 7.293e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 292,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 5.109000000000378
+}

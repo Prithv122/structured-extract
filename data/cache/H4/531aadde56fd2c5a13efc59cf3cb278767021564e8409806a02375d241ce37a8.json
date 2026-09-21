@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789903987-c4hV6PDunWzsVZMZlfFi",
+ "object": "chat.completion",
+ "created": 1789903987,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"will count towards the memory limit set by the `memory_limit` configuration parameter.\",\n      \"default_kind\": \"absent\"\n    \n    ,    \"default_value\": null\n    ,    \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The text mentions `memory_limit` configuration parameter. It says \"memory limit set by the `memory_limit` configuration parameter.\" That's a mention of a setting. Does the section document it? It mentions what it does: \"will count towards the memory limit set by the `memory_limit` configuration parameter.\" That's describing the setting's purpose. So we should include `memory_limit`. Need to provide a quote span verbatim. Also need default if stated. The section does not state default for memory_limit. So default is absent.\n\nThus output JSON with list of settings: one object with name \"memory_limit\", evidence quote, default \"absent\". Schema? Not given but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" No schema provided explicitly, but typical would be array of objects. Could be just list. Let's assume:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"evidence\": \"memory limit set by the `memory_limit` configuration parameter\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nMake sure quote is verbatim, include backticks. Provide exactly as appears. The quote: \"memory limit set by the `memory_limit` configuration parameter.\" Include period? The text: \"... will count towards the memory limit set by the `memory_limit` configuration parameter.\" So include that full sentence or part. Provide that span.\n\nReturn JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The text mentions `memory_limit` configuration parameter. It says \"memory limit set by the `memory_limit` configuration parameter.\" That's a mention of a setting. Does the section document it? It mentions what it does: \"will count towards the memory limit set by the `memory_limit` configuration parameter.\" That's describing the setting's purpose. So we should include `memory_limit`. Need to provide a quote span verbatim. Also need default if stated. The section does not state default for memory_limit. So default is absent.\n\nThus output JSON with list of settings: one object with name \"memory_limit\", evidence quote, default \"absent\". Schema? Not given but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nWe need to follow \"Answer only with JSON matching the supplied schema.\" No schema provided explicitly, but typical would be array of objects. Could be just list. Let's assume:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"memory_limit\",\n      \"evidence\": \"memory limit set by the `memory_limit` configuration parameter\",\n      \"default\": \"absent\"\n    }\n  ]\n}\n\nMake sure quote is verbatim, include backticks. Provide exactly as appears. The quote: \"memory limit set by the `memory_limit` configuration parameter.\" Include period? The text: \"... will count towards the memory limit set by the `memory_limit` configuration parameter.\" So include that full sentence or part. Provide that span.\n\nReturn JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 475,
+  "completion_tokens": 443,
+  "total_tokens": 918,
+  "cost": 8.956e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.956e-05,
+   "upstream_inference_prompt_cost": 1.425e-05,
+   "upstream_inference_completions_cost": 7.531e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 400,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 12.062000000001717
+}

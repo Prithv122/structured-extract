@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789902191-HmohMI3ULgxBGBM2ShhL",
+ "object": "chat.completion",
+ "created": 1789902191,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from this section. The section is about table functions, not configuration settings. The table lists two functions: glob(search_path) and repeat_row(varargs, num_rows). These are not configuration settings. So answer empty list.\n\nWe must output JSON matching supplied schema. The schema not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to infer. The instruction: \"Return every configuration setting that this section documents.\" So output JSON with list of settings. Probably format: [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}] or similar. Since no settings, empty list.\n\nThus output: {\"settings\": []} or just []? The instruction: \"Answer only with JSON matching the supplied schema.\" We don't have schema, but typical would be an array. Could be just [].\n\nBetter to output [] as empty list.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from this section. The section is about table functions, not configuration settings. The table lists two functions: glob(search_path) and repeat_row(varargs, num_rows). These are not configuration settings. So answer empty list.\n\nWe must output JSON matching supplied schema. The schema not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to infer. The instruction: \"Return every configuration setting that this section documents.\" So output JSON with list of settings. Probably format: [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}] or similar. Since no settings, empty list.\n\nThus output: {\"settings\": []} or just []? The instruction: \"Answer only with JSON matching the supplied schema.\" We don't have schema, but typical would be an array. Could be just [].\n\nBetter to output [] as empty list.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 509,
+  "completion_tokens": 236,
+  "total_tokens": 745,
+  "cost": 5.539e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 5.539e-05,
+   "upstream_inference_prompt_cost": 1.527e-05,
+   "upstream_inference_completions_cost": 4.012e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 257,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 4.936999999998079
+}

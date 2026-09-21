@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905345-tvDjp1UGRubs6WAPooqd",
+ "object": "chat.completion",
+ "created": 1789905345,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"geometry_minimum_shredding_size\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`30000`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"30000\",\n      \"default_evidence\": \"`30000`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from the given section. The section is a table with one row: Name `geometry_minimum_shredding_size`. Description: \"Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup\". Type BIGINT. Default value `30000`. So we need to output JSON with list of settings. For each setting: name, description (maybe not required?), but schema? Not provided. Need to infer schema. The instruction: \"Answer only with JSON matching the supplied schema.\" But no schema given in prompt. Possibly they expect something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut we need to guess. Usually these tasks have schema: maybe {\"settings\": [{\"name\": string, \"description\": string, \"type\": string, \"default\": string, \"evidence\": string}]}.\n\nWe need to include quote of the setting as evidence. Provide default if stated. The default is \"Defaults to 1/4th of a rowgroup\". Also default value column says `30000`. There's a conflict: description says defaults to 1/4th of a rowgroup, default column says 30000. The section includes both. We need to report default if section states it. It states both: \"Defaults to 1/4th of a rowgroup\" and also default value column `30000`. Which to use? Probably use the default column value `30000` as literal default. But also mention that description says defaults to 1/4th of a rowgroup. The instruction: \"If the section gives a concrete value, that is a literal default. If it describes the default as something that depends on the machine... copy that description\". Here we have both a concrete value and a description. The concrete value is `30000`. So default = \"30000\". Provide evidence quote: maybe the default column value `30000` or description. Provide quote: \"`30000`\". Also maybe quote description for context.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"geometry_minimum_shredding_size\",\n      \"type\": \"BIGINT\",\n      \"default\": \"30000\",\n      \"evidence\": \"`30000`\"\n    }\n  ]\n}\n\nBut also include description? Not required but could. Schema unknown. Safer to include fields: name, description, type, default, evidence. Provide description quote: \"Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup\". Provide evidence maybe that whole row.\n\nThus:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"geometry_minimum_shredding_size\",\n      \"description\": \"Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup\",\n      \"type\": \"BIGINT\",\n      \"default\": \"30000\",\n      \"evidence\": \"`30000`\"\n    }\n  ]\n}\n\nReturn only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from the given section. The section is a table with one row: Name `geometry_minimum_shredding_size`. Description: \"Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup\". Type BIGINT. Default value `30000`. So we need to output JSON with list of settings. For each setting: name, description (maybe not required?), but schema? Not provided. Need to infer schema. The instruction: \"Answer only with JSON matching the supplied schema.\" But no schema given in prompt. Possibly they expect something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut we need to guess. Usually these tasks have schema: maybe {\"settings\": [{\"name\": string, \"description\": string, \"type\": string, \"default\": string, \"evidence\": string}]}.\n\nWe need to include quote of the setting as evidence. Provide default if stated. The default is \"Defaults to 1/4th of a rowgroup\". Also default value column says `30000`. There's a conflict: description says defaults to 1/4th of a rowgroup, default column says 30000. The section includes both. We need to report default if section states it. It states both: \"Defaults to 1/4th of a rowgroup\" and also default value column `30000`. Which to use? Probably use the default column value `30000` as literal default. But also mention that description says defaults to 1/4th of a rowgroup. The instruction: \"If the section gives a concrete value, that is a literal default. If it describes the default as something that depends on the machine... copy that description\". Here we have both a concrete value and a description. The concrete value is `30000`. So default = \"30000\". Provide evidence quote: maybe the default column value `30000` or description. Provide quote: \"`30000`\". Also maybe quote description for context.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"geometry_minimum_shredding_size\",\n      \"type\": \"BIGINT\",\n      \"default\": \"30000\",\n      \"evidence\": \"`30000`\"\n    }\n  ]\n}\n\nBut also include description? Not required but could. Schema unknown. Safer to include fields: name, description, type, default, evidence. Provide description quote: \"Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup\". Provide evidence maybe that whole row.\n\nThus:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"geometry_minimum_shredding_size\",\n      \"description\": \"Minimum size of a rowgroup to enable GEOMETRY shredding, or set to -1 to disable entirely. Defaults to 1/4th of a rowgroup\",\n      \"type\": \"BIGINT\",\n      \"default\": \"30000\",\n      \"evidence\": \"`30000`\"\n    }\n  ]\n}\n\nReturn only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 453,
+  "completion_tokens": 786,
+  "total_tokens": 1239,
+  "cost": 0.00014721,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 384,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00014721,
+   "upstream_inference_prompt_cost": 1.359e-05,
+   "upstream_inference_completions_cost": 0.00013362
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 715,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 20.389999999999418
+}

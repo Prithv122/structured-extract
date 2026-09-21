@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789907693-09ccmokpZqQGpEOQ44VD",
+ "object": "chat.completion",
+ "created": 1789907693,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"profile_output\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`profile_output`, `profiling_output` | The file to which profile output should be saved, or empty to print to the terminal\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": \"absent\"\n    ,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"profiling_output\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`profile_output`, `profiling_output` | The file to which profile output should be saved, or empty to print to the terminal\",\n      \"default_kind\": \"absent\"\n    ,\n      \"default_value\": \"absent\"\n    ,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a table with a row: Name: `profile_output`, `profiling_output`; Description: The file to which profile output should be saved, or empty to print to the terminal; Type: `VARCHAR`; Default value column appears empty (maybe blank). So we need to output JSON with each setting documented. The row includes two names: `profile_output` and `profiling_output`. Both are presumably synonyms? The section documents both. So we need to list each setting separately? The schema likely expects an array of objects with fields: name, description, type, default (maybe). We need to quote a span of the section verbatim as evidence for each setting. Provide default if stated; here default value column is empty, so default is absent. So we should say default: \"absent\". Provide evidence quote for each setting: maybe the row's description includes the setting name. For each setting we need a quote that includes the setting name and description. For example: \"`profile_output`, `profiling_output` | The file to which profile output should be saved, or empty to print to the terminal\". We can quote the row cell content. Provide default as absent.\n\nWe need to output JSON matching supplied schema. We don't have the schema explicitly, but typical would be something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"profile_output\",\n      \"description\": \"The file to which profile output should be saved, or empty to print to the terminal\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"absent\",\n      \"evidence\": \"profile_output, profiling_output | The file to which profile output should be saved, or empty to print to the terminal\"\n    },\n    {\n      \"name\": \"profiling_output\",\n      \"description\": \"The file to which profile output should be saved, or empty to print to the terminal\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"absent\",\n      \"evidence\": \"profile_output, profiling_output | The file to which profile output should be saved, or empty to print to the terminal\"\n    }\n  ]\n}\n\nBut need to follow schema exactly. Since not given, we guess typical: list of objects with fields: name, description, type, default, evidence. Could be \"settings\": [].\n\nBetter to output array directly? The instruction: \"Answer only with JSON matching the supplied schema.\" We don't have schema, but we can infer. Possibly schema is:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe'll go with that.\n\nMake sure quotes are verbatim from the section. The row includes backticks around names and type. The description is \"The file to which profile output should be saved, or empty to print to the terminal\". We'll quote that exactly.\n\nEvidence: we need a span of the section verbatim. Could be the whole row: \"`profile_output`, `profiling_output` | The file to which profile output should be saved, or empty to print to the terminal\". We'll include that.\n\nReturn JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a table with a row: Name: `profile_output`, `profiling_output`; Description: The file to which profile output should be saved, or empty to print to the terminal; Type: `VARCHAR`; Default value column appears empty (maybe blank). So we need to output JSON with each setting documented. The row includes two names: `profile_output` and `profiling_output`. Both are presumably synonyms? The section documents both. So we need to list each setting separately? The schema likely expects an array of objects with fields: name, description, type, default (maybe). We need to quote a span of the section verbatim as evidence for each setting. Provide default if stated; here default value column is empty, so default is absent. So we should say default: \"absent\". Provide evidence quote for each setting: maybe the row's description includes the setting name. For each setting we need a quote that includes the setting name and description. For example: \"`profile_output`, `profiling_output` | The file to which profile output should be saved, or empty to print to the terminal\". We can quote the row cell content. Provide default as absent.\n\nWe need to output JSON matching supplied schema. We don't have the schema explicitly, but typical would be something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"profile_output\",\n      \"description\": \"The file to which profile output should be saved, or empty to print to the terminal\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"absent\",\n      \"evidence\": \"profile_output, profiling_output | The file to which profile output should be saved, or empty to print to the terminal\"\n    },\n    {\n      \"name\": \"profiling_output\",\n      \"description\": \"The file to which profile output should be saved, or empty to print to the terminal\",\n      \"type\": \"VARCHAR\",\n      \"default\": \"absent\",\n      \"evidence\": \"profile_output, profiling_output | The file to which profile output should be saved, or empty to print to the terminal\"\n    }\n  ]\n}\n\nBut need to follow schema exactly. Since not given, we guess typical: list of objects with fields: name, description, type, default, evidence. Could be \"settings\": [].\n\nBetter to output array directly? The instruction: \"Answer only with JSON matching the supplied schema.\" We don't have schema, but we can infer. Possibly schema is:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe'll go with that.\n\nMake sure quotes are verbatim from the section. The row includes backticks around names and type. The description is \"The file to which profile output should be saved, or empty to print to the terminal\". We'll quote that exactly.\n\nEvidence: we need a span of the section verbatim. Could be the whole row: \"`profile_output`, `profiling_output` | The file to which profile output should be saved, or empty to print to the terminal\". We'll include that.\n\nReturn JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 439,
+  "completion_tokens": 877,
+  "total_tokens": 1316,
+  "cost": 0.00016226,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 384,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00016226,
+   "upstream_inference_prompt_cost": 1.317e-05,
+   "upstream_inference_completions_cost": 0.00014909
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 780,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 10.921999999998661
+}

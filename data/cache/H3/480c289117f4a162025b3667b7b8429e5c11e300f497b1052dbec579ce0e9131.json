@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789918267-6gG5OraXXQAbXCPLJ1uZ",
+ "object": "chat.completion",
+ "created": 1789918267,
+ "model": "openai/gpt-4.1-nano",
+ "provider": "OpenAI",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "completed",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"unsafe_enable_version_guessing\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"`unsafe_enable_version_guessing` | `BOOLEAN` | `false` | Enable globbing the filesystem (if possible) to find the latest metadata version. This may read an uncommitted version, so it is disabled by default.\",\"default_kind\":\"literal\",\"default_value\":\"false\",\"default_evidence\":\"`unsafe_enable_version_guessing` | `BOOLEAN` | `false` | Enable globbing the filesystem (if possible) to find the latest metadata version. This may read an uncommitted version, so it is disabled by default.\"},{\"name\":\"iceberg_use_metadata_log\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"`iceberg_use_metadata_log` | `BOOLEAN` | `true` | Use a table's optional `metadata-log` to preserve atomicity guarantees, at the cost of an additional metadata `GET` in rare cases.\",\"default_kind\":\"literal\",\"default_value\":\"true\",\"default_evidence\":\"`iceberg_use_metadata_log` | `BOOLEAN` | `true` | Use a table's optional `metadata-log` to preserve atomicity guarantees, at the cost of an additional metadata `GET` in rare cases.\"},{\"name\":\"ignore_target_file_size_for_partitioned_tables\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"`ignore_target_file_size_for_partitioned_tables` | `BOOLEAN` | `false` | Ignore the unsupported `write.target-file-size-bytes` table property on partitioned tables instead of raising an error.\",\"default_kind\":\"literal\",\"default_value\":\"false\",\"default_evidence\":\"`ignore_target_file_size_for_partitioned_tables` | `BOOLEAN` | `false` | Ignore the unsupported `write.target-file-size-bytes` table property on partitioned tables instead of raising an error.\"},{\"name\":\"ignore_row_group_size_for_partitioned_tables\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"`ignore_row_group_size_for_partitioned_tables` | `BOOLEAN` | `false` | Ignore the unsupported `write.parquet.row-group-size-bytes` table property on partitioned tables instead of raising an error.\",\"default_kind\":\"literal\",\"default_value\":\"false\",\"default_evidence\":\"`ignore_row_group_size_for_partitioned_tables` | `BOOLEAN` | `false` | Ignore the unsupported `write.parquet.row-group-size-bytes` table property on partitioned tables instead of raising an error.\"},{\"name\":\"iceberg_via_aws_sdk_for_catalog_interactions\",\"input_type\":\"BOOLEAN\",\"scope\":\"GLOBAL\",\"evidence\":\"`iceberg_via_aws_sdk_for_catalog_interactions` | `BOOLEAN` | `false` | Use the legacy AWS SDK code path to interact with AWS-based catalogs instead of DuckDB's HTTP client.\",\"default_kind\":\"literal\",\"default_value\":\"false\",\"default_evidence\":\"`iceberg_via_aws_sdk_for_catalog_interactions` | `BOOLEAN` | `false` | Use the legacy AWS SDK code path to interact with AWS-based catalogs instead of DuckDB's HTTP client.\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1169,
+  "completion_tokens": 637,
+  "total_tokens": 1806,
+  "cost": 0.0003717,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003717,
+   "upstream_inference_prompt_cost": 0.0001169,
+   "upstream_inference_completions_cost": 0.0002548
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 4.906999999999243
+}

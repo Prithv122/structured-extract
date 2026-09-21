@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789922821-QdSQVvf6xSbbs67rmiVn",
+ "object": "chat.completion",
+ "created": 1789922821,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\":[{\"name\":\"deprecated_using_key_syntax\",\"input_type\":\"VARCHAR\",\"scope\":\"GLOBAL\",\"evidence\":\"DuckDB 1.5.0 also introduces a new setting to configure the `USING KEY` syntax.\\n\\n```sql\\nSET deprecated_using_key_syntax = 'DEFAULT';\\nSET deprecated_using_key_syntax = 'UNION_AS_UNION_ALL';\\n```\",\"default_kind\":\"literal\",\"default_value\":\"'DEFAULT'\",\"default_evidence\":\"Currently, `DEFAULT` enables both syntax styles, i.e., allows both recursive `UNION`s and recursive `UNION ALL`s in `USING KEY` CTEs.\"}]}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1011,
+  "completion_tokens": 137,
+  "total_tokens": 1148,
+  "cost": 0.000110075,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000110075,
+   "upstream_inference_prompt_cost": 7.5825e-05,
+   "upstream_inference_completions_cost": 3.425e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 17.48399999999674
+}

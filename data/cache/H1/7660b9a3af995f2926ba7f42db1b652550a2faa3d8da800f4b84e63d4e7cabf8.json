@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789895207-9xqcY7X4COjS962R7PQO",
+ "object": "chat.completion",
+ "created": 1789895207,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\\n\\n```sql\\nSET memory_limit = '2GB';\\n```\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"memory_limit\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. User asks extract DuckDB configuration settings from single section of DuckDB documentation. The provided section text:\n\n\"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\n\n```sql\nSET memory_limit = '2GB';\n```\n\nNote that this limit is only applied to the memory DuckDB uses and it does not affect the memory use of other R libraries.\nTherefore, the total memory used by the R process may be higher than the configured `memory_limit`.\"\n\nNeed identify documented settings. It documents memory_limit? It tells what setting does: limit memory use of DuckDB, how to set: SET memory_limit='2GB'. So yes memory_limit. Need quote verbatim span. Need default? Section does not state default. So absent.\n\nNeed output JSON matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe produce array of objects with setting, evidence, default? Need decide. Since no explicit schema, but likely expected: {\"settings\": [{\"name\": \"memory_limit\", \"evidence\": \"...\", \"default\": null}]} or maybe list. Need be careful.\n\nThe instruction: \"Return every configuration setting... For each setting, quote a span... Also report the setting's default... Answer only with JSON matching the supplied schema.\" There is no supplied schema in visible prompt. We need produce JSON. Could use common schema: [{\"setting\": \"memory_limit\", \"evidence\": \"...\", \"default\": \"absent\"}]? Need maybe include \"default\": null? They said \"If section does not state a default, say it is absent\". So default field should be \"absent\" maybe string. Need include evidence verbatim.\n\nNeed quote exactly. Evidence can be: \"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.: ... SET memory_limit = '2GB';\" But quote span verbatim. Need maybe include the sentence that documents setting. Could quote entire first sentence and code? The setting is documented by first sentence and example. Need quote a span. We can quote: \"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB\" and maybe \"SET memory_limit = '2GB';\" But one span? Could include both? The instruction says quote a span of the section verbatim as evidence. Could be one continuous span from \"You can use...\" through \"```sql\\nSET memory_limit = '2GB';\\n```\"? Need copy exactly. The section includes markdown link and code fence. We can quote the entire relevant portion. Need ensure exact characters. Let's copy:\n\n\"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\n\n```sql\nSET memory_limit = '2GB';\n```\"\n\nThat is verbatim. It includes newline and code fence. That's okay. But maybe JSON string needs escape newlines. We'll output as JSON with \\n. Need include backticks etc.\n\nDefault: absent. Could use \"default\": \"absent\" or null? They said \"say it is absent\". So string \"absent\". Need maybe include \"default_evidence\": null? Not required. Schema maybe: {\"settings\":[{\"setting\":\"memory_limit\",\"evidence\":\"...\",\"default\":\"absent\"}]}. Let's produce that.\n\nNeed ensure no extra text. Final only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. User asks extract DuckDB configuration settings from single section of DuckDB documentation. The provided section text:\n\n\"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\n\n```sql\nSET memory_limit = '2GB';\n```\n\nNote that this limit is only applied to the memory DuckDB uses and it does not affect the memory use of other R libraries.\nTherefore, the total memory used by the R process may be higher than the configured `memory_limit`.\"\n\nNeed identify documented settings. It documents memory_limit? It tells what setting does: limit memory use of DuckDB, how to set: SET memory_limit='2GB'. So yes memory_limit. Need quote verbatim span. Need default? Section does not state default. So absent.\n\nNeed output JSON matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe produce array of objects with setting, evidence, default? Need decide. Since no explicit schema, but likely expected: {\"settings\": [{\"name\": \"memory_limit\", \"evidence\": \"...\", \"default\": null}]} or maybe list. Need be careful.\n\nThe instruction: \"Return every configuration setting... For each setting, quote a span... Also report the setting's default... Answer only with JSON matching the supplied schema.\" There is no supplied schema in visible prompt. We need produce JSON. Could use common schema: [{\"setting\": \"memory_limit\", \"evidence\": \"...\", \"default\": \"absent\"}]? Need maybe include \"default\": null? They said \"If section does not state a default, say it is absent\". So default field should be \"absent\" maybe string. Need include evidence verbatim.\n\nNeed quote exactly. Evidence can be: \"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.: ... SET memory_limit = '2GB';\" But quote span verbatim. Need maybe include the sentence that documents setting. Could quote entire first sentence and code? The setting is documented by first sentence and example. Need quote a span. We can quote: \"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB\" and maybe \"SET memory_limit = '2GB';\" But one span? Could include both? The instruction says quote a span of the section verbatim as evidence. Could be one continuous span from \"You can use...\" through \"```sql\\nSET memory_limit = '2GB';\\n```\"? Need copy exactly. The section includes markdown link and code fence. We can quote the entire relevant portion. Need ensure exact characters. Let's copy:\n\n\"You can use the [`memory_limit` configuration option]({% link docs/current/configuration/pragmas.md %}) to limit the memory use of DuckDB, e.g.:\n\n```sql\nSET memory_limit = '2GB';\n```\"\n\nThat is verbatim. It includes newline and code fence. That's okay. But maybe JSON string needs escape newlines. We'll output as JSON with \\n. Need include backticks etc.\n\nDefault: absent. Could use \"default\": \"absent\" or null? They said \"say it is absent\". So string \"absent\". Need maybe include \"default_evidence\": null? Not required. Schema maybe: {\"settings\":[{\"setting\":\"memory_limit\",\"evidence\":\"...\",\"default\":\"absent\"}]}. Let's produce that.\n\nNeed ensure no extra text. Final only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 463,
+  "completion_tokens": 906,
+  "total_tokens": 1369,
+  "cost": 0.00259955,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00259955,
+   "upstream_inference_prompt_cost": 0.00028925,
+   "upstream_inference_completions_cost": 0.0023103
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 860,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 21.79700000000048
+}

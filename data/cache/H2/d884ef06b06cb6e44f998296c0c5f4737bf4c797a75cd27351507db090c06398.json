@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789918002-1LB8ZJc6xoFKsPggqgSV",
+ "object": "chat.completion",
+ "created": 1789918002,
+ "model": "google/gemini-2.5-flash",
+ "provider": "Google",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "STOP",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"file_search_path\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`file_search_path`\",\n      \"default_kind\": \"machine_dependent\",\n      \"default_value\": \"the working directory\",\n      \"default_evidence\": \"If `file_search_path` is not set, the working directory is used as the basis for relative paths.\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 495,
+  "completion_tokens": 117,
+  "total_tokens": 612,
+  "cost": 0.000441,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000441,
+   "upstream_inference_prompt_cost": 0.0001485,
+   "upstream_inference_completions_cost": 0.0002925
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 1.2810000000026776
+}

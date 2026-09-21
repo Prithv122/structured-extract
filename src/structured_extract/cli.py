@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 from collections import Counter
 from pathlib import Path
@@ -67,6 +68,10 @@ MIN_SECTION_CHARS = 120
 #: of every arm -- including the 16 k one. The ``reference`` stratum is exempt
 #: because its documents are single table rows by construction.
 MAX_SECTION_CHARS = 8000
+
+#: The retry epilogue `_post` appends to a failed call. Its seconds vary per
+#: call, so it has to come off before identical errors can be grouped.
+_RETRY_EPILOGUE = re.compile(r"\s*\[gave up after .*?\]\s*$")
 
 
 def _load_oracle_names() -> tuple[set[str], dict[str, str]]:
@@ -691,7 +696,17 @@ def _group_errors(rows: list[extract_mod.ExtractionRow]) -> dict[str, list]:
     """
     grouped: dict[str, list] = {}
     for row in rows:
-        message = (row.error or "").strip()
+        # Accepts both an ExtractionRow (live, from `extract run`) and the dict
+        # it serialises to (replayed, from a results file). `report` passes the
+        # dicts and crashed here on the first full grid, after the 1,200 calls
+        # were already paid for.
+        error = row["error"] if isinstance(row, dict) else row.error
+        message = (error or "").strip()
+        # Strip the retry epilogue before grouping. `_post` appends
+        # "[gave up after 4 attempt(s) over 97s]", and the seconds differ every
+        # time -- which made 18 identical upstream 429s print as 16 separate
+        # lines, defeating the grouping this function exists for.
+        message = _RETRY_EPILOGUE.sub("", message).strip()
         try:  # OpenRouter wraps the real message in a JSON envelope.
             _, _, body = message.partition(": ")
             inner = json.loads(body)["error"]["message"]

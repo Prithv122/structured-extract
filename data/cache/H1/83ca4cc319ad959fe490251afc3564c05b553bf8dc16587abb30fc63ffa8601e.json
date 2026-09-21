@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789913545-oW46Lasnv1BDTeiBbuvx",
+ "object": "chat.completion",
+ "created": 1789913545,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need extract DuckDB configuration settings from section. The section is about options passed to read_parquet function or COPY statement. These are options/arguments of a SQL statement/table function, not configuration settings. So correct answer empty list. Need output JSON matching schema. Need know schema? User says answer only with JSON matching supplied schema. We don't have schema in prompt? It says supplied schema but not included? We need infer likely schema: maybe list of settings with name, evidence, default. Need produce empty list. Since no settings. JSON maybe {\"settings\": []} or []? Need determine. The instruction: \"Answer only with JSON matching the supplied schema.\" But no schema shown. We need maybe from previous tasks? We need output likely array of objects? Let's inspect wording: \"For each setting, quote a span... Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" Could be schema like:\n{\n  \"settings\": [\n    {\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}\n  ]\n}\nBut not given. Need decide. Since no settings, empty list. Could output [] if schema is array. But \"JSON matching supplied schema\" maybe expects object with settings. We need be safe. The prompt says \"If the section documents those, the correct answer is an empty list\". That suggests output is a list. So answer `[]`. Need ensure no extra text. Final: `[]`.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need extract DuckDB configuration settings from section. The section is about options passed to read_parquet function or COPY statement. These are options/arguments of a SQL statement/table function, not configuration settings. So correct answer empty list. Need output JSON matching schema. Need know schema? User says answer only with JSON matching supplied schema. We don't have schema in prompt? It says supplied schema but not included? We need infer likely schema: maybe list of settings with name, evidence, default. Need produce empty list. Since no settings. JSON maybe {\"settings\": []} or []? Need determine. The instruction: \"Answer only with JSON matching the supplied schema.\" But no schema shown. We need maybe from previous tasks? We need output likely array of objects? Let's inspect wording: \"For each setting, quote a span... Also report the setting's default...\" \"Answer only with JSON matching the supplied schema.\" Could be schema like:\n{\n  \"settings\": [\n    {\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}\n  ]\n}\nBut not given. Need decide. Since no settings, empty list. Could output [] if schema is array. But \"JSON matching supplied schema\" maybe expects object with settings. We need be safe. The prompt says \"If the section documents those, the correct answer is an empty list\". That suggests output is a list. So answer `[]`. Need ensure no extra text. Final: `[]`.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 962,
+  "completion_tokens": 312,
+  "total_tokens": 1274,
+  "cost": 0.0016587,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0016587,
+   "upstream_inference_prompt_cost": 0.0008631,
+   "upstream_inference_completions_cost": 0.0007956
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 358,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 16.06199999999808
+}

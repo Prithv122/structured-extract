@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789913859-GPyQ7i9KcznMkubZH7pn",
+ "object": "chat.completion",
+ "created": 1789913859,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "We need answer only JSON matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need extract DuckDB configuration settings from section. The provided text is a section? It is about Java JDBC profiling. Need determine if it documents configuration settings. Likely no DuckDB configuration settings? It mentions PRAGMA enable_profiling, which is a configuration setting? Need analyze.\n\nWe need output JSON likely list of settings with evidence and default. Need know schema. Since not supplied, maybe expected format from previous tasks? We need infer. The instruction: \"For each setting, quote a span of the section verbatim as evidence... Also report the setting's default...\" Answer only JSON matching supplied schema. We don't have schema. Need maybe produce something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"enable_profiling\",\n      \"evidence\": \"PRAGMA enable_profiling\",\n      \"default\": \"absent\"\n    }\n  ]\n}\nBut need be careful.\n\nLet's parse user request. They pasted a section from DuckDB docs? It is about \"Cast a connection to DuckDBConnection and call getProfilingInformation...\" It includes Java code. The section documents Java API method, not configuration settings. It mentions `PRAGMA enable_profiling` in passing. The instruction says: \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting.\"\n\nHere section is about Java JDBC profiling. It mentions `PRAGMA enable_profiling` as a command to enable profiling. Is that documenting a DuckDB setting? It is a PRAGMA configuration setting. But the section is not documenting the setting itself; it's using it in code example. The instruction says if section documents those, correct answer empty list. Does this section document `enable_profiling`? It says \"after enabling profiling with `PRAGMA enable_profiling`.\" That is a mention, not documentation of the setting's type/default/description. It doesn't tabulate it. So likely empty list.\n\nNeed output JSON. Need know schema. Could be:\n{\n  \"settings\": []\n}\nor maybe just []? The prompt says \"Answer only with JSON matching the supplied schema.\" No schema. We need maybe include empty list. Let's think of common schema from these tasks. They might expect:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nIf no settings, empty array. We'll output that.\n\nBut need ensure no setting like `enable_profiling` should be returned. The section does not state default. It mentions PRAGMA enable_profiling = 'json' in code. That is not documenting setting. So empty.\n\nLet's craft final JSON only.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer only JSON matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt. We need extract DuckDB configuration settings from section. The provided text is a section? It is about Java JDBC profiling. Need determine if it documents configuration settings. Likely no DuckDB configuration settings? It mentions PRAGMA enable_profiling, which is a configuration setting? Need analyze.\n\nWe need output JSON likely list of settings with evidence and default. Need know schema. Since not supplied, maybe expected format from previous tasks? We need infer. The instruction: \"For each setting, quote a span of the section verbatim as evidence... Also report the setting's default...\" Answer only JSON matching supplied schema. We don't have schema. Need maybe produce something like:\n{\n  \"settings\": [\n    {\n      \"name\": \"enable_profiling\",\n      \"evidence\": \"PRAGMA enable_profiling\",\n      \"default\": \"absent\"\n    }\n  ]\n}\nBut need be careful.\n\nLet's parse user request. They pasted a section from DuckDB docs? It is about \"Cast a connection to DuckDBConnection and call getProfilingInformation...\" It includes Java code. The section documents Java API method, not configuration settings. It mentions `PRAGMA enable_profiling` in passing. The instruction says: \"Do not return a setting merely because the section contains a word that happens to be a setting name. Some setting names are also ordinary English words, or parameters belonging to some other system entirely, and a section that uses one of those in passing is not documenting a DuckDB setting.\"\n\nHere section is about Java JDBC profiling. It mentions `PRAGMA enable_profiling` as a command to enable profiling. Is that documenting a DuckDB setting? It is a PRAGMA configuration setting. But the section is not documenting the setting itself; it's using it in code example. The instruction says if section documents those, correct answer empty list. Does this section document `enable_profiling`? It says \"after enabling profiling with `PRAGMA enable_profiling`.\" That is a mention, not documentation of the setting's type/default/description. It doesn't tabulate it. So likely empty list.\n\nNeed output JSON. Need know schema. Could be:\n{\n  \"settings\": []\n}\nor maybe just []? The prompt says \"Answer only with JSON matching the supplied schema.\" No schema. We need maybe include empty list. Let's think of common schema from these tasks. They might expect:\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    }\n  ]\n}\nIf no settings, empty array. We'll output that.\n\nBut need ensure no setting like `enable_profiling` should be returned. The section does not state default. It mentions PRAGMA enable_profiling = 'json' in code. That is not documenting setting. So empty.\n\nLet's craft final JSON only.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 712,
+  "completion_tokens": 639,
+  "total_tokens": 1351,
+  "cost": 0.00220505,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00220505,
+   "upstream_inference_prompt_cost": 0.0005756,
+   "upstream_inference_completions_cost": 0.00162945
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 730,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 17.29699999999866
+}

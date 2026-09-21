@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789920563-LoSCdzRXW8lwI8kdRUKI",
+ "object": "chat.completion",
+ "created": 1789920563,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"s3_region\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET s3_region = 'us-east-1';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"s3_endpoint\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET s3_endpoint = '⟨domain⟩.⟨tld⟩:⟨port⟩';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"s3_use_ssl\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET s3_use_ssl = false;\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"s3_url_style\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET s3_url_style = 'path';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"s3_access_key_id\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET s3_access_key_id = '⟨aws_access_key_id⟩';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"s3_secret_access_key\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET s3_secret_access_key = '⟨aws_secret_access_key⟩';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"s3_session_token\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET s3_session_token = '⟨aws_session_token⟩';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to provide verbatim spans from the document. The document includes code blocks with lines:\n\n```sql\nSET s3_region = 'us-east-1';\n```\n\nThe verbatim span should be exactly that line, without backticks? The instruction: \"quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" The code block includes line with indentation maybe. The evidence should be the exact characters as appear, including newline? Probably just the line string without surrounding backticks. The previous used backticks which are not in document. So need to replace evidence with the exact line: \"SET s3_region = 'us-east-1';\". Similarly for others.\n\nAlso need to fix JSON formatting: earlier had stray commas and extra fields default_value etc. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value?, default_evidence? Not sure. The previous answer had extra commas and fields. We need to match schema. The prompt says \"Answer only with JSON matching the supplied schema.\" But schema not shown. Likely expects each setting object with fields: name, input_type, scope, evidence, default_kind, default_value (optional), default_evidence (optional). In previous answer they included default_kind, default_value, default_evidence but with stray commas and line breaks causing invalid JSON. Need proper JSON.\n\nWe'll produce array of settings with those fields. Use default_kind: \"absent\". Omit default_value and default_evidence or set null? Probably include them as null if schema expects. Safer to include null fields.\n\nThus each object:\n\n{\n\"name\":\"s3_region\",\n\"input_type\":\"VARCHAR\",\n\"scope\":\"GLOBAL\",\n\"evidence\":\"SET s3_region = 'us-east-1';\",\n\"default_kind\":\"absent\",\n\"default_value\":null,\n\"default_evidence\":null\n}\n\nSimilarly for others.\n\nMake sure no backticks.\n\nAlso ensure proper JSON syntax.\n\nReturn final JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to provide verbatim spans from the document. The document includes code blocks with lines:\n\n```sql\nSET s3_region = 'us-east-1';\n```\n\nThe verbatim span should be exactly that line, without backticks? The instruction: \"quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" The code block includes line with indentation maybe. The evidence should be the exact characters as appear, including newline? Probably just the line string without surrounding backticks. The previous used backticks which are not in document. So need to replace evidence with the exact line: \"SET s3_region = 'us-east-1';\". Similarly for others.\n\nAlso need to fix JSON formatting: earlier had stray commas and extra fields default_value etc. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value?, default_evidence? Not sure. The previous answer had extra commas and fields. We need to match schema. The prompt says \"Answer only with JSON matching the supplied schema.\" But schema not shown. Likely expects each setting object with fields: name, input_type, scope, evidence, default_kind, default_value (optional), default_evidence (optional). In previous answer they included default_kind, default_value, default_evidence but with stray commas and line breaks causing invalid JSON. Need proper JSON.\n\nWe'll produce array of settings with those fields. Use default_kind: \"absent\". Omit default_value and default_evidence or set null? Probably include them as null if schema expects. Safer to include null fields.\n\nThus each object:\n\n{\n\"name\":\"s3_region\",\n\"input_type\":\"VARCHAR\",\n\"scope\":\"GLOBAL\",\n\"evidence\":\"SET s3_region = 'us-east-1';\",\n\"default_kind\":\"absent\",\n\"default_value\":null,\n\"default_evidence\":null\n}\n\nSimilarly for others.\n\nMake sure no backticks.\n\nAlso ensure proper JSON syntax.\n\nReturn final JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 3113,
+  "completion_tokens": 955,
+  "total_tokens": 4068,
+  "cost": 0.00025574,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00025574,
+   "upstream_inference_prompt_cost": 9.339e-05,
+   "upstream_inference_completions_cost": 0.00016235
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 477,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 83.56300000000192
+}

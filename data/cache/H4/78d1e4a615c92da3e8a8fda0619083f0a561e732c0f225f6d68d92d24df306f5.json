@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789907709-lt1rkOJgIikhXB28wzQh",
+ "object": "chat.completion",
+ "created": 1789907709,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"profile_output\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`profile_output`, `profiling_output` | The file to which profile output should be saved, or empty to print to the terminal\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"profiling_output\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`profile_output`, `profiling_output` | The file to which profile output should be saved, or empty to print to the terminal\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). When default_kind is \"absent\", default_value and default_evidence must be null. In previous answer they set default_value to \"absent\" string, which is wrong. So set default_value: null, default_evidence: null.\n\nAlso need to ensure evidence is verbatim span. The evidence currently includes backticks and pipe and description. The original table row: \"`profile_output`, `profiling_output` | The file to which profile output should be saved, or empty to print to the terminal\". The evidence should be a verbatim span from the section. The table cell includes description. The evidence could be the description part only, but the spec says quote a span of the section verbatim as evidence. The current evidence includes both names and description separated by pipe. That may be okay as a span, but maybe they want just the description. However the error only about default. So we keep evidence as is.\n\nWe need to output JSON with corrected default fields.\n\nThus:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"profile_output\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`profile_output`, `profiling_output` | The file to which profile output should be saved, or empty to print to the terminal\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"profiling_output\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`profile_output`, `profiling_output` | The file to which profile output should be saved, or empty to print to the terminal\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nMake sure JSON is valid.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). When default_kind is \"absent\", default_value and default_evidence must be null. In previous answer they set default_value to \"absent\" string, which is wrong. So set default_value: null, default_evidence: null.\n\nAlso need to ensure evidence is verbatim span. The evidence currently includes backticks and pipe and description. The original table row: \"`profile_output`, `profiling_output` | The file to which profile output should be saved, or empty to print to the terminal\". The evidence should be a verbatim span from the section. The table cell includes description. The evidence could be the description part only, but the spec says quote a span of the section verbatim as evidence. The current evidence includes both names and description separated by pipe. That may be okay as a span, but maybe they want just the description. However the error only about default. So we keep evidence as is.\n\nWe need to output JSON with corrected default fields.\n\nThus:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"profile_output\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`profile_output`, `profiling_output` | The file to which profile output should be saved, or empty to print to the terminal\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"profiling_output\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"LOCAL\",\n      \"evidence\": \"`profile_output`, `profiling_output` | The file to which profile output should be saved, or empty to print to the terminal\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nMake sure JSON is valid.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1303,
+  "completion_tokens": 609,
+  "total_tokens": 1912,
+  "cost": 0.00014262,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00014262,
+   "upstream_inference_prompt_cost": 3.909e-05,
+   "upstream_inference_completions_cost": 0.00010353
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 475,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 20.57800000000134
+}

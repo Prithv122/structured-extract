@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789904958-1N4Ha5BK5Ji5zVQgkcgj",
+ "object": "chat.completion",
+ "created": 1789904958,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"azure_http_stats\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`azure_http_stats` | Include HTTP info from Azure Storage in the [`EXPLAIN ANALYZE` statement]({% link docs/current/dev/profiling.md %}). | `BOOLEAN` | `false`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\"\n   ,\n      \"default_evidence\": \"`azure_http_stats` ... | `false`\"\n    },\n    {\n      \"name\": \"azure_read_transfer_concurrency\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`azure_read_transfer_concurrency` | Maximum number of threads the Azure client can use for a single parallel read. If `azure_read_transfer_chunk_size` is less than `azure_read_buffer_size` then setting this > 1 will allow the Azure client to do concurrent requests to fill the buffer. | `BIGINT` | `5`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"5\",\n      \"default_evidence\": \"`azure_read_transfer_concurrency` ... | `5`\"\n    },\n    {\n      \"name\": \"azure_read_transfer_chunk_size\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`azure_read_transfer_chunk_size` | Maximum size in bytes that the Azure client will read in a single request. It is recommended that this is a factor of `azure_read_buffer_size`. | `BIGINT` | `1024*1024`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"1024*1024\",\n      \"default_evidence\": \"`azure_read_transfer_chunk_size` ... | `1024*1024`\"\n    },\n    {\n      \"name\": \"azure_read_buffer_size\",\n      \"input_type\": \"UBIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`azure_read_buffer_size` | Size of the read buffer. It is recommended that this is evenly divisible by `azure_read_transfer_chunk_size`. | `UBIGINT` | `1024*1024`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"1024*1024\",\n      \"default_evidence\": \"`azure_read_buffer_size` ... | `1024*1024`\"\n    },\n    {\n      \"name\": \"azure_transport_option_type\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`azure_transport_option_type` | Underlying [adapter](https://github.com/Azure/azure-sdk-for-cpp/blob/main/doc/HttpTransportAdapter.md) to use in the Azure SDK. Valid values are: `default` or `curl`. | `VARCHAR` | `default`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"default\",\n      \"default_evidence\": \"`azure_transport_option_type` ... | `default`\"\n    },\n    {\n      \"name\": \"azure_context_caching\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`azure_context_caching` | Enable/disable the caching of the underlying Azure SDK HTTP connection in the DuckDB connection context when performing queries. If you suspect that this is causing some side effect, you can try to disable it by setting it to false (not recommended). | `BOOLEAN` | `true`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\",\n      \"default_evidence\": \"`azure_context_caching` ... | `true`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The section is a table listing settings with description, type, default. Also there is a note about azure_transport_option_type. So we need to list each setting: azure_http_stats, azure_read_transfer_concurrency, azure_read_transfer_chunk_size, azure_read_buffer_size, azure_transport_option_type, azure_context_caching.\n\nFor each, provide a quote span from the section verbatim as evidence. Also report default if the section states it. The table includes default values. So we need to capture those defaults.\n\nWe must output JSON matching supplied schema. The schema not given explicitly, but likely something like list of objects with fields: name, default, evidence (maybe \"quote\"). We need to infer. The instruction: \"Answer only with JSON matching the supplied schema.\" But we don't have the schema in the prompt. Possibly the schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to guess. In similar tasks, the schema often is:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"default\": \"string or null\",\n      \"evidence\": \"string\"\n    }\n  ]\n}\n\nWe'll output that.\n\nMake sure quotes are verbatim from the section. For each setting, we can quote the row line from the table. For example: \"`azure_http_stats` | Include HTTP info from Azure Storage in the [`EXPLAIN ANALYZE` statement]... | `BOOLEAN` | `false`\". That includes default.\n\nWe need to include default as literal string \"false\". For azure_read_transfer_concurrency default `5`. azure_read_transfer_chunk_size default `1024*1024`. azure_read_buffer_size default `1024*1024`. azure_transport_option_type default `default`. azure_context_caching default `true`.\n\nProvide evidence quotes.\n\nLet's craft JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The section is a table listing settings with description, type, default. Also there is a note about azure_transport_option_type. So we need to list each setting: azure_http_stats, azure_read_transfer_concurrency, azure_read_transfer_chunk_size, azure_read_buffer_size, azure_transport_option_type, azure_context_caching.\n\nFor each, provide a quote span from the section verbatim as evidence. Also report default if the section states it. The table includes default values. So we need to capture those defaults.\n\nWe must output JSON matching supplied schema. The schema not given explicitly, but likely something like list of objects with fields: name, default, evidence (maybe \"quote\"). We need to infer. The instruction: \"Answer only with JSON matching the supplied schema.\" But we don't have the schema in the prompt. Possibly the schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to guess. In similar tasks, the schema often is:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"string\",\n      \"default\": \"string or null\",\n      \"evidence\": \"string\"\n    }\n  ]\n}\n\nWe'll output that.\n\nMake sure quotes are verbatim from the section. For each setting, we can quote the row line from the table. For example: \"`azure_http_stats` | Include HTTP info from Azure Storage in the [`EXPLAIN ANALYZE` statement]... | `BOOLEAN` | `false`\". That includes default.\n\nWe need to include default as literal string \"false\". For azure_read_transfer_concurrency default `5`. azure_read_transfer_chunk_size default `1024*1024`. azure_read_buffer_size default `1024*1024`. azure_transport_option_type default `default`. azure_context_caching default `true`.\n\nProvide evidence quotes.\n\nLet's craft JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1021,
+  "completion_tokens": 1198,
+  "total_tokens": 2219,
+  "cost": 0.00023429,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00023429,
+   "upstream_inference_prompt_cost": 3.063e-05,
+   "upstream_inference_completions_cost": 0.00020366
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 473,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 32.43800000000192
+}

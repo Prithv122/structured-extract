@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789894853-c0edR6GSkMWVPfoh9DSP",
+ "object": "chat.completion",
+ "created": 1789894853,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse section. The user provided a bullet list? It seems section from DuckDB docs maybe \"Related content\" with links. Need extract configuration settings documented. The text:\n\n* [Profiling]({% link docs/current/dev/profiling.md %}) — DuckDB's query profiling output and the `enable_profiling` and `profiling_mode` PRAGMAs.\n* [Run Queries]({% link docs/current/clients/rust/querying.md %}) — running the queries whose metrics this page reads and whose execution it interrupts.\n* [Connect]({% link docs/current/clients/rust/connecting.md %}) — the `Connection` that profiling and the interrupt handle operate on.\n\nNeed determine if this section documents any DuckDB configuration settings. It mentions `enable_profiling` and `profiling_mode` PRAGMAs. Does it document what they do, accept, or how to set? It says \"DuckDB's query profiling output and the `enable_profiling` and `profiling_mode` PRAGMAs.\" That is just naming them as part of link description. It doesn't tell what setting does, accepts, or how to set. It says \"Profiling — DuckDB's query profiling output and the enable_profiling and profiling_mode PRAGMAs.\" This is not documenting settings; it's referencing them. The instruction: Do not return a setting merely because section contains word that happens to be setting name. Some setting names ordinary English words etc. Here enable_profiling and profiling_mode are setting names, but section only mentions them in passing as link description. Does it document? It says \"DuckDB's query profiling output and the `enable_profiling` and `profiling_mode` PRAGMAs.\" It doesn't explain what they do, accepted values, or how to set. So empty list.\n\nNeed output JSON matching schema. Need know schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need infer maybe from previous? We need produce JSON with settings array? Need likely schema: {\"settings\": [{\"name\": string, \"evidence\": string, \"default\": string|null, \"default_is_machine_dependent\": bool?}]}? Need infer. The instruction: \"For each setting, quote a span ... Also report the setting's default, but only if this section states it. If the section gives a concrete value, that is a literal default. If it describes the default as something that depends on the machine ... copy that description rather than guessing a number, and say it is machine-dependent. If the section does not state a default, say it is absent; do not fill it in...\" So JSON likely includes fields: name, evidence, default, default_type? Need maybe \"default\": \"absent\" or string, \"default_is_machine_dependent\": boolean. But no settings, so empty list.\n\nNeed answer only JSON. Could be:\n{\"settings\": []}\n\nBut need ensure schema maybe expects \"settings\" array. We'll output that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse section. The user provided a bullet list? It seems section from DuckDB docs maybe \"Related content\" with links. Need extract configuration settings documented. The text:\n\n* [Profiling]({% link docs/current/dev/profiling.md %}) — DuckDB's query profiling output and the `enable_profiling` and `profiling_mode` PRAGMAs.\n* [Run Queries]({% link docs/current/clients/rust/querying.md %}) — running the queries whose metrics this page reads and whose execution it interrupts.\n* [Connect]({% link docs/current/clients/rust/connecting.md %}) — the `Connection` that profiling and the interrupt handle operate on.\n\nNeed determine if this section documents any DuckDB configuration settings. It mentions `enable_profiling` and `profiling_mode` PRAGMAs. Does it document what they do, accept, or how to set? It says \"DuckDB's query profiling output and the `enable_profiling` and `profiling_mode` PRAGMAs.\" That is just naming them as part of link description. It doesn't tell what setting does, accepts, or how to set. It says \"Profiling — DuckDB's query profiling output and the enable_profiling and profiling_mode PRAGMAs.\" This is not documenting settings; it's referencing them. The instruction: Do not return a setting merely because section contains word that happens to be setting name. Some setting names ordinary English words etc. Here enable_profiling and profiling_mode are setting names, but section only mentions them in passing as link description. Does it document? It says \"DuckDB's query profiling output and the `enable_profiling` and `profiling_mode` PRAGMAs.\" It doesn't explain what they do, accepted values, or how to set. So empty list.\n\nNeed output JSON matching schema. Need know schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need infer maybe from previous? We need produce JSON with settings array? Need likely schema: {\"settings\": [{\"name\": string, \"evidence\": string, \"default\": string|null, \"default_is_machine_dependent\": bool?}]}? Need infer. The instruction: \"For each setting, quote a span ... Also report the setting's default, but only if this section states it. If the section gives a concrete value, that is a literal default. If it describes the default as something that depends on the machine ... copy that description rather than guessing a number, and say it is machine-dependent. If the section does not state a default, say it is absent; do not fill it in...\" So JSON likely includes fields: name, evidence, default, default_type? Need maybe \"default\": \"absent\" or string, \"default_is_machine_dependent\": boolean. But no settings, so empty list.\n\nNeed answer only JSON. Could be:\n{\"settings\": []}\n\nBut need ensure schema maybe expects \"settings\" array. We'll output that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 479,
+  "completion_tokens": 647,
+  "total_tokens": 1126,
+  "cost": 0.0022007,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0022007,
+   "upstream_inference_prompt_cost": 0.00055085,
+   "upstream_inference_completions_cost": 0.00164985
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 709,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 16.968000000000757
+}

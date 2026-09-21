@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789902773-NBJVbtNFfoci3uDlEpzQ",
+ "object": "chat.completion",
+ "created": 1789902773,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"enable_profiling\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`PRAGMA enable_profiling`\",\n      \"default_kind\": \"absent\"\n   \n    , \"default_value\": \"absent\"\n    , \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "The user asks: \"Cast a connection to `DuckDBConnection` and call `getProfilingInformation(ProfilerPrintFormat)` to retrieve profiling output for the most recent query on that connection, after enabling profiling with `PRAGMA enable_profiling`. The `ProfilerPrintFormat` enum selects the output format: `DEFAULT`, `TEXT`, `QUERY_TREE`, `QUERY_TREE_OPTIMIZER`, `NO_OUTPUT`, `JSON`, `HTML`, `GRAPHVIZ`, `YAML`, and `MERMAID`.\"\n\nWe need to extract DuckDB configuration settings documented in this section. The section is about profiling, enabling profiling via PRAGMA enable_profiling, and retrieving profiling info via getProfilingInformation. The setting is \"enable_profiling\". That's a PRAGMA setting. Does the section document it? It says \"after enabling profiling with `PRAGMA enable_profiling`\". It mentions the PRAGMA name. Does it describe what it does? It says \"enabling profiling\". That's a description. So we should include setting \"enable_profiling\". Need to provide a quote that documents it. Quote: \"`PRAGMA enable_profiling`\". Also maybe default? The section does not state default. So default is absent.\n\nAny other settings? Possibly \"ProfilerPrintFormat\" is an enum, not a setting. Not a PRAGMA. So only \"enable_profiling\". Also maybe \"PRAGMA enable_profiling = 'json'\" includes a value. But default not given.\n\nThus JSON with list containing one object: name \"enable_profiling\", evidence string, default \"absent\". Schema? Not provided but likely something like [{\"setting\":\"...\", \"evidence\":\"...\", \"default\":\"...\"}]. We'll output accordingly.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The user asks: \"Cast a connection to `DuckDBConnection` and call `getProfilingInformation(ProfilerPrintFormat)` to retrieve profiling output for the most recent query on that connection, after enabling profiling with `PRAGMA enable_profiling`. The `ProfilerPrintFormat` enum selects the output format: `DEFAULT`, `TEXT`, `QUERY_TREE`, `QUERY_TREE_OPTIMIZER`, `NO_OUTPUT`, `JSON`, `HTML`, `GRAPHVIZ`, `YAML`, and `MERMAID`.\"\n\nWe need to extract DuckDB configuration settings documented in this section. The section is about profiling, enabling profiling via PRAGMA enable_profiling, and retrieving profiling info via getProfilingInformation. The setting is \"enable_profiling\". That's a PRAGMA setting. Does the section document it? It says \"after enabling profiling with `PRAGMA enable_profiling`\". It mentions the PRAGMA name. Does it describe what it does? It says \"enabling profiling\". That's a description. So we should include setting \"enable_profiling\". Need to provide a quote that documents it. Quote: \"`PRAGMA enable_profiling`\". Also maybe default? The section does not state default. So default is absent.\n\nAny other settings? Possibly \"ProfilerPrintFormat\" is an enum, not a setting. Not a PRAGMA. So only \"enable_profiling\". Also maybe \"PRAGMA enable_profiling = 'json'\" includes a value. But default not given.\n\nThus JSON with list containing one object: name \"enable_profiling\", evidence string, default \"absent\". Schema? Not provided but likely something like [{\"setting\":\"...\", \"evidence\":\"...\", \"default\":\"...\"}]. We'll output accordingly.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 547,
+  "completion_tokens": 457,
+  "total_tokens": 1004,
+  "cost": 9.41e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 9.41e-05,
+   "upstream_inference_prompt_cost": 1.641e-05,
+   "upstream_inference_completions_cost": 7.769e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 392,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.125
+}

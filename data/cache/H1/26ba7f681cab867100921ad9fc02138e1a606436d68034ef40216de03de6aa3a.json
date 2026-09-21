@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789914152-xYOnqsaocA9MqJk2VZJ8",
+ "object": "chat.completion",
+ "created": 1789914152,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"The catalog search path can be adjusted by setting the `search_path` configuration option, which uses a comma-separated list of values that will be on the search path.\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"search_path\"\n    ,\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need extract settings from section. The section documents search_path configuration option. Need quote verbatim span. Default? Section does not state default? It says can be adjusted by setting search_path configuration option, uses comma-separated list. No default stated. Need output schema? User says answer only with JSON matching supplied schema. We don't have schema in prompt? Need infer likely list of objects with setting, evidence, default? Need produce JSON. We need be careful. The section is about catalog search path. It documents search_path setting. Need quote exact span. Evidence: \"The catalog search path can be adjusted by setting the `search_path` configuration option, which uses a comma-separated list of values that will be on the search path.\" Maybe also example SET search_path = 'db1,db2'; But quote span verbatim. Need include setting name search_path. Default absent. Need JSON.\n\nNeed maybe include only one setting. Let's craft.\n\nBut need ensure \"default\" field maybe \"absent\" or null? Prompt: \"If the section does not state a default, say it is absent\". So default: \"absent\". Need maybe include evidence quote. JSON schema likely:\n{\n  \"settings\": [\n    {\n      \"name\": \"search_path\",\n      \"evidence\": \"The catalog search path can be adjusted by setting the `search_path` configuration option, which uses a comma-separated list of values that will be on the search path.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\nNeed maybe include exact quote with backticks? The quote includes backticks around search_path. Copy exactly. Good.\n\nBut let's consider if there are other settings? Section only search_path. No default. Output only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need extract settings from section. The section documents search_path configuration option. Need quote verbatim span. Default? Section does not state default? It says can be adjusted by setting search_path configuration option, uses comma-separated list. No default stated. Need output schema? User says answer only with JSON matching supplied schema. We don't have schema in prompt? Need infer likely list of objects with setting, evidence, default? Need produce JSON. We need be careful. The section is about catalog search path. It documents search_path setting. Need quote exact span. Evidence: \"The catalog search path can be adjusted by setting the `search_path` configuration option, which uses a comma-separated list of values that will be on the search path.\" Maybe also example SET search_path = 'db1,db2'; But quote span verbatim. Need include setting name search_path. Default absent. Need JSON.\n\nNeed maybe include only one setting. Let's craft.\n\nBut need ensure \"default\" field maybe \"absent\" or null? Prompt: \"If the section does not state a default, say it is absent\". So default: \"absent\". Need maybe include evidence quote. JSON schema likely:\n{\n  \"settings\": [\n    {\n      \"name\": \"search_path\",\n      \"evidence\": \"The catalog search path can be adjusted by setting the `search_path` configuration option, which uses a comma-separated list of values that will be on the search path.\",\n      \"default\": \"absent\"\n    }\n  ]\n}\nNeed maybe include exact quote with backticks? The quote includes backticks around search_path. Copy exactly. Good.\n\nBut let's consider if there are other settings? Section only search_path. No default. Output only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 659,
+  "completion_tokens": 476,
+  "total_tokens": 1135,
+  "cost": 0.00172845,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00172845,
+   "upstream_inference_prompt_cost": 0.00051465,
+   "upstream_inference_completions_cost": 0.0012138
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 426,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 12.343999999997322
+}

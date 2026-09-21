@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789910219-OzvPKZmfNaKURZqrlSQK",
+ "object": "chat.completion",
+ "created": 1789910219,
+ "model": "z-ai/glm-5.3-flash",
+ "provider": "DeepInfra",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "These are read_parquet options, not DuckDB configuration settings (SET variables). The instruction: return settings the section documents. These are function options, not config settings... but arguably they are \"configuration settings\" documented? The task says DuckDB configuration settings — these are parameters of read_parquet, not settings. Likely empty list. Hmm, but the schema expects settings with defaults. The trap: these are function parameters, not DuckDB settings. I'll return empty.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "These are read_parquet options, not DuckDB configuration settings (SET variables). The instruction: return settings the section documents. These are function options, not config settings... but arguably they are \"configuration settings\" documented? The task says DuckDB configuration settings — these are parameters of read_parquet, not settings. Likely empty list. Hmm, but the schema expects settings with defaults. The trap: these are function parameters, not DuckDB settings. I'll return empty.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 747,
+  "completion_tokens": 102,
+  "total_tokens": 849,
+  "cost": 8.1525e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 8.1525e-05,
+   "upstream_inference_prompt_cost": 5.6025e-05,
+   "upstream_inference_completions_cost": 2.55e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 95,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 4.734000000000378
+}

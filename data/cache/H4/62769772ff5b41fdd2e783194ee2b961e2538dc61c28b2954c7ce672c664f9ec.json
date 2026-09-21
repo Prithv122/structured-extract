@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789919751-zaoPcLwWCdJoqT7j49oz",
+ "object": "chat.completion",
+ "created": 1789919751,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET temp_directory = '/path/to/directory/';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": \"absent\",\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct evidence to be verbatim span from the provided document. The document includes:\n\n```\nAllow temporary tables to off-load excess memory to disk:\n\n```sql\nSET temp_directory = '/path/to/directory/';\n```\n```\n\nThus the exact span is `SET temp_directory = '/path/to/directory/';` without backticks. The evidence should be that exact line. Probably include the line as is, including newline? The schema expects a string. So evidence: \"SET temp_directory = '/path/to/directory/';\". Also need to fix JSON formatting: earlier had stray commas and duplicate fields. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. We need to include default_kind and default_value and default_evidence. In previous answer we had default_kind: \"absent\", default_value: \"absent\", default_evidence: null. That's okay. But need to ensure proper JSON syntax: no stray commas. Provide correct JSON.\n\nThus final JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET temp_directory = '/path/to/directory/';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": \"absent\",\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck that evidence matches exactly. Yes. Return that.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct evidence to be verbatim span from the provided document. The document includes:\n\n```\nAllow temporary tables to off-load excess memory to disk:\n\n```sql\nSET temp_directory = '/path/to/directory/';\n```\n```\n\nThus the exact span is `SET temp_directory = '/path/to/directory/';` without backticks. The evidence should be that exact line. Probably include the line as is, including newline? The schema expects a string. So evidence: \"SET temp_directory = '/path/to/directory/';\". Also need to fix JSON formatting: earlier had stray commas and duplicate fields. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value, default_evidence. We need to include default_kind and default_value and default_evidence. In previous answer we had default_kind: \"absent\", default_value: \"absent\", default_evidence: null. That's okay. But need to ensure proper JSON syntax: no stray commas. Provide correct JSON.\n\nThus final JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"SET temp_directory = '/path/to/directory/';\",\n      \"default_kind\": \"absent\",\n      \"default_value\": \"absent\",\n      \"default_evidence\": null\n    }\n  ]\n}\n\nCheck that evidence matches exactly. Yes. Return that.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1138,
+  "completion_tokens": 394,
+  "total_tokens": 1532,
+  "cost": 0.00010112,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00010112,
+   "upstream_inference_prompt_cost": 3.414e-05,
+   "upstream_inference_completions_cost": 6.698e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 335,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 10.43800000000192
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789908897-rtm13SMAFUMk4FXzX8B0",
+ "object": "chat.completion",
+ "created": 1789908897,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"unsafe_disable_etag_checks\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`unsafe_disable_etag_checks`                  | Disable checks on ETag consistency                                                                                                                                                                            | `BOOLEAN`   | `false`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"false\"\n   \n    , \"default_evidence\": \"`unsafe_disable_etag_checks`                  | Disable checks on ETag consistency                                                                                                                                                                            | `BOOLEAN`   | `false`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with one setting: `unsafe_disable_etag_checks`. We need to output JSON matching the supplied schema. The schema is not explicitly given, but we can infer: likely an array of objects each with fields: \"setting\", \"description\", \"type\", \"default\". The instruction: Return every configuration setting that this section documents. Provide a quote of a span of the section verbatim as evidence for each setting. Also report the setting's default, but only if this section states it. The table includes default value `false`. So we need to include that.\n\nWe need to quote a span of the section verbatim as evidence. Could quote the row line: \"`unsafe_disable_etag_checks` | Disable checks on ETag consistency | `BOOLEAN` | `false`\". Provide that as evidence.\n\nJSON format: maybe like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"unsafe_disable_etag_checks\",\n      \"description\": \"Disable checks on ETag consistency\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"false\",\n      \"evidence\": \"`unsafe_disable_etag_checks` | Disable checks on ETag consistency | `BOOLEAN` | `false`\"\n    }\n  ]\n}\n\nBut need to match supplied schema. Not given, but typical tasks: array of objects with fields: \"setting\", \"default\", \"evidence\". Let's assume schema: list of objects with \"setting\", \"default\", \"evidence\". Might also include \"type\". Safer to include all fields present.\n\nThe instruction: \"Answer only with JSON matching the supplied schema.\" Since we don't have schema, we guess. In previous similar tasks, schema often is:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe'll output that.\n\nMake sure quotes are proper JSON strings. Provide evidence exactly as appears, including backticks and spaces? The table row includes backticks and spaces. We'll copy exactly: \"`unsafe_disable_etag_checks`                  | Disable checks on ETag consistency                                                                                                                                                                            | `BOOLEAN`   | `false`\". But need to preserve spaces? Probably okay.\n\nLet's produce JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the DuckDB documentation. The user provided a table with one setting: `unsafe_disable_etag_checks`. We need to output JSON matching the supplied schema. The schema is not explicitly given, but we can infer: likely an array of objects each with fields: \"setting\", \"description\", \"type\", \"default\". The instruction: Return every configuration setting that this section documents. Provide a quote of a span of the section verbatim as evidence for each setting. Also report the setting's default, but only if this section states it. The table includes default value `false`. So we need to include that.\n\nWe need to quote a span of the section verbatim as evidence. Could quote the row line: \"`unsafe_disable_etag_checks` | Disable checks on ETag consistency | `BOOLEAN` | `false`\". Provide that as evidence.\n\nJSON format: maybe like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"unsafe_disable_etag_checks\",\n      \"description\": \"Disable checks on ETag consistency\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"false\",\n      \"evidence\": \"`unsafe_disable_etag_checks` | Disable checks on ETag consistency | `BOOLEAN` | `false`\"\n    }\n  ]\n}\n\nBut need to match supplied schema. Not given, but typical tasks: array of objects with fields: \"setting\", \"default\", \"evidence\". Let's assume schema: list of objects with \"setting\", \"default\", \"evidence\". Might also include \"type\". Safer to include all fields present.\n\nThe instruction: \"Answer only with JSON matching the supplied schema.\" Since we don't have schema, we guess. In previous similar tasks, schema often is:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"description\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe'll output that.\n\nMake sure quotes are proper JSON strings. Provide evidence exactly as appears, including backticks and spaces? The table row includes backticks and spaces. We'll copy exactly: \"`unsafe_disable_etag_checks`                  | Disable checks on ETag consistency                                                                                                                                                                            | `BOOLEAN`   | `false`\". But need to preserve spaces? Probably okay.\n\nLet's produce JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 422,
+  "completion_tokens": 620,
+  "total_tokens": 1042,
+  "cost": 0.00011806,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 384,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00011806,
+   "upstream_inference_prompt_cost": 1.266e-05,
+   "upstream_inference_completions_cost": 0.0001054
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 591,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 16.01599999999962
+}

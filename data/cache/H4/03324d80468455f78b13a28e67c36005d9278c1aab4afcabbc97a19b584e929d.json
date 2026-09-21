@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789920134-vjodHyShc2HUVq6fYMsC",
+ "object": "chat.completion",
+ "created": 1789920134,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "The user asks: \"Register the CSV text as a file, then load it with insertCSVFromPath(). The insert options describe the target table and, when auto-detection is disabled, the CSV dialect and column types:\" Then code snippet.\n\nWe need to extract DuckDB configuration settings from this section. The section is about insertCSVFromPath options, not configuration settings. According to instructions, options of a SQL statement or function are not configuration settings. So answer should be empty list.\n\nWe must output JSON matching supplied schema. The schema likely expects something like {\"settings\": []} or maybe just []? Not given explicitly. Usually they want an array of objects. The instruction: \"Answer only with JSON matching the supplied schema.\" But we don't have schema in prompt. Probably schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut not sure. Could be just an array of objects. In previous tasks, they used schema: [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. Might be expecting a list.\n\nGiven no settings, we return an empty list: [].\n\nThus final answer: [].\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The user asks: \"Register the CSV text as a file, then load it with insertCSVFromPath(). The insert options describe the target table and, when auto-detection is disabled, the CSV dialect and column types:\" Then code snippet.\n\nWe need to extract DuckDB configuration settings from this section. The section is about insertCSVFromPath options, not configuration settings. According to instructions, options of a SQL statement or function are not configuration settings. So answer should be empty list.\n\nWe must output JSON matching supplied schema. The schema likely expects something like {\"settings\": []} or maybe just []? Not given explicitly. Usually they want an array of objects. The instruction: \"Answer only with JSON matching the supplied schema.\" But we don't have schema in prompt. Probably schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut not sure. Could be just an array of objects. In previous tasks, they used schema: [{\"name\": \"...\", \"default\": \"...\", \"evidence\": \"...\"}]. Might be expecting a list.\n\nGiven no settings, we return an empty list: [].\n\nThus final answer: [].\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 635,
+  "completion_tokens": 276,
+  "total_tokens": 911,
+  "cost": 6.597e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 64,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.597e-05,
+   "upstream_inference_prompt_cost": 1.905e-05,
+   "upstream_inference_completions_cost": 4.692e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 303,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 13.593000000000757
+}

@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905329-KaemjUEQqZCoe05tvdWc",
+ "object": "chat.completion",
+ "created": 1789905329,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"enable_external_access\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`enable_external_access`                      | Allow the database to access external state (through e.g., loading/installing modules, COPY TO/FROM, CSV readers, pandas replacement scans, etc)                                                              | `BOOLEAN`   | `true`\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"true\"\n   \n    , \"default_evidence\": \"`true`\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a table with one setting: `enable_external_access`. We need to output JSON with each setting, quoting a span of the section verbatim as evidence, and also report default if the section states it. The table includes description, type, default value. So we need to output JSON with an array of objects? The schema is not given explicitly, but we need to infer. The instruction: \"Answer only with JSON matching the supplied schema.\" The schema is not shown in the prompt. We need to guess typical schema: maybe something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"enable_external_access\",\n      \"description\": \"...\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"true\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut we need to follow the instruction: \"Return every configuration setting that this section documents. For each setting, quote a span of the section verbatim as evidence.\" So we need to include evidence field with the quoted span. Also \"Also report the setting's default, but only if this section states it.\" So we need default field.\n\nProbably schema: an array of objects with fields: name, default, evidence. Might also include type. Not sure. Since not given, we need to guess minimal: maybe list of objects with name, default, evidence. Let's assume schema:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"enable_external_access\",\n      \"default\": \"true\",\n      \"evidence\": \"`enable_external_access` ... `true`\"\n    }\n  ]\n}\n\nBut we need to quote a span of the section verbatim as evidence. Could quote the row: \"`enable_external_access` | Allow the database to access external state ... | `BOOLEAN` | `true`\". Provide that as evidence.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"enable_external_access\",\n      \"default\": \"true\",\n      \"evidence\": \"`enable_external_access` | Allow the database to access external state (through e.g., loading/installing modules, COPY TO/FROM, CSV readers, pandas replacement scans, etc) | `BOOLEAN` | `true`\"\n    }\n  ]\n}\n\nMake sure quoting exactly as appears. The table row includes spaces and pipes. Provide the exact row content. Let's copy exactly:\n\n`enable_external_access`                      | Allow the database to access external state (through e.g., loading/installing modules, COPY TO/FROM, CSV readers, pandas replacement scans, etc)                                                              | `BOOLEAN`   | `true`\n\nWe need to preserve spaces? Probably not required but we can include as is.\n\nThus final answer JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings from a single section of the documentation. The user provided a table with one setting: `enable_external_access`. We need to output JSON with each setting, quoting a span of the section verbatim as evidence, and also report default if the section states it. The table includes description, type, default value. So we need to output JSON with an array of objects? The schema is not given explicitly, but we need to infer. The instruction: \"Answer only with JSON matching the supplied schema.\" The schema is not shown in the prompt. We need to guess typical schema: maybe something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"enable_external_access\",\n      \"description\": \"...\",\n      \"type\": \"BOOLEAN\",\n      \"default\": \"true\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nBut we need to follow the instruction: \"Return every configuration setting that this section documents. For each setting, quote a span of the section verbatim as evidence.\" So we need to include evidence field with the quoted span. Also \"Also report the setting's default, but only if this section states it.\" So we need default field.\n\nProbably schema: an array of objects with fields: name, default, evidence. Might also include type. Not sure. Since not given, we need to guess minimal: maybe list of objects with name, default, evidence. Let's assume schema:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"enable_external_access\",\n      \"default\": \"true\",\n      \"evidence\": \"`enable_external_access` ... `true`\"\n    }\n  ]\n}\n\nBut we need to quote a span of the section verbatim as evidence. Could quote the row: \"`enable_external_access` | Allow the database to access external state ... | `BOOLEAN` | `true`\". Provide that as evidence.\n\nThus JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"enable_external_access\",\n      \"default\": \"true\",\n      \"evidence\": \"`enable_external_access` | Allow the database to access external state (through e.g., loading/installing modules, COPY TO/FROM, CSV readers, pandas replacement scans, etc) | `BOOLEAN` | `true`\"\n    }\n  ]\n}\n\nMake sure quoting exactly as appears. The table row includes spaces and pipes. Provide the exact row content. Let's copy exactly:\n\n`enable_external_access`                      | Allow the database to access external state (through e.g., loading/installing modules, COPY TO/FROM, CSV readers, pandas replacement scans, etc)                                                              | `BOOLEAN`   | `true`\n\nWe need to preserve spaces? Probably not required but we can include as is.\n\nThus final answer JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 444,
+  "completion_tokens": 698,
+  "total_tokens": 1142,
+  "cost": 0.00013198,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 384,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00013198,
+   "upstream_inference_prompt_cost": 1.332e-05,
+   "upstream_inference_completions_cost": 0.00011866
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 659,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 15.562999999998283
+}

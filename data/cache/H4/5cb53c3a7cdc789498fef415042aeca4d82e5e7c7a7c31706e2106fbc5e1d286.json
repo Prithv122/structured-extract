@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789902723-d6m5L6M5kFXjVv7g7SDY",
+ "object": "chat.completion",
+ "created": 1789902723,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"INTEGER\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET threads = ...` command.\",\n      \"default_kind\": \"absent\"\n    ,\n    \"default_value\": null\n    ,\n    \"default_evidence\": null\n    },\n    {\n      \"name\": \"memory_limit\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET memory_limit = '...'` statement.\",\n      \"default_kind\": \"machine_dependent\",\n      \"default_value\": \"80% of system memory\",\n      \"default_evidence\": \"[default 80%]({% link docs/current/operations_manual/limits.md %})\"\n    },\n    {\n      \"name\": \"preserve_insertion_order\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET preserve_insertion_order = false`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract DuckDB configuration settings documented in this section. The section mentions three settings: threads, memory_limit, preserve_insertion_order. We need to verify that the section documents them (it tells what they do, how to set). Yes.\n\nWe need to provide for each setting: name, evidence (quote span), default (if stated). The section mentions default 80% for memory_limit (in brackets). It says \"[default 80%]\" with a link. So default is 80% of system memory. That's a machine-dependent description. So we should capture that as default: \"80% of system memory (machine-dependent)\". Provide verbatim quote: \"default 80%\"? The phrase is \"[default 80%]\" but includes brackets and link. The quote should be exactly as appears: \"`[default 80%]({% link docs/current/operations_manual/limits.md %})`\". But we need a span that states default. The phrase \"default 80%\" is inside the link markdown. So we can quote that part: \"[default 80%]({% link docs/current/operations_manual/limits.md %})\". That is the exact characters.\n\nFor threads default not mentioned. So default is absent.\n\nFor preserve_insertion_order default not mentioned. So absent.\n\nWe need JSON matching supplied schema. Schema not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to output only JSON.\n\nLet's construct.\n\nFor each setting:\n\n- threads: evidence: \"`SET threads = ...` command.\" maybe the phrase \"SET threads = ...\" appears. Provide quote: \"`SET threads = ...`\". That's verbatim.\n\n- default: absent.\n\n- memory_limit: evidence: \"`SET memory_limit = '...'` statement.\" Also the default mention. Provide quote for default: \"[default 80%]({% link docs/current/operations_manual/limits.md %})\". Provide default: \"80% of system memory (machine-dependent)\". Use the quote as default evidence? The schema expects default field as string. We'll put the description.\n\n- preserve_insertion_order: evidence: \"`SET preserve_insertion_order = false`\". Provide default absent.\n\nReturn JSON.\n\n",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract DuckDB configuration settings documented in this section. The section mentions three settings: threads, memory_limit, preserve_insertion_order. We need to verify that the section documents them (it tells what they do, how to set). Yes.\n\nWe need to provide for each setting: name, evidence (quote span), default (if stated). The section mentions default 80% for memory_limit (in brackets). It says \"[default 80%]\" with a link. So default is 80% of system memory. That's a machine-dependent description. So we should capture that as default: \"80% of system memory (machine-dependent)\". Provide verbatim quote: \"default 80%\"? The phrase is \"[default 80%]\" but includes brackets and link. The quote should be exactly as appears: \"`[default 80%]({% link docs/current/operations_manual/limits.md %})`\". But we need a span that states default. The phrase \"default 80%\" is inside the link markdown. So we can quote that part: \"[default 80%]({% link docs/current/operations_manual/limits.md %})\". That is the exact characters.\n\nFor threads default not mentioned. So default is absent.\n\nFor preserve_insertion_order default not mentioned. So absent.\n\nWe need JSON matching supplied schema. Schema not given explicitly, but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"evidence\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nWe need to output only JSON.\n\nLet's construct.\n\nFor each setting:\n\n- threads: evidence: \"`SET threads = ...` command.\" maybe the phrase \"SET threads = ...\" appears. Provide quote: \"`SET threads = ...`\". That's verbatim.\n\n- default: absent.\n\n- memory_limit: evidence: \"`SET memory_limit = '...'` statement.\" Also the default mention. Provide quote for default: \"[default 80%]({% link docs/current/operations_manual/limits.md %})\". Provide default: \"80% of system memory (machine-dependent)\". Use the quote as default evidence? The schema expects default field as string. We'll put the description.\n\n- preserve_insertion_order: evidence: \"`SET preserve_insertion_order = false`\". Provide default absent.\n\nReturn JSON.\n\n",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 620,
+  "completion_tokens": 730,
+  "total_tokens": 1350,
+  "cost": 0.0001427,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0001427,
+   "upstream_inference_prompt_cost": 1.86e-05,
+   "upstream_inference_completions_cost": 0.0001241
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 532,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 45.68700000000172
+}

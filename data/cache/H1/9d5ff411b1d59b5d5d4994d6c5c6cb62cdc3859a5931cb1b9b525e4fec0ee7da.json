@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789913304-tBjp2LyLJkUPP2NTeOiv",
+ "object": "chat.completion",
+ "created": 1789913304,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"default_evidence\": null,\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"evidence\": \"SET TimeZone = 'America/Los_Angeles';\",\n      \"input_type\": \"DOUBLE\",\n      \"name\": \"TimeZone\",\n      \"scope\": \"GLOBAL\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need extract DuckDB configuration settings from section. The section is about TIMESTAMPTZ type, ICU extension, SET TimeZone command. It documents setting TimeZone? Need determine if configuration setting. It says \"To set the time zone to use... use SET TimeZone command: SET TimeZone = 'America/Los_Angeles';\" This is a DuckDB configuration setting? TimeZone is a setting changed with SET. It applies to connection/database. Need include setting name, default? Section does not state default. Need quote verbatim. Need output JSON matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe produce list of settings with name, evidence, default, default_type? Need infer from instruction: \"For each setting, quote a span... Also report the setting's default... If section does not state a default, say it is absent...\" Need JSON likely array of objects with fields: setting, evidence, default, default_note? Need maybe schema from previous? We don't have. Need craft reasonable JSON. Could be:\n{\n  \"settings\": [\n    {\n      \"name\": \"TimeZone\",\n      \"evidence\": \"SET TimeZone = 'America/Los_Angeles';\",\n      \"default\": \"absent\"\n    }\n  ]\n}\nBut need include default only if stated. Maybe fields: setting, quote, default, default_type. Need be careful.\n\nLet's parse section. It mentions \"SET TimeZone\" command. Is TimeZone a configuration setting? Yes. It is a setting. The section documents how to set time zone for TIMESTAMPTZ binning. It doesn't state default. So one setting.\n\nNeed ensure not include pg_timezone_names table function parameters? No.\n\nNeed quote exact span. Could quote \"SET TimeZone = 'America/Los_Angeles';\" or \"use the `SET TimeZone` command: ...\". Need verbatim. The instruction: \"quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" We can quote the sentence: \"Next, use the `SET TimeZone` command:\" plus code? Better quote the code line exactly: `SET TimeZone = 'America/Los_Angeles';` That is verbatim. But maybe need include context that it's a setting? The code line itself shows SET. Good.\n\nDefault: absent. Need say \"absent\" maybe as string. Could include \"default\": null? The instruction says \"If the section does not state a default, say it is absent\". So JSON value \"absent\".\n\nNeed maybe include \"default_type\": \"absent\"? Hmm.\n\nLet's think of possible schema. The user says \"Answer only with JSON matching the supplied schema.\" But no schema in prompt. Maybe they expect something like:\n[\n  {\n    \"setting\": \"TimeZone\",\n    \"evidence\": \"SET TimeZone = 'America/Los_Angeles';\",\n    \"default\": \"absent\"\n  }\n]\nThis is likely.\n\nNeed ensure no other settings. The section mentions \"INSTALL icu; LOAD icu;\" not settings. \"SET TimeZone\" is setting. Could there be \"TimeZone\" as a setting name? Yes.\n\nNeed maybe include \"TimeZone\" exactly as in docs: `TimeZone`? The setting name is TimeZone. In DuckDB, setting is `TimeZone`? Actually DuckDB setting is `TimeZone`? I know DuckDB has `TimeZone` setting. Yes.\n\nNeed output only JSON, no markdown. Ensure valid JSON.\n\nLet's produce:\n[\n  {\n    \"setting\": \"TimeZone\",\n    \"evidence\": \"SET TimeZone = 'America/Los_Angeles';\",\n    \"default\": \"absent\"\n  }\n]\nBut maybe need include \"default_type\": \"absent\"? The instruction says \"say it is absent\". Could be just \"default\": \"absent\". That's fine.\n\nNeed maybe include \"default\": null? But \"absent\" is clearer.\n\nLet's final.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need extract DuckDB configuration settings from section. The section is about TIMESTAMPTZ type, ICU extension, SET TimeZone command. It documents setting TimeZone? Need determine if configuration setting. It says \"To set the time zone to use... use SET TimeZone command: SET TimeZone = 'America/Los_Angeles';\" This is a DuckDB configuration setting? TimeZone is a setting changed with SET. It applies to connection/database. Need include setting name, default? Section does not state default. Need quote verbatim. Need output JSON matching schema. Need infer schema? User says \"Answer only with JSON matching the supplied schema.\" But no schema supplied in prompt? We need maybe produce list of settings with name, evidence, default, default_type? Need infer from instruction: \"For each setting, quote a span... Also report the setting's default... If section does not state a default, say it is absent...\" Need JSON likely array of objects with fields: setting, evidence, default, default_note? Need maybe schema from previous? We don't have. Need craft reasonable JSON. Could be:\n{\n  \"settings\": [\n    {\n      \"name\": \"TimeZone\",\n      \"evidence\": \"SET TimeZone = 'America/Los_Angeles';\",\n      \"default\": \"absent\"\n    }\n  ]\n}\nBut need include default only if stated. Maybe fields: setting, quote, default, default_type. Need be careful.\n\nLet's parse section. It mentions \"SET TimeZone\" command. Is TimeZone a configuration setting? Yes. It is a setting. The section documents how to set time zone for TIMESTAMPTZ binning. It doesn't state default. So one setting.\n\nNeed ensure not include pg_timezone_names table function parameters? No.\n\nNeed quote exact span. Could quote \"SET TimeZone = 'America/Los_Angeles';\" or \"use the `SET TimeZone` command: ...\". Need verbatim. The instruction: \"quote a span of the section verbatim as evidence. Copy the characters exactly as they appear.\" We can quote the sentence: \"Next, use the `SET TimeZone` command:\" plus code? Better quote the code line exactly: `SET TimeZone = 'America/Los_Angeles';` That is verbatim. But maybe need include context that it's a setting? The code line itself shows SET. Good.\n\nDefault: absent. Need say \"absent\" maybe as string. Could include \"default\": null? The instruction says \"If the section does not state a default, say it is absent\". So JSON value \"absent\".\n\nNeed maybe include \"default_type\": \"absent\"? Hmm.\n\nLet's think of possible schema. The user says \"Answer only with JSON matching the supplied schema.\" But no schema in prompt. Maybe they expect something like:\n[\n  {\n    \"setting\": \"TimeZone\",\n    \"evidence\": \"SET TimeZone = 'America/Los_Angeles';\",\n    \"default\": \"absent\"\n  }\n]\nThis is likely.\n\nNeed ensure no other settings. The section mentions \"INSTALL icu; LOAD icu;\" not settings. \"SET TimeZone\" is setting. Could there be \"TimeZone\" as a setting name? Yes.\n\nNeed maybe include \"TimeZone\" exactly as in docs: `TimeZone`? The setting name is TimeZone. In DuckDB, setting is `TimeZone`? Actually DuckDB setting is `TimeZone`? I know DuckDB has `TimeZone` setting. Yes.\n\nNeed output only JSON, no markdown. Ensure valid JSON.\n\nLet's produce:\n[\n  {\n    \"setting\": \"TimeZone\",\n    \"evidence\": \"SET TimeZone = 'America/Los_Angeles';\",\n    \"default\": \"absent\"\n  }\n]\nBut maybe need include \"default_type\": \"absent\"? The instruction says \"say it is absent\". Could be just \"default\": \"absent\". That's fine.\n\nNeed maybe include \"default\": null? But \"absent\" is clearer.\n\nLet's final.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 777,
+  "completion_tokens": 929,
+  "total_tokens": 1706,
+  "cost": 0.0030193,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0030193,
+   "upstream_inference_prompt_cost": 0.00065035,
+   "upstream_inference_completions_cost": 0.00236895
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 887,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 20.735000000000582
+}

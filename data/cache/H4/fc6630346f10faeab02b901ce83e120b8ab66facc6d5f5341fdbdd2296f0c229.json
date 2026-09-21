@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789905262-1u59jusPk9turjSCUpAq",
+ "object": "chat.completion",
+ "created": 1789905262,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"input_type\": \"VARCHAR\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"Set the directory to which to write temp files\",\n      \"default_kind\": \"literal\",\n      \"default_value\": \"`⟨database_name⟩.tmp` or `.tmp` (in in-memory mode)\"\n   \n    , \"default_evidence\": \"`⟨database_name⟩.tmp` or `.tmp` (in in-memory mode)\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to extract settings documented in the given section. The section is a table with one row: Name `temp_directory`, description, type, default value. So we need to output JSON with list of settings. Schema? Not provided explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to infer schema from instruction: \"Return every configuration setting that this section documents. ... For each setting, quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it.\"\n\nThus JSON likely includes fields: name, default, evidence. Possibly also description and type? Not required but could include. The schema not given; we need to guess typical format used in previous tasks. Usually they expect:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"default\": \"⟨database_name⟩.tmp or .tmp (in in-memory mode)\",\n      \"evidence\": \"`temp_directory` ... (the quoted span)\"\n    }\n  ]\n}\n\nBut need to include evidence as a verbatim span. Could be the description cell. Provide a quote: \"`temp_directory`\". Or the whole row? Provide a span that includes the name and default maybe.\n\nBetter to include evidence: \"`temp_directory`\". But that is just the name. The description says \"Set the directory to which to write temp files\". That also documents what it does. So evidence could be \"Set the directory to which to write temp files\". But need to quote a span of the section verbatim. Could quote the description cell.\n\nThus produce:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"default\": \"⟨database_name⟩.tmp or .tmp (in in-memory mode)\",\n      \"evidence\": \"Set the directory to which to write temp files\"\n    }\n  ]\n}\n\nBut also include type? Not required. The instruction: \"Return every configuration setting that this section documents.\" It doesn't specify fields, but we need to include default and evidence. Likely they expect fields: \"name\", \"default\", \"evidence\". We'll do that.\n\nMake sure default exactly as in table: \"`⟨database_name⟩.tmp` or `.tmp` (in in-memory mode)\". Include backticks? The default value column shows backticks around each. Should we include backticks? The quote should be verbatim. So default value string: \"`⟨database_name⟩.tmp` or `.tmp` (in in-memory mode)\". We'll include that.\n\nEvidence: maybe the description cell: \"Set the directory to which to write temp files\". We'll quote that exactly.\n\nThus JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to extract settings documented in the given section. The section is a table with one row: Name `temp_directory`, description, type, default value. So we need to output JSON with list of settings. Schema? Not provided explicitly but likely something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"type\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut we need to infer schema from instruction: \"Return every configuration setting that this section documents. ... For each setting, quote a span of the section verbatim as evidence. Also report the setting's default, but only if this section states it.\"\n\nThus JSON likely includes fields: name, default, evidence. Possibly also description and type? Not required but could include. The schema not given; we need to guess typical format used in previous tasks. Usually they expect:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"default\": \"⟨database_name⟩.tmp or .tmp (in in-memory mode)\",\n      \"evidence\": \"`temp_directory` ... (the quoted span)\"\n    }\n  ]\n}\n\nBut need to include evidence as a verbatim span. Could be the description cell. Provide a quote: \"`temp_directory`\". Or the whole row? Provide a span that includes the name and default maybe.\n\nBetter to include evidence: \"`temp_directory`\". But that is just the name. The description says \"Set the directory to which to write temp files\". That also documents what it does. So evidence could be \"Set the directory to which to write temp files\". But need to quote a span of the section verbatim. Could quote the description cell.\n\nThus produce:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"temp_directory\",\n      \"default\": \"⟨database_name⟩.tmp or .tmp (in in-memory mode)\",\n      \"evidence\": \"Set the directory to which to write temp files\"\n    }\n  ]\n}\n\nBut also include type? Not required. The instruction: \"Return every configuration setting that this section documents.\" It doesn't specify fields, but we need to include default and evidence. Likely they expect fields: \"name\", \"default\", \"evidence\". We'll do that.\n\nMake sure default exactly as in table: \"`⟨database_name⟩.tmp` or `.tmp` (in in-memory mode)\". Include backticks? The default value column shows backticks around each. Should we include backticks? The quote should be verbatim. So default value string: \"`⟨database_name⟩.tmp` or `.tmp` (in in-memory mode)\". We'll include that.\n\nEvidence: maybe the description cell: \"Set the directory to which to write temp files\". We'll quote that exactly.\n\nThus JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 440,
+  "completion_tokens": 737,
+  "total_tokens": 1177,
+  "cost": 0.00013849,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00013849,
+   "upstream_inference_prompt_cost": 1.32e-05,
+   "upstream_inference_completions_cost": 0.00012529
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 663,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 16.07800000000134
+}

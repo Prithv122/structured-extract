@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789903414-9or4rpgCAAwxmujKakPi",
+ "object": "chat.completion",
+ "created": 1789903414,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": []\n}",
+    "refusal": null,
+    "reasoning": "The user asks: \"Azure uses the Azure SDK which sets its own user agents...\" This is not about DuckDB configuration. The task: extract DuckDB configuration settings from a single section of the DuckDB documentation. The provided text is not a DuckDB doc section. So there are no settings documented. Return empty list.\n\nWe must output JSON matching supplied schema. The schema likely expects something like {\"settings\": []} maybe? We need to infer schema. The instruction: \"Answer only with JSON matching the supplied schema.\" But we don't have the schema displayed. Usually for these tasks, schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut not sure. Could be:\n\n{\n  \"settings\": [\n    {\n      \"setting\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe need to guess. In prior similar tasks, schema often is:\n\n{\n  \"settings\": [\n    {\n      \"name\": string,\n      \"default\": string,\n      \"evidence\": string\n    }\n  ]\n}\n\nIf no settings, then \"settings\": [].\n\nThus output: {\"settings\": []}.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "The user asks: \"Azure uses the Azure SDK which sets its own user agents...\" This is not about DuckDB configuration. The task: extract DuckDB configuration settings from a single section of the DuckDB documentation. The provided text is not a DuckDB doc section. So there are no settings documented. Return empty list.\n\nWe must output JSON matching supplied schema. The schema likely expects something like {\"settings\": []} maybe? We need to infer schema. The instruction: \"Answer only with JSON matching the supplied schema.\" But we don't have the schema displayed. Usually for these tasks, schema is something like:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"...\",\n      \"description\": \"...\",\n      \"default\": \"...\"\n    },\n    ...\n  ]\n}\n\nBut not sure. Could be:\n\n{\n  \"settings\": [\n    {\n      \"setting\": \"...\",\n      \"default\": \"...\",\n      \"evidence\": \"...\"\n    }\n  ]\n}\n\nWe need to guess. In prior similar tasks, schema often is:\n\n{\n  \"settings\": [\n    {\n      \"name\": string,\n      \"default\": string,\n      \"evidence\": string\n    }\n  ]\n}\n\nIf no settings, then \"settings\": [].\n\nThus output: {\"settings\": []}.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 550,
+  "completion_tokens": 276,
+  "total_tokens": 826,
+  "cost": 6.342e-05,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 352,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 6.342e-05,
+   "upstream_inference_prompt_cost": 1.65e-05,
+   "upstream_inference_completions_cost": 4.692e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 288,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.14100000000326
+}

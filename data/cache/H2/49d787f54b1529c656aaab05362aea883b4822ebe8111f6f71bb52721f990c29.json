@@ -1,0 +1,47 @@
+{
+ "id": "gen-1789900419-8u94dWPQf98wY92ZMvE7",
+ "object": "chat.completion",
+ "created": 1789900419,
+ "model": "google/gemini-2.5-flash",
+ "provider": "Google",
+ "system_fingerprint": null,
+ "service_tier": "default",
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "STOP",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"threads\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`threads`, `worker_threads`                   | The number of total threads used by the system.                                                                                                                                                               | `BIGINT`    | # CPU cores\",\n      \"default_kind\": \"machine_dependent\",\n      \"default_value\": \"# CPU cores\",\n      \"default_evidence\": \"# CPU cores\"\n    },\n    {\n      \"name\": \"worker_threads\",\n      \"input_type\": \"BIGINT\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`threads`, `worker_threads`                   | The number of total threads used by the system.                                                                                                                                                               | `BIGINT`    | # CPU cores\",\n      \"default_kind\": \"machine_dependent\",\n      \"default_value\": \"# CPU cores\",\n      \"default_evidence\": \"# CPU cores\"\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": null
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 368,
+  "completion_tokens": 232,
+  "total_tokens": 600,
+  "cost": 0.0006904,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0006904,
+   "upstream_inference_prompt_cost": 0.0001104,
+   "upstream_inference_completions_cost": 0.00058
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 2.139999999999418
+}

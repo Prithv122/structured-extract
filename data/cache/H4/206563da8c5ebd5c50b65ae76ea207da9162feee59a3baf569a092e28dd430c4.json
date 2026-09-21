@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789918601-G1yj2nXa0erP4cZadKFC",
+ "object": "chat.completion",
+ "created": 1789918601,
+ "model": "openai/gpt-oss-120b",
+ "provider": "AkashML",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"settings\": [\n    {\n      \"name\": \"allow_community_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET allow_community_extensions = false`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"allow_unsigned_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET allow_unsigned_extensions = true`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}",
+    "refusal": null,
+    "reasoning": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). When default_kind is \"absent\", default_value and default_evidence must be null, not \"absent\". So we need to set default_value: null, default_evidence: null. Also need to ensure input_type maybe \"BOOLEAN\"? The settings are booleans (true/false). But we can keep INTEGER? The doc shows SET allow_community_extensions = false (boolean). The type should be BOOLEAN. The schema likely expects a string like \"BOOLEAN\". We need to infer from doc. The setting is a boolean flag. So input_type should be \"BOOLEAN\". Scope: likely \"GLOBAL\". That's fine.\n\nEvidence must be verbatim span from the section. The evidence currently is \"`SET allow_community_extensions = false`\". In the text, it's exactly that with backticks. The snippet: \"`SET allow_community_extensions = false`\". That's verbatim. Good.\n\nFor allow_unsigned_extensions evidence: \"`SET allow_unsigned_extensions = true`\". That's verbatim.\n\nNow produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allow_community_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET allow_community_extensions = false`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"allow_unsigned_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET allow_unsigned_extensions = true`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nMake sure JSON is valid.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need to correct JSON according to schema. The schema likely expects fields: name, input_type, scope, evidence, default_kind, default_value (nullable), default_evidence (nullable). When default_kind is \"absent\", default_value and default_evidence must be null, not \"absent\". So we need to set default_value: null, default_evidence: null. Also need to ensure input_type maybe \"BOOLEAN\"? The settings are booleans (true/false). But we can keep INTEGER? The doc shows SET allow_community_extensions = false (boolean). The type should be BOOLEAN. The schema likely expects a string like \"BOOLEAN\". We need to infer from doc. The setting is a boolean flag. So input_type should be \"BOOLEAN\". Scope: likely \"GLOBAL\". That's fine.\n\nEvidence must be verbatim span from the section. The evidence currently is \"`SET allow_community_extensions = false`\". In the text, it's exactly that with backticks. The snippet: \"`SET allow_community_extensions = false`\". That's verbatim. Good.\n\nFor allow_unsigned_extensions evidence: \"`SET allow_unsigned_extensions = true`\". That's verbatim.\n\nNow produce JSON:\n\n{\n  \"settings\": [\n    {\n      \"name\": \"allow_community_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET allow_community_extensions = false`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    },\n    {\n      \"name\": \"allow_unsigned_extensions\",\n      \"input_type\": \"BOOLEAN\",\n      \"scope\": \"GLOBAL\",\n      \"evidence\": \"`SET allow_unsigned_extensions = true`\",\n      \"default_kind\": \"absent\",\n      \"default_value\": null,\n      \"default_evidence\": null\n    }\n  ]\n}\n\nMake sure JSON is valid.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1456,
+  "completion_tokens": 543,
+  "total_tokens": 1999,
+  "cost": 0.00013599,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 480,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00013599,
+   "upstream_inference_prompt_cost": 4.368e-05,
+   "upstream_inference_completions_cost": 9.231e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 427,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 9.860000000000582
+}

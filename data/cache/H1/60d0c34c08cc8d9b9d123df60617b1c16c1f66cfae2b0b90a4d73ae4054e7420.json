@@ -1,0 +1,55 @@
+{
+ "id": "gen-1789912288-p8O0CCScnwyCi2j7hUZr",
+ "object": "chat.completion",
+ "created": 1789912288,
+ "model": "deepseek/deepseek-v4-pro",
+ "provider": "Cloudflare",
+ "system_fingerprint": null,
+ "service_tier": null,
+ "choices": [
+  {
+   "index": 0,
+   "logprobs": null,
+   "finish_reason": "stop",
+   "native_finish_reason": "stop",
+   "message": {
+    "role": "assistant",
+    "content": "{\"settings\": []}",
+    "refusal": null,
+    "reasoning": "We need answer JSON only. Need parse task. We have section from DuckDB docs? It shows underlying HTTP transport logged separately with SQL. Need extract configuration settings? The section documents logging? It mentions CALL enable_logging('HTTP'); FROM quack_query...; SELECT from duckdb_logs_parsed('HTTP'); table. This is not configuration settings? Need determine if any DuckDB configuration setting documented. The section likely about quack extension HTTP logging? It includes enable_logging maybe a function? Not a setting? Need answer empty list likely. Need provide JSON matching schema. Need know schema? User says answer only with JSON matching supplied schema. But schema not explicitly in prompt? We need infer maybe list of settings with name, evidence, default. Need output JSON. Since no settings, empty list? Need maybe {\"settings\": []}? Need know schema. The prompt: \"Answer only with JSON matching the supplied schema.\" But no schema in message. We need infer from previous? We need produce JSON with settings array? Let's inspect. It asks \"For each setting, quote a span... Also report default...\" So likely schema: {\"settings\": [{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]}. If empty list: {\"settings\": []}. Need ensure no settings. The section is about HTTP transport logging, not configuration settings. It uses CALL enable_logging('HTTP') which is a function/procedure, not SET/RESET/PRAGMA. It doesn't document a configuration setting. So empty list.\n\nNeed answer only JSON.",
+    "reasoning_details": [
+     {
+      "type": "reasoning.text",
+      "text": "We need answer JSON only. Need parse task. We have section from DuckDB docs? It shows underlying HTTP transport logged separately with SQL. Need extract configuration settings? The section documents logging? It mentions CALL enable_logging('HTTP'); FROM quack_query...; SELECT from duckdb_logs_parsed('HTTP'); table. This is not configuration settings? Need determine if any DuckDB configuration setting documented. The section likely about quack extension HTTP logging? It includes enable_logging maybe a function? Not a setting? Need answer empty list likely. Need provide JSON matching schema. Need know schema? User says answer only with JSON matching supplied schema. But schema not explicitly in prompt? We need infer maybe list of settings with name, evidence, default. Need output JSON. Since no settings, empty list? Need maybe {\"settings\": []}? Need know schema. The prompt: \"Answer only with JSON matching the supplied schema.\" But no schema in message. We need infer from previous? We need produce JSON with settings array? Let's inspect. It asks \"For each setting, quote a span... Also report default...\" So likely schema: {\"settings\": [{\"name\": \"...\", \"evidence\": \"...\", \"default\": \"...\"}]}. If empty list: {\"settings\": []}. Need ensure no settings. The section is about HTTP transport logging, not configuration settings. It uses CALL enable_logging('HTTP') which is a function/procedure, not SET/RESET/PRAGMA. It doesn't document a configuration setting. So empty list.\n\nNeed answer only JSON.",
+      "format": "unknown",
+      "index": 0
+     }
+    ]
+   }
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 644,
+  "completion_tokens": 329,
+  "total_tokens": 973,
+  "cost": 0.00133635,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 256,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.00133635,
+   "upstream_inference_prompt_cost": 0.0004974,
+   "upstream_inference_completions_cost": 0.00083895
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 378,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ },
+ "_latency_s": 8.84400000000096
+}
